@@ -9,9 +9,9 @@
 
 | Item | Total | Feito | Falta |
 |------|-------|-------|-------|
-| Tabelas do banco | 20 | 11 | **9** |
-| Requisitos funcionais (RF) | 16 | 7 | **9** |
-| Telas | ~24 | 23 | **~18** |
+| Tabelas do banco | 20 | 20 | **0** ✅ |
+| Requisitos funcionais (RF) | 16 | 16 | **0** ✅ |
+| Telas | ~42 | 42 | **0** ✅ |
 | Layouts exigidos pelo professor | 4 | 4 | **0** ✅ |
 
 ---
@@ -51,17 +51,17 @@ Cada entidade precisa de: **model** → **control** → **tela de cadastro** →
 
 ---
 
-## ⏭️ FASE 3 — CRUDs RESTANTES (9 entidades)
+## ✅ FASE 3 — CRUDs (concluída)
 
-- [ ] **foto_figurinha** — caminho_arquivo, data_upload
-- [ ] **tecnico_time** — id_tecnico, id_time, id_foto (RF-07)
-- [ ] **participacao_jogador_time** — id_jogador, id_time, numero_camisa, valor_inscricao (RF-06)
-- [ ] **pagamento_inscricao** — id_participacao, valor_pago, data, forma_pagamento (RF-13)
-- [ ] **rodada** — numero, data, id_competicao (RF-08)
-- [ ] **partida** — id_rodada, times, placar, WO, craque (RF-09)
-- [ ] **escalacao** — id_partida, titular, numero_camisa, id_posicao, id_participacao (RF-10)
-- [ ] **evento_partida** — id_tipo_evento, minuto, descrição, id_escalacao (RF-11)
-- [ ] **suspensao** — id_evento, motivo, qtd_jogos, cumprida (RF-12)
+- [x] **foto_figurinha** — caminho_arquivo, data_upload
+- [x] **tecnico_time** — id_tecnico, id_time, id_foto (RF-07)
+- [x] **participacao_jogador_time** — id_jogador, id_time, numero_camisa, valor_inscricao (RF-06)
+- [x] **pagamento_inscricao** — id_participacao, valor_pago, data, forma_pagamento (RF-13)
+- [x] **rodada** — numero, data, id_competicao (RF-08)
+- [x] **partida** — id_rodada, times, placar, WO, craque (RF-09)
+- [x] **escalacao** — id_partida, titular, numero_camisa, id_posicao, id_participacao (RF-10)
+- [x] **evento_partida** — id_tipo_evento, minuto, descrição, id_escalacao (RF-11)
+- [x] **suspensao** — id_evento, motivo, qtd_jogos, cumprida (RF-12)
 
 ---
 
@@ -157,9 +157,9 @@ Cada entidade precisa de: **model** → **control** → **tela de cadastro** →
 1. ~~Cadastros básicos~~ ✅
 2. ~~Pessoas~~ ✅
 3. ~~Estrutura~~ ✅
-4. **Vínculos** (tecnico_time, participacao_jogador_time)
-5. **Competição** (rodada, partida, escalacao, evento_partida, suspensao)
-6. **Financeiro** (pagamento_inscricao)
+4. ~~Vínculos~~ ✅
+5. ~~Competição~~ ✅
+6. ~~Financeiro~~ ✅
 7. **Relatórios e estatísticas**
 8. **Regras de negócio** (validações)
 9. **APK + apresentação**
