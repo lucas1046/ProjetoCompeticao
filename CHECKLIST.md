@@ -113,11 +113,13 @@ Cada entidade precisa de: **model** → **control** → **tela de cadastro** →
 
 ---
 
-## 📈 FASE 6 — CONSULTAS E RELATÓRIOS
+## ✅ FASE 6 — RELATÓRIOS E ESTATÍSTICAS (concluída)
 
-- [ ] **RF-14** — Estatísticas de jogadores (gols, cartões, craque)
-- [ ] **RF-15** — Relatórios gerenciais (classificação, financeiro, partidas, suspensos)
-- [ ] Tela de classificação geral do campeonato
+- [x] **RF-14** — Estatísticas de jogadores (gols, cartões, craque, jogos)
+- [x] **RF-15** — Relatórios gerenciais (classificação, financeiro, partidas, suspensos)
+- [x] Tela de classificação geral do campeonato
+- [x] `ControlRelatorio` — consultas dinâmicas via SQL (sem tabelas auxiliares, RNFR-14.2)
+- [x] `MenuRelatorios` — menu dedicado com 5 relatórios
 
 ---
 
@@ -160,6 +162,6 @@ Cada entidade precisa de: **model** → **control** → **tela de cadastro** →
 4. ~~Vínculos~~ ✅
 5. ~~Competição~~ ✅
 6. ~~Financeiro~~ ✅
-7. **Relatórios e estatísticas**
+7. ~~Relatórios e estatísticas~~ ✅
 8. **Regras de negócio** (validações)
 9. **APK + apresentação**
