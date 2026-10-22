@@ -9,10 +9,10 @@
 
 | Item | Total | Feito | Falta |
 |------|-------|-------|-------|
-| Tabelas do banco | 20 | 1 | **19** |
-| Requisitos funcionais (RF) | 16 | 1 | **15** |
-| Telas | ~15 | 3 | **12** |
-| Layouts exigidos pelo professor | 4 | 1 | **3** |
+| Tabelas do banco | 20 | 11 | **9** |
+| Requisitos funcionais (RF) | 16 | 7 | **9** |
+| Telas | ~24 | 23 | **~18** |
+| Layouts exigidos pelo professor | 4 | 4 | **0** ✅ |
 
 ---
 
@@ -29,29 +29,34 @@
 
 ---
 
-## 🗄️ FASE 2 — CRUDs DAS ENTIDADES (19 restantes)
+## ✅ FASE 2 — CRUDs (concluída)
 
 Cada entidade precisa de: **model** → **control** → **tela de cadastro** → **tela de consulta**
 
 ### Cadastros básicos
-- [ ] **modalidade** — nome (RF-02)
-- [ ] **categoria** — nome, idade mínima, idade máxima (RF-02)
-- [ ] **tipo_evento** — descrição (RF-11)
-- [ ] **posicao** — nome, id_modalidade (RF-05/10)
-- [ ] **responsavel** — nome, cpf, telefone, email, parentesco (RF-16)
-- [ ] **jogador** — cpf, nome, data_nascimento, id_responsavel (RF-05)
-- [ ] **documento** — id_jogador, tipo_documento, caminho_arquivo (RF-05)
-- [ ] **foto_figurinha** — caminho_arquivo, data_upload (RF-03)
-- [ ] **escola** — nome, cidade, estado, telefone, id_foto (RF-03)
-- [ ] **tecnico** — nome, telefone, email (RF-07)
-- [ ] **time** — nome, id_modalidade, id_escola, id_categoria (RF-04)
+- [x] **modalidade** — nome (RF-02)
+- [x] **categoria** — nome, idade mínima, idade máxima (RF-02)
+- [x] **tipo_evento** — descrição (RF-11)
+- [x] **posicao** — nome, id_modalidade (RF-05/10)
 
-### Vínculos
+### Pessoas
+- [x] **responsavel** — nome, cpf, telefone, email, parentesco (RF-16)
+- [x] **jogador** — cpf, nome, data_nascimento, id_responsavel (RF-05)
+- [x] **documento** — id_jogador, tipo_documento, caminho_arquivo (RF-05)
+
+### Estrutura
+- [x] **escola** — nome, cidade, estado, telefone, id_foto (RF-03)
+- [x] **tecnico** — nome, telefone, email (RF-07)
+- [x] **time** — nome, id_modalidade, id_escola, id_categoria (RF-04)
+
+---
+
+## ⏭️ FASE 3 — CRUDs RESTANTES (9 entidades)
+
+- [ ] **foto_figurinha** — caminho_arquivo, data_upload
 - [ ] **tecnico_time** — id_tecnico, id_time, id_foto (RF-07)
-- [ ] **participacao_jogador_time** — id_jogador, id_time, numero_camisa, valor_inscricao, id_foto (RF-06)
-- [ ] **pagamento_inscricao** — id_participacao, valor_pago, data, forma_pagamento, observações (RF-13)
-
-### Competição
+- [ ] **participacao_jogador_time** — id_jogador, id_time, numero_camisa, valor_inscricao (RF-06)
+- [ ] **pagamento_inscricao** — id_participacao, valor_pago, data, forma_pagamento (RF-13)
 - [ ] **rodada** — numero, data, id_competicao (RF-08)
 - [ ] **partida** — id_rodada, times, placar, WO, craque (RF-09)
 - [ ] **escalacao** — id_partida, titular, numero_camisa, id_posicao, id_participacao (RF-10)
@@ -60,18 +65,18 @@ Cada entidade precisa de: **model** → **control** → **tela de cadastro** →
 
 ---
 
-## 🎨 FASE 3 — LAYOUTS EXIGIDOS PELO PROFESSOR
+## ✅ FASE 4 — LAYOUTS EXIGIDOS PELO PROFESSOR (concluída)
 
 > "utilizando obrigatoriamente layouts com linhas, colunas, flex e listview"
 
-- [x] **ListView** — já usado nas telas de cadastro/consulta
-- [ ] **Row** — nenhum uso ainda (0 ocorrências)
-- [ ] **Expanded + flex** — nenhum uso ainda (0 ocorrências)
-- [ ] **GridView** — nenhum uso ainda (0 ocorrências)
+- [x] **ListView** — telas de cadastro e consulta
+- [x] **Row** — tela categoria, responsavel, jogador, escola + menu
+- [x] **Expanded + flex** — tela categoria, responsavel, jogador, escola + menu
+- [x] **GridView** — menu principal (11 cards)
 
 ---
 
-## ⚙️ FASE 4 — REGRAS DE NEGÓCIO (RNFRs)
+## ⚙️ FASE 5 — REGRAS DE NEGÓCIO (RNFRs)
 
 - [ ] **RNFR-01.1** — Impedir término < início na competição
 - [ ] **RNFR-01.2** — Nome da competição único no banco
@@ -108,7 +113,7 @@ Cada entidade precisa de: **model** → **control** → **tela de cadastro** →
 
 ---
 
-## 📈 FASE 5 — CONSULTAS E RELATÓRIOS
+## 📈 FASE 6 — CONSULTAS E RELATÓRIOS
 
 - [ ] **RF-14** — Estatísticas de jogadores (gols, cartões, craque)
 - [ ] **RF-15** — Relatórios gerenciais (classificação, financeiro, partidas, suspensos)
@@ -116,7 +121,7 @@ Cada entidade precisa de: **model** → **control** → **tela de cadastro** →
 
 ---
 
-## 📱 FASE 6 — ENTREGAS DO PROFESSOR
+## 📱 FASE 7 — ENTREGAS DO PROFESSOR
 
 ### Documentação
 - [ ] Ajustar diagramas (modelo conceitual/lógico) — verificar se refletem as 20 tabelas
@@ -149,9 +154,9 @@ Cada entidade precisa de: **model** → **control** → **tela de cadastro** →
 
 ## 🎯 ORDEM SUGERIDA DE IMPLEMENTAÇÃO
 
-1. **Cadastros básicos** (modalidade, categoria, tipo_evento, posicao) — sem dependências
-2. **Pessoas** (responsavel, jogador, documento)
-3. **Estrutura** (escola, tecnico, time)
+1. ~~Cadastros básicos~~ ✅
+2. ~~Pessoas~~ ✅
+3. ~~Estrutura~~ ✅
 4. **Vínculos** (tecnico_time, participacao_jogador_time)
 5. **Competição** (rodada, partida, escalacao, evento_partida, suspensao)
 6. **Financeiro** (pagamento_inscricao)
