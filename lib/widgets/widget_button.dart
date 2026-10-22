@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Buttons extends StatelessWidget {
   final String texto;
-  final void Function() onPressed;
+  final void Function()? onPressed;
 
   Buttons(this.texto, {required this.onPressed});
 

@@ -19,6 +19,7 @@ import 'package:projeto_final/telas/tela_adicionar_tecnico.dart';
 import 'package:projeto_final/telas/tela_adicionar_tecnico_time.dart';
 import 'package:projeto_final/telas/tela_adicionar_time.dart';
 import 'package:projeto_final/telas/tela_adicionar_tipo_evento.dart';
+import 'package:projeto_final/telas/tela_menu_relatorios.dart';
 import 'package:projeto_final/telas/tela_consulta_categoria.dart';
 import 'package:projeto_final/telas/tela_consulta_competicao.dart';
 import 'package:projeto_final/telas/tela_consulta_documento.dart';
@@ -55,6 +56,35 @@ class Menu extends StatelessWidget {
   }
 
   _body(BuildContext ctx) {
+    return Column(
+      children: [
+        Card(
+          color: Colors.purple,
+          margin: EdgeInsets.all(16),
+          child: ListTile(
+            leading: Icon(Icons.assessment, size: 36, color: Colors.white),
+            title: Text(
+              "Relatórios e estatísticas",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(
+              "Classificação, financeiro, partidas e suspensões",
+              style: TextStyle(color: Colors.white70),
+            ),
+            trailing: Icon(Icons.chevron_right, color: Colors.white),
+            onTap: () => _abreTelas(ctx, MenuRelatorios()),
+          ),
+        ),
+        Expanded(child: _grid(ctx)),
+      ],
+    );
+  }
+
+  _grid(BuildContext ctx) {
     final opcoes = [
       _Opcao("Competição", Icons.emoji_events, () => TelaAdicionarCompeticao(),
           () => TelaConsultaCompeticao()),
@@ -96,6 +126,8 @@ class Menu extends StatelessWidget {
           () => TelaConsultaEvento()),
       _Opcao("Suspensão", Icons.block, () => TelaAdicionarSuspensao(),
           () => TelaConsultaSuspensao()),
+      _Opcao("Relatórios", Icons.assessment, () => Container(),
+          () => MenuRelatorios()),
     ];
 
     return GridView.builder(
