@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/tela_adicionar_categoria.dart';
 import 'package:projeto_final/telas/tela_adicionar_competicao.dart';
+import 'package:projeto_final/telas/tela_adicionar_documento.dart';
+import 'package:projeto_final/telas/tela_adicionar_escola.dart';
+import 'package:projeto_final/telas/tela_adicionar_jogador.dart';
 import 'package:projeto_final/telas/tela_adicionar_modalidade.dart';
 import 'package:projeto_final/telas/tela_adicionar_posicao.dart';
+import 'package:projeto_final/telas/tela_adicionar_responsavel.dart';
+import 'package:projeto_final/telas/tela_adicionar_tecnico.dart';
+import 'package:projeto_final/telas/tela_adicionar_time.dart';
 import 'package:projeto_final/telas/tela_adicionar_tipo_evento.dart';
 import 'package:projeto_final/telas/tela_consulta_categoria.dart';
 import 'package:projeto_final/telas/tela_consulta_competicao.dart';
+import 'package:projeto_final/telas/tela_consulta_documento.dart';
+import 'package:projeto_final/telas/tela_consulta_escola.dart';
+import 'package:projeto_final/telas/tela_consulta_jogador.dart';
 import 'package:projeto_final/telas/tela_consulta_modalidade.dart';
 import 'package:projeto_final/telas/tela_consulta_posicao.dart';
+import 'package:projeto_final/telas/tela_consulta_responsavel.dart';
+import 'package:projeto_final/telas/tela_consulta_tecnico.dart';
+import 'package:projeto_final/telas/tela_consulta_time.dart';
 import 'package:projeto_final/telas/tela_consulta_tipo_evento.dart';
 
 class Menu extends StatelessWidget {
@@ -36,6 +48,18 @@ class Menu extends StatelessWidget {
           () => TelaConsultaTipoEvento()),
       _Opcao("Posição", Icons.pan_tool, () => TelaAdicionarPosicao(),
           () => TelaConsultaPosicao()),
+      _Opcao("Responsável", Icons.family_restroom,
+          () => TelaAdicionarResponsavel(), () => TelaConsultaResponsavel()),
+      _Opcao("Jogador", Icons.person, () => TelaAdicionarJogador(),
+          () => TelaConsultaJogador()),
+      _Opcao("Documento", Icons.description, () => TelaAdicionarDocumento(),
+          () => TelaConsultaDocumento()),
+      _Opcao("Escola", Icons.school, () => TelaAdicionarEscola(),
+          () => TelaConsultaEscola()),
+      _Opcao("Técnico", Icons.escalator_warning, () => TelaAdicionarTecnico(),
+          () => TelaConsultaTecnico()),
+      _Opcao("Time", Icons.groups, () => TelaAdicionarTime(),
+          () => TelaConsultaTime()),
     ];
 
     return GridView.builder(

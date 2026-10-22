@@ -4,8 +4,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:projeto_final/main.dart';
 import 'package:projeto_final/model/categoria.dart';
 import 'package:projeto_final/model/competicao.dart';
+import 'package:projeto_final/model/documento.dart';
+import 'package:projeto_final/model/escola.dart';
+import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/model/modalidade.dart';
 import 'package:projeto_final/model/posicao.dart';
+import 'package:projeto_final/model/responsavel.dart';
+import 'package:projeto_final/model/tecnico.dart';
+import 'package:projeto_final/model/time.dart';
 import 'package:projeto_final/model/tipo_evento.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/telas/tela_adicionar_competicao.dart';
@@ -105,5 +111,91 @@ void main() {
 
     expect(deVolta.nome, 'Goleiro');
     expect(deVolta.idModalidade, 1);
+  });
+
+  test('Model Responsavel converte para Map e volta', () {
+    Responsavel r = Responsavel(
+      id: 1,
+      nome: 'Maria Silva',
+      cpf: '12345678900',
+      telefone: '15999998888',
+      email: 'maria@email.com',
+      parentesco: 'Mãe',
+    );
+    Responsavel deVolta = Responsavel.fromMap(r.toMap());
+
+    expect(deVolta.nome, 'Maria Silva');
+    expect(deVolta.cpf, '12345678900');
+    expect(deVolta.parentesco, 'Mãe');
+  });
+
+  test('Model Jogador converte para Map e volta', () {
+    Jogador j = Jogador(
+      id: 1,
+      cpf: '11122233344',
+      nome: 'João Pedro',
+      dataNascimento: '2010-05-10',
+      idResponsavel: 1,
+    );
+    Jogador deVolta = Jogador.fromMap(j.toMap());
+
+    expect(deVolta.nome, 'João Pedro');
+    expect(deVolta.dataNascimento, '2010-05-10');
+    expect(deVolta.idResponsavel, 1);
+  });
+
+  test('Model Documento converte para Map e volta', () {
+    Documento d = Documento(
+      id: 1,
+      idJogador: 1,
+      tipoDocumento: 'RG',
+      caminhoArquivo: '/docs/rg.pdf',
+    );
+    Documento deVolta = Documento.fromMap(d.toMap());
+
+    expect(deVolta.tipoDocumento, 'RG');
+    expect(deVolta.idJogador, 1);
+  });
+
+  test('Model Escola converte para Map e volta', () {
+    Escola e = Escola(
+      id: 1,
+      nome: 'Escola São Bento',
+      cidade: 'Itapetininga',
+      estado: 'SP',
+      telefone: '1533224455',
+    );
+    Escola deVolta = Escola.fromMap(e.toMap());
+
+    expect(deVolta.nome, 'Escola São Bento');
+    expect(deVolta.estado, 'SP');
+  });
+
+  test('Model Tecnico converte para Map e volta', () {
+    Tecnico t = Tecnico(
+      id: 1,
+      nome: 'Professor Zé',
+      telefone: '15999997777',
+      email: 'ze@email.com',
+    );
+    Tecnico deVolta = Tecnico.fromMap(t.toMap());
+
+    expect(deVolta.nome, 'Professor Zé');
+    expect(deVolta.email, 'ze@email.com');
+  });
+
+  test('Model Time converte para Map e volta', () {
+    Time t = Time(
+      idTime: 1,
+      nomeTime: 'Tigres',
+      idModalidade: 1,
+      idEscola: 1,
+      idCategoria: 1,
+    );
+    Time deVolta = Time.fromMap(t.toMap());
+
+    expect(deVolta.nomeTime, 'Tigres');
+    expect(deVolta.idModalidade, 1);
+    expect(deVolta.idCategoria, 1);
   });
 }
