@@ -6,11 +6,20 @@ import 'package:projeto_final/model/categoria.dart';
 import 'package:projeto_final/model/competicao.dart';
 import 'package:projeto_final/model/documento.dart';
 import 'package:projeto_final/model/escola.dart';
+import 'package:projeto_final/model/escalacao.dart';
+import 'package:projeto_final/model/evento_partida.dart';
+import 'package:projeto_final/model/foto_figurinha.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/model/modalidade.dart';
+import 'package:projeto_final/model/pagamento_inscricao.dart';
+import 'package:projeto_final/model/participacao_jogador_time.dart';
+import 'package:projeto_final/model/partida.dart';
 import 'package:projeto_final/model/posicao.dart';
 import 'package:projeto_final/model/responsavel.dart';
+import 'package:projeto_final/model/rodada.dart';
+import 'package:projeto_final/model/suspensao.dart';
 import 'package:projeto_final/model/tecnico.dart';
+import 'package:projeto_final/model/tecnico_time.dart';
 import 'package:projeto_final/model/time.dart';
 import 'package:projeto_final/model/tipo_evento.dart';
 import 'package:projeto_final/telas/menu.dart';
@@ -197,5 +206,123 @@ void main() {
     expect(deVolta.nomeTime, 'Tigres');
     expect(deVolta.idModalidade, 1);
     expect(deVolta.idCategoria, 1);
+  });
+
+  test('Model FotoFigurinha converte para Map e volta', () {
+    FotoFigurinha f = FotoFigurinha(
+      id: 1,
+      caminhoArquivo: '/fotos/jogador.png',
+      dataUpload: '2026-03-01',
+    );
+    FotoFigurinha deVolta = FotoFigurinha.fromMap(f.toMap());
+
+    expect(deVolta.caminhoArquivo, '/fotos/jogador.png');
+    expect(deVolta.dataUpload, '2026-03-01');
+  });
+
+  test('Model TecnicoTime converte para Map e volta', () {
+    TecnicoTime t = TecnicoTime(idTecnico: 1, idTime: 2);
+    TecnicoTime deVolta = TecnicoTime.fromMap(t.toMap());
+
+    expect(deVolta.idTecnico, 1);
+    expect(deVolta.idTime, 2);
+  });
+
+  test('Model ParticipacaoJogadorTime converte para Map e volta', () {
+    ParticipacaoJogadorTime p = ParticipacaoJogadorTime(
+      id: 1,
+      idJogador: 1,
+      idTime: 2,
+      numeroCamisa: 10,
+      valorInscricao: 150.0,
+    );
+    ParticipacaoJogadorTime deVolta =
+        ParticipacaoJogadorTime.fromMap(p.toMap());
+
+    expect(deVolta.numeroCamisa, 10);
+    expect(deVolta.valorInscricao, 150.0);
+  });
+
+  test('Model PagamentoInscricao converte para Map e volta', () {
+    PagamentoInscricao p = PagamentoInscricao(
+      id: 1,
+      idParticipacao: 1,
+      valorPago: 150.0,
+      dataPagamento: '2026-03-10',
+      formaPagamento: 'Pix',
+      observacoes: 'Pago',
+    );
+    PagamentoInscricao deVolta = PagamentoInscricao.fromMap(p.toMap());
+
+    expect(deVolta.valorPago, 150.0);
+    expect(deVolta.formaPagamento, 'Pix');
+  });
+
+  test('Model Rodada converte para Map e volta', () {
+    Rodada r = Rodada(id: 1, numero: 1, data: '2026-03-01', idCompeticao: 1);
+    Rodada deVolta = Rodada.fromMap(r.toMap());
+
+    expect(deVolta.numero, 1);
+    expect(deVolta.idCompeticao, 1);
+  });
+
+  test('Model Partida converte para Map e volta', () {
+    Partida p = Partida(
+      id: 1,
+      idRodada: 1,
+      idTimeCasa: 1,
+      idTimeVisitante: 2,
+      qtdGolsTimeCasa: 3,
+      qtdGolsTimeVisitante: 1,
+      wo: false,
+    );
+    Partida deVolta = Partida.fromMap(p.toMap());
+
+    expect(deVolta.qtdGolsTimeCasa, 3);
+    expect(deVolta.wo, false);
+  });
+
+  test('Model Escalacao converte para Map e volta', () {
+    Escalacao e = Escalacao(
+      id: 1,
+      idPartida: 1,
+      titular: 'Titular',
+      numeroCamisa: 9,
+      idPosicao: 1,
+      idParticipacao: 1,
+    );
+    Escalacao deVolta = Escalacao.fromMap(e.toMap());
+
+    expect(deVolta.titular, 'Titular');
+    expect(deVolta.numeroCamisa, 9);
+  });
+
+  test('Model EventoPartida converte para Map e volta', () {
+    EventoPartida e = EventoPartida(
+      id: 1,
+      idTipoEvento: 1,
+      minutoEvento: 35,
+      descricao: 'Gol de cabeça',
+      idEscalacao: 1,
+    );
+    EventoPartida deVolta = EventoPartida.fromMap(e.toMap());
+
+    expect(deVolta.minutoEvento, 35);
+    expect(deVolta.descricao, 'Gol de cabeça');
+  });
+
+  test('Model Suspensao converte para Map e volta', () {
+    Suspensao s = Suspensao(
+      id: 1,
+      idEvento: 1,
+      motivo: 'Cartão vermelho',
+      qtdJogosSuspensao: 2,
+      cumprida: false,
+    );
+    Suspensao deVolta = Suspensao.fromMap(s.toMap());
+
+    expect(deVolta.motivo, 'Cartão vermelho');
+    expect(deVolta.qtdJogosSuspensao, 2);
+    expect(deVolta.cumprida, false);
   });
 }

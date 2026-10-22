@@ -2,23 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/tela_adicionar_categoria.dart';
 import 'package:projeto_final/telas/tela_adicionar_competicao.dart';
 import 'package:projeto_final/telas/tela_adicionar_documento.dart';
+import 'package:projeto_final/telas/tela_adicionar_escalacao.dart';
 import 'package:projeto_final/telas/tela_adicionar_escola.dart';
+import 'package:projeto_final/telas/tela_adicionar_evento.dart';
+import 'package:projeto_final/telas/tela_adicionar_foto.dart';
 import 'package:projeto_final/telas/tela_adicionar_jogador.dart';
 import 'package:projeto_final/telas/tela_adicionar_modalidade.dart';
+import 'package:projeto_final/telas/tela_adicionar_pagamento.dart';
+import 'package:projeto_final/telas/tela_adicionar_participacao.dart';
+import 'package:projeto_final/telas/tela_adicionar_partida.dart';
 import 'package:projeto_final/telas/tela_adicionar_posicao.dart';
 import 'package:projeto_final/telas/tela_adicionar_responsavel.dart';
+import 'package:projeto_final/telas/tela_adicionar_rodada.dart';
+import 'package:projeto_final/telas/tela_adicionar_suspensao.dart';
 import 'package:projeto_final/telas/tela_adicionar_tecnico.dart';
+import 'package:projeto_final/telas/tela_adicionar_tecnico_time.dart';
 import 'package:projeto_final/telas/tela_adicionar_time.dart';
 import 'package:projeto_final/telas/tela_adicionar_tipo_evento.dart';
 import 'package:projeto_final/telas/tela_consulta_categoria.dart';
 import 'package:projeto_final/telas/tela_consulta_competicao.dart';
 import 'package:projeto_final/telas/tela_consulta_documento.dart';
+import 'package:projeto_final/telas/tela_consulta_escalacao.dart';
 import 'package:projeto_final/telas/tela_consulta_escola.dart';
+import 'package:projeto_final/telas/tela_consulta_evento.dart';
+import 'package:projeto_final/telas/tela_consulta_foto.dart';
 import 'package:projeto_final/telas/tela_consulta_jogador.dart';
 import 'package:projeto_final/telas/tela_consulta_modalidade.dart';
+import 'package:projeto_final/telas/tela_consulta_pagamento.dart';
+import 'package:projeto_final/telas/tela_consulta_participacao.dart';
+import 'package:projeto_final/telas/tela_consulta_partida.dart';
 import 'package:projeto_final/telas/tela_consulta_posicao.dart';
 import 'package:projeto_final/telas/tela_consulta_responsavel.dart';
+import 'package:projeto_final/telas/tela_consulta_rodada.dart';
+import 'package:projeto_final/telas/tela_consulta_suspensao.dart';
 import 'package:projeto_final/telas/tela_consulta_tecnico.dart';
+import 'package:projeto_final/telas/tela_consulta_tecnico_time.dart';
 import 'package:projeto_final/telas/tela_consulta_time.dart';
 import 'package:projeto_final/telas/tela_consulta_tipo_evento.dart';
 
@@ -60,6 +78,24 @@ class Menu extends StatelessWidget {
           () => TelaConsultaTecnico()),
       _Opcao("Time", Icons.groups, () => TelaAdicionarTime(),
           () => TelaConsultaTime()),
+      _Opcao("Foto", Icons.photo_camera, () => TelaAdicionarFoto(),
+          () => TelaConsultaFoto()),
+      _Opcao("Técnico/Time", Icons.link, () => TelaAdicionarTecnicoTime(),
+          () => TelaConsultaTecnicoTime()),
+      _Opcao("Inscrição", Icons.how_to_reg, () => TelaAdicionarParticipacao(),
+          () => TelaConsultaParticipacao()),
+      _Opcao("Pagamento", Icons.payments, () => TelaAdicionarPagamento(),
+          () => TelaConsultaPagamento()),
+      _Opcao("Rodada", Icons.calendar_month, () => TelaAdicionarRodada(),
+          () => TelaConsultaRodada()),
+      _Opcao("Partida", Icons.sports_score, () => TelaAdicionarPartida(),
+          () => TelaConsultaPartida()),
+      _Opcao("Escalação", Icons.format_list_numbered,
+          () => TelaAdicionarEscalacao(), () => TelaConsultaEscalacao()),
+      _Opcao("Evento", Icons.timer, () => TelaAdicionarEvento(),
+          () => TelaConsultaEvento()),
+      _Opcao("Suspensão", Icons.block, () => TelaAdicionarSuspensao(),
+          () => TelaConsultaSuspensao()),
     ];
 
     return GridView.builder(
