@@ -19,6 +19,7 @@ import 'package:projeto_final/telas/tela_adicionar_tecnico.dart';
 import 'package:projeto_final/telas/tela_adicionar_tecnico_time.dart';
 import 'package:projeto_final/telas/tela_adicionar_time.dart';
 import 'package:projeto_final/telas/tela_adicionar_tipo_evento.dart';
+import 'package:projeto_final/telas/tela_dados_exemplo.dart';
 import 'package:projeto_final/telas/tela_menu_relatorios.dart';
 import 'package:projeto_final/telas/tela_consulta_categoria.dart';
 import 'package:projeto_final/telas/tela_consulta_competicao.dart';
@@ -128,6 +129,8 @@ class Menu extends StatelessWidget {
           () => TelaConsultaSuspensao()),
       _Opcao("Relatórios", Icons.assessment, () => Container(),
           () => MenuRelatorios()),
+      _Opcao("Dados exemplo", Icons.science, () => Container(),
+          () => TelaDadosExemplo()),
     ];
 
     return GridView.builder(
