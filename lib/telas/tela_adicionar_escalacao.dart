@@ -159,11 +159,17 @@ class _TelaAdicionarEscalacaoState extends State<TelaAdicionarEscalacao> {
       idParticipacao: int.tryParse(_idParticipacao ?? "0") ?? 0,
     );
 
-    ControlEscalacao control = ControlEscalacao();
-    int id = await control.insertDatabase(escalacao);
+    try {
+      ControlEscalacao control = ControlEscalacao();
+      int id = await control.insertDatabase(escalacao);
 
-    setState(() {
-      _resultado = "Escalação registrada! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Escalação registrada! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

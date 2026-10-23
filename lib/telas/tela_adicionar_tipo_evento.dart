@@ -46,11 +46,17 @@ class _TelaAdicionarTipoEventoState extends State<TelaAdicionarTipoEvento> {
   Future<void> _registrar() async {
     TipoEvento tipoEvento = TipoEvento(descricao: _descricao.text);
 
-    ControlTipoEvento control = ControlTipoEvento();
-    int id = await control.insertDatabase(tipoEvento);
+    try {
+      ControlTipoEvento control = ControlTipoEvento();
+      int id = await control.insertDatabase(tipoEvento);
 
-    setState(() {
-      _resultado = "Tipo de evento ${tipoEvento.descricao} cadastrado! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Tipo de evento ${tipoEvento.descricao} cadastrado! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

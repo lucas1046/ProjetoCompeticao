@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_responsavel.dart';
 import 'package:projeto_final/model/responsavel.dart';
+import 'package:projeto_final/util/guarda_permissao.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -23,12 +24,18 @@ class _TelaAdicionarResponsavelState extends State<TelaAdicionarResponsavel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Cadastrar responsável"),
-        backgroundColor: Colors.green,
+    // RNFR-16.2 — dados pessoais dos responsáveis só para perfis autorizados
+    return GuardaPermissao(
+      titulo: "Cadastrar responsável",
+      motivo: "Os dados dos responsáveis têm acesso restrito e só podem "
+          "ser cadastrados por administradores.",
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Cadastrar responsável"),
+          backgroundColor: Colors.green,
+        ),
+        body: _body(),
       ),
-      body: _body(),
     );
   }
 
@@ -73,11 +80,17 @@ class _TelaAdicionarResponsavelState extends State<TelaAdicionarResponsavel> {
       parentesco: _parentesco.text,
     );
 
-    ControlResponsavel control = ControlResponsavel();
-    int id = await control.insertDatabase(responsavel);
+    try {
+      ControlResponsavel control = ControlResponsavel();
+      int id = await control.insertDatabase(responsavel);
 
-    setState(() {
-      _resultado = "Responsável ${responsavel.nome} cadastrado! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Responsável ${responsavel.nome} cadastrado! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

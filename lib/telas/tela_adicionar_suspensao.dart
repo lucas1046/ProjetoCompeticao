@@ -96,11 +96,17 @@ class _TelaAdicionarSuspensaoState extends State<TelaAdicionarSuspensao> {
       qtdJogosSuspensao: int.tryParse(_qtdJogos.text) ?? 1,
     );
 
-    ControlSuspensao control = ControlSuspensao();
-    int id = await control.insertDatabase(suspensao);
+    try {
+      ControlSuspensao control = ControlSuspensao();
+      int id = await control.insertDatabase(suspensao);
 
-    setState(() {
-      _resultado = "Suspensão registrada! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Suspensão registrada! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

@@ -122,11 +122,17 @@ class _TelaAdicionarEventoState extends State<TelaAdicionarEvento> {
       idEscalacao: int.tryParse(_idEscalacao ?? "0") ?? 0,
     );
 
-    ControlEvento control = ControlEvento();
-    int id = await control.insertDatabase(evento);
+    try {
+      ControlEvento control = ControlEvento();
+      int id = await control.insertDatabase(evento);
 
-    setState(() {
-      _resultado = "Evento registrado! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Evento registrado! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

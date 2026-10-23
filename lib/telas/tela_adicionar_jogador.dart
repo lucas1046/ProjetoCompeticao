@@ -103,11 +103,17 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
       idResponsavel: int.tryParse(_idResponsavelSelecionado ?? "0") ?? 0,
     );
 
-    ControlJogador control = ControlJogador();
-    int id = await control.insertDatabase(jogador);
+    try {
+      ControlJogador control = ControlJogador();
+      int id = await control.insertDatabase(jogador);
 
-    setState(() {
-      _resultado = "Jogador ${jogador.nome} cadastrado! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Jogador ${jogador.nome} cadastrado! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

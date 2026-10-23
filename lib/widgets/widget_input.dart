@@ -4,14 +4,21 @@ class InputTextos extends StatelessWidget {
   String rotulo;
   String label;
   TextEditingController controller;
+  bool senha;
 
-  InputTextos(this.rotulo, this.label, {required this.controller});
+  InputTextos(
+    this.rotulo,
+    this.label, {
+    required this.controller,
+    this.senha = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.text,
+      obscureText: senha,
       style: TextStyle(
         color: Colors.black,
         backgroundColor: Colors.white,

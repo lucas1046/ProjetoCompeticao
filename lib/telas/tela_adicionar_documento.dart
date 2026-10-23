@@ -3,6 +3,7 @@ import 'package:projeto_final/control/control_documento.dart';
 import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/model/documento.dart';
 import 'package:projeto_final/model/jogador.dart';
+import 'package:projeto_final/util/guarda_permissao.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -40,12 +41,18 @@ class _TelaAdicionarDocumentoState extends State<TelaAdicionarDocumento> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Cadastrar documento"),
-        backgroundColor: Colors.green,
+    // RNFR-05.2 — documentos pessoais só para usuarios autorizados
+    return GuardaPermissao(
+      titulo: "Cadastrar documento",
+      motivo: "Os documentos dos jogadores contêm dados pessoais e só "
+          "podem ser cadastrados por administradores.",
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Cadastrar documento"),
+          backgroundColor: Colors.green,
+        ),
+        body: _body(),
       ),
-      body: _body(),
     );
   }
 
@@ -95,11 +102,17 @@ class _TelaAdicionarDocumentoState extends State<TelaAdicionarDocumento> {
       caminhoArquivo: _caminhoArquivo.text,
     );
 
-    ControlDocumento control = ControlDocumento();
-    int id = await control.insertDatabase(documento);
+    try {
+      ControlDocumento control = ControlDocumento();
+      int id = await control.insertDatabase(documento);
 
-    setState(() {
-      _resultado = "Documento ${documento.tipoDocumento} cadastrado! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Documento ${documento.tipoDocumento} cadastrado! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

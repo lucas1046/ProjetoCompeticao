@@ -22,6 +22,8 @@ Sistema para gerenciamento de competições esportivas escolares, visando otimiz
 | Framework | Flutter 3.47 |
 | Banco de dados local | SQLite (`sqflite`) |
 | Gerenciamento de caminhos | `path`, `path_provider` |
+| Autenticação | SHA-256 com sal (`crypto`) |
+| Relatórios em PDF | `pdf` + `printing` |
 | Versionamento | Git / GitHub |
 
 ## Estrutura do código
@@ -30,41 +32,58 @@ O projeto segue o padrão **MVC** (Model-View-Controller) trabalhado em sala de 
 
 ```
 lib/
-├── main.dart                              # Ponto de entrada (MyApp -> Menu)
-├── model/
-│   └── competicao.dart                    # Entidade Competição (toMap / fromMap)
-├── control/
-│   └── control_competicao.dart            # Regras de acesso ao banco (SQLite)
-├── telas/
-│   ├── menu.dart                          # Menu principal
-│   ├── tela_adicionar_competicao.dart     # Cadastro de competições
-│   └── tela_consulta_competicao.dart      # Consulta de competições
-└── widgets/
-    ├── widget_input.dart                  # Campo de texto reutilizável
-    ├── widget_button.dart                 # Botão reutilizável
-    └── widget_text_custom.dart            # Texto reutilizável
+├── main.dart                        # Ponto de entrada (abre no login ou no menu)
+├── model/                           # 20 entidades + usuario.dart (toMap / fromMap)
+├── control/                         # Regras de acesso ao banco (SQLite)
+│   ├── banco_dados.dart             # Helper do banco (21 tabelas, migrações)
+│   ├── control_relatorio.dart       # Estatísticas e relatórios (RF-14 e RF-15)
+│   └── control_sessao.dart          # Sessão do usuário logado
+├── telas/                           # Telas de cadastro, consulta e relatórios
+├── util/
+│   ├── validacoes.dart              # CPF, data, idade, imagem
+│   ├── seguranca.dart               # Hash de senha
+│   ├── guarda_permissao.dart        # Bloqueio das telas restritas
+│   ├── financeiro.dart              # Status pago / parcial / pendente
+│   ├── gerador_pdf.dart             # Geração dos PDFs (Android/desktop)
+│   └── exportacao.dart              # Salvar e compartilhar o PDF
+└── widgets/                         # Componentes reutilizáveis
+    ├── widget_input.dart            # InputTextos(rotulo, label, {controller, senha})
+    ├── widget_button.dart           # Buttons(texto, {onPressed})
+    └── widget_text_custom.dart      # TextosCustom(texto, fontSize, cor)
+
+assets/fonts/                        # Roboto (Apache 2.0), usada nos PDFs
 ```
+
+## Acesso ao sistema
+
+O app abre na **tela de login**. O primeiro acesso usa o administrador criado
+automaticamente na instalação:
+
+| Login | Senha | Perfil |
+|-------|-------|--------|
+| `admin` | `admin123` | Administrador |
+
+> Troque a senha depois do primeiro acesso. Novos usuários podem ser cadastrados
+> por um administrador (`ControlUsuario.cadastrarComSenha`).
+
+Perfis:
+
+- **ADMIN** — acesso total, incluindo relatório financeiro e dados restritos
+- **USUARIO** — cadastros e relatórios gerais
+
+A sessão fica em memória: ao fechar o app é preciso autenticar de novo.
 
 ## Funcionalidades implementadas
 
+- [x] Login e controle de acesso por perfil
 - [x] Menu principal com navegação
-- [x] Cadastro de competições (nome, cidade, data de início, data de término)
-- [x] Consulta de competições com filtro por nome
+- [x] CRUD completo das 20 entidades (competição, modalidade, categoria, tipo de evento, posição, responsável, jogador, documento, escola, técnico, time, foto, técnico/time, inscrição, pagamento, rodada, partida, escalação, evento e suspensão)
+- [x] Estatísticas de jogadores (gols, cartões, craque da partida, jogos)
+- [x] Relatórios gerenciais: classificação geral, financeiro, histórico de partidas e suspensos
+- [x] Exportação dos 5 relatórios em PDF, com compartilhamento pelo sistema
+- [x] Status financeiro por inscrição (pago, parcial, pendente)
+- [x] Validação de CPF, datas, idade por categoria e demais regras de negócio
 - [x] Persistência em banco de dados local SQLite
-
-## Funcionalidades planejadas
-
-- [ ] Cadastro de modalidades e categorias
-- [ ] Cadastro de escolas participantes
-- [ ] Cadastro de times
-- [ ] Cadastro de jogadores e responsáveis
-- [ ] Inscrição de jogadores em times
-- [ ] Cadastro de técnicos e vínculo com times
-- [ ] Gerenciamento de rodadas
-- [ ] Registro de partidas, escalações e eventos
-- [ ] Controle de suspensões
-- [ ] Controle de pagamentos de inscrição
-- [ ] Relatórios gerenciais
 
 ## Como executar
 
@@ -92,18 +111,28 @@ flutter test
 
 # Executar no emulador/dispositivo
 flutter run
+
+# Gerar o APK
+flutter build apk --release
 ```
 
 ## Status do projeto
 
 | Item | Status |
 |------|--------|
-| Documentação de requisitos | Em andamento |
-| Banco de dados (SQLite) | Implementado |
-| CRUD de competições | Implementado |
-| Demais CRUDs | Planejado |
-| Testes automatizados | Implementado (3 testes) |
+| Documentação de requisitos | Entregue (Etapa 02) |
+| Banco de dados (SQLite) | Implementado (21 tabelas) |
+| CRUDs das 20 entidades | Implementado |
+| Regras de negócio (RNFRs) | Implementado (35 de 35) |
+| Login e controle de acesso | Implementado |
+| Relatórios e estatísticas | Implementado |
+| Exportação em PDF | Implementado |
+| APK release | Gerado |
+| Testes automatizados | 62 testes passando |
 
 ## Licença
 
 Projeto acadêmico — Faculdade de Tecnologia de Itapetininga (Fatec), 2026.
+
+A fonte **Roboto** (`assets/fonts/`) é usada apenas na geração dos PDFs e é
+distribuída sob a licença Apache 2.0.

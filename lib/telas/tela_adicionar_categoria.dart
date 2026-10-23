@@ -67,11 +67,17 @@ class _TelaAdicionarCategoriaState extends State<TelaAdicionarCategoria> {
       idadeMax: int.tryParse(_idadeMax.text) ?? 0,
     );
 
-    ControlCategoria control = ControlCategoria();
-    int id = await control.insertDatabase(categoria);
+    try {
+      ControlCategoria control = ControlCategoria();
+      int id = await control.insertDatabase(categoria);
 
-    setState(() {
-      _resultado = "Categoria ${categoria.nome} cadastrada! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Categoria ${categoria.nome} cadastrada! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

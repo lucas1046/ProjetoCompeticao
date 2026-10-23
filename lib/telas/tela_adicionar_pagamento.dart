@@ -110,11 +110,17 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
       observacoes: _observacoes.text,
     );
 
-    ControlPagamento control = ControlPagamento();
-    int id = await control.insertDatabase(pagamento);
+    try {
+      ControlPagamento control = ControlPagamento();
+      int id = await control.insertDatabase(pagamento);
 
-    setState(() {
-      _resultado = "Pagamento registrado! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Pagamento registrado! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

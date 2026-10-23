@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:projeto_final/control/control_sessao.dart';
 import 'package:projeto_final/main.dart';
+import 'package:projeto_final/model/usuario.dart';
 import 'package:projeto_final/model/categoria.dart';
 import 'package:projeto_final/model/competicao.dart';
 import 'package:projeto_final/model/documento.dart';
@@ -27,8 +29,20 @@ import 'package:projeto_final/telas/tela_adicionar_competicao.dart';
 import 'package:projeto_final/telas/tela_adicionar_modalidade.dart';
 
 void main() {
+  setUp(() => ControlSessao().sair());
+
+  // RNFR-15.2 — sem sessao o app abre na tela de login
+  testWidgets('App abre no login quando nao ha sessao', (tester) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.pumpAndSettle();
+
+    expect(find.byType(Menu), findsNothing);
+    expect(find.text('Acesso ao sistema'), findsOneWidget);
+  });
+
   testWidgets('Menu exibe as 5 entidades do cadastro basico',
       (WidgetTester tester) async {
+    _logaComoAdmin();
     await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
 
@@ -49,6 +63,7 @@ void main() {
 
   testWidgets('Navega para o cadastro de competicao',
       (WidgetTester tester) async {
+    _logaComoAdmin();
     await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
 
@@ -61,6 +76,7 @@ void main() {
 
   testWidgets('Navega para o cadastro de modalidade',
       (WidgetTester tester) async {
+    _logaComoAdmin();
     await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
 
@@ -68,6 +84,29 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(TelaAdicionarModalidade), findsOneWidget);
+  });
+
+  testWidgets('Usuario comum nao ve Responsavel nem Documento no menu',
+      (tester) async {
+    ControlSessao().entrar(Usuario(
+      login: 'joao',
+      senhaHash: 'x',
+      perfil: Usuario.usuarioComum,
+    ));
+
+    // O GridView monta so os cards que cabem na tela; um celular grande o
+    // bastante para ver todos de uma vez deixa o teste determinístico
+    tester.view.physicalSize = Size(1080, 8000);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+
+    await tester.pumpWidget(const MyApp());
+    await tester.pumpAndSettle();
+
+    expect(find.byType(Menu), findsOneWidget);
+    expect(find.text('Responsável'), findsNothing);
+    expect(find.text('Documento'), findsNothing);
+    expect(find.text('Jogador'), findsOneWidget);
   });
 
   test('Model Competicao converte para Map e volta', () {
@@ -325,4 +364,14 @@ void main() {
     expect(deVolta.qtdJogosSuspensao, 2);
     expect(deVolta.cumprida, false);
   });
+}
+
+// Entra na sessao como administrador, que e o perfil usado pelos testes
+// de navegacao do menu (RNFR-15.2).
+void _logaComoAdmin() {
+  ControlSessao().entrar(Usuario(
+    login: 'admin',
+    senhaHash: 'x',
+    perfil: Usuario.administrador,
+  ));
 }

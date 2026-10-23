@@ -10,8 +10,7 @@ class ControlModalidade {
   factory ControlModalidade() => _instancia;
 
   Future<int> insertDatabase(Modalidade modalidade) async {
-    Database banco = await BancoDados().db;
-    return await banco.insert("modalidade", modalidade.toMap());
+    return await BancoDados().inserir("modalidade", modalidade.toMap());
   }
 
   Future<List<Modalidade>> queryFind([String? nome]) async {

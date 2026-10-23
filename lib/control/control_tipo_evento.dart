@@ -10,8 +10,7 @@ class ControlTipoEvento {
   factory ControlTipoEvento() => _instancia;
 
   Future<int> insertDatabase(TipoEvento tipoEvento) async {
-    Database banco = await BancoDados().db;
-    return await banco.insert("tipo_evento", tipoEvento.toMap());
+    return await BancoDados().inserir("tipo_evento", tipoEvento.toMap());
   }
 
   Future<List<TipoEvento>> queryFind([String? descricao]) async {

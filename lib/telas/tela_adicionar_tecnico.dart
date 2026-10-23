@@ -49,11 +49,17 @@ class _TelaAdicionarTecnicoState extends State<TelaAdicionarTecnico> {
       email: _email.text,
     );
 
-    ControlTecnico control = ControlTecnico();
-    int id = await control.insertDatabase(tecnico);
+    try {
+      ControlTecnico control = ControlTecnico();
+      int id = await control.insertDatabase(tecnico);
 
-    setState(() {
-      _resultado = "Técnico ${tecnico.nome} cadastrado! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Técnico ${tecnico.nome} cadastrado! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

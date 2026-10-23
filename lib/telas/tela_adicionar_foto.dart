@@ -50,11 +50,17 @@ class _TelaAdicionarFotoState extends State<TelaAdicionarFoto> {
       dataUpload: _dataUpload.text,
     );
 
-    ControlFoto control = ControlFoto();
-    int id = await control.insertDatabase(foto);
+    try {
+      ControlFoto control = ControlFoto();
+      int id = await control.insertDatabase(foto);
 
-    setState(() {
-      _resultado = "Foto cadastrada! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Foto cadastrada! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

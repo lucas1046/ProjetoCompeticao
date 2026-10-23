@@ -10,8 +10,7 @@ class ControlTecnico {
   factory ControlTecnico() => _instancia;
 
   Future<int> insertDatabase(Tecnico tecnico) async {
-    Database banco = await BancoDados().db;
-    return await banco.insert("tecnico", tecnico.toMap());
+    return await BancoDados().inserir("tecnico", tecnico.toMap());
   }
 
   Future<List<Tecnico>> queryFind([String? nome]) async {

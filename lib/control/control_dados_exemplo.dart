@@ -39,63 +39,62 @@ class ControlDadosExemplo {
 
   // Insere todos os dados de exemplo e retorna o resumo
   Future<String> popular() async {
-    Database banco = await BancoDados().db;
 
     // ---------------------------------------------------------
     // CADASTROS BASICOS
     // ---------------------------------------------------------
-    await banco.insert(
+    await BancoDados().inserir(
       "modalidade",
       Modalidade(id: 1, nome: "Futsal").toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "modalidade",
       Modalidade(id: 2, nome: "Vôlei").toMap(),
     );
 
-    await banco.insert(
+    await BancoDados().inserir(
       "categoria",
       Categoria(id: 1, nome: "Sub-15", idadeMin: 12, idadeMax: 15).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "categoria",
       Categoria(id: 2, nome: "Sub-17", idadeMin: 15, idadeMax: 17).toMap(),
     );
 
-    await banco.insert(
+    await BancoDados().inserir(
       "tipo_evento",
       TipoEvento(id: 1, descricao: "Gol").toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "tipo_evento",
       TipoEvento(id: 2, descricao: "Cartão amarelo").toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "tipo_evento",
       TipoEvento(id: 3, descricao: "Cartão vermelho").toMap(),
     );
 
-    await banco.insert(
+    await BancoDados().inserir(
       "posicao",
       Posicao(id: 1, nome: "Goleiro", idModalidade: 1).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "posicao",
       Posicao(id: 2, nome: "Fixo", idModalidade: 1).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "posicao",
       Posicao(id: 3, nome: "Ala", idModalidade: 1).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "posicao",
       Posicao(id: 4, nome: "Pivô", idModalidade: 1).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "posicao",
       Posicao(id: 5, nome: "Levantador", idModalidade: 2).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "posicao",
       Posicao(id: 6, nome: "Ponteiro", idModalidade: 2).toMap(),
     );
@@ -103,7 +102,7 @@ class ControlDadosExemplo {
     // ---------------------------------------------------------
     // PESSOAS
     // ---------------------------------------------------------
-    await banco.insert(
+    await BancoDados().inserir(
       "responsavel",
       Responsavel(
         id: 1,
@@ -115,7 +114,7 @@ class ControlDadosExemplo {
       ).toMap(),
     );
 
-    await banco.insert(
+    await BancoDados().inserir(
       "jogador",
       Jogador(
         id: 1,
@@ -125,7 +124,7 @@ class ControlDadosExemplo {
         idResponsavel: 1,
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "jogador",
       Jogador(
         id: 2,
@@ -135,7 +134,7 @@ class ControlDadosExemplo {
         idResponsavel: 1,
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "jogador",
       Jogador(
         id: 3,
@@ -146,7 +145,7 @@ class ControlDadosExemplo {
       ).toMap(),
     );
 
-    await banco.insert(
+    await BancoDados().inserir(
       "documento",
       Documento(
         idJogador: 1,
@@ -154,7 +153,7 @@ class ControlDadosExemplo {
         caminhoArquivo: "/docs/joao_rg.pdf",
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "documento",
       Documento(
         idJogador: 1,
@@ -162,7 +161,7 @@ class ControlDadosExemplo {
         caminhoArquivo: "/docs/joao_cpf.pdf",
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "documento",
       Documento(
         idJogador: 2,
@@ -170,7 +169,7 @@ class ControlDadosExemplo {
         caminhoArquivo: "/docs/carlos_rg.pdf",
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "documento",
       Documento(
         idJogador: 3,
@@ -182,7 +181,7 @@ class ControlDadosExemplo {
     // ---------------------------------------------------------
     // ESTRUTURA
     // ---------------------------------------------------------
-    await banco.insert(
+    await BancoDados().inserir(
       "escola",
       Escola(
         id: 1,
@@ -192,7 +191,7 @@ class ControlDadosExemplo {
         telefone: "1533224455",
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "escola",
       Escola(
         id: 2,
@@ -203,7 +202,7 @@ class ControlDadosExemplo {
       ).toMap(),
     );
 
-    await banco.insert(
+    await BancoDados().inserir(
       "tecnico",
       Tecnico(
         id: 1,
@@ -212,7 +211,7 @@ class ControlDadosExemplo {
         email: "ze@email.com",
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "tecnico",
       Tecnico(
         id: 2,
@@ -222,7 +221,7 @@ class ControlDadosExemplo {
       ).toMap(),
     );
 
-    await banco.insert(
+    await BancoDados().inserir(
       "time",
       Time(
         idTime: 1,
@@ -232,7 +231,7 @@ class ControlDadosExemplo {
         idCategoria: 1,
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "time",
       Time(
         idTime: 2,
@@ -242,7 +241,7 @@ class ControlDadosExemplo {
         idCategoria: 1,
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "time",
       Time(
         idTime: 3,
@@ -256,16 +255,16 @@ class ControlDadosExemplo {
     // ---------------------------------------------------------
     // VINCULOS
     // ---------------------------------------------------------
-    await banco.insert(
+    await BancoDados().inserir(
       "tecnico_time",
       TecnicoTime(idTecnico: 1, idTime: 1).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "tecnico_time",
       TecnicoTime(idTecnico: 2, idTime: 2).toMap(),
     );
 
-    await banco.insert(
+    await BancoDados().inserir(
       "participacao_jogador_time",
       ParticipacaoJogadorTime(
         id: 1,
@@ -275,7 +274,7 @@ class ControlDadosExemplo {
         valorInscricao: 150.0,
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "participacao_jogador_time",
       ParticipacaoJogadorTime(
         id: 2,
@@ -285,7 +284,7 @@ class ControlDadosExemplo {
         valorInscricao: 150.0,
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "participacao_jogador_time",
       ParticipacaoJogadorTime(
         id: 3,
@@ -299,7 +298,7 @@ class ControlDadosExemplo {
     // ---------------------------------------------------------
     // COMPETICAO
     // ---------------------------------------------------------
-    await banco.insert(
+    await BancoDados().inserir(
       "competicao",
       Competicao(
         id: 1,
@@ -310,12 +309,12 @@ class ControlDadosExemplo {
       ).toMap(),
     );
 
-    await banco.insert(
+    await BancoDados().inserir(
       "rodada",
       Rodada(id: 1, numero: 1, data: "2026-03-08", idCompeticao: 1).toMap(),
     );
 
-    await banco.insert(
+    await BancoDados().inserir(
       "partida",
       Partida(
         id: 1,
@@ -326,7 +325,7 @@ class ControlDadosExemplo {
         qtdGolsTimeVisitante: 1,
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "partida",
       Partida(
         id: 2,
@@ -341,7 +340,7 @@ class ControlDadosExemplo {
     // ---------------------------------------------------------
     // ESCALACAO
     // ---------------------------------------------------------
-    await banco.insert(
+    await BancoDados().inserir(
       "escalacao",
       Escalacao(
         id: 1,
@@ -352,7 +351,7 @@ class ControlDadosExemplo {
         idParticipacao: 1,
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "escalacao",
       Escalacao(
         id: 2,
@@ -363,7 +362,7 @@ class ControlDadosExemplo {
         idParticipacao: 3,
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "escalacao",
       Escalacao(
         id: 3,
@@ -378,7 +377,7 @@ class ControlDadosExemplo {
     // ---------------------------------------------------------
     // EVENTOS
     // ---------------------------------------------------------
-    await banco.insert(
+    await BancoDados().inserir(
       "evento_partida",
       EventoPartida(
         id: 1,
@@ -388,7 +387,7 @@ class ControlDadosExemplo {
         idEscalacao: 1,
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "evento_partida",
       EventoPartida(
         id: 2,
@@ -398,7 +397,7 @@ class ControlDadosExemplo {
         idEscalacao: 2,
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "evento_partida",
       EventoPartida(
         id: 3,
@@ -412,7 +411,7 @@ class ControlDadosExemplo {
     // ---------------------------------------------------------
     // SUSPENSAO (originada pelo cartão amarelo)
     // ---------------------------------------------------------
-    await banco.insert(
+    await BancoDados().inserir(
       "suspensao",
       Suspensao(
         id: 1,
@@ -426,7 +425,7 @@ class ControlDadosExemplo {
     // ---------------------------------------------------------
     // FINANCEIRO
     // ---------------------------------------------------------
-    await banco.insert(
+    await BancoDados().inserir(
       "pagamento_inscricao",
       PagamentoInscricao(
         idParticipacao: 1,
@@ -436,7 +435,7 @@ class ControlDadosExemplo {
         observacoes: "Pagamento parcial",
       ).toMap(),
     );
-    await banco.insert(
+    await BancoDados().inserir(
       "pagamento_inscricao",
       PagamentoInscricao(
         idParticipacao: 2,
@@ -450,7 +449,7 @@ class ControlDadosExemplo {
     // ---------------------------------------------------------
     // FOTO
     // ---------------------------------------------------------
-    await banco.insert(
+    await BancoDados().inserir(
       "foto_figurinha",
       FotoFigurinha(
         id: 1,

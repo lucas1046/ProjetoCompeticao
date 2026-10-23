@@ -99,11 +99,17 @@ class _TelaAdicionarRodadaState extends State<TelaAdicionarRodada> {
       idCompeticao: int.tryParse(_idCompeticao ?? "0") ?? 0,
     );
 
-    ControlRodada control = ControlRodada();
-    int id = await control.insertDatabase(rodada);
+    try {
+      ControlRodada control = ControlRodada();
+      int id = await control.insertDatabase(rodada);
 
-    setState(() {
-      _resultado = "Rodada ${rodada.numero} cadastrada! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Rodada ${rodada.numero} cadastrada! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

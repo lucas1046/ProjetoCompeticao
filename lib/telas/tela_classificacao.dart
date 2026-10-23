@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_relatorio.dart';
+import 'package:projeto_final/util/exportacao.dart';
+import 'package:projeto_final/util/gerador_pdf.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -12,7 +14,10 @@ class TelaClassificacao extends StatefulWidget {
 
 class _TelaClassificacaoState extends State<TelaClassificacao> {
   String _resultado = "";
+  String _avisoPdf = "";
   bool _carregando = false;
+  bool _exportando = false;
+  List<Map<String, dynamic>> _classificacao = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +35,16 @@ class _TelaClassificacaoState extends State<TelaClassificacao> {
       padding: EdgeInsets.all(16),
       children: [
         Buttons("Gerar classificação", onPressed: _carregando ? null : () { _gerar(); }),
+        SizedBox(height: 12),
+        // RNFR-15.1 — exportacao da classificacao em PDF
+        Buttons(
+          "Exportar PDF",
+          onPressed: _exportando ? null : () { _exportarPdf(); },
+        ),
         SizedBox(height: 16),
-        if (_carregando) Center(child: CircularProgressIndicator()),
+        if (_carregando || _exportando) Center(child: CircularProgressIndicator()),
         TextosCustom(_resultado, 16, Colors.black),
+        if (_avisoPdf.isNotEmpty) TextosCustom(_avisoPdf, 16, Colors.green),
       ],
     );
   }
@@ -43,8 +55,17 @@ class _TelaClassificacaoState extends State<TelaClassificacao> {
       _resultado = "";
     });
 
+    // RNFR-15.3 — medicao do tempo de geracao do relatorio
+    final cronometro = Stopwatch()..start();
+
     ControlRelatorio control = ControlRelatorio();
     List<Map<String, dynamic>> lista = await control.classificacaoGeral();
+
+    cronometro.stop();
+
+    setState(() {
+      _classificacao = lista;
+    });
 
     String texto = "POS TIME              P   J   V   E   D   GP  GC  SG\n"
         "---------------------------------------------------------\n";
@@ -69,9 +90,45 @@ class _TelaClassificacaoState extends State<TelaClassificacao> {
       posicao++;
     }
 
+    texto += "\nRNFR-15.3 — gerado em ${cronometro.elapsedMilliseconds} ms\n";
+
     setState(() {
       _resultado = texto;
       _carregando = false;
     });
+  }
+
+  // RNFR-15.1 — gera o PDF, salva no dispositivo e abre o compartilhamento
+  Future _exportarPdf() async {
+    if (_classificacao.isEmpty) {
+      setState(() {
+        _avisoPdf = "Gere a classificação antes de exportar.";
+      });
+      return;
+    }
+
+    setState(() {
+      _exportando = true;
+      _avisoPdf = "";
+    });
+
+    try {
+      String caminho = await Exportacao.exportar(
+        gerar: () => GeradorPdf().classificacao(_classificacao),
+        nomeArquivo: Exportacao.nomeComData("classificacao"),
+      );
+
+      setState(() {
+        _avisoPdf = "PDF salvo em:\n$caminho";
+      });
+    } catch (e) {
+      setState(() {
+        _avisoPdf = "Erro ao exportar: $e";
+      });
+    } finally {
+      setState(() {
+        _exportando = false;
+      });
+    }
   }
 }

@@ -84,11 +84,17 @@ class _TelaAdicionarPosicaoState extends State<TelaAdicionarPosicao> {
       idModalidade: int.tryParse(_idModalidadeSelecionada ?? "0") ?? 0,
     );
 
-    ControlPosicao control = ControlPosicao();
-    int id = await control.insertDatabase(posicao);
+    try {
+      ControlPosicao control = ControlPosicao();
+      int id = await control.insertDatabase(posicao);
 
-    setState(() {
-      _resultado = "Posição ${posicao.nome} cadastrada! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Posição ${posicao.nome} cadastrada! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

@@ -156,11 +156,17 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
       wo: _wo,
     );
 
-    ControlPartida control = ControlPartida();
-    int id = await control.insertDatabase(partida);
+    try {
+      ControlPartida control = ControlPartida();
+      int id = await control.insertDatabase(partida);
 
-    setState(() {
-      _resultado = "Partida registrada! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Partida registrada! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

@@ -61,11 +61,17 @@ class _TelaAdicionarCompeticaoState extends State<TelaAdicionarCompeticao> {
       dataFim: _dataFim.text,
     );
 
-    ControlCompeticao control = ControlCompeticao();
-    int id = await control.insertDatabase(competicao);
+    try {
+      ControlCompeticao control = ControlCompeticao();
+      int id = await control.insertDatabase(competicao);
 
-    setState(() {
-      _resultado = "Competição ${competicao.nome} cadastrada! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Competição ${competicao.nome} cadastrada! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

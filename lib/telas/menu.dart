@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/control/control_sessao.dart';
 import 'package:projeto_final/telas/tela_adicionar_categoria.dart';
 import 'package:projeto_final/telas/tela_adicionar_competicao.dart';
 import 'package:projeto_final/telas/tela_adicionar_documento.dart';
@@ -41,6 +42,7 @@ import 'package:projeto_final/telas/tela_consulta_tecnico.dart';
 import 'package:projeto_final/telas/tela_consulta_tecnico_time.dart';
 import 'package:projeto_final/telas/tela_consulta_time.dart';
 import 'package:projeto_final/telas/tela_consulta_tipo_evento.dart';
+import 'package:projeto_final/telas/tela_login.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -51,6 +53,14 @@ class Menu extends StatelessWidget {
       appBar: AppBar(
         title: Text("Competições Escolares"),
         backgroundColor: Colors.blue,
+        actions: [
+          // RNFR-15.2 — encerra a sessao e volta para a tela de login
+          IconButton(
+            tooltip: "Sair",
+            icon: Icon(Icons.logout),
+            onPressed: () => _sair(context),
+          ),
+        ],
       ),
       body: _body(context),
     );
@@ -98,11 +108,13 @@ class Menu extends StatelessWidget {
       _Opcao("Posição", Icons.pan_tool, () => TelaAdicionarPosicao(),
           () => TelaConsultaPosicao()),
       _Opcao("Responsável", Icons.family_restroom,
-          () => TelaAdicionarResponsavel(), () => TelaConsultaResponsavel()),
+          () => TelaAdicionarResponsavel(), () => TelaConsultaResponsavel(),
+          soAdministrador: true),
       _Opcao("Jogador", Icons.person, () => TelaAdicionarJogador(),
           () => TelaConsultaJogador()),
       _Opcao("Documento", Icons.description, () => TelaAdicionarDocumento(),
-          () => TelaConsultaDocumento()),
+          () => TelaConsultaDocumento(),
+          soAdministrador: true),
       _Opcao("Escola", Icons.school, () => TelaAdicionarEscola(),
           () => TelaConsultaEscola()),
       _Opcao("Técnico", Icons.escalator_warning, () => TelaAdicionarTecnico(),
@@ -133,6 +145,12 @@ class Menu extends StatelessWidget {
           () => TelaDadosExemplo()),
     ];
 
+    // RNFR-15.2, RNFR-05.2 e RNFR-16.2 — nao mostra no menu o que exige
+    // perfil de administrador quando o usuario logado nao tem esse perfil
+    final opcoesVisiveis = opcoes
+        .where((o) => !o.soAdministrador || ControlSessao().isAdministrador)
+        .toList();
+
     return GridView.builder(
       padding: EdgeInsets.all(16),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -141,9 +159,9 @@ class Menu extends StatelessWidget {
         mainAxisSpacing: 12,
         childAspectRatio: 1.2,
       ),
-      itemCount: opcoes.length,
+      itemCount: opcoesVisiveis.length,
       itemBuilder: (context, index) {
-        final opcao = opcoes[index];
+        final opcao = opcoesVisiveis[index];
         return Card(
           elevation: 3,
           child: Padding(
@@ -193,6 +211,15 @@ class Menu extends StatelessWidget {
       }),
     );
   }
+
+  // RNFR-15.2 — encerra a sessao e volta para a tela de login
+  _sair(BuildContext ctx) {
+    ControlSessao().sair();
+    Navigator.pushReplacement(
+      ctx,
+      MaterialPageRoute(builder: (BuildContext context) => TelaLogin()),
+    );
+  }
 }
 
 class _Opcao {
@@ -200,6 +227,13 @@ class _Opcao {
   final IconData icone;
   final Function() abreCadastro;
   final Function() abreConsulta;
+  final bool soAdministrador;
 
-  _Opcao(this.titulo, this.icone, this.abreCadastro, this.abreConsulta);
+  _Opcao(
+    this.titulo,
+    this.icone,
+    this.abreCadastro,
+    this.abreConsulta, {
+    this.soAdministrador = false,
+  });
 }

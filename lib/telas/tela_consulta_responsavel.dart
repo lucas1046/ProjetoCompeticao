@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_responsavel.dart';
 import 'package:projeto_final/model/responsavel.dart';
+import 'package:projeto_final/util/guarda_permissao.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -19,12 +20,18 @@ class _TelaConsultaResponsavelState extends State<TelaConsultaResponsavel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Consultar responsável"),
-        backgroundColor: Colors.orange,
+    // RNFR-16.2 — dados pessoais dos responsáveis só para perfis autorizados
+    return GuardaPermissao(
+      titulo: "Consultar responsável",
+      motivo: "Os dados dos responsáveis têm acesso restrito e só podem "
+          "ser vistos por administradores.",
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Consultar responsável"),
+          backgroundColor: Colors.orange,
+        ),
+        body: _body(),
       ),
-      body: _body(),
     );
   }
 

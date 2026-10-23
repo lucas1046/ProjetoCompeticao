@@ -129,12 +129,18 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
       idCategoria: int.tryParse(_idCategoria ?? "0") ?? 0,
     );
 
-    ControlTime control = ControlTime();
-    int id = await control.insertDatabase(time);
+    try {
+      ControlTime control = ControlTime();
+      int id = await control.insertDatabase(time);
 
-    setState(() {
-      _resultado = "Time ${time.nomeTime} cadastrado! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Time ${time.nomeTime} cadastrado! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }
 

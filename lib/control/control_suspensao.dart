@@ -1,5 +1,6 @@
 import 'package:projeto_final/control/banco_dados.dart';
 import 'package:projeto_final/model/suspensao.dart';
+import 'package:projeto_final/util/validacoes.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ControlSuspensao {
@@ -9,9 +10,96 @@ class ControlSuspensao {
 
   factory ControlSuspensao() => _instancia;
 
+  // RNFR-12.1 — toda suspensão deve ter origem em um evento de partida
   Future<int> insertDatabase(Suspensao suspensao) async {
+    if (suspensao.idEvento <= 0) {
+      throw RegraNegocioException(
+        "A suspensão deve ser originada por um evento de partida.",
+      );
+    }
+
+    if (suspensao.motivo.trim().isEmpty) {
+      throw RegraNegocioException("Informe o motivo da suspensão.");
+    }
+
+    if (suspensao.qtdJogosSuspensao <= 0) {
+      throw RegraNegocioException(
+        "A quantidade de jogos de suspensão deve ser maior que zero.",
+      );
+    }
+
     Database banco = await BancoDados().db;
-    return await banco.insert("suspensao", suspensao.toMap());
+
+    List<Map<String, dynamic>> evento = await banco.query(
+      "evento_partida",
+      where: "id = ?",
+      whereArgs: [suspensao.idEvento],
+      limit: 1,
+    );
+    if (evento.isEmpty) {
+      throw RegraNegocioException(
+        "Evento de partida não encontrado. A suspensão precisa de uma origem.",
+      );
+    }
+
+    return await BancoDados().inserir("suspensao", suspensao.toMap());
+  }
+
+  // RNFR-12.2 — atualiza o status (cumprida/nao cumprida) de todas as
+  // suspensoes com base nas partidas disputadas pelo jogador depois da
+  // infração. Retorna quantas suspensoes foram dadas como cumpridas.
+  Future<int> atualizarSuspensoes() async {
+    Database banco = await BancoDados().db;
+
+    List<Map<String, dynamic>> pendentes = await banco.rawQuery(
+      "SELECT s.id AS id_suspensao, "
+      "s.qtd_jogos_suspensao AS qtd_jogos, "
+      "r.data AS data_infracao, "
+      "pjt.id_jogador AS id_jogador "
+      "FROM suspensao s "
+      "JOIN evento_partida ep ON s.id_evento = ep.id "
+      "JOIN escalacao e ON ep.id_escalacao = e.id "
+      "JOIN partida p ON e.id_partida = p.id "
+      "JOIN rodada r ON p.id_rodada = r.id "
+      "JOIN participacao_jogador_time pjt "
+      "ON e.id_participacao_jogador_time = pjt.id "
+      "WHERE s.cumprida = 0",
+    );
+
+    int atualizadas = 0;
+
+    for (Map<String, dynamic> suspensao in pendentes) {
+      int idSuspensao = suspensao['id_suspensao'] as int;
+      int qtdJogos = suspensao['qtd_jogos'] as int;
+      String dataInfracao = suspensao['data_infracao'];
+      int idJogador = suspensao['id_jogador'] as int;
+
+      // Partidas disputadas pelo jogador depois da data da infração
+      List<Map<String, dynamic>> jogos = await banco.rawQuery(
+        "SELECT COUNT(DISTINCT p2.id) AS total "
+        "FROM partida p2 "
+        "JOIN rodada r2 ON p2.id_rodada = r2.id "
+        "JOIN escalacao e2 ON e2.id_partida = p2.id "
+        "JOIN participacao_jogador_time pjt2 "
+        "ON e2.id_participacao_jogador_time = pjt2.id "
+        "WHERE pjt2.id_jogador = ? AND r2.data > ?",
+        [idJogador, dataInfracao],
+      );
+
+      int disputadas = jogos.first['total'] as int? ?? 0;
+
+      if (disputadas >= qtdJogos) {
+        await banco.update(
+          "suspensao",
+          {"cumprida": 1},
+          where: "id = ?",
+          whereArgs: [idSuspensao],
+        );
+        atualizadas++;
+      }
+    }
+
+    return atualizadas;
   }
 
   Future<List<Suspensao>> queryFind([String? motivo]) async {

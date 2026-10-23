@@ -126,11 +126,17 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
       valorInscricao: double.tryParse(_valorInscricao.text),
     );
 
-    ControlParticipacao control = ControlParticipacao();
-    int id = await control.insertDatabase(participacao);
+    try {
+      ControlParticipacao control = ControlParticipacao();
+      int id = await control.insertDatabase(participacao);
 
-    setState(() {
-      _resultado = "Inscrição cadastrada! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Inscrição cadastrada! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

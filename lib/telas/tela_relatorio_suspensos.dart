@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_relatorio.dart';
+import 'package:projeto_final/util/exportacao.dart';
+import 'package:projeto_final/util/gerador_pdf.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -12,7 +14,10 @@ class TelaRelatorioSuspensos extends StatefulWidget {
 
 class _TelaRelatorioSuspensosState extends State<TelaRelatorioSuspensos> {
   String _resultado = "";
+  String _avisoPdf = "";
   bool _carregando = false;
+  bool _exportando = false;
+  List<Map<String, dynamic>> _suspensos = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +35,16 @@ class _TelaRelatorioSuspensosState extends State<TelaRelatorioSuspensos> {
       padding: EdgeInsets.all(16),
       children: [
         Buttons("Gerar relatório", onPressed: _carregando ? null : () { _gerar(); }),
+        SizedBox(height: 12),
+        // RNFR-15.1 — exportacao do relatorio em PDF
+        Buttons(
+          "Exportar PDF",
+          onPressed: _exportando ? null : () { _exportarPdf(); },
+        ),
         SizedBox(height: 16),
-        if (_carregando) Center(child: CircularProgressIndicator()),
+        if (_carregando || _exportando) Center(child: CircularProgressIndicator()),
         TextosCustom(_resultado, 16, Colors.black),
+        if (_avisoPdf.isNotEmpty) TextosCustom(_avisoPdf, 16, Colors.green),
       ],
     );
   }
@@ -43,8 +55,17 @@ class _TelaRelatorioSuspensosState extends State<TelaRelatorioSuspensos> {
       _resultado = "";
     });
 
+    // RNFR-15.3 — medicao do tempo de geracao do relatorio
+    final cronometro = Stopwatch()..start();
+
     ControlRelatorio control = ControlRelatorio();
     List<Map<String, dynamic>> lista = await control.jogadoresSuspensos();
+
+    cronometro.stop();
+
+    setState(() {
+      _suspensos = lista;
+    });
 
     String texto = "JOGADOR              TIME        MOTIVO               JOGOS\n"
         "--------------------------------------------------------------\n";
@@ -62,9 +83,45 @@ class _TelaRelatorioSuspensosState extends State<TelaRelatorioSuspensos> {
       texto += "Nenhum jogador suspenso no momento.\n";
     }
 
+    texto += "\nRNFR-15.3 — gerado em ${cronometro.elapsedMilliseconds} ms\n";
+
     setState(() {
       _resultado = texto;
       _carregando = false;
     });
+  }
+
+  // RNFR-15.1 — gera o PDF, salva no dispositivo e abre o compartilhamento
+  Future _exportarPdf() async {
+    if (_suspensos.isEmpty) {
+      setState(() {
+        _avisoPdf = "Gere o relatório antes de exportar.";
+      });
+      return;
+    }
+
+    setState(() {
+      _exportando = true;
+      _avisoPdf = "";
+    });
+
+    try {
+      String caminho = await Exportacao.exportar(
+        gerar: () => GeradorPdf().jogadoresSuspensos(_suspensos),
+        nomeArquivo: Exportacao.nomeComData("suspensos"),
+      );
+
+      setState(() {
+        _avisoPdf = "PDF salvo em:\n$caminho";
+      });
+    } catch (e) {
+      setState(() {
+        _avisoPdf = "Erro ao exportar: $e";
+      });
+    } finally {
+      setState(() {
+        _exportando = false;
+      });
+    }
   }
 }

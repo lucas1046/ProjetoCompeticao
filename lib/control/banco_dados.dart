@@ -1,4 +1,7 @@
 import 'package:path/path.dart';
+import 'package:projeto_final/model/usuario.dart';
+import 'package:projeto_final/util/seguranca.dart';
+import 'package:projeto_final/util/validacoes.dart';
 import 'package:sqflite/sqflite.dart';
 
 /// Helper central do banco de dados SQLite.
@@ -11,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 1;
+  static const int _versao = 3;
 
   Database? _db;
 
@@ -31,12 +34,78 @@ class BancoDados {
     return await openDatabase(
       caminhoFinal,
       version: _versao,
-      onCreate: _criarTabelas,
+      onCreate: (db, version) async {
+        await _criarTabelas(db);
+        await _garantirAdmin(db);
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        // Migracao v1 -> v2: adiciona as constraints de unicidade
+        // (RNFR-01.2, 04.2, 06.2, 08.2, 10.1) como indices UNIQUE.
+        // As tabelas sao preservadas para nao apagar os dados ja cadastrados.
+        if (oldVersion < 2) {
+          await db.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_competicao_nome "
+            "ON competicao(nome)",
+          );
+          await db.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_categoria_nome "
+            "ON categoria(nome)",
+          );
+          await db.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_time_nome_escola_modalidade "
+            "ON time(nome_time, id_escola, id_modalidade, id_categoria)",
+          );
+          await db.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_participacao_jogador_time "
+            "ON participacao_jogador_time(id_jogador, id_time)",
+          );
+          await db.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_rodada_numero_competicao "
+            "ON rodada(numero, id_competicao)",
+          );
+          await db.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_escalacao_partida_jogador "
+            "ON escalacao(id_partida, id_participacao_jogador_time)",
+          );
+        }
+
+        // Migracao v2 -> v3: unicidade do vinculo tecnico/time (RNFR-07.1)
+        // e a tabela de usuarios para o controle de acesso (RNFR-15.2)
+        if (oldVersion < 3) {
+          await db.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_tecnico_time_unico "
+            "ON tecnico_time(id_tecnico, id_time)",
+          );
+          await db.execute(_sqlTabelaUsuario);
+          await _garantirAdmin(db);
+        }
+      },
     );
   }
 
-  // Cria todas as tabelas caso não existam
-  _criarTabelas(Database db, int version) async {
+  // Insere um registro ja traduzindo a violacao de unicidade (constraint
+  // UNIQUE do SQLite) para RegraNegocioException, evitando que a interface
+  // mostre o erro tecnico cru. As RNFRs que exigem unicidade tem uma
+  // checagem previa especifica; este helper garante a mensagem amigavel
+  // mesmo se dois cadastros concorrerem.
+  Future<int> inserir(String tabela, Map<String, dynamic> valores) async {
+    Database banco = await db;
+
+    try {
+      return await banco.insert(tabela, valores);
+    } on DatabaseException catch (e) {
+      if (e.isUniqueConstraintError()) {
+        throw RegraNegocioException(
+          'Registro duplicado: já existe um cadastro com estes dados.',
+        );
+      }
+      rethrow;
+    }
+  }
+
+  // Cria todas as tabelas com as constraints de integridade (RNFRs)
+  Future<void> _criarTabelas(Database db) async {
+    // RNFR-03.2 — imagem armazenada como caminho; tamanho validado na UI
     await db.execute(
       "CREATE TABLE IF NOT EXISTS foto_figurinha("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -44,6 +113,7 @@ class BancoDados {
       "data_upload DATE NOT NULL)",
     );
 
+    // RNFR-16.1 — CPF unico
     await db.execute(
       "CREATE TABLE IF NOT EXISTS responsavel("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -69,15 +139,16 @@ class BancoDados {
     await db.execute(
       "CREATE TABLE IF NOT EXISTS categoria("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-      "nome VARCHAR(50) NOT NULL, "
+      "nome VARCHAR(50) NOT NULL UNIQUE, "
       "idade_min INTEGER NOT NULL, "
       "idade_max INTEGER NOT NULL)",
     );
 
+    // RNFR-01.2 — nome da competição único
     await db.execute(
       "CREATE TABLE IF NOT EXISTS competicao("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-      "nome VARCHAR(150) NOT NULL, "
+      "nome VARCHAR(150) NOT NULL UNIQUE, "
       "cidade VARCHAR(100) NOT NULL, "
       "data_inicio DATE NOT NULL, "
       "data_fim DATE NOT NULL)",
@@ -101,6 +172,7 @@ class BancoDados {
       "id_foto INTEGER REFERENCES foto_figurinha(id) ON DELETE SET NULL)",
     );
 
+    // RNFR-05.1 — CPF unico
     await db.execute(
       "CREATE TABLE IF NOT EXISTS jogador("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -125,31 +197,38 @@ class BancoDados {
       "id_modalidade INTEGER NOT NULL REFERENCES modalidade(id) ON DELETE CASCADE)",
     );
 
+    // RNFR-08.2 — número da rodada único por competição
     await db.execute(
       "CREATE TABLE IF NOT EXISTS rodada("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
       "numero INTEGER NOT NULL, "
       "data DATE NOT NULL, "
-      "id_competicao INTEGER NOT NULL REFERENCES competicao(id) ON DELETE CASCADE)",
+      "id_competicao INTEGER NOT NULL REFERENCES competicao(id) ON DELETE CASCADE, "
+      "UNIQUE(numero, id_competicao))",
     );
 
+    // RNFR-04.2 — nome do time único por escola/modalidade/categoria
     await db.execute(
       "CREATE TABLE IF NOT EXISTS time("
       "id_time INTEGER PRIMARY KEY AUTOINCREMENT, "
       "id_modalidade INTEGER NOT NULL REFERENCES modalidade(id), "
       "id_escola INTEGER NOT NULL REFERENCES escola(id) ON DELETE CASCADE, "
       "id_categoria INTEGER NOT NULL REFERENCES categoria(id), "
-      "nome_time VARCHAR(100) NOT NULL)",
+      "nome_time VARCHAR(100) NOT NULL, "
+      "UNIQUE(nome_time, id_escola, id_modalidade, id_categoria))",
     );
 
+    // RNFR-07.1 — cada vinculo tecnico/time e unico (um tecnico pode ter varios)
     await db.execute(
       "CREATE TABLE IF NOT EXISTS tecnico_time("
       "id_tecnico_time INTEGER PRIMARY KEY AUTOINCREMENT, "
       "id_tecnico INTEGER NOT NULL REFERENCES tecnico(id) ON DELETE CASCADE, "
       "id_time INTEGER NOT NULL REFERENCES time(id_time) ON DELETE CASCADE, "
-      "id_foto INTEGER REFERENCES foto_figurinha(id) ON DELETE SET NULL)",
+      "id_foto INTEGER REFERENCES foto_figurinha(id) ON DELETE SET NULL, "
+      "UNIQUE(id_tecnico, id_time))",
     );
 
+    // RNFR-06.2 — jogador não se inscreve duas vezes no mesmo time
     await db.execute(
       "CREATE TABLE IF NOT EXISTS participacao_jogador_time("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -157,7 +236,8 @@ class BancoDados {
       "id_time INTEGER NOT NULL REFERENCES time(id_time) ON DELETE CASCADE, "
       "numero_camisa INTEGER, "
       "valor_inscricao REAL, "
-      "id_foto INTEGER REFERENCES foto_figurinha(id) ON DELETE SET NULL)",
+      "id_foto INTEGER REFERENCES foto_figurinha(id) ON DELETE SET NULL, "
+      "UNIQUE(id_jogador, id_time))",
     );
 
     await db.execute(
@@ -171,7 +251,6 @@ class BancoDados {
       "observacoes VARCHAR(255))",
     );
 
-    // A FK de id_escalacao_craque referencia escalacao, criada depois.
     await db.execute(
       "CREATE TABLE IF NOT EXISTS partida("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -185,6 +264,7 @@ class BancoDados {
       "id_escalacao_craque INTEGER)",
     );
 
+    // RNFR-10.1 — um jogador escalado uma única vez por partida
     await db.execute(
       "CREATE TABLE IF NOT EXISTS escalacao("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -193,7 +273,8 @@ class BancoDados {
       "numero_camisa INTEGER NOT NULL, "
       "id_posicao INTEGER NOT NULL REFERENCES posicao(id), "
       "id_participacao_jogador_time INTEGER NOT NULL "
-      "REFERENCES participacao_jogador_time(id))",
+      "REFERENCES participacao_jogador_time(id), "
+      "UNIQUE(id_partida, id_participacao_jogador_time))",
     );
 
     await db.execute(
@@ -213,5 +294,33 @@ class BancoDados {
       "qtd_jogos_suspensao INTEGER DEFAULT 1, "
       "cumprida INTEGER DEFAULT 0)",
     );
+
+    // RNFR-15.2 — usuarios e perfis para o controle de acesso
+    await db.execute(_sqlTabelaUsuario);
+  }
+
+  // RNFR-15.2 — tabela de usuarios (login, senha com hash e perfil)
+  static const String _sqlTabelaUsuario =
+      "CREATE TABLE IF NOT EXISTS usuario("
+      "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+      "login VARCHAR(50) NOT NULL UNIQUE, "
+      "senha_hash VARCHAR(255) NOT NULL, "
+      "perfil VARCHAR(20) NOT NULL DEFAULT 'USUARIO')";
+
+  // RNFR-15.2 — garante um administrador inicial para que o primeiro acesso
+  // ao sistema nao fique bloqueado. Login "admin" e senha "admin123".
+  Future<void> _garantirAdmin(Database db) async {
+    List<Map<String, dynamic>> resultado = await db.rawQuery(
+      "SELECT COUNT(*) AS total FROM usuario",
+    );
+    int total = resultado.first['total'] as int? ?? 0;
+
+    if (total == 0) {
+      await db.insert("usuario", {
+        "login": "admin",
+        "senha_hash": Seguranca.hashSenha("admin123"),
+        "perfil": Usuario.administrador,
+      });
+    }
   }
 }

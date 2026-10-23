@@ -42,11 +42,17 @@ class _TelaAdicionarModalidadeState extends State<TelaAdicionarModalidade> {
   Future<void> _registrar() async {
     Modalidade modalidade = Modalidade(nome: _nome.text);
 
-    ControlModalidade control = ControlModalidade();
-    int id = await control.insertDatabase(modalidade);
+    try {
+      ControlModalidade control = ControlModalidade();
+      int id = await control.insertDatabase(modalidade);
 
-    setState(() {
-      _resultado = "Modalidade ${modalidade.nome} cadastrada! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Modalidade ${modalidade.nome} cadastrada! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

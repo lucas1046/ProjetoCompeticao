@@ -69,11 +69,17 @@ class _TelaAdicionarEscolaState extends State<TelaAdicionarEscola> {
       telefone: _telefone.text,
     );
 
-    ControlEscola control = ControlEscola();
-    int id = await control.insertDatabase(escola);
+    try {
+      ControlEscola control = ControlEscola();
+      int id = await control.insertDatabase(escola);
 
-    setState(() {
-      _resultado = "Escola ${escola.nome} cadastrada! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Escola ${escola.nome} cadastrada! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

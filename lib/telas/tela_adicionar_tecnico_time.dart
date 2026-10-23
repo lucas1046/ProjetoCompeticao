@@ -101,11 +101,17 @@ class _TelaAdicionarTecnicoTimeState extends State<TelaAdicionarTecnicoTime> {
       idTime: int.tryParse(_idTime ?? "0") ?? 0,
     );
 
-    ControlTecnicoTime control = ControlTecnicoTime();
-    int id = await control.insertDatabase(tecnicoTime);
+    try {
+      ControlTecnicoTime control = ControlTecnicoTime();
+      int id = await control.insertDatabase(tecnicoTime);
 
-    setState(() {
-      _resultado = "Vínculo técnico/time cadastrado! (id: $id)";
-    });
+      setState(() {
+    _resultado = "Vínculo técnico/time cadastrado! (id: $id)";
+      });
+    } catch (e) {
+      setState(() {
+        _resultado = e.toString();
+      });
+    }
   }
 }

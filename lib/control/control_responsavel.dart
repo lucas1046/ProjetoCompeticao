@@ -1,5 +1,6 @@
 import 'package:projeto_final/control/banco_dados.dart';
 import 'package:projeto_final/model/responsavel.dart';
+import 'package:projeto_final/util/validacoes.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ControlResponsavel {
@@ -9,9 +10,17 @@ class ControlResponsavel {
 
   factory ControlResponsavel() => _instancia;
 
+  // RNFR-16.1 — valida o CPF do responsável
   Future<int> insertDatabase(Responsavel responsavel) async {
-    Database banco = await BancoDados().db;
-    return await banco.insert("responsavel", responsavel.toMap());
+    if (responsavel.nome.trim().isEmpty) {
+      throw RegraNegocioException("Informe o nome do responsável.");
+    }
+
+    if (!Validacoes.cpfValido(responsavel.cpf)) {
+      throw RegraNegocioException("CPF do responsável inválido.");
+    }
+
+    return await BancoDados().inserir("responsavel", responsavel.toMap());
   }
 
   Future<List<Responsavel>> queryFind([String? nome]) async {

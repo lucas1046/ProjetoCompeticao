@@ -1,5 +1,6 @@
 import 'package:projeto_final/control/banco_dados.dart';
 import 'package:projeto_final/model/escola.dart';
+import 'package:projeto_final/util/validacoes.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ControlEscola {
@@ -9,9 +10,22 @@ class ControlEscola {
 
   factory ControlEscola() => _instancia;
 
+  // RNFR-03.1 — campos obrigatorios da escola
   Future<int> insertDatabase(Escola escola) async {
-    Database banco = await BancoDados().db;
-    return await banco.insert("escola", escola.toMap());
+    if (escola.nome.trim().isEmpty) {
+      throw RegraNegocioException("Informe o nome da escola.");
+    }
+
+    // RNFR-03.1 — cidade e estado sao obrigatorios
+    if (escola.cidade.trim().isEmpty) {
+      throw RegraNegocioException("Informe a cidade da escola.");
+    }
+
+    if (escola.estado.trim().isEmpty) {
+      throw RegraNegocioException("Informe o estado da escola.");
+    }
+
+    return await BancoDados().inserir("escola", escola.toMap());
   }
 
   Future<List<Escola>> queryFind([String? nome]) async {

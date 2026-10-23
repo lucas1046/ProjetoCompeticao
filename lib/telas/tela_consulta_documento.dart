@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_documento.dart';
 import 'package:projeto_final/model/documento.dart';
+import 'package:projeto_final/util/guarda_permissao.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -18,12 +19,18 @@ class _TelaConsultaDocumentoState extends State<TelaConsultaDocumento> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Consultar documento"),
-        backgroundColor: Colors.orange,
+    // RNFR-05.2 — documentos pessoais só para usuarios autorizados
+    return GuardaPermissao(
+      titulo: "Consultar documento",
+      motivo: "Os documentos dos jogadores contêm dados pessoais e só "
+          "podem ser vistos por administradores.",
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Consultar documento"),
+          backgroundColor: Colors.orange,
+        ),
+        body: _body(),
       ),
-      body: _body(),
     );
   }
 
