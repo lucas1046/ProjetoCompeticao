@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_documento.dart';
-import 'package:projeto_final/model/documento.dart';
 import 'package:projeto_final/util/guarda_permissao.dart';
+import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -15,6 +15,7 @@ class TelaConsultaDocumento extends StatefulWidget {
 
 class _TelaConsultaDocumentoState extends State<TelaConsultaDocumento> {
   String textoPesquisa = "";
+  List<Map<String, dynamic>> _lista = [];
   final _inputPesquisa = TextEditingController();
 
   @override
@@ -44,22 +45,36 @@ class _TelaConsultaDocumentoState extends State<TelaConsultaDocumento> {
           controller: _inputPesquisa,
         ),
         Buttons("Pesquisar", onPressed: _pesquisar),
-        TextosCustom(textoPesquisa, 18, Colors.red),
+        SizedBox(height: 16),
+        if (_lista.isEmpty)
+          TextosCustom(
+            textoPesquisa.isEmpty
+                ? "Toque em pesquisar para listar os documentos."
+                : textoPesquisa,
+            18,
+            Colors.red,
+          )
+        else
+          ..._lista.map((d) => CartaoConsulta(
+                d['tipoDocumento'],
+                [
+                  "Jogador: ${d['nomeJogador']}",
+                  "Arquivo: ${d['caminhoArquivo']}",
+                ],
+                icone: Icons.description,
+              )),
       ],
     );
   }
 
   Future _pesquisar() async {
     ControlDocumento control = ControlDocumento();
-    List<Documento> lista = await control.queryFind(_inputPesquisa.text);
-
-    String texto = "";
-    for (Documento d in lista) {
-      texto += "${d.id} - ${d.tipoDocumento} - jogador: ${d.idJogador}\n";
-    }
+    List<Map<String, dynamic>> lista =
+        await control.queryFindDetalhado(_inputPesquisa.text);
 
     setState(() {
-      textoPesquisa = texto;
+      _lista = lista;
+      textoPesquisa = lista.isEmpty ? "Nenhum documento encontrado." : "";
     });
   }
 }

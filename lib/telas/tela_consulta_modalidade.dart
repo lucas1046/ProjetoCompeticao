@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_modalidade.dart';
 import 'package:projeto_final/model/modalidade.dart';
+import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -9,12 +10,12 @@ class TelaConsultaModalidade extends StatefulWidget {
   const TelaConsultaModalidade({super.key});
 
   @override
-  State<TelaConsultaModalidade> createState() =>
-      _TelaConsultaModalidadeState();
+  State<TelaConsultaModalidade> createState() => _TelaConsultaModalidadeState();
 }
 
 class _TelaConsultaModalidadeState extends State<TelaConsultaModalidade> {
   String textoPesquisa = "";
+  List<Modalidade> _lista = [];
   final _inputPesquisa = TextEditingController();
 
   @override
@@ -38,7 +39,21 @@ class _TelaConsultaModalidadeState extends State<TelaConsultaModalidade> {
           controller: _inputPesquisa,
         ),
         Buttons("Pesquisar", onPressed: _pesquisar),
-        TextosCustom(textoPesquisa, 18, Colors.red),
+        SizedBox(height: 16),
+        if (_lista.isEmpty)
+          TextosCustom(
+            textoPesquisa.isEmpty
+                ? "Toque em pesquisar para listar as modalidades."
+                : textoPesquisa,
+            18,
+            Colors.red,
+          )
+        else
+          ..._lista.map((m) => CartaoConsulta(
+                m.nome,
+                ["Id: ${m.id}"],
+                icone: Icons.sports_soccer,
+              )),
       ],
     );
   }
@@ -47,13 +62,9 @@ class _TelaConsultaModalidadeState extends State<TelaConsultaModalidade> {
     ControlModalidade control = ControlModalidade();
     List<Modalidade> lista = await control.queryFind(_inputPesquisa.text);
 
-    String texto = "";
-    for (Modalidade m in lista) {
-      texto += "${m.id} - ${m.nome}\n";
-    }
-
     setState(() {
-      textoPesquisa = texto;
+      _lista = lista;
+      textoPesquisa = lista.isEmpty ? "Nenhuma modalidade encontrada." : "";
     });
   }
 }

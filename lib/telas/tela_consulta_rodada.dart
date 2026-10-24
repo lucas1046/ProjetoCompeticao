@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_rodada.dart';
-import 'package:projeto_final/model/rodada.dart';
+import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -13,6 +13,7 @@ class TelaConsultaRodada extends StatefulWidget {
 
 class _TelaConsultaRodadaState extends State<TelaConsultaRodada> {
   String textoPesquisa = "";
+  List<Map<String, dynamic>> _lista = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,22 +31,36 @@ class _TelaConsultaRodadaState extends State<TelaConsultaRodada> {
       padding: EdgeInsets.all(16),
       children: [
         Buttons("Pesquisar", onPressed: _pesquisar),
-        TextosCustom(textoPesquisa, 18, Colors.red),
+        SizedBox(height: 16),
+        if (_lista.isEmpty)
+          TextosCustom(
+            textoPesquisa.isEmpty
+                ? "Toque em pesquisar para listar as rodadas."
+                : textoPesquisa,
+            18,
+            Colors.red,
+          )
+        else
+          ..._lista.map(_cartao),
       ],
+    );
+  }
+
+  Widget _cartao(Map<String, dynamic> r) {
+    return CartaoConsulta(
+      "Rodada ${r['numero']}",
+      ["${r['nomeCompeticao']} - Data: ${r['data']}"],
+      icone: Icons.calendar_month,
     );
   }
 
   Future _pesquisar() async {
     ControlRodada control = ControlRodada();
-    List<Rodada> lista = await control.queryFind();
-
-    String texto = "";
-    for (Rodada r in lista) {
-      texto += "${r.id} - rodada ${r.numero} - ${r.data} - competição: ${r.idCompeticao}\n";
-    }
+    List<Map<String, dynamic>> lista = await control.queryFindDetalhado();
 
     setState(() {
-      textoPesquisa = texto;
+      _lista = lista;
+      textoPesquisa = lista.isEmpty ? "Nenhuma rodada encontrada." : "";
     });
   }
 }

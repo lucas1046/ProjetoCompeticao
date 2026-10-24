@@ -67,7 +67,10 @@ void main() {
     await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
 
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Cadastrar').first);
+    // Card do menu -> tela de detalhe -> botao Cadastrar
+    await tester.tap(find.text('Competição'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Cadastrar'));
     await tester.pumpAndSettle();
 
     expect(find.byType(TelaAdicionarCompeticao), findsOneWidget);
@@ -80,7 +83,10 @@ void main() {
     await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
 
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Cadastrar').at(1));
+    // Card do menu -> tela de detalhe -> botao Cadastrar
+    await tester.tap(find.text('Modalidade'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(ElevatedButton, 'Cadastrar'));
     await tester.pumpAndSettle();
 
     expect(find.byType(TelaAdicionarModalidade), findsOneWidget);

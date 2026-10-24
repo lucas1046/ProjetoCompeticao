@@ -58,4 +58,18 @@ class ControlTecnicoTime {
       return TecnicoTime.fromMap(resultados[i]);
     });
   }
+
+  // Consulta detalhada: traz os nomes do técnico e do time em vez dos ids
+  Future<List<Map<String, dynamic>>> queryFindDetalhado() async {
+    Database banco = await BancoDados().db;
+
+    return await banco.rawQuery(
+      "SELECT tt.id_tecnico_time AS id, tec.nome AS nomeTecnico, "
+      "t.nome_time AS nomeTime "
+      "FROM tecnico_time tt "
+      "JOIN tecnico tec ON tt.id_tecnico = tec.id "
+      "JOIN time t ON tt.id_time = t.id_time "
+      "ORDER BY t.nome_time",
+    );
+  }
 }

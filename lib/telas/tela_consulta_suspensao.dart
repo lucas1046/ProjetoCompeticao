@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_suspensao.dart';
-import 'package:projeto_final/model/suspensao.dart';
+import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
-import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaConsultaSuspensao extends StatefulWidget {
@@ -14,7 +13,7 @@ class TelaConsultaSuspensao extends StatefulWidget {
 
 class _TelaConsultaSuspensaoState extends State<TelaConsultaSuspensao> {
   String textoPesquisa = "";
-  final _inputPesquisa = TextEditingController();
+  List<Map<String, dynamic>> _lista = [];
 
   @override
   Widget build(BuildContext context) {
@@ -31,29 +30,44 @@ class _TelaConsultaSuspensaoState extends State<TelaConsultaSuspensao> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        InputTextos(
-          "",
-          "Digite um motivo para pesquisa",
-          controller: _inputPesquisa,
-        ),
         Buttons("Pesquisar", onPressed: _pesquisar),
-        TextosCustom(textoPesquisa, 18, Colors.red),
+        SizedBox(height: 16),
+        if (_lista.isEmpty)
+          TextosCustom(
+            textoPesquisa.isEmpty
+                ? "Toque em pesquisar para listar as suspensões."
+                : textoPesquisa,
+            18,
+            Colors.red,
+          )
+        else
+          ..._lista.map(_cartao),
       ],
+    );
+  }
+
+  Widget _cartao(Map<String, dynamic> s) {
+    bool cumprida = s['cumprida'] == 1;
+
+    return CartaoConsulta(
+      s['motivo'] ?? "-",
+      [
+        "Jogador: ${s['nomeJogador']}",
+        "${s['tipoEvento']} - Minuto ${s['minuto']} - ${s['qtdJogos']} jogo(s)",
+      ],
+      selo: cumprida ? "CUMPRIDA" : "EM ABERTO",
+      corSelo: cumprida ? Colors.green : Colors.red,
+      icone: Icons.block,
     );
   }
 
   Future _pesquisar() async {
     ControlSuspensao control = ControlSuspensao();
-    List<Suspensao> lista = await control.queryFind(_inputPesquisa.text);
-
-    String texto = "";
-    for (Suspensao s in lista) {
-      texto += "${s.id} - ${s.motivo} - ${s.qtdJogosSuspensao} jogo(s) - "
-          "cumprida: ${s.cumprida ? 'Sim' : 'Não'}\n";
-    }
+    List<Map<String, dynamic>> lista = await control.queryFindDetalhado();
 
     setState(() {
-      textoPesquisa = texto;
+      _lista = lista;
+      textoPesquisa = lista.isEmpty ? "Nenhuma suspensão encontrada." : "";
     });
   }
 }

@@ -42,6 +42,7 @@ import 'package:projeto_final/telas/tela_consulta_tecnico.dart';
 import 'package:projeto_final/telas/tela_consulta_tecnico_time.dart';
 import 'package:projeto_final/telas/tela_consulta_time.dart';
 import 'package:projeto_final/telas/tela_consulta_tipo_evento.dart';
+import 'package:projeto_final/telas/tela_detalhe_entidade.dart';
 import 'package:projeto_final/telas/tela_login.dart';
 
 class Menu extends StatelessWidget {
@@ -139,10 +140,10 @@ class Menu extends StatelessWidget {
           () => TelaConsultaEvento()),
       _Opcao("Suspensão", Icons.block, () => TelaAdicionarSuspensao(),
           () => TelaConsultaSuspensao()),
-      _Opcao("Relatórios", Icons.assessment, () => Container(),
-          () => MenuRelatorios()),
-      _Opcao("Dados exemplo", Icons.science, () => Container(),
-          () => TelaDadosExemplo()),
+      _Opcao("Relatórios", Icons.assessment, null, null,
+          destinoDireto: () => MenuRelatorios()),
+      _Opcao("Dados exemplo", Icons.science, null, null,
+          destinoDireto: () => TelaDadosExemplo()),
     ];
 
     // RNFR-15.2, RNFR-05.2 e RNFR-16.2 — nao mostra no menu o que exige
@@ -157,49 +158,58 @@ class Menu extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
-        childAspectRatio: 1.2,
+        childAspectRatio: 1.0,
       ),
       itemCount: opcoesVisiveis.length,
       itemBuilder: (context, index) {
         final opcao = opcoesVisiveis[index];
         return Card(
           elevation: 3,
-          child: Padding(
-            padding: EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Icon(opcao.icone, size: 40, color: Colors.blue),
-                Text(
-                  opcao.titulo,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () => _abreTelas(ctx, opcao.abreCadastro()),
-                          child: Text("Cadastrar", style: TextStyle(fontSize: 12)),
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () => _abreTelas(ctx, opcao.abreConsulta()),
-                          child: Text("Consultar", style: TextStyle(fontSize: 12)),
-                        ),
-                      ),
-                    ],
+          child: InkWell(
+            // O card inteiro abre a tela de detalhe da entidade
+            onTap: () => _aoToqueCard(ctx, opcao),
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(opcao.icone, size: 44, color: Colors.blue),
+                  SizedBox(height: 12),
+                  Text(
+                    opcao.titulo,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                ),
-              ],
+                  SizedBox(height: 8),
+                  Text(
+                    "Toque para abrir",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
             ),
           ),
         );
       },
+    );
+  }
+
+  // Cards de CRUD abrem a tela de detalhe; os demais vão direto ao destino
+  _aoToqueCard(BuildContext ctx, _Opcao opcao) {
+    if (opcao.destinoDireto != null) {
+      _abreTelas(ctx, opcao.destinoDireto!());
+      return;
+    }
+
+    _abreTelas(
+      ctx,
+      TelaDetalheEntidade(
+        titulo: opcao.titulo,
+        icone: opcao.icone,
+        telaCadastro: opcao.abreCadastro!(),
+        telaConsulta: opcao.abreConsulta!(),
+      ),
     );
   }
 
@@ -225,9 +235,12 @@ class Menu extends StatelessWidget {
 class _Opcao {
   final String titulo;
   final IconData icone;
-  final Function() abreCadastro;
-  final Function() abreConsulta;
+  final Function()? abreCadastro;
+  final Function()? abreConsulta;
   final bool soAdministrador;
+
+  // Opcoes que nao sao CRUD (Relatorios, Dados exemplo) vao direto ao destino
+  final Function()? destinoDireto;
 
   _Opcao(
     this.titulo,
@@ -235,5 +248,6 @@ class _Opcao {
     this.abreCadastro,
     this.abreConsulta, {
     this.soAdministrador = false,
+    this.destinoDireto,
   });
 }

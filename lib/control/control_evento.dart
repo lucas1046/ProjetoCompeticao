@@ -57,6 +57,25 @@ class ControlEvento {
     return await BancoDados().inserir("evento_partida", evento.toMap());
   }
 
+  // Consulta detalhada: traz o tipo de evento e o jogador em vez dos ids
+  Future<List<Map<String, dynamic>>> queryFindDetalhado() async {
+    Database banco = await BancoDados().db;
+
+    return await banco.rawQuery(
+      "SELECT ep.id AS id, ep.minuto_evento AS minuto, "
+      "ep.descricao AS descricao, te.descricao AS tipoEvento, "
+      "j.nome AS nomeJogador, t.nome_time AS nomeTime "
+      "FROM evento_partida ep "
+      "JOIN tipo_evento te ON ep.id_tipo_evento = te.id "
+      "JOIN escalacao e ON ep.id_escalacao = e.id "
+      "JOIN participacao_jogador_time pjt "
+      "ON e.id_participacao_jogador_time = pjt.id "
+      "JOIN jogador j ON pjt.id_jogador = j.id "
+      "JOIN time t ON pjt.id_time = t.id_time "
+      "ORDER BY ep.minuto_evento",
+    );
+  }
+
   Future<List<EventoPartida>> queryFind() async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados =

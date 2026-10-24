@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_tecnico_time.dart';
-import 'package:projeto_final/model/tecnico_time.dart';
+import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -14,6 +14,7 @@ class TelaConsultaTecnicoTime extends StatefulWidget {
 
 class _TelaConsultaTecnicoTimeState extends State<TelaConsultaTecnicoTime> {
   String textoPesquisa = "";
+  List<Map<String, dynamic>> _lista = [];
 
   @override
   Widget build(BuildContext context) {
@@ -31,22 +32,33 @@ class _TelaConsultaTecnicoTimeState extends State<TelaConsultaTecnicoTime> {
       padding: EdgeInsets.all(16),
       children: [
         Buttons("Pesquisar", onPressed: _pesquisar),
-        TextosCustom(textoPesquisa, 18, Colors.red),
+        SizedBox(height: 16),
+        if (_lista.isEmpty)
+          TextosCustom(
+            textoPesquisa.isEmpty
+                ? "Toque em pesquisar para listar os vínculos."
+                : textoPesquisa,
+            18,
+            Colors.red,
+          )
+        else
+          ..._lista.map((v) => CartaoConsulta(
+                v['nomeTime'],
+                ["Técnico: ${v['nomeTecnico']}"],
+                icone: Icons.link,
+              )),
       ],
     );
   }
 
   Future _pesquisar() async {
     ControlTecnicoTime control = ControlTecnicoTime();
-    List<TecnicoTime> lista = await control.queryFind();
-
-    String texto = "";
-    for (TecnicoTime t in lista) {
-      texto += "${t.idTecnicoTime} - técnico: ${t.idTecnico} - time: ${t.idTime}\n";
-    }
+    List<Map<String, dynamic>> lista = await control.queryFindDetalhado();
 
     setState(() {
-      textoPesquisa = texto;
+      _lista = lista;
+      textoPesquisa =
+          lista.isEmpty ? "Nenhum técnico vinculado a time." : "";
     });
   }
 }

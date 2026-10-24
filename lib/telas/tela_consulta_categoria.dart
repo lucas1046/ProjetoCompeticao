@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_categoria.dart';
 import 'package:projeto_final/model/categoria.dart';
+import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -14,6 +15,7 @@ class TelaConsultaCategoria extends StatefulWidget {
 
 class _TelaConsultaCategoriaState extends State<TelaConsultaCategoria> {
   String textoPesquisa = "";
+  List<Categoria> _lista = [];
   final _inputPesquisa = TextEditingController();
 
   @override
@@ -37,7 +39,21 @@ class _TelaConsultaCategoriaState extends State<TelaConsultaCategoria> {
           controller: _inputPesquisa,
         ),
         Buttons("Pesquisar", onPressed: _pesquisar),
-        TextosCustom(textoPesquisa, 18, Colors.red),
+        SizedBox(height: 16),
+        if (_lista.isEmpty)
+          TextosCustom(
+            textoPesquisa.isEmpty
+                ? "Toque em pesquisar para listar as categorias."
+                : textoPesquisa,
+            18,
+            Colors.red,
+          )
+        else
+          ..._lista.map((c) => CartaoConsulta(
+                c.nome,
+                ["Faixa etária: ${c.idadeMin} a ${c.idadeMax} anos"],
+                icone: Icons.category,
+              )),
       ],
     );
   }
@@ -46,13 +62,9 @@ class _TelaConsultaCategoriaState extends State<TelaConsultaCategoria> {
     ControlCategoria control = ControlCategoria();
     List<Categoria> lista = await control.queryFind(_inputPesquisa.text);
 
-    String texto = "";
-    for (Categoria c in lista) {
-      texto += "${c.id} - ${c.nome} (${c.idadeMin} a ${c.idadeMax} anos)\n";
-    }
-
     setState(() {
-      textoPesquisa = texto;
+      _lista = lista;
+      textoPesquisa = lista.isEmpty ? "Nenhuma categoria encontrada." : "";
     });
   }
 }

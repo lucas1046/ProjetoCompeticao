@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_competicao.dart';
 import 'package:projeto_final/model/competicao.dart';
+import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -14,6 +15,7 @@ class TelaConsultaCompeticao extends StatefulWidget {
 
 class _TelaConsultaCompeticaoState extends State<TelaConsultaCompeticao> {
   String textoPesquisa = "";
+  List<Competicao> _lista = [];
   final _inputPesquisa = TextEditingController();
 
   @override
@@ -37,7 +39,24 @@ class _TelaConsultaCompeticaoState extends State<TelaConsultaCompeticao> {
           controller: _inputPesquisa,
         ),
         Buttons("Pesquisar", onPressed: _pesquisar),
-        TextosCustom(textoPesquisa, 18, Colors.red),
+        SizedBox(height: 16),
+        if (_lista.isEmpty)
+          TextosCustom(
+            textoPesquisa.isEmpty
+                ? "Toque em pesquisar para listar as competições."
+                : textoPesquisa,
+            18,
+            Colors.red,
+          )
+        else
+          ..._lista.map((c) => CartaoConsulta(
+                c.nome,
+                [
+                  "Cidade: ${c.cidade}",
+                  "De ${c.dataInicio} até ${c.dataFim}",
+                ],
+                icone: Icons.emoji_events,
+              )),
       ],
     );
   }
@@ -46,14 +65,9 @@ class _TelaConsultaCompeticaoState extends State<TelaConsultaCompeticao> {
     ControlCompeticao control = ControlCompeticao();
     List<Competicao> lista = await control.queryFind(_inputPesquisa.text);
 
-    String texto = "";
-    for (Competicao c in lista) {
-      texto +=
-          "${c.id} - ${c.nome} - ${c.cidade} - ${c.dataInicio} - ${c.dataFim}\n";
-    }
-
     setState(() {
-      textoPesquisa = texto;
+      _lista = lista;
+      textoPesquisa = lista.isEmpty ? "Nenhuma competição encontrada." : "";
     });
   }
 }

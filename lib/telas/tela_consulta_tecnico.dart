@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_tecnico.dart';
 import 'package:projeto_final/model/tecnico.dart';
+import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -14,6 +15,7 @@ class TelaConsultaTecnico extends StatefulWidget {
 
 class _TelaConsultaTecnicoState extends State<TelaConsultaTecnico> {
   String textoPesquisa = "";
+  List<Tecnico> _lista = [];
   final _inputPesquisa = TextEditingController();
 
   @override
@@ -37,7 +39,24 @@ class _TelaConsultaTecnicoState extends State<TelaConsultaTecnico> {
           controller: _inputPesquisa,
         ),
         Buttons("Pesquisar", onPressed: _pesquisar),
-        TextosCustom(textoPesquisa, 18, Colors.red),
+        SizedBox(height: 16),
+        if (_lista.isEmpty)
+          TextosCustom(
+            textoPesquisa.isEmpty
+                ? "Toque em pesquisar para listar os técnicos."
+                : textoPesquisa,
+            18,
+            Colors.red,
+          )
+        else
+          ..._lista.map((t) => CartaoConsulta(
+                t.nome,
+                [
+                  if (t.telefone.trim().isNotEmpty) "Telefone: ${t.telefone}",
+                  if (t.email.trim().isNotEmpty) "E-mail: ${t.email}",
+                ],
+                icone: Icons.escalator_warning,
+              )),
       ],
     );
   }
@@ -46,13 +65,9 @@ class _TelaConsultaTecnicoState extends State<TelaConsultaTecnico> {
     ControlTecnico control = ControlTecnico();
     List<Tecnico> lista = await control.queryFind(_inputPesquisa.text);
 
-    String texto = "";
-    for (Tecnico t in lista) {
-      texto += "${t.id} - ${t.nome} - ${t.telefone}\n";
-    }
-
     setState(() {
-      textoPesquisa = texto;
+      _lista = lista;
+      textoPesquisa = lista.isEmpty ? "Nenhum técnico encontrado." : "";
     });
   }
 }

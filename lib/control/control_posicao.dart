@@ -31,4 +31,25 @@ class ControlPosicao {
       return Posicao.fromMap(resultados[i]);
     });
   }
+
+  // Consulta detalhada: traz o nome da modalidade em vez do id
+  Future<List<Map<String, dynamic>>> queryFindDetalhado([String? nome]) async {
+    Database banco = await BancoDados().db;
+
+    String sql = "SELECT p.id AS id, p.nome AS nome, "
+        "m.nome AS nomeModalidade "
+        "FROM posicao p "
+        "JOIN modalidade m ON p.id_modalidade = m.id";
+
+    List<dynamic> args = [];
+
+    if (nome != null && nome.isNotEmpty) {
+      sql += " WHERE p.nome LIKE ?";
+      args.add("%$nome%");
+    }
+
+    sql += " ORDER BY p.nome";
+
+    return await banco.rawQuery(sql, args);
+  }
 }

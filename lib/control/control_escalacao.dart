@@ -79,6 +79,23 @@ class ControlEscalacao {
     return id;
   }
 
+  // Consulta detalhada: traz o jogador, o time e a partida em vez dos ids
+  Future<List<Map<String, dynamic>>> queryFindDetalhado() async {
+    Database banco = await BancoDados().db;
+
+    return await banco.rawQuery(
+      "SELECT e.id AS id, e.numero_camisa AS numeroCamisa, "
+      "e.titular AS titular, j.nome AS nomeJogador, "
+      "t.nome_time AS nomeTime, e.id_partida AS idPartida "
+      "FROM escalacao e "
+      "JOIN participacao_jogador_time pjt "
+      "ON e.id_participacao_jogador_time = pjt.id "
+      "JOIN jogador j ON pjt.id_jogador = j.id "
+      "JOIN time t ON pjt.id_time = t.id_time "
+      "ORDER BY e.id_partida, e.numero_camisa",
+    );
+  }
+
   Future<List<Escalacao>> queryFind() async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados = await banco.query("escalacao");

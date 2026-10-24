@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_pagamento.dart';
-import 'package:projeto_final/model/pagamento_inscricao.dart';
+import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -13,6 +13,7 @@ class TelaConsultaPagamento extends StatefulWidget {
 
 class _TelaConsultaPagamentoState extends State<TelaConsultaPagamento> {
   String textoPesquisa = "";
+  List<Map<String, dynamic>> _lista = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,23 +31,43 @@ class _TelaConsultaPagamentoState extends State<TelaConsultaPagamento> {
       padding: EdgeInsets.all(16),
       children: [
         Buttons("Pesquisar", onPressed: _pesquisar),
-        TextosCustom(textoPesquisa, 18, Colors.red),
+        SizedBox(height: 16),
+        if (_lista.isEmpty)
+          TextosCustom(
+            textoPesquisa.isEmpty
+                ? "Toque em pesquisar para listar os pagamentos."
+                : textoPesquisa,
+            18,
+            Colors.red,
+          )
+        else
+          ..._lista.map(_cartao),
       ],
+    );
+  }
+
+  Widget _cartao(Map<String, dynamic> p) {
+    double valor = (p['valorPago'] as num?)?.toDouble() ?? 0;
+
+    return CartaoConsulta(
+      p['nomeJogador'] ?? "-",
+      [
+        "Time: ${p['nomeTime']} - Camisa: ${p['numeroCamisa']}",
+        "Forma: ${p['formaPagamento']} - Data: ${p['dataPagamento']}",
+      ],
+      selo: "R\$ ${valor.toStringAsFixed(2)}",
+      corSelo: Colors.green,
+      icone: Icons.payments,
     );
   }
 
   Future _pesquisar() async {
     ControlPagamento control = ControlPagamento();
-    List<PagamentoInscricao> lista = await control.queryFind();
-
-    String texto = "";
-    for (PagamentoInscricao p in lista) {
-      texto +=
-          "${p.id} - R\$ ${p.valorPago} - ${p.formaPagamento} - ${p.dataPagamento}\n";
-    }
+    List<Map<String, dynamic>> lista = await control.queryFindDetalhado();
 
     setState(() {
-      textoPesquisa = texto;
+      _lista = lista;
+      textoPesquisa = lista.isEmpty ? "Nenhum pagamento encontrado." : "";
     });
   }
 }

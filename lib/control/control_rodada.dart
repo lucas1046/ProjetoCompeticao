@@ -71,4 +71,17 @@ class ControlRodada {
       return Rodada.fromMap(resultados[i]);
     });
   }
+
+  // Consulta detalhada: traz o nome da competição em vez do id
+  Future<List<Map<String, dynamic>>> queryFindDetalhado() async {
+    Database banco = await BancoDados().db;
+
+    return await banco.rawQuery(
+      "SELECT r.id AS id, r.numero AS numero, r.data AS data, "
+      "c.nome AS nomeCompeticao "
+      "FROM rodada r "
+      "JOIN competicao c ON r.id_competicao = c.id "
+      "ORDER BY c.nome, r.numero",
+    );
+  }
 }

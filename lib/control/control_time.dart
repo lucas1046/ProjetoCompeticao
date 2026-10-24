@@ -64,4 +64,29 @@ class ControlTime {
       return Time.fromMap(resultados[i]);
     });
   }
+
+  // Consulta detalhada: traz os nomes de escola, modalidade e categoria em
+  // vez dos ids, para a tela de consulta
+  Future<List<Map<String, dynamic>>> queryFindDetalhado([String? nome]) async {
+    Database banco = await BancoDados().db;
+
+    String sql = "SELECT t.id_time AS idTime, t.nome_time AS nomeTime, "
+        "e.nome AS nomeEscola, m.nome AS nomeModalidade, "
+        "c.nome AS nomeCategoria "
+        "FROM time t "
+        "JOIN escola e ON t.id_escola = e.id "
+        "JOIN modalidade m ON t.id_modalidade = m.id "
+        "JOIN categoria c ON t.id_categoria = c.id";
+
+    List<dynamic> args = [];
+
+    if (nome != null && nome.isNotEmpty) {
+      sql += " WHERE t.nome_time LIKE ?";
+      args.add("%$nome%");
+    }
+
+    sql += " ORDER BY t.nome_time";
+
+    return await banco.rawQuery(sql, args);
+  }
 }

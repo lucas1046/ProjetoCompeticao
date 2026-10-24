@@ -63,4 +63,26 @@ class ControlJogador {
       return Jogador.fromMap(resultados[i]);
     });
   }
+
+  // Consulta detalhada: traz o nome do responsável em vez do id
+  Future<List<Map<String, dynamic>>> queryFindDetalhado([String? nome]) async {
+    Database banco = await BancoDados().db;
+
+    String sql = "SELECT j.id AS id, j.cpf AS cpf, j.nome AS nome, "
+        "j.data_nascimento AS dataNascimento, "
+        "r.nome AS nomeResponsavel, r.telefone AS telefoneResponsavel "
+        "FROM jogador j "
+        "LEFT JOIN responsavel r ON j.id_responsavel = r.id";
+
+    List<dynamic> args = [];
+
+    if (nome != null && nome.isNotEmpty) {
+      sql += " WHERE j.nome LIKE ?";
+      args.add("%$nome%");
+    }
+
+    sql += " ORDER BY j.nome";
+
+    return await banco.rawQuery(sql, args);
+  }
 }

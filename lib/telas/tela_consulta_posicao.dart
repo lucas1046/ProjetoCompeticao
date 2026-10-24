@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_posicao.dart';
-import 'package:projeto_final/model/posicao.dart';
+import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -14,6 +14,7 @@ class TelaConsultaPosicao extends StatefulWidget {
 
 class _TelaConsultaPosicaoState extends State<TelaConsultaPosicao> {
   String textoPesquisa = "";
+  List<Map<String, dynamic>> _lista = [];
   final _inputPesquisa = TextEditingController();
 
   @override
@@ -37,22 +38,33 @@ class _TelaConsultaPosicaoState extends State<TelaConsultaPosicao> {
           controller: _inputPesquisa,
         ),
         Buttons("Pesquisar", onPressed: _pesquisar),
-        TextosCustom(textoPesquisa, 18, Colors.red),
+        SizedBox(height: 16),
+        if (_lista.isEmpty)
+          TextosCustom(
+            textoPesquisa.isEmpty
+                ? "Toque em pesquisar para listar as posições."
+                : textoPesquisa,
+            18,
+            Colors.red,
+          )
+        else
+          ..._lista.map((p) => CartaoConsulta(
+                p['nome'],
+                ["Modalidade: ${p['nomeModalidade']}"],
+                icone: Icons.pan_tool,
+              )),
       ],
     );
   }
 
   Future _pesquisar() async {
     ControlPosicao control = ControlPosicao();
-    List<Posicao> lista = await control.queryFind(_inputPesquisa.text);
-
-    String texto = "";
-    for (Posicao p in lista) {
-      texto += "${p.id} - ${p.nome} (modalidade: ${p.idModalidade})\n";
-    }
+    List<Map<String, dynamic>> lista =
+        await control.queryFindDetalhado(_inputPesquisa.text);
 
     setState(() {
-      textoPesquisa = texto;
+      _lista = lista;
+      textoPesquisa = lista.isEmpty ? "Nenhuma posição encontrada." : "";
     });
   }
 }

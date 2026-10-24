@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_foto.dart';
 import 'package:projeto_final/model/foto_figurinha.dart';
+import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -14,6 +15,7 @@ class TelaConsultaFoto extends StatefulWidget {
 
 class _TelaConsultaFotoState extends State<TelaConsultaFoto> {
   String textoPesquisa = "";
+  List<FotoFigurinha> _lista = [];
   final _inputPesquisa = TextEditingController();
 
   @override
@@ -37,7 +39,21 @@ class _TelaConsultaFotoState extends State<TelaConsultaFoto> {
           controller: _inputPesquisa,
         ),
         Buttons("Pesquisar", onPressed: _pesquisar),
-        TextosCustom(textoPesquisa, 18, Colors.red),
+        SizedBox(height: 16),
+        if (_lista.isEmpty)
+          TextosCustom(
+            textoPesquisa.isEmpty
+                ? "Toque em pesquisar para listar as fotos."
+                : textoPesquisa,
+            18,
+            Colors.red,
+          )
+        else
+          ..._lista.map((f) => CartaoConsulta(
+                f.caminhoArquivo,
+                ["Enviada em: ${f.dataUpload}", "Id: ${f.id}"],
+                icone: Icons.photo_camera,
+              )),
       ],
     );
   }
@@ -46,13 +62,9 @@ class _TelaConsultaFotoState extends State<TelaConsultaFoto> {
     ControlFoto control = ControlFoto();
     List<FotoFigurinha> lista = await control.queryFind(_inputPesquisa.text);
 
-    String texto = "";
-    for (FotoFigurinha f in lista) {
-      texto += "${f.id} - ${f.caminhoArquivo} - ${f.dataUpload}\n";
-    }
-
     setState(() {
-      textoPesquisa = texto;
+      _lista = lista;
+      textoPesquisa = lista.isEmpty ? "Nenhuma foto encontrada." : "";
     });
   }
 }

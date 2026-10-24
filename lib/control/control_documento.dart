@@ -31,4 +31,25 @@ class ControlDocumento {
       return Documento.fromMap(resultados[i]);
     });
   }
+
+  // Consulta detalhada: traz o nome do jogador em vez do id
+  Future<List<Map<String, dynamic>>> queryFindDetalhado([String? tipo]) async {
+    Database banco = await BancoDados().db;
+
+    String sql = "SELECT d.id AS id, d.tipo_documento AS tipoDocumento, "
+        "d.caminho_arquivo AS caminhoArquivo, j.nome AS nomeJogador "
+        "FROM documento d "
+        "JOIN jogador j ON d.id_jogador = j.id";
+
+    List<dynamic> args = [];
+
+    if (tipo != null && tipo.isNotEmpty) {
+      sql += " WHERE d.tipo_documento LIKE ?";
+      args.add("%$tipo%");
+    }
+
+    sql += " ORDER BY j.nome";
+
+    return await banco.rawQuery(sql, args);
+  }
 }

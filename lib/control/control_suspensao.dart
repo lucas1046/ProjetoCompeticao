@@ -45,6 +45,26 @@ class ControlSuspensao {
     return await BancoDados().inserir("suspensao", suspensao.toMap());
   }
 
+  // Consulta detalhada: traz o jogador e o tipo de evento em vez dos ids
+  Future<List<Map<String, dynamic>>> queryFindDetalhado() async {
+    Database banco = await BancoDados().db;
+
+    return await banco.rawQuery(
+      "SELECT s.id AS id, s.motivo AS motivo, "
+      "s.qtd_jogos_suspensao AS qtdJogos, s.cumprida AS cumprida, "
+      "j.nome AS nomeJogador, te.descricao AS tipoEvento, "
+      "ep.minuto_evento AS minuto "
+      "FROM suspensao s "
+      "JOIN evento_partida ep ON s.id_evento = ep.id "
+      "JOIN tipo_evento te ON ep.id_tipo_evento = te.id "
+      "JOIN escalacao e ON ep.id_escalacao = e.id "
+      "JOIN participacao_jogador_time pjt "
+      "ON e.id_participacao_jogador_time = pjt.id "
+      "JOIN jogador j ON pjt.id_jogador = j.id "
+      "ORDER BY j.nome",
+    );
+  }
+
   // RNFR-12.2 — atualiza o status (cumprida/nao cumprida) de todas as
   // suspensoes com base nas partidas disputadas pelo jogador depois da
   // infração. Retorna quantas suspensoes foram dadas como cumpridas.

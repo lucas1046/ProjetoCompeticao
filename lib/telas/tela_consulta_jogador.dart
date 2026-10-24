@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_jogador.dart';
-import 'package:projeto_final/model/jogador.dart';
+import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -14,6 +14,7 @@ class TelaConsultaJogador extends StatefulWidget {
 
 class _TelaConsultaJogadorState extends State<TelaConsultaJogador> {
   String textoPesquisa = "";
+  List<Map<String, dynamic>> _lista = [];
   final _inputPesquisa = TextEditingController();
 
   @override
@@ -37,22 +38,37 @@ class _TelaConsultaJogadorState extends State<TelaConsultaJogador> {
           controller: _inputPesquisa,
         ),
         Buttons("Pesquisar", onPressed: _pesquisar),
-        TextosCustom(textoPesquisa, 18, Colors.red),
+        SizedBox(height: 16),
+        if (_lista.isEmpty)
+          TextosCustom(
+            textoPesquisa.isEmpty
+                ? "Toque em pesquisar para listar os jogadores."
+                : textoPesquisa,
+            18,
+            Colors.red,
+          )
+        else
+          ..._lista.map((j) => CartaoConsulta(
+                j['nome'],
+                [
+                  "CPF: ${j['cpf']}",
+                  "Nascimento: ${j['dataNascimento']}",
+                  "Responsável: ${j['nomeResponsavel'] ?? '-'}",
+                ],
+                icone: Icons.person,
+              )),
       ],
     );
   }
 
   Future _pesquisar() async {
     ControlJogador control = ControlJogador();
-    List<Jogador> lista = await control.queryFind(_inputPesquisa.text);
-
-    String texto = "";
-    for (Jogador j in lista) {
-      texto += "${j.id} - ${j.nome} - ${j.cpf} - responsável: ${j.idResponsavel}\n";
-    }
+    List<Map<String, dynamic>> lista =
+        await control.queryFindDetalhado(_inputPesquisa.text);
 
     setState(() {
-      textoPesquisa = texto;
+      _lista = lista;
+      textoPesquisa = lista.isEmpty ? "Nenhum jogador encontrado." : "";
     });
   }
 }
