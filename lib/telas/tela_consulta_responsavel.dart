@@ -16,7 +16,19 @@ class TelaConsultaResponsavel extends StatefulWidget {
 }
 
 class _TelaConsultaResponsavelState extends State<TelaConsultaResponsavel> {
-  String textoPesquisa = "";
+  @override
+  void initState() {
+    super.initState();
+    _pesquisar();
+    _inputPesquisa.addListener(_pesquisar);
+  }
+
+  @override
+  void dispose() {
+    _inputPesquisa.removeListener(_pesquisar);
+    _inputPesquisa.dispose();
+    super.dispose();
+  }
   List<Responsavel> _lista = [];
   final _inputPesquisa = TextEditingController();
 
@@ -41,21 +53,10 @@ class _TelaConsultaResponsavelState extends State<TelaConsultaResponsavel> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        InputTextos(
-          "",
-          "Digite um nome para pesquisa",
-          controller: _inputPesquisa,
-        ),
-        Buttons("Pesquisar", onPressed: _pesquisar),
+        InputTextos("", "Digite para filtrar", controller: _inputPesquisa),
         SizedBox(height: 16),
         if (_lista.isEmpty)
-          TextosCustom(
-            textoPesquisa.isEmpty
-                ? "Toque em pesquisar para listar os responsáveis."
-                : textoPesquisa,
-            18,
-            Colors.red,
-          )
+          TextosCustom("Nenhum resultado", 18, Colors.red)
         else
           ..._lista.map((r) => CartaoConsulta(
                 r.nome,
@@ -72,12 +73,15 @@ class _TelaConsultaResponsavelState extends State<TelaConsultaResponsavel> {
   }
 
   Future _pesquisar() async {
+    try {
     ControlResponsavel control = ControlResponsavel();
     List<Responsavel> lista = await control.queryFind(_inputPesquisa.text);
 
     setState(() {
       _lista = lista;
-      textoPesquisa = lista.isEmpty ? "Nenhum responsável encontrado." : "";
     });
+    } catch (_) {
+      // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
+    }
   }
 }

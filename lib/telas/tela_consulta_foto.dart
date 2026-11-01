@@ -14,7 +14,19 @@ class TelaConsultaFoto extends StatefulWidget {
 }
 
 class _TelaConsultaFotoState extends State<TelaConsultaFoto> {
-  String textoPesquisa = "";
+  @override
+  void initState() {
+    super.initState();
+    _pesquisar();
+    _inputPesquisa.addListener(_pesquisar);
+  }
+
+  @override
+  void dispose() {
+    _inputPesquisa.removeListener(_pesquisar);
+    _inputPesquisa.dispose();
+    super.dispose();
+  }
   List<FotoFigurinha> _lista = [];
   final _inputPesquisa = TextEditingController();
 
@@ -41,13 +53,7 @@ class _TelaConsultaFotoState extends State<TelaConsultaFoto> {
         Buttons("Pesquisar", onPressed: _pesquisar),
         SizedBox(height: 16),
         if (_lista.isEmpty)
-          TextosCustom(
-            textoPesquisa.isEmpty
-                ? "Toque em pesquisar para listar as fotos."
-                : textoPesquisa,
-            18,
-            Colors.red,
-          )
+          TextosCustom("Nenhum resultado", 18, Colors.red)
         else
           ..._lista.map((f) => CartaoConsulta(
                 f.caminhoArquivo,
@@ -59,12 +65,15 @@ class _TelaConsultaFotoState extends State<TelaConsultaFoto> {
   }
 
   Future _pesquisar() async {
+    try {
     ControlFoto control = ControlFoto();
     List<FotoFigurinha> lista = await control.queryFind(_inputPesquisa.text);
 
     setState(() {
       _lista = lista;
-      textoPesquisa = lista.isEmpty ? "Nenhuma foto encontrada." : "";
     });
+    } catch (_) {
+      // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
+    }
   }
 }

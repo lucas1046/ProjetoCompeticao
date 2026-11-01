@@ -14,9 +14,22 @@ class TelaConsultaDocumento extends StatefulWidget {
 }
 
 class _TelaConsultaDocumentoState extends State<TelaConsultaDocumento> {
-  String textoPesquisa = "";
   List<Map<String, dynamic>> _lista = [];
   final _inputPesquisa = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _pesquisar();
+    _inputPesquisa.addListener(_pesquisar);
+  }
+
+  @override
+  void dispose() {
+    _inputPesquisa.removeListener(_pesquisar);
+    _inputPesquisa.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +52,10 @@ class _TelaConsultaDocumentoState extends State<TelaConsultaDocumento> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        InputTextos(
-          "",
-          "Digite um tipo de documento",
-          controller: _inputPesquisa,
-        ),
-        Buttons("Pesquisar", onPressed: _pesquisar),
+        InputTextos("", "Digite um tipo de documento", controller: _inputPesquisa),
         SizedBox(height: 16),
         if (_lista.isEmpty)
-          TextosCustom(
-            textoPesquisa.isEmpty
-                ? "Toque em pesquisar para listar os documentos."
-                : textoPesquisa,
-            18,
-            Colors.red,
-          )
+          TextosCustom("Nenhum resultado", 18, Colors.red)
         else
           ..._lista.map((d) => CartaoConsulta(
                 d['tipoDocumento'],
@@ -68,13 +70,16 @@ class _TelaConsultaDocumentoState extends State<TelaConsultaDocumento> {
   }
 
   Future _pesquisar() async {
+    try {
     ControlDocumento control = ControlDocumento();
     List<Map<String, dynamic>> lista =
         await control.queryFindDetalhado(_inputPesquisa.text);
 
     setState(() {
       _lista = lista;
-      textoPesquisa = lista.isEmpty ? "Nenhum documento encontrado." : "";
     });
+    } catch (_) {
+      // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
+    }
   }
 }

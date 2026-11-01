@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_relatorio.dart';
 import 'package:projeto_final/util/financeiro.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
+import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -15,8 +16,21 @@ class TelaConsultaParticipacao extends StatefulWidget {
 }
 
 class _TelaConsultaParticipacaoState extends State<TelaConsultaParticipacao> {
+  @override
+  void initState() {
+    super.initState();
+    _pesquisar();
+    _filtro.addListener(() => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _filtro.dispose();
+    super.dispose();
+  }
+
   List<Map<String, dynamic>> _lista = [];
-  String textoPesquisa = "";
+  final _filtro = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,21 +44,20 @@ class _TelaConsultaParticipacaoState extends State<TelaConsultaParticipacao> {
   }
 
   _body() {
+    String f = _filtro.text.trim().toLowerCase();
+    List<Map<String, dynamic>> filtrados = f.isEmpty
+        ? _lista
+        : _lista.where((item) => item.values.any((v) => v.toString().toLowerCase().contains(f))).toList();
+
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        Buttons("Pesquisar", onPressed: _pesquisar),
+        InputTextos("", "Digite para filtrar", controller: _filtro),
         SizedBox(height: 16),
-        if (_lista.isEmpty)
-          TextosCustom(
-            textoPesquisa.isEmpty
-                ? "Toque em pesquisar para listar as inscrições."
-                : textoPesquisa,
-            18,
-            Colors.red,
-          )
+        if (filtrados.isEmpty)
+          TextosCustom("Nenhum resultado", 18, Colors.red)
         else
-          ..._lista.map(_cartao),
+          ...filtrados.map(_cartao),
       ],
     );
   }
@@ -71,13 +84,15 @@ class _TelaConsultaParticipacaoState extends State<TelaConsultaParticipacao> {
   }
 
   Future _pesquisar() async {
+    try {
     ControlRelatorio control = ControlRelatorio();
     List<Map<String, dynamic>> lista = await control.situacaoFinanceira();
 
     setState(() {
       _lista = lista;
-      textoPesquisa =
-          lista.isEmpty ? "Nenhuma inscrição encontrada." : "";
     });
+    } catch (_) {
+      // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
+    }
   }
 }

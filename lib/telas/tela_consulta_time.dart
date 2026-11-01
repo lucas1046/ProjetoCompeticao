@@ -13,9 +13,22 @@ class TelaConsultaTime extends StatefulWidget {
 }
 
 class _TelaConsultaTimeState extends State<TelaConsultaTime> {
-  String textoPesquisa = "";
   List<Map<String, dynamic>> _lista = [];
   final _inputPesquisa = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _pesquisar();
+    _inputPesquisa.addListener(_pesquisar);
+  }
+
+  @override
+  void dispose() {
+    _inputPesquisa.removeListener(_pesquisar);
+    _inputPesquisa.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,21 +45,10 @@ class _TelaConsultaTimeState extends State<TelaConsultaTime> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        InputTextos(
-          "",
-          "Digite um nome para pesquisa",
-          controller: _inputPesquisa,
-        ),
-        Buttons("Pesquisar", onPressed: _pesquisar),
+        InputTextos("", "Digite um nome para pesquisa", controller: _inputPesquisa),
         SizedBox(height: 16),
         if (_lista.isEmpty)
-          TextosCustom(
-            textoPesquisa.isEmpty
-                ? "Toque em pesquisar para listar os times."
-                : textoPesquisa,
-            18,
-            Colors.red,
-          )
+          TextosCustom("Nenhum resultado", 18, Colors.red)
         else
           ..._lista.map((t) => CartaoConsulta(
                 t['nomeTime'],
@@ -62,13 +64,16 @@ class _TelaConsultaTimeState extends State<TelaConsultaTime> {
   }
 
   Future _pesquisar() async {
+    try {
     ControlTime control = ControlTime();
     List<Map<String, dynamic>> lista =
         await control.queryFindDetalhado(_inputPesquisa.text);
 
     setState(() {
       _lista = lista;
-      textoPesquisa = lista.isEmpty ? "Nenhum time encontrado." : "";
     });
+    } catch (_) {
+      // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_suspensao.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
+import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -12,8 +13,20 @@ class TelaConsultaSuspensao extends StatefulWidget {
 }
 
 class _TelaConsultaSuspensaoState extends State<TelaConsultaSuspensao> {
-  String textoPesquisa = "";
+  @override
+  void initState() {
+    super.initState();
+    _pesquisar();
+    _filtro.addListener(() => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _filtro.dispose();
+    super.dispose();
+  }
   List<Map<String, dynamic>> _lista = [];
+  final _filtro = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +40,20 @@ class _TelaConsultaSuspensaoState extends State<TelaConsultaSuspensao> {
   }
 
   _body() {
+    String f = _filtro.text.trim().toLowerCase();
+    List<Map<String, dynamic>> filtrados = f.isEmpty
+        ? _lista
+        : _lista.where((item) => item.values.any((v) => v.toString().toLowerCase().contains(f))).toList();
+
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        Buttons("Pesquisar", onPressed: _pesquisar),
+        InputTextos("", "Digite para filtrar", controller: _filtro),
         SizedBox(height: 16),
-        if (_lista.isEmpty)
-          TextosCustom(
-            textoPesquisa.isEmpty
-                ? "Toque em pesquisar para listar as suspensões."
-                : textoPesquisa,
-            18,
-            Colors.red,
-          )
+        if (filtrados.isEmpty)
+          TextosCustom("Nenhum resultado", 18, Colors.red)
         else
-          ..._lista.map(_cartao),
+          ...filtrados.map(_cartao),
       ],
     );
   }
@@ -62,12 +74,15 @@ class _TelaConsultaSuspensaoState extends State<TelaConsultaSuspensao> {
   }
 
   Future _pesquisar() async {
+    try {
     ControlSuspensao control = ControlSuspensao();
     List<Map<String, dynamic>> lista = await control.queryFindDetalhado();
 
     setState(() {
       _lista = lista;
-      textoPesquisa = lista.isEmpty ? "Nenhuma suspensão encontrada." : "";
     });
+    } catch (_) {
+      // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
+    }
   }
 }

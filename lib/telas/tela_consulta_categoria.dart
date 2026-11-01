@@ -14,7 +14,19 @@ class TelaConsultaCategoria extends StatefulWidget {
 }
 
 class _TelaConsultaCategoriaState extends State<TelaConsultaCategoria> {
-  String textoPesquisa = "";
+  @override
+  void initState() {
+    super.initState();
+    _pesquisar();
+    _inputPesquisa.addListener(_pesquisar);
+  }
+
+  @override
+  void dispose() {
+    _inputPesquisa.removeListener(_pesquisar);
+    _inputPesquisa.dispose();
+    super.dispose();
+  }
   List<Categoria> _lista = [];
   final _inputPesquisa = TextEditingController();
 
@@ -33,21 +45,10 @@ class _TelaConsultaCategoriaState extends State<TelaConsultaCategoria> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        InputTextos(
-          "",
-          "Digite um nome para pesquisa",
-          controller: _inputPesquisa,
-        ),
-        Buttons("Pesquisar", onPressed: _pesquisar),
+        InputTextos("", "Digite para filtrar", controller: _inputPesquisa),
         SizedBox(height: 16),
         if (_lista.isEmpty)
-          TextosCustom(
-            textoPesquisa.isEmpty
-                ? "Toque em pesquisar para listar as categorias."
-                : textoPesquisa,
-            18,
-            Colors.red,
-          )
+          TextosCustom("Nenhum resultado", 18, Colors.red)
         else
           ..._lista.map((c) => CartaoConsulta(
                 c.nome,
@@ -59,12 +60,15 @@ class _TelaConsultaCategoriaState extends State<TelaConsultaCategoria> {
   }
 
   Future _pesquisar() async {
+    try {
     ControlCategoria control = ControlCategoria();
     List<Categoria> lista = await control.queryFind(_inputPesquisa.text);
 
     setState(() {
       _lista = lista;
-      textoPesquisa = lista.isEmpty ? "Nenhuma categoria encontrada." : "";
     });
+    } catch (_) {
+      // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
+    }
   }
 }

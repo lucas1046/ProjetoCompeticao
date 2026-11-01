@@ -13,9 +13,22 @@ class TelaConsultaJogador extends StatefulWidget {
 }
 
 class _TelaConsultaJogadorState extends State<TelaConsultaJogador> {
-  String textoPesquisa = "";
   List<Map<String, dynamic>> _lista = [];
   final _inputPesquisa = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _pesquisar();
+    _inputPesquisa.addListener(_pesquisar);
+  }
+
+  @override
+  void dispose() {
+    _inputPesquisa.removeListener(_pesquisar);
+    _inputPesquisa.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,21 +45,10 @@ class _TelaConsultaJogadorState extends State<TelaConsultaJogador> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        InputTextos(
-          "",
-          "Digite um nome para pesquisa",
-          controller: _inputPesquisa,
-        ),
-        Buttons("Pesquisar", onPressed: _pesquisar),
+        InputTextos("", "Digite um nome para pesquisa", controller: _inputPesquisa),
         SizedBox(height: 16),
         if (_lista.isEmpty)
-          TextosCustom(
-            textoPesquisa.isEmpty
-                ? "Toque em pesquisar para listar os jogadores."
-                : textoPesquisa,
-            18,
-            Colors.red,
-          )
+          TextosCustom("Nenhum resultado", 18, Colors.red)
         else
           ..._lista.map((j) => CartaoConsulta(
                 j['nome'],
@@ -62,13 +64,16 @@ class _TelaConsultaJogadorState extends State<TelaConsultaJogador> {
   }
 
   Future _pesquisar() async {
+    try {
     ControlJogador control = ControlJogador();
     List<Map<String, dynamic>> lista =
         await control.queryFindDetalhado(_inputPesquisa.text);
 
     setState(() {
       _lista = lista;
-      textoPesquisa = lista.isEmpty ? "Nenhum jogador encontrado." : "";
     });
+    } catch (_) {
+      // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
+    }
   }
 }

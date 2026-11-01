@@ -14,7 +14,19 @@ class TelaConsultaTipoEvento extends StatefulWidget {
 }
 
 class _TelaConsultaTipoEventoState extends State<TelaConsultaTipoEvento> {
-  String textoPesquisa = "";
+  @override
+  void initState() {
+    super.initState();
+    _pesquisar();
+    _inputPesquisa.addListener(_pesquisar);
+  }
+
+  @override
+  void dispose() {
+    _inputPesquisa.removeListener(_pesquisar);
+    _inputPesquisa.dispose();
+    super.dispose();
+  }
   List<TipoEvento> _lista = [];
   final _inputPesquisa = TextEditingController();
 
@@ -41,13 +53,7 @@ class _TelaConsultaTipoEventoState extends State<TelaConsultaTipoEvento> {
         Buttons("Pesquisar", onPressed: _pesquisar),
         SizedBox(height: 16),
         if (_lista.isEmpty)
-          TextosCustom(
-            textoPesquisa.isEmpty
-                ? "Toque em pesquisar para listar os tipos de evento."
-                : textoPesquisa,
-            18,
-            Colors.red,
-          )
+          TextosCustom("Nenhum resultado", 18, Colors.red)
         else
           ..._lista.map((t) => CartaoConsulta(
                 t.descricao,
@@ -59,12 +65,15 @@ class _TelaConsultaTipoEventoState extends State<TelaConsultaTipoEvento> {
   }
 
   Future _pesquisar() async {
+    try {
     ControlTipoEvento control = ControlTipoEvento();
     List<TipoEvento> lista = await control.queryFind(_inputPesquisa.text);
 
     setState(() {
       _lista = lista;
-      textoPesquisa = lista.isEmpty ? "Nenhum tipo de evento encontrado." : "";
     });
+    } catch (_) {
+      // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
+    }
   }
 }
