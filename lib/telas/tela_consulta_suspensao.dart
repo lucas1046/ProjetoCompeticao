@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_suspensao.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
@@ -34,6 +35,16 @@ class _TelaConsultaSuspensaoState extends State<TelaConsultaSuspensao> {
       appBar: AppBar(
         title: Text("Consultar suspensões"),
         backgroundColor: Colors.orange,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

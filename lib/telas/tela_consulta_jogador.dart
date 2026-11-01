@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
@@ -36,6 +37,16 @@ class _TelaConsultaJogadorState extends State<TelaConsultaJogador> {
       appBar: AppBar(
         title: Text("Consultar jogador"),
         backgroundColor: Colors.orange,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

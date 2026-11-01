@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_tecnico.dart';
 import 'package:projeto_final/model/tecnico.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
@@ -36,6 +37,16 @@ class _TelaConsultaTecnicoState extends State<TelaConsultaTecnico> {
       appBar: AppBar(
         title: Text("Consultar técnico"),
         backgroundColor: Colors.orange,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

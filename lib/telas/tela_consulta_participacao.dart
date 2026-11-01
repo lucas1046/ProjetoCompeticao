@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_relatorio.dart';
 import 'package:projeto_final/util/financeiro.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
@@ -38,6 +39,16 @@ class _TelaConsultaParticipacaoState extends State<TelaConsultaParticipacao> {
       appBar: AppBar(
         title: Text("Consultar inscrições"),
         backgroundColor: Colors.orange,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_tipo_evento.dart';
 import 'package:projeto_final/model/tipo_evento.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
@@ -36,6 +37,16 @@ class _TelaConsultaTipoEventoState extends State<TelaConsultaTipoEvento> {
       appBar: AppBar(
         title: Text("Consultar tipo de evento"),
         backgroundColor: Colors.orange,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );
@@ -50,7 +61,6 @@ class _TelaConsultaTipoEventoState extends State<TelaConsultaTipoEvento> {
           "Digite uma descrição para pesquisa",
           controller: _inputPesquisa,
         ),
-        Buttons("Pesquisar", onPressed: _pesquisar),
         SizedBox(height: 16),
         if (_lista.isEmpty)
           TextosCustom("Nenhum resultado", 18, Colors.red)
