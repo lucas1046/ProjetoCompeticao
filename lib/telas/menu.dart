@@ -141,8 +141,6 @@ class _MenuState extends State<Menu> {
           () => TelaConsultaParticipacao()),
       _Opcao("Pagamento", Icons.payments, () => TelaAdicionarPagamento(),
           () => TelaConsultaPagamento()),
-      _Opcao("Rodada", Icons.calendar_month, () => TelaAdicionarRodada(),
-          () => TelaConsultaRodada()),
       _Opcao("Partida", Icons.sports_score, () => TelaAdicionarPartida(),
           () => TelaConsultaPartida()),
       _Opcao("Escalação", Icons.format_list_numbered,
