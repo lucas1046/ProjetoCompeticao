@@ -375,6 +375,46 @@ class ControlDadosExemplo {
     );
 
     // ---------------------------------------------------------
+    // ROSTER (escalacao por time, reutilizavel em partidas)
+    // ---------------------------------------------------------
+    await BancoDados().inserir(
+      "escalacao",
+      Escalacao(
+        id: 4,
+        idPartida: 0,
+        idTime: 1,
+        titular: "Titular",
+        numeroCamisa: 9,
+        idPosicao: 3,
+        idParticipacao: 1,
+      ).toMap(),
+    );
+    await BancoDados().inserir(
+      "escalacao",
+      Escalacao(
+        id: 5,
+        idPartida: 0,
+        idTime: 1,
+        titular: "Titular",
+        numeroCamisa: 7,
+        idPosicao: 4,
+        idParticipacao: 3,
+      ).toMap(),
+    );
+    await BancoDados().inserir(
+      "escalacao",
+      Escalacao(
+        id: 6,
+        idPartida: 0,
+        idTime: 2,
+        titular: "Titular",
+        numeroCamisa: 10,
+        idPosicao: 2,
+        idParticipacao: 2,
+      ).toMap(),
+    );
+
+    // ---------------------------------------------------------
     // EVENTOS
     // ---------------------------------------------------------
     await BancoDados().inserir(
@@ -464,6 +504,6 @@ class ControlDadosExemplo {
         "- 2 escolas, 2 técnicos, 3 times\n"
         "- 3 inscrições, 2 pagamentos\n"
         "- 1 competição, 1 rodada, 2 partidas\n"
-        "- 3 escalações, 3 eventos, 1 suspensão";
+        "- 6 escalações (3 por partida + 3 roster), 3 eventos, 1 suspensão";
   }
 }
