@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
+import 'package:projeto_final/control/control_escola.dart';
 import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/control/control_participacao.dart';
-import 'package:projeto_final/control/control_time.dart';
+import 'package:projeto_final/model/escola.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/model/participacao_jogador_time.dart';
 import 'package:projeto_final/control/control_responsavel.dart';
 import 'package:projeto_final/model/responsavel.dart';
-import 'package:projeto_final/model/time.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -21,12 +21,11 @@ class TelaAdicionarParticipacao extends StatefulWidget {
 }
 
 class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
-  final _numeroCamisa = TextEditingController();
   final _valorInscricao = TextEditingController();
   String? _idJogador;
-  String? _idTime;
+  String? _idEscola;
   List<Jogador> _jogadores = [];
-  List<Time> _times = [];
+  List<Escola> _escolas = [];
   List<Responsavel> _responsaveis = [];
   String _resultado = "";
 
@@ -37,19 +36,16 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
   }
 
   Future<void> _carregarListas() async {
-    ControlJogador controlJogador = ControlJogador();
-    ControlTime controlTime = ControlTime();
-
-    List<Jogador> jogadores = await controlJogador.queryFind();
-    List<Time> times = await controlTime.queryFind();
+    List<Jogador> jogadores = await ControlJogador().queryFind();
+    List<Escola> escolas = await ControlEscola().queryFind();
     List<Responsavel> resps = await ControlResponsavel().queryFind();
 
     setState(() {
       _jogadores = jogadores;
-      _times = times;
+      _escolas = escolas;
       _responsaveis = resps;
       if (jogadores.isNotEmpty) _idJogador = jogadores[0].id.toString();
-      if (times.isNotEmpty) _idTime = times[0].idTime.toString();
+      if (escolas.isNotEmpty) _idEscola = escolas[0].id.toString();
     });
   }
 
@@ -57,7 +53,7 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Inscrever jogador no time"),
+        title: Text("Inscrever jogador"),
         backgroundColor: Colors.green,
         actions: [
           IconButton(
@@ -106,39 +102,21 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
         ),
         SizedBox(height: 12),
         DropdownButtonFormField<String>(
-          value: _idTime,
+          value: _idEscola,
           decoration: InputDecoration(
-            labelText: "Time",
+            labelText: "Escola de origem",
             border: OutlineInputBorder(),
           ),
-          items: _times.map((t) {
+          items: _escolas.map((e) {
             return DropdownMenuItem<String>(
-              value: t.idTime.toString(),
-              child: Text(t.nomeTime),
+              value: e.id.toString(),
+              child: Text(e.nome),
             );
           }).toList(),
-          onChanged: (v) => setState(() => _idTime = v),
+          onChanged: (v) => setState(() => _idEscola = v),
         ),
         SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: InputTextos(
-                "Número da camisa",
-                "Informe o número",
-                controller: _numeroCamisa,
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: InputTextos(
-                "Valor da inscrição",
-                "0.00",
-                controller: _valorInscricao,
-              ),
-            ),
-          ],
-        ),
+        InputTextos("Valor da inscrição", "0.00", controller: _valorInscricao),
         SizedBox(height: 16),
         Buttons("Registrar", onPressed: _registrar),
         TextosCustom(_resultado, 18, Colors.red),
@@ -206,8 +184,7 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
   Future<void> _registrar() async {
     ParticipacaoJogadorTime participacao = ParticipacaoJogadorTime(
       idJogador: int.tryParse(_idJogador ?? "0") ?? 0,
-      idTime: int.tryParse(_idTime ?? "0") ?? 0,
-      numeroCamisa: int.tryParse(_numeroCamisa.text),
+      idEscola: int.tryParse(_idEscola ?? "0"),
       valorInscricao: double.tryParse(_valorInscricao.text),
     );
 
@@ -216,7 +193,7 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
       int id = await control.insertDatabase(participacao);
 
       setState(() {
-    _resultado = "Inscrição cadastrada! (id: $id)";
+        _resultado = "Inscrição cadastrada! (id: $id)";
       });
     } catch (e) {
       setState(() {

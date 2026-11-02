@@ -269,8 +269,7 @@ class ControlDadosExemplo {
       ParticipacaoJogadorTime(
         id: 1,
         idJogador: 1,
-        idTime: 1,
-        numeroCamisa: 9,
+        idEscola: 1,
         valorInscricao: 150.0,
       ).toMap(),
     );
@@ -279,8 +278,7 @@ class ControlDadosExemplo {
       ParticipacaoJogadorTime(
         id: 2,
         idJogador: 2,
-        idTime: 2,
-        numeroCamisa: 10,
+        idEscola: 2,
         valorInscricao: 150.0,
       ).toMap(),
     );
@@ -289,8 +287,7 @@ class ControlDadosExemplo {
       ParticipacaoJogadorTime(
         id: 3,
         idJogador: 3,
-        idTime: 1,
-        numeroCamisa: 7,
+        idEscola: 1,
         valorInscricao: 150.0,
       ).toMap(),
     );

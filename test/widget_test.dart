@@ -260,14 +260,13 @@ void main() {
     ParticipacaoJogadorTime p = ParticipacaoJogadorTime(
       id: 1,
       idJogador: 1,
-      idTime: 2,
-      numeroCamisa: 10,
+      idEscola: 2,
       valorInscricao: 150.0,
     );
     ParticipacaoJogadorTime deVolta =
         ParticipacaoJogadorTime.fromMap(p.toMap());
 
-    expect(deVolta.numeroCamisa, 10);
+    expect(deVolta.idEscola, 2);
     expect(deVolta.valorInscricao, 150.0);
   });
 

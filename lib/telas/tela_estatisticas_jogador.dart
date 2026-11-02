@@ -80,7 +80,7 @@ class _TelaEstatisticasJogadorState extends State<TelaEstatisticasJogador> {
           items: _participacoes.map((p) {
             return DropdownMenuItem<String>(
               value: p.id.toString(),
-              child: Text("Inscrição ${p.id} - camisa ${p.numeroCamisa}"),
+              child: Text("Inscrição ${p.id} - jogador ${p.idJogador}"),
             );
           }).toList(),
           onChanged: (v) => setState(() => _idParticipacao = v),

@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 7;
+  static const int _versao = 8;
 
   Database? _db;
 
@@ -107,6 +107,13 @@ class BancoDados {
           );
           await db.execute(
             "ALTER TABLE jogador ADD COLUMN numero_camisa INTEGER",
+          );
+        }
+
+        // Migracao v7 -> v8: inscrição simplificada (escola de origem, sem time)
+        if (oldVersion < 8) {
+          await db.execute(
+            "ALTER TABLE participacao_jogador_time ADD COLUMN id_escola INTEGER REFERENCES escola(id)",
           );
         }
       },
@@ -266,11 +273,11 @@ class BancoDados {
       "CREATE TABLE IF NOT EXISTS participacao_jogador_time("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
       "id_jogador INTEGER NOT NULL REFERENCES jogador(id) ON DELETE CASCADE, "
-      "id_time INTEGER NOT NULL REFERENCES time(id_time) ON DELETE CASCADE, "
-      "numero_camisa INTEGER, "
+      "id_time INTEGER REFERENCES time(id_time) ON DELETE CASCADE, "
+      "id_escola INTEGER REFERENCES escola(id) ON DELETE SET NULL, "
       "valor_inscricao REAL, "
       "id_foto INTEGER REFERENCES foto_figurinha(id) ON DELETE SET NULL, "
-      "UNIQUE(id_jogador, id_time))",
+      "UNIQUE(id_jogador, id_escola))",
     );
 
     await db.execute(

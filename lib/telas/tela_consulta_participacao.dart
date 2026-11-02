@@ -84,7 +84,7 @@ class _TelaConsultaParticipacaoState extends State<TelaConsultaParticipacao> {
     return CartaoConsulta(
       item['nomeJogador'] ?? "-",
       [
-        "Time: ${item['nomeTime']} - Camisa: ${item['numeroCamisa'] ?? '-'}",
+        "Escola: ${item['nomeEscola'] ?? '-'}",
         "Inscrição: R\$ ${valorInscricao.toStringAsFixed(2)} - "
             "Pago: R\$ ${valorPago.toStringAsFixed(2)}",
       ],
