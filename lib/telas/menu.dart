@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_final/control/banco_dados.dart';
 import 'package:projeto_final/control/control_sessao.dart';
 import 'package:projeto_final/telas/tela_adicionar_categoria.dart';
 import 'package:projeto_final/telas/tela_adicionar_competicao.dart';
@@ -55,55 +54,6 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-  int _competicoesAtivas = 0;
-  int _pagamentosPendentes = 0;
-  int _suspensosAbertos = 0;
-  int _proximasPartidas = 0;
-  bool _carregando = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _carregarKpis();
-  }
-
-  Future<void> _carregarKpis() async {
-    try {
-      final db = await BancoDados().db;
-      final hoje = DateTime.now().toIso8601String().substring(0, 10);
-
-      final r1 = await db.rawQuery(
-        "SELECT COUNT(*) AS total FROM competicao "
-        "WHERE data_inicio <= ? AND data_fim >= ?",
-        [hoje, hoje],
-      );
-      _competicoesAtivas = (r1.first['total'] as int?) ?? 0;
-
-      final r2 = await db.rawQuery(
-        "SELECT COUNT(*) AS total FROM participacao_jogador_time p "
-        "LEFT JOIN pagamento_inscricao pg ON pg.id_participacao_jogador_time = p.id "
-        "WHERE COALESCE(pg.valor_pago, 0) < COALESCE(p.valor_inscricao, 0)",
-      );
-      _pagamentosPendentes = (r2.first['total'] as int?) ?? 0;
-
-      final r3 = await db.rawQuery(
-        "SELECT COUNT(*) AS total FROM suspensao WHERE cumprida = 0",
-      );
-      _suspensosAbertos = (r3.first['total'] as int?) ?? 0;
-
-      final r4 = await db.rawQuery(
-        "SELECT COUNT(*) AS total FROM partida pa "
-        "JOIN rodada r ON pa.id_rodada = r.id "
-        "WHERE r.data >= ?",
-        [hoje],
-      );
-      _proximasPartidas = (r4.first['total'] as int?) ?? 0;
-    } catch (_) {
-      // banco indisponível — mantém zeros
-    }
-    if (mounted) setState(() => _carregando = false);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,63 +103,6 @@ class _MenuState extends State<Menu> {
         ),
         Expanded(child: _grid(ctx)),
       ],
-    );
-  }
-
-  _dashboard() {
-    if (_carregando) {
-      return SizedBox(
-        height: 36,
-        child: Center(child: SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2))),
-      );
-    }
-    return SizedBox(
-      height: 44,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              _kpi("Ativas", _competicoesAtivas, Colors.blue),
-              SizedBox(width: 6),
-              _kpi("Pendentes", _pagamentosPendentes, Colors.orange),
-              SizedBox(width: 6),
-              _kpi("Suspensos", _suspensosAbertos, Colors.red),
-              SizedBox(width: 6),
-              _kpi("Futuras", _proximasPartidas, Colors.green),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  _kpi(String titulo, int valor, Color cor) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      decoration: BoxDecoration(
-        color: cor,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            "$valor",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(width: 6),
-          Text(
-            titulo,
-            style: TextStyle(color: Colors.white, fontSize: 11),
-          ),
-        ],
-      ),
     );
   }
 
