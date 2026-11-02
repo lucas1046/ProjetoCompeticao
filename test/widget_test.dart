@@ -56,7 +56,7 @@ void main() {
     await tester.scrollUntilVisible(
       find.text('Posição'),
       200,
-      scrollable: find.byType(Scrollable).first,
+      scrollable: find.byType(Scrollable).last,
     );
     expect(find.text('Posição'), findsOneWidget);
   });

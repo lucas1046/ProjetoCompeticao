@@ -165,19 +165,22 @@ class _MenuState extends State<Menu> {
       );
     }
     return SizedBox(
-      height: 36,
+      height: 44,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-        child: Row(
-          children: [
-            _kpi("Ativas", _competicoesAtivas, Colors.blue),
-            SizedBox(width: 6),
-            _kpi("Pendentes", _pagamentosPendentes, Colors.orange),
-            SizedBox(width: 6),
-            _kpi("Suspensos", _suspensosAbertos, Colors.red),
-            SizedBox(width: 6),
-            _kpi("Futuras", _proximasPartidas, Colors.green),
-          ],
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              _kpi("Ativas", _competicoesAtivas, Colors.blue),
+              SizedBox(width: 6),
+              _kpi("Pendentes", _pagamentosPendentes, Colors.orange),
+              SizedBox(width: 6),
+              _kpi("Suspensos", _suspensosAbertos, Colors.red),
+              SizedBox(width: 6),
+              _kpi("Futuras", _proximasPartidas, Colors.green),
+            ],
+          ),
         ),
       ),
     );
@@ -185,7 +188,7 @@ class _MenuState extends State<Menu> {
 
   _kpi(String titulo, int valor, Color cor) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
         color: cor,
         borderRadius: BorderRadius.circular(16),
@@ -197,7 +200,7 @@ class _MenuState extends State<Menu> {
             "$valor",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
           ),
