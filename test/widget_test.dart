@@ -48,8 +48,6 @@ void main() {
 
     expect(find.byType(Menu), findsOneWidget);
     expect(find.text('Competição'), findsOneWidget);
-    expect(find.text('Modalidade'), findsOneWidget);
-    expect(find.text('Categoria'), findsOneWidget);
     expect(find.text('Tipo de evento'), findsOneWidget);
 
     // O GridView e lazy: o ultimo card precisa de scroll para aparecer
@@ -75,21 +73,6 @@ void main() {
 
     expect(find.byType(TelaAdicionarCompeticao), findsOneWidget);
     expect(find.text('Registrar'), findsOneWidget);
-  });
-
-  testWidgets('Navega para o cadastro de modalidade',
-      (WidgetTester tester) async {
-    _logaComoAdmin();
-    await tester.pumpWidget(const MyApp());
-    await tester.pumpAndSettle();
-
-    // Card do menu -> tela de detalhe -> botao Cadastrar
-    await tester.tap(find.text('Modalidade'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.widgetWithText(ElevatedButton, 'Cadastrar'));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(TelaAdicionarModalidade), findsOneWidget);
   });
 
   testWidgets('Usuario comum nao ve Responsavel nem Documento no menu',

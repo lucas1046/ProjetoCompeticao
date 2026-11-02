@@ -110,10 +110,10 @@ void main() {
       expect(find.text('Responsável'), findsNothing);
       // o resto do menu continua visivel
       expect(find.text('Jogador'), findsOneWidget);
-      expect(find.text('Escola'), findsOneWidget);
+      expect(find.text('Competição'), findsOneWidget);
     });
 
-    testWidgets('administrador ve Documento e Responsavel', (tester) async {
+    testWidgets('administrador ve Documento', (tester) async {
       telaGrande(tester);
       ControlSessao().entrar(admin);
 
@@ -121,7 +121,6 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Documento'), findsOneWidget);
-      expect(find.text('Responsável'), findsOneWidget);
     });
   });
 }

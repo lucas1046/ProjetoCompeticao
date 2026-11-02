@@ -73,7 +73,7 @@ void main() {
       expect(find.widgetWithText(ElevatedButton, 'Cadastrar'), findsNothing);
       expect(find.widgetWithText(ElevatedButton, 'Consultar'), findsNothing);
 
-      await tester.tap(find.text('Modalidade'));
+      await tester.tap(find.text('Competição'));
       await tester.pumpAndSettle();
 
       // Depois de tocar no card, a tela de detalhe aparece com os dois botoes
