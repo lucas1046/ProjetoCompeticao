@@ -4,6 +4,7 @@ import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
+import 'package:projeto_final/telas/tela_historico_jogador.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaConsultaJogador extends StatefulWidget {
@@ -61,14 +62,25 @@ class _TelaConsultaJogadorState extends State<TelaConsultaJogador> {
         if (_lista.isEmpty)
           TextosCustom("Nenhum resultado", 18, Colors.red)
         else
-          ..._lista.map((j) => CartaoConsulta(
-                j['nome'],
-                [
-                  "CPF: ${j['cpf']}",
-                  "Nascimento: ${j['dataNascimento']}",
-                  "Responsável: ${j['nomeResponsavel'] ?? '-'}",
-                ],
-                icone: Icons.person,
+          ..._lista.map((j) => GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => TelaHistoricoJogador(
+                      idJogador: j['id'] as int,
+                      nomeJogador: j['nome'],
+                    ),
+                  ),
+                ),
+                child: CartaoConsulta(
+                  j['nome'],
+                  [
+                    "CPF: ${j['cpf']}",
+                    "Nascimento: ${j['dataNascimento']}",
+                    "Responsável: ${j['nomeResponsavel'] ?? '-'}",
+                  ],
+                  icone: Icons.person,
+                ),
               )),
       ],
     );
