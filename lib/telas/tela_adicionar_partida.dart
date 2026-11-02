@@ -78,20 +78,26 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
     );
     try {
       final id = await ControlPartida().insertDatabase(partida);
-      // cria escalações para os jogadores selecionados
+      int criadas = 0;
       for (final jid in _selCasa) {
         try {
           await ControlEscalacao().insertDatabase(Escalacao(idPartida: id, idJogador: jid, idTime: int.tryParse(_idTimeCasa ?? "0")));
-        } catch (_) {}
+          criadas++;
+        } catch (e) {
+          if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erro casa: $e")));
+        }
       }
       for (final jid in _selVis) {
         try {
           await ControlEscalacao().insertDatabase(Escalacao(idPartida: id, idJogador: jid, idTime: int.tryParse(_idTimeVisitante ?? "0")));
-        } catch (_) {}
+          criadas++;
+        } catch (e) {
+          if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erro vis: $e")));
+        }
       }
       setState(() {
         _idPartida = id;
-        _resultado = "Partida criada (id: $id). Eventos podem ser registrados.";
+        _resultado = "Partida criada (id: $id). Escalações: $criadas.";
       });
       await _refreshEventos();
     } catch (e) {
