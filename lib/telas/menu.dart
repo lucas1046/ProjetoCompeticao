@@ -43,6 +43,7 @@ import 'package:projeto_final/telas/tela_consulta_tecnico.dart';
 import 'package:projeto_final/telas/tela_consulta_tecnico_time.dart';
 import 'package:projeto_final/telas/tela_consulta_time.dart';
 import 'package:projeto_final/telas/tela_consulta_tipo_evento.dart';
+import 'package:projeto_final/telas/tela_busca_global.dart';
 import 'package:projeto_final/telas/tela_detalhe_entidade.dart';
 import 'package:projeto_final/telas/tela_login.dart';
 
@@ -110,6 +111,11 @@ class _MenuState extends State<Menu> {
         title: Text("Competições Escolares"),
         backgroundColor: Colors.blue,
         actions: [
+          IconButton(
+            tooltip: "Busca global",
+            icon: Icon(Icons.search),
+            onPressed: () => _abreTelas(context, TelaBuscaGlobal()),
+          ),
           IconButton(
             tooltip: "Sair",
             icon: Icon(Icons.logout),
