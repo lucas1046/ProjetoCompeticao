@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 10;
+  static const int _versao = 11;
 
   Database? _db;
 
@@ -124,18 +124,22 @@ class BancoDados {
           );
         }
 
-        // Migracao v9 -> v10: recria escalacao (remove NOT NULL obsoletos)
-        if (oldVersion < 10) {
-          await db.execute("CREATE TABLE IF NOT EXISTS escalacao_new("
+        // Migracao v10 -> v11: recria escalacao e evento_partida do zero (limpa schema)
+        if (oldVersion < 11) {
+          await db.execute("DROP TABLE IF EXISTS evento_partida");
+          await db.execute("DROP TABLE IF EXISTS escalacao");
+          await db.execute("CREATE TABLE escalacao("
               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
               "id_partida INTEGER NOT NULL REFERENCES partida(id) ON DELETE CASCADE, "
               "id_jogador INTEGER REFERENCES jogador(id), "
               "id_time INTEGER REFERENCES time(id_time), "
               "titular VARCHAR(10) NOT NULL DEFAULT 'Titular')");
-          await db.execute("INSERT INTO escalacao_new(id, id_partida, id_jogador, id_time, titular) "
-              "SELECT id, id_partida, id_jogador, id_time, COALESCE(titular,'Titular') FROM escalacao");
-          await db.execute("DROP TABLE escalacao");
-          await db.execute("ALTER TABLE escalacao_new RENAME TO escalacao");
+          await db.execute("CREATE TABLE evento_partida("
+              "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+              "id_tipo_evento INTEGER NOT NULL REFERENCES tipo_evento(id), "
+              "minuto_evento INTEGER NOT NULL, "
+              "descricao VARCHAR(255), "
+              "id_escalacao INTEGER NOT NULL REFERENCES escalacao(id) ON DELETE CASCADE)");
         }
       },
     );
