@@ -57,6 +57,11 @@ class ControlEvento {
     return await BancoDados().inserir("evento_partida", evento.toMap());
   }
 
+  Future<void> deleteDatabase(int id) async {
+    Database banco = await BancoDados().db;
+    await banco.delete("evento_partida", where: "id = ?", whereArgs: [id]);
+  }
+
   // Consulta detalhada: traz o tipo de evento e o jogador em vez dos ids
   Future<List<Map<String, dynamic>>> queryFindDetalhado() async {
     Database banco = await BancoDados().db;
