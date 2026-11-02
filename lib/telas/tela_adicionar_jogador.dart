@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_jogador.dart';
+import 'package:projeto_final/control/control_posicao.dart';
 import 'package:projeto_final/control/control_responsavel.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/control/control_foto.dart';
 import 'package:projeto_final/model/foto_figurinha.dart';
+import 'package:projeto_final/model/posicao.dart';
 import 'package:projeto_final/model/responsavel.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
@@ -21,10 +23,13 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
   final _nome = TextEditingController();
   final _cpf = TextEditingController();
   final _dataNascimento = TextEditingController();
+  final _camisa = TextEditingController();
   String? _idResponsavelSelecionado;
   String? _idFotoSelecionada;
+  String? _idPosicaoSelecionada;
   List<Responsavel> _responsaveis = [];
   List<FotoFigurinha> _fotos = [];
+  List<Posicao> _posicoes = [];
   String _resultado = "";
 
   @override
@@ -32,6 +37,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     super.initState();
     _carregarResponsaveis();
     _carregarFotos();
+    _carregarPosicoes();
   }
 
   Future<void> _carregarResponsaveis() async {
@@ -50,6 +56,14 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     setState(() {
       _fotos = lista;
       if (lista.isNotEmpty) _idFotoSelecionada = lista[0].id.toString();
+    });
+  }
+
+  Future<void> _carregarPosicoes() async {
+    final lista = await ControlPosicao().queryFind();
+    setState(() {
+      _posicoes = lista;
+      if (lista.isNotEmpty) _idPosicaoSelecionada = lista[0].id.toString();
     });
   }
   @override
@@ -141,6 +155,35 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
             });
           },
         ),
+        SizedBox(height: 8),
+        Row(
+          children: [
+            Expanded(
+              child: DropdownButtonFormField<String>(
+                value: _idPosicaoSelecionada,
+                decoration: InputDecoration(
+                  labelText: "Posição",
+                  border: OutlineInputBorder(),
+                ),
+                items: _posicoes.map((p) {
+                  return DropdownMenuItem<String>(
+                    value: p.id.toString(),
+                    child: Text(p.nome),
+                  );
+                }).toList(),
+                onChanged: (valor) {
+                  setState(() {
+                    _idPosicaoSelecionada = valor;
+                  });
+                },
+              ),
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: InputTextos("Camisa", "Nº", controller: _camisa),
+            ),
+          ],
+        ),
         SizedBox(height: 16),
         Buttons("Registrar", onPressed: _registrar),
         TextosCustom(_resultado, 18, Colors.red),
@@ -207,6 +250,8 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
       dataNascimento: _dataNascimento.text,
       idResponsavel: int.tryParse(_idResponsavelSelecionado ?? "0") ?? 0,
       idFoto: int.tryParse(_idFotoSelecionada ?? ""),
+      idPosicao: int.tryParse(_idPosicaoSelecionada ?? ""),
+      numeroCamisa: int.tryParse(_camisa.text),
     );
 
     try {

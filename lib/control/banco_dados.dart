@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 6;
+  static const int _versao = 7;
 
   Database? _db;
 
@@ -97,6 +97,16 @@ class BancoDados {
         if (oldVersion < 6) {
           await db.execute(
             "ALTER TABLE escalacao ADD COLUMN id_time INTEGER REFERENCES time(id_time)",
+          );
+        }
+
+        // Migracao v6 -> v7: posição e camisa no jogador (Fase A)
+        if (oldVersion < 7) {
+          await db.execute(
+            "ALTER TABLE jogador ADD COLUMN id_posicao INTEGER REFERENCES posicao(id)",
+          );
+          await db.execute(
+            "ALTER TABLE jogador ADD COLUMN numero_camisa INTEGER",
           );
         }
       },
@@ -200,7 +210,9 @@ class BancoDados {
       "nome VARCHAR(150) NOT NULL, "
       "data_nascimento DATE NOT NULL, "
       "id_responsavel INTEGER REFERENCES responsavel(id) ON DELETE SET NULL, "
-      "id_foto INTEGER REFERENCES foto_figurinha(id))",
+      "id_foto INTEGER REFERENCES foto_figurinha(id), "
+      "id_posicao INTEGER REFERENCES posicao(id), "
+      "numero_camisa INTEGER)",
     );
 
     await db.execute(
