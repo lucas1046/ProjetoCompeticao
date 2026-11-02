@@ -43,6 +43,7 @@ import 'package:projeto_final/telas/tela_consulta_tecnico_time.dart';
 import 'package:projeto_final/telas/tela_consulta_time.dart';
 import 'package:projeto_final/telas/tela_consulta_tipo_evento.dart';
 import 'package:projeto_final/telas/tela_busca_global.dart';
+import 'package:projeto_final/telas/tela_auditoria.dart';
 import 'package:projeto_final/telas/tela_detalhe_entidade.dart';
 import 'package:projeto_final/telas/tela_login.dart';
 
@@ -154,6 +155,8 @@ class _MenuState extends State<Menu> {
           destinoDireto: () => MenuRelatorios()),
       _Opcao("Dados exemplo", Icons.science, null, null,
           destinoDireto: () => TelaDadosExemplo()),
+      _Opcao("Auditoria", Icons.history, null, null,
+          destinoDireto: () => TelaAuditoria(), soAdministrador: true),
     ];
 
     final opcoesVisiveis = opcoes

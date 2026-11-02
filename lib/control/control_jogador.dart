@@ -1,5 +1,6 @@
 import 'package:projeto_final/control/banco_dados.dart';
 import 'package:projeto_final/model/jogador.dart';
+import 'package:projeto_final/control/control_auditoria.dart';
 import 'package:projeto_final/util/validacoes.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -42,7 +43,14 @@ class ControlJogador {
       );
     }
 
-    return await BancoDados().inserir("jogador", jogador.toMap());
+    int id = await BancoDados().inserir("jogador", jogador.toMap());
+    await ControlAuditoria().registrar(
+      acao: "INSERT",
+      tabela: "jogador",
+      idRegistro: id,
+      detalhes: "Jogador ${jogador.nome} cadastrado",
+    );
+    return id;
   }
 
   Future<List<Jogador>> queryFind([String? nome]) async {

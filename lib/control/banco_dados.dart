@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 3;
+  static const int _versao = 4;
 
   Database? _db;
 
@@ -77,7 +77,13 @@ class BancoDados {
             "ON tecnico_time(id_tecnico, id_time)",
           );
           await db.execute(_sqlTabelaUsuario);
+          await db.execute(_sqlTabelaLog);
           await _garantirAdmin(db);
+        }
+
+        // Migracao v3 -> v4: tabela de auditoria (RNFR extra)
+        if (oldVersion < 4) {
+          await db.execute(_sqlTabelaLog);
         }
       },
     );
@@ -297,6 +303,7 @@ class BancoDados {
 
     // RNFR-15.2 — usuarios e perfis para o controle de acesso
     await db.execute(_sqlTabelaUsuario);
+    await db.execute(_sqlTabelaLog);
   }
 
   // RNFR-15.2 — tabela de usuarios (login, senha com hash e perfil)
@@ -306,6 +313,17 @@ class BancoDados {
       "login VARCHAR(50) NOT NULL UNIQUE, "
       "senha_hash VARCHAR(255) NOT NULL, "
       "perfil VARCHAR(20) NOT NULL DEFAULT 'USUARIO')";
+
+  static const String _sqlTabelaLog =
+      "CREATE TABLE IF NOT EXISTS log_auditoria("
+      "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+      "id_usuario INTEGER, "
+      "nome_usuario VARCHAR(50), "
+      "acao VARCHAR(20) NOT NULL, "
+      "tabela VARCHAR(50) NOT NULL, "
+      "id_registro INTEGER, "
+      "data_hora DATETIME NOT NULL, "
+      "detalhes VARCHAR(500))";
 
   // RNFR-15.2 — garante um administrador inicial para que o primeiro acesso
   // ao sistema nao fique bloqueado. Login "admin" e senha "admin123".
