@@ -70,19 +70,31 @@ class _TelaAdicionarTecnicoTimeState extends State<TelaAdicionarTecnicoTime> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        DropdownButtonFormField<String>(
-          value: _idTecnico,
-          decoration: InputDecoration(
-            labelText: "Técnico",
-            border: OutlineInputBorder(),
-          ),
-          items: _tecnicos.map((t) {
-            return DropdownMenuItem<String>(
-              value: t.id.toString(),
-              child: Text(t.nome),
-            );
-          }).toList(),
-          onChanged: (v) => setState(() => _idTecnico = v),
+        Row(
+          children: [
+            Expanded(
+              child: DropdownButtonFormField<String>(
+                value: _idTecnico,
+                decoration: InputDecoration(
+                  labelText: "Técnico",
+                  border: OutlineInputBorder(),
+                ),
+                items: _tecnicos.map((t) {
+                  return DropdownMenuItem<String>(
+                    value: t.id.toString(),
+                    child: Text(t.nome),
+                  );
+                }).toList(),
+                onChanged: (v) => setState(() => _idTecnico = v),
+              ),
+            ),
+            SizedBox(width: 8),
+            IconButton(
+              tooltip: "Novo técnico",
+              icon: Icon(Icons.add_circle, color: Colors.green),
+              onPressed: _novoTecnico,
+            ),
+          ],
         ),
         SizedBox(height: 12),
         DropdownButtonFormField<String>(
@@ -104,6 +116,56 @@ class _TelaAdicionarTecnicoTimeState extends State<TelaAdicionarTecnicoTime> {
         TextosCustom(_resultado, 18, Colors.red),
       ],
     );
+  }
+
+  Future<void> _novoTecnico() async {
+    final nomeCtrl = TextEditingController();
+    final telCtrl = TextEditingController();
+    final emailCtrl = TextEditingController();
+
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("Novo técnico"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(controller: nomeCtrl, decoration: InputDecoration(labelText: "Nome")),
+            SizedBox(height: 8),
+            TextField(controller: telCtrl, decoration: InputDecoration(labelText: "Telefone")),
+            SizedBox(height: 8),
+            TextField(controller: emailCtrl, decoration: InputDecoration(labelText: "Email")),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")),
+          TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar")),
+        ],
+      ),
+    );
+
+    if (ok != true) return;
+
+    try {
+      final tecnico = Tecnico(
+        nome: nomeCtrl.text,
+        telefone: telCtrl.text,
+        email: emailCtrl.text,
+      );
+      await ControlTecnico().insertDatabase(tecnico);
+      await _carregarListas();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Técnico criado.")),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())),
+        );
+      }
+    }
   }
 
   Future<void> _registrar() async {
