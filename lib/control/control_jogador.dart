@@ -77,7 +77,7 @@ class ControlJogador {
     Database banco = await BancoDados().db;
 
     String sql = "SELECT j.id AS id, j.cpf AS cpf, j.nome AS nome, "
-        "j.data_nascimento AS dataNascimento, "
+        "j.data_nascimento AS dataNascimento, j.id_foto AS idFoto, "
         "r.nome AS nomeResponsavel, r.telefone AS telefoneResponsavel "
         "FROM jogador j "
         "LEFT JOIN responsavel r ON j.id_responsavel = r.id";

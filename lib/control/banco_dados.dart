@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 4;
+  static const int _versao = 5;
 
   Database? _db;
 
@@ -84,6 +84,13 @@ class BancoDados {
         // Migracao v3 -> v4: tabela de auditoria (RNFR extra)
         if (oldVersion < 4) {
           await db.execute(_sqlTabelaLog);
+        }
+
+        // Migracao v4 -> v5: vinculo de foto ao jogador
+        if (oldVersion < 5) {
+          await db.execute(
+            "ALTER TABLE jogador ADD COLUMN id_foto INTEGER REFERENCES foto_figurinha(id)",
+          );
         }
       },
     );
@@ -185,7 +192,8 @@ class BancoDados {
       "cpf VARCHAR(14) UNIQUE, "
       "nome VARCHAR(150) NOT NULL, "
       "data_nascimento DATE NOT NULL, "
-      "id_responsavel INTEGER REFERENCES responsavel(id) ON DELETE SET NULL)",
+      "id_responsavel INTEGER REFERENCES responsavel(id) ON DELETE SET NULL, "
+      "id_foto INTEGER REFERENCES foto_figurinha(id))",
     );
 
     await db.execute(

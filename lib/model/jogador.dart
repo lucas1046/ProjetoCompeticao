@@ -4,6 +4,7 @@ class Jogador {
   final String nome;
   final String dataNascimento;
   final int idResponsavel;
+  final int? idFoto;
 
   Jogador({
     this.id,
@@ -11,6 +12,7 @@ class Jogador {
     required this.nome,
     required this.dataNascimento,
     required this.idResponsavel,
+    this.idFoto,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class Jogador {
       'nome': nome,
       'data_nascimento': dataNascimento,
       'id_responsavel': idResponsavel,
+      'id_foto': idFoto,
     };
   }
 
@@ -30,6 +33,7 @@ class Jogador {
       nome: map['nome'],
       dataNascimento: map['data_nascimento'],
       idResponsavel: map['id_responsavel'],
+      idFoto: map['id_foto'],
     );
   }
 }
