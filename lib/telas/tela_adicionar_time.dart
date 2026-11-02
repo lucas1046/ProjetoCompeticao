@@ -91,6 +91,12 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
             _idModalidade = v;
           });
         }),
+        SizedBox(height: 4),
+        TextButton.icon(
+          onPressed: _novaModalidade,
+          icon: Icon(Icons.add, color: Colors.green),
+          label: Text("Nova modalidade", style: TextStyle(color: Colors.green)),
+        ),
         SizedBox(height: 12),
         _dropdown("Escola", _idEscola,
             _escolas.map((e) => _Item(e.id.toString(), e.nome)).toList(), (v) {
@@ -112,6 +118,12 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
             _idCategoria = v;
           });
         }),
+        SizedBox(height: 4),
+        TextButton.icon(
+          onPressed: _novaCategoria,
+          icon: Icon(Icons.add, color: Colors.green),
+          label: Text("Nova categoria", style: TextStyle(color: Colors.green)),
+        ),
         SizedBox(height: 16),
         Buttons("Registrar", onPressed: _registrar),
         TextosCustom(_resultado, 18, Colors.red),
@@ -189,6 +201,69 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
           SnackBar(content: Text(e.toString())),
         );
       }
+    }
+  }
+
+  Future<void> _novaModalidade() async {
+    final nomeCtrl = TextEditingController();
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("Nova modalidade"),
+        content: TextField(controller: nomeCtrl, decoration: InputDecoration(labelText: "Nome")),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")),
+          TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar")),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    try {
+      final m = Modalidade(nome: nomeCtrl.text);
+      await ControlModalidade().insertDatabase(m);
+      await _carregarListas();
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Modalidade criada.")));
+    } catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
+  Future<void> _novaCategoria() async {
+    final nomeCtrl = TextEditingController();
+    final minCtrl = TextEditingController();
+    final maxCtrl = TextEditingController();
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("Nova categoria"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(controller: nomeCtrl, decoration: InputDecoration(labelText: "Nome")),
+            SizedBox(height: 8),
+            TextField(controller: minCtrl, decoration: InputDecoration(labelText: "Idade mín."), keyboardType: TextInputType.number),
+            SizedBox(height: 8),
+            TextField(controller: maxCtrl, decoration: InputDecoration(labelText: "Idade máx."), keyboardType: TextInputType.number),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")),
+          TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar")),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    try {
+      final c = Categoria(
+        nome: nomeCtrl.text,
+        idadeMin: int.tryParse(minCtrl.text) ?? 0,
+        idadeMax: int.tryParse(maxCtrl.text) ?? 0,
+      );
+      await ControlCategoria().insertDatabase(c);
+      await _carregarListas();
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Categoria criada.")));
+    } catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
