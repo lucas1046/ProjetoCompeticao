@@ -3,6 +3,8 @@ import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/control/control_responsavel.dart';
 import 'package:projeto_final/model/jogador.dart';
+import 'package:projeto_final/control/control_foto.dart';
+import 'package:projeto_final/model/foto_figurinha.dart';
 import 'package:projeto_final/model/responsavel.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
@@ -20,13 +22,16 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
   final _cpf = TextEditingController();
   final _dataNascimento = TextEditingController();
   String? _idResponsavelSelecionado;
+  String? _idFotoSelecionada;
   List<Responsavel> _responsaveis = [];
+  List<FotoFigurinha> _fotos = [];
   String _resultado = "";
 
   @override
   void initState() {
     super.initState();
     _carregarResponsaveis();
+    _carregarFotos();
   }
 
   Future<void> _carregarResponsaveis() async {
@@ -40,6 +45,13 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     });
   }
 
+  Future<void> _carregarFotos() async {
+    final lista = await ControlFoto().queryFind();
+    setState(() {
+      _fotos = lista;
+      if (lista.isNotEmpty) _idFotoSelecionada = lista[0].id.toString();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,6 +111,24 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
             });
           },
         ),
+        DropdownButtonFormField<String>(
+          value: _idFotoSelecionada,
+          decoration: InputDecoration(
+            labelText: "Foto (opcional)",
+            border: OutlineInputBorder(),
+          ),
+          items: _fotos.map((f) {
+            return DropdownMenuItem<String>(
+              value: f.id.toString(),
+              child: Text(f.caminhoArquivo.split('/').last),
+            );
+          }).toList(),
+          onChanged: (valor) {
+            setState(() {
+              _idFotoSelecionada = valor;
+            });
+          },
+        ),
         SizedBox(height: 16),
         Buttons("Registrar", onPressed: _registrar),
         TextosCustom(_resultado, 18, Colors.red),
@@ -112,6 +142,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
       cpf: _cpf.text,
       dataNascimento: _dataNascimento.text,
       idResponsavel: int.tryParse(_idResponsavelSelecionado ?? "0") ?? 0,
+      idFoto: int.tryParse(_idFotoSelecionada ?? ""),
     );
 
     try {
