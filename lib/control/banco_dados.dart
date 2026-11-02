@@ -122,6 +122,17 @@ class BancoDados {
           await db.execute(
             "ALTER TABLE escalacao ADD COLUMN id_jogador INTEGER REFERENCES jogador(id)",
           );
+          // recria a tabela para remover colunas NOT NULL obsoletas
+          await db.execute("CREATE TABLE escalacao_new("
+              "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+              "id_partida INTEGER NOT NULL REFERENCES partida(id) ON DELETE CASCADE, "
+              "id_jogador INTEGER REFERENCES jogador(id), "
+              "id_time INTEGER REFERENCES time(id_time), "
+              "titular VARCHAR(10) NOT NULL DEFAULT 'Titular')");
+          await db.execute("INSERT INTO escalacao_new(id, id_partida, id_jogador, id_time, titular) "
+              "SELECT id, id_partida, id_jogador, id_time, COALESCE(titular,'Titular') FROM escalacao");
+          await db.execute("DROP TABLE escalacao");
+          await db.execute("ALTER TABLE escalacao_new RENAME TO escalacao");
         }
       },
     );
@@ -318,12 +329,7 @@ class BancoDados {
       "id_partida INTEGER NOT NULL REFERENCES partida(id) ON DELETE CASCADE, "
       "id_jogador INTEGER REFERENCES jogador(id), "
       "id_time INTEGER REFERENCES time(id_time), "
-      "titular VARCHAR(10) NOT NULL, "
-      "numero_camisa INTEGER NOT NULL, "
-      "id_posicao INTEGER NOT NULL REFERENCES posicao(id), "
-      "id_participacao_jogador_time INTEGER NOT NULL "
-      "REFERENCES participacao_jogador_time(id), "
-      "UNIQUE(id_partida, id_participacao_jogador_time))",
+      "titular VARCHAR(10) NOT NULL DEFAULT 'Titular')",
     );
 
     await db.execute(
