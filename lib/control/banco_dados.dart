@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 11;
+  static const int _versao = 12;
 
   Database? _db;
 
@@ -124,22 +124,15 @@ class BancoDados {
           );
         }
 
-        // Migracao v10 -> v11: recria escalacao e evento_partida do zero (limpa schema)
-        if (oldVersion < 11) {
-          await db.execute("DROP TABLE IF EXISTS evento_partida");
-          await db.execute("DROP TABLE IF EXISTS escalacao");
-          await db.execute("CREATE TABLE escalacao("
-              "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-              "id_partida INTEGER NOT NULL REFERENCES partida(id) ON DELETE CASCADE, "
-              "id_jogador INTEGER REFERENCES jogador(id), "
-              "id_time INTEGER REFERENCES time(id_time), "
-              "titular VARCHAR(10) NOT NULL DEFAULT 'Titular')");
-          await db.execute("CREATE TABLE evento_partida("
-              "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-              "id_tipo_evento INTEGER NOT NULL REFERENCES tipo_evento(id), "
-              "minuto_evento INTEGER NOT NULL, "
-              "descricao VARCHAR(255), "
-              "id_escalacao INTEGER NOT NULL REFERENCES escalacao(id) ON DELETE CASCADE)");
+        // Migracao v11 -> v12: recria o banco inteiro do zero
+        if (oldVersion < 12) {
+          List<Map<String, dynamic>> tabelas = await db.rawQuery(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'",
+          );
+          for (final t in tabelas) {
+            await db.execute("DROP TABLE IF EXISTS ${t['name']}");
+          }
+          await _criarTabelas(db);
         }
       },
     );
