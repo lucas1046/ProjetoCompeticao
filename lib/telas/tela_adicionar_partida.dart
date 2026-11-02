@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_partida.dart';
 import 'package:projeto_final/control/control_rodada.dart';
 import 'package:projeto_final/control/control_time.dart';
@@ -61,6 +62,16 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
       appBar: AppBar(
         title: Text("Registrar partida"),
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

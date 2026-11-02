@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_escalacao.dart';
 import 'package:projeto_final/control/control_evento.dart';
 import 'package:projeto_final/control/control_tipo_evento.dart';
@@ -52,6 +53,16 @@ class _TelaAdicionarEventoState extends State<TelaAdicionarEvento> {
       appBar: AppBar(
         title: Text("Registrar evento de partida"),
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

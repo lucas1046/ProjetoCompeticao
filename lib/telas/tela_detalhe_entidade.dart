@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -24,6 +25,16 @@ class TelaDetalheEntidade extends StatelessWidget {
       appBar: AppBar(
         title: Text(titulo),
         backgroundColor: Colors.blue,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(context),
     );

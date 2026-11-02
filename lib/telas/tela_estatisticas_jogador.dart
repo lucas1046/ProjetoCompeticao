@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_participacao.dart';
 import 'package:projeto_final/control/control_relatorio.dart';
 import 'package:projeto_final/model/participacao_jogador_time.dart';
@@ -51,6 +52,16 @@ class _TelaEstatisticasJogadorState extends State<TelaEstatisticasJogador> {
       appBar: AppBar(
         title: Text("Estatísticas do jogador"),
         backgroundColor: Colors.purple,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

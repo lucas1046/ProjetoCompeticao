@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_categoria.dart';
 import 'package:projeto_final/model/categoria.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
@@ -25,6 +26,16 @@ class _TelaAdicionarCategoriaState extends State<TelaAdicionarCategoria> {
       appBar: AppBar(
         title: Text("Cadastrar categoria"),
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_sessao.dart';
 import 'package:projeto_final/telas/tela_classificacao.dart';
 import 'package:projeto_final/telas/tela_estatisticas_jogador.dart';
@@ -16,6 +17,16 @@ class MenuRelatorios extends StatelessWidget {
       appBar: AppBar(
         title: Text("Relatórios e estatísticas"),
         backgroundColor: Colors.purple,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(context),
     );

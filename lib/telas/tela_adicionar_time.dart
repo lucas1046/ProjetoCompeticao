@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_categoria.dart';
 import 'package:projeto_final/control/control_escola.dart';
 import 'package:projeto_final/control/control_modalidade.dart';
@@ -59,6 +60,16 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
       appBar: AppBar(
         title: Text("Cadastrar time"),
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

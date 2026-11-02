@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_evento.dart';
 import 'package:projeto_final/control/control_suspensao.dart';
 import 'package:projeto_final/model/evento_partida.dart';
@@ -42,6 +43,16 @@ class _TelaAdicionarSuspensaoState extends State<TelaAdicionarSuspensao> {
       appBar: AppBar(
         title: Text("Registrar suspensão"),
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_dados_exemplo.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -38,6 +39,16 @@ class _TelaDadosExemploState extends State<TelaDadosExemplo> {
       appBar: AppBar(
         title: Text("Dados de exemplo"),
         backgroundColor: Colors.indigo,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

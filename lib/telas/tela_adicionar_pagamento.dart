@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_pagamento.dart';
 import 'package:projeto_final/control/control_participacao.dart';
 import 'package:projeto_final/model/pagamento_inscricao.dart';
@@ -45,6 +46,16 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
       appBar: AppBar(
         title: Text("Registrar pagamento"),
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

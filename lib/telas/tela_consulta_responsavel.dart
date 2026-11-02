@@ -44,6 +44,16 @@ class _TelaConsultaResponsavelState extends State<TelaConsultaResponsavel> {
         appBar: AppBar(
           title: Text("Consultar responsável"),
           backgroundColor: Colors.orange,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
         ),
         body: _body(),
       ),

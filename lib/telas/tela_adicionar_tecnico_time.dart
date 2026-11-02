@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_tecnico.dart';
 import 'package:projeto_final/control/control_tecnico_time.dart';
 import 'package:projeto_final/control/control_time.dart';
@@ -50,6 +51,16 @@ class _TelaAdicionarTecnicoTimeState extends State<TelaAdicionarTecnicoTime> {
       appBar: AppBar(
         title: Text("Vincular técnico ao time"),
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

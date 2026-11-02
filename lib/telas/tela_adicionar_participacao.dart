@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/control/control_participacao.dart';
 import 'package:projeto_final/control/control_time.dart';
@@ -53,6 +54,16 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
       appBar: AppBar(
         title: Text("Inscrever jogador no time"),
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

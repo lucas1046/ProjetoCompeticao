@@ -43,6 +43,16 @@ class _TelaConsultaDocumentoState extends State<TelaConsultaDocumento> {
         appBar: AppBar(
           title: Text("Consultar documento"),
           backgroundColor: Colors.orange,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
         ),
         body: _body(),
       ),

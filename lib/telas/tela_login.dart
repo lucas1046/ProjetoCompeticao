@@ -26,6 +26,16 @@ class _TelaLoginState extends State<TelaLogin> {
       appBar: AppBar(
         title: Text("Competições Escolares"),
         backgroundColor: Colors.blue,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );

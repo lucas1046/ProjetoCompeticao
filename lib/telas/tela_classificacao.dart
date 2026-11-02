@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_relatorio.dart';
 import 'package:projeto_final/util/exportacao.dart';
 import 'package:projeto_final/util/gerador_pdf.dart';
@@ -25,6 +26,16 @@ class _TelaClassificacaoState extends State<TelaClassificacao> {
       appBar: AppBar(
         title: Text("Classificação geral"),
         backgroundColor: Colors.purple,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => Menu()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: _body(),
     );
