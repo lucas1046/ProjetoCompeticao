@@ -137,7 +137,9 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
 
   Future<void> _adicionarEvento(String lado) async {
     if (_idPartida == null) return;
-    final escs = (await ControlEscalacao().queryFind()).where((e) => e.idPartida == _idPartida).toList();
+    final idTime = lado == 'casa' ? _idTimeCasa : _idTimeVisitante;
+    final detalhado = await ControlEscalacao().queryFindDetalhado();
+    final escs = detalhado.where((e) => e['idPartida'] == _idPartida && e['nomeTime'] == _times.firstWhere((t) => t.idTime.toString() == idTime, orElse: () => _times.first).nomeTime).toList();
     if (escs.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Cadastre escalações antes de eventos.")));
       return;
@@ -166,7 +168,7 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
                 DropdownButtonFormField<int>(
                   value: idEsc,
                   decoration: const InputDecoration(labelText: "Jogador escalado"),
-                  items: escs.map((e) => DropdownMenuItem<int>(value: e.id, child: Text("Esc. ${e.id}"))).toList(),
+                  items: escs.map((e) => DropdownMenuItem<int>(value: e['id'] as int, child: Text(e['nomeJogador']?.toString() ?? 'Jogador ${e['id']}'))).toList(),
                   onChanged: (v) => setD(() => idEsc = v),
                 ),
                 SizedBox(height: 8),
