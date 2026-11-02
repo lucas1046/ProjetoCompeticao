@@ -1,6 +1,7 @@
 class Escalacao {
   final int? id;
   final int idPartida;
+  final int? idTime;
   final String titular;
   final int numeroCamisa;
   final int idPosicao;
@@ -8,7 +9,8 @@ class Escalacao {
 
   Escalacao({
     this.id,
-    required this.idPartida,
+    this.idPartida = 0,
+    this.idTime,
     required this.titular,
     required this.numeroCamisa,
     required this.idPosicao,
@@ -19,6 +21,7 @@ class Escalacao {
     return {
       'id': id,
       'id_partida': idPartida,
+      'id_time': idTime,
       'titular': titular,
       'numero_camisa': numeroCamisa,
       'id_posicao': idPosicao,
@@ -29,7 +32,8 @@ class Escalacao {
   factory Escalacao.fromMap(Map<String, dynamic> map) {
     return Escalacao(
       id: map['id'],
-      idPartida: map['id_partida'],
+      idPartida: map['id_partida'] ?? 0,
+      idTime: map['id_time'],
       titular: map['titular'],
       numeroCamisa: map['numero_camisa'],
       idPosicao: map['id_posicao'],

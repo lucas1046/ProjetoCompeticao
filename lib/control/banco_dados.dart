@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 5;
+  static const int _versao = 6;
 
   Database? _db;
 
@@ -90,6 +90,13 @@ class BancoDados {
         if (oldVersion < 5) {
           await db.execute(
             "ALTER TABLE jogador ADD COLUMN id_foto INTEGER REFERENCES foto_figurinha(id)",
+          );
+        }
+
+        // Migracao v5 -> v6: vinculo da escalação ao time (roster reutilizavel)
+        if (oldVersion < 6) {
+          await db.execute(
+            "ALTER TABLE escalacao ADD COLUMN id_time INTEGER REFERENCES time(id_time)",
           );
         }
       },
@@ -283,6 +290,7 @@ class BancoDados {
       "CREATE TABLE IF NOT EXISTS escalacao("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
       "id_partida INTEGER NOT NULL REFERENCES partida(id) ON DELETE CASCADE, "
+      "id_time INTEGER REFERENCES time(id_time), "
       "titular VARCHAR(10) NOT NULL, "
       "numero_camisa INTEGER NOT NULL, "
       "id_posicao INTEGER NOT NULL REFERENCES posicao(id), "

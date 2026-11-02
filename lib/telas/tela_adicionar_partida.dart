@@ -69,9 +69,27 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
     );
     try {
       final id = await ControlPartida().insertDatabase(partida);
+      // copia o roster (escalacoes do time) para esta partida
+      final timeCasaId = int.tryParse(_idTimeCasa ?? "0") ?? 0;
+      final timeVisId = int.tryParse(_idTimeVisitante ?? "0") ?? 0;
+      final roster = (await ControlEscalacao().queryFind()).where((e) => e.idPartida == 0).toList();
+      for (final r in roster) {
+        if (r.idTime == timeCasaId || r.idTime == timeVisId) {
+          try {
+            await ControlEscalacao().insertDatabase(Escalacao(
+              idPartida: id,
+              idTime: r.idTime,
+              titular: r.titular,
+              numeroCamisa: r.numeroCamisa,
+              idPosicao: r.idPosicao,
+              idParticipacao: r.idParticipacao,
+            ));
+          } catch (_) {}
+        }
+      }
       setState(() {
         _idPartida = id;
-        _resultado = "Partida criada (id: $id). Adicione eventos.";
+        _resultado = "Partida criada (id: $id). Eventos podem ser registrados.";
       });
       await _refreshEventos();
     } catch (e) {

@@ -13,8 +13,12 @@ class ControlEscalacao {
 
   // RNFR-10.1 e RNFR-10.2
   Future<int> insertDatabase(Escalacao escalacao) async {
-    if (escalacao.idPartida <= 0 || escalacao.idParticipacao <= 0) {
-      throw RegraNegocioException("Informe a partida e o jogador escalado.");
+    if (escalacao.idPartida <= 0 && (escalacao.idTime == null || escalacao.idTime! <= 0)) {
+      throw RegraNegocioException("Informe a partida ou o time da escalação.");
+    }
+
+    if (escalacao.idParticipacao <= 0) {
+      throw RegraNegocioException("Informe o jogador escalado.");
     }
 
     if (escalacao.numeroCamisa <= 0) {
@@ -30,28 +34,39 @@ class ControlEscalacao {
     Database banco = await BancoDados().db;
 
     // RNFR-10.1 — só escala jogador inscrito no time participante da partida
-    List<Map<String, dynamic>> validacao = await banco.rawQuery(
-      "SELECT t.id_time_casa, t.id_time_visitante, pj.id_time AS id_time_jogador "
-      "FROM partida t "
-      "INNER JOIN participacao_jogador_time pj ON pj.id = ? "
-      "WHERE t.id = ?",
-      [escalacao.idParticipacao, escalacao.idPartida],
-    );
-
-    if (validacao.isEmpty) {
-      throw RegraNegocioException(
-        "Jogador ou partida não encontrados.",
+    if (escalacao.idPartida > 0) {
+      List<Map<String, dynamic>> validacao = await banco.rawQuery(
+        "SELECT t.id_time_casa, t.id_time_visitante, pj.id_time AS id_time_jogador "
+        "FROM partida t "
+        "INNER JOIN participacao_jogador_time pj ON pj.id = ? "
+        "WHERE t.id = ?",
+        [escalacao.idParticipacao, escalacao.idPartida],
       );
-    }
 
-    int timeCasa = validacao.first['id_time_casa'];
-    int timeVisitante = validacao.first['id_time_visitante'];
-    int timeJogador = validacao.first['id_time_jogador'];
+      if (validacao.isEmpty) {
+        throw RegraNegocioException(
+          "Jogador ou partida não encontrados.",
+        );
+      }
 
-    if (timeJogador != timeCasa && timeJogador != timeVisitante) {
-      throw RegraNegocioException(
-        "O jogador não está inscrito em nenhum dos times desta partida.",
+      int timeCasa = validacao.first['id_time_casa'];
+      int timeVisitante = validacao.first['id_time_visitante'];
+      int timeJogador = validacao.first['id_time_jogador'];
+
+      if (timeJogador != timeCasa && timeJogador != timeVisitante) {
+        throw RegraNegocioException(
+          "O jogador não está inscrito em nenhum dos times desta partida.",
+        );
+      }
+    } else if (escalacao.idTime != null && escalacao.idTime! > 0) {
+      // roster: jogador deve estar inscrito no time
+      List<Map<String, dynamic>> validacao = await banco.rawQuery(
+        "SELECT COUNT(*) AS total FROM participacao_jogador_time WHERE id = ? AND id_time = ?",
+        [escalacao.idParticipacao, escalacao.idTime],
       );
+      if ((validacao.first['total'] as int? ?? 0) == 0) {
+        throw RegraNegocioException("O jogador não está inscrito neste time.");
+      }
     }
 
     // RNFR-10.2 — não escala jogador com suspensão ativa
