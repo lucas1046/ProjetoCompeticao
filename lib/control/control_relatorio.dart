@@ -23,7 +23,7 @@ class ControlRelatorio {
       "FROM evento_partida ep "
       "JOIN escalacao e ON ep.id_escalacao = e.id "
       "JOIN tipo_evento te ON ep.id_tipo_evento = te.id "
-      "WHERE e.id_participacao_jogador_time = ? "
+      "WHERE e.id_jogador = ? "
       "GROUP BY te.descricao "
       "ORDER BY total DESC",
       [idParticipacao],
@@ -36,7 +36,7 @@ class ControlRelatorio {
     List<Map<String, dynamic>> resultado = await banco.rawQuery(
       "SELECT COUNT(*) AS total FROM partida p "
       "JOIN escalacao e ON p.id_escalacao_craque = e.id "
-      "WHERE e.id_participacao_jogador_time = ?",
+      "WHERE e.id_jogador = ?",
       [idParticipacao],
     );
     return resultado.first['total'] as int? ?? 0;
@@ -47,7 +47,7 @@ class ControlRelatorio {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultado = await banco.rawQuery(
       "SELECT COUNT(*) AS total FROM escalacao "
-      "WHERE id_participacao_jogador_time = ?",
+      "WHERE id_jogador = ?",
       [idParticipacao],
     );
     return resultado.first['total'] as int? ?? 0;
@@ -209,9 +209,8 @@ class ControlRelatorio {
       "JOIN evento_partida ep ON s.id_evento = ep.id "
       "JOIN tipo_evento te ON ep.id_tipo_evento = te.id "
       "JOIN escalacao e ON ep.id_escalacao = e.id "
-      "JOIN participacao_jogador_time pjt ON e.id_participacao_jogador_time = pjt.id "
-      "JOIN jogador j ON pjt.id_jogador = j.id "
-      "JOIN time t ON pjt.id_time = t.id_time "
+      "JOIN jogador j ON e.id_jogador = j.id "
+      "LEFT JOIN time t ON e.id_time = t.id_time "
       "WHERE s.cumprida = 0 "
       "ORDER BY j.nome",
     );

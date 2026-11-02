@@ -73,10 +73,8 @@ class ControlEvento {
       "FROM evento_partida ep "
       "JOIN tipo_evento te ON ep.id_tipo_evento = te.id "
       "JOIN escalacao e ON ep.id_escalacao = e.id "
-      "JOIN participacao_jogador_time pjt "
-      "ON e.id_participacao_jogador_time = pjt.id "
-      "JOIN jogador j ON pjt.id_jogador = j.id "
-      "JOIN time t ON pjt.id_time = t.id_time "
+      "JOIN jogador j ON e.id_jogador = j.id "
+      "LEFT JOIN time t ON e.id_time = t.id_time "
       "ORDER BY ep.minuto_evento",
     );
   }

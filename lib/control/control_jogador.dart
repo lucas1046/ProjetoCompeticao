@@ -108,11 +108,9 @@ class ControlJogador {
 
     // Participações (times)
     List<Map<String, dynamic>> participacoes = await banco.rawQuery(
-      "SELECT p.id, p.numero_camisa, p.valor_inscricao, t.nome_time, "
-      "e.nome AS nomeEscola "
+      "SELECT p.id, p.valor_inscricao, e.nome AS nomeEscola "
       "FROM participacao_jogador_time p "
-      "JOIN time t ON p.id_time = t.id_time "
-      "JOIN escola e ON t.id_escola = e.id "
+      "LEFT JOIN escola e ON p.id_escola = e.id "
       "WHERE p.id_jogador = ?",
       [idJogador],
     );
@@ -135,31 +133,24 @@ class ControlJogador {
       }
     }
 
-    // Escalações (partidas jogadas)
-    List<Map<String, dynamic>> partidas = [];
-    List<int> idsEsc = [];
-    if (idsPart.isNotEmpty) {
-      String placeholders = idsPart.map((_) => '?').join(',');
-      partidas = await banco.rawQuery(
-        "SELECT esc.id AS idEscalacao, esc.titular, esc.numero_camisa, "
-        "pos.nome AS nomePosicao, pa.id AS idPartida, "
-        "pa.qtd_gols_time_casa, pa.qtd_gols_time_visitante, pa.wo, "
-        "r.numero AS numeroRodada, r.data AS dataRodada, "
-        "c.nome AS nomeCompeticao, tc.nome_time AS timeCasa, "
-        "tv.nome_time AS timeVisitante "
-        "FROM escalacao esc "
-        "JOIN posicao pos ON esc.id_posicao = pos.id "
-        "JOIN partida pa ON esc.id_partida = pa.id "
-        "JOIN rodada r ON pa.id_rodada = r.id "
-        "JOIN competicao c ON r.id_competicao = c.id "
-        "JOIN time tc ON pa.id_time_casa = tc.id_time "
-        "JOIN time tv ON pa.id_time_visitante = tv.id_time "
-        "WHERE esc.id_participacao_jogador_time IN ($placeholders) "
-        "ORDER BY r.data DESC",
-        idsPart,
-      );
-      idsEsc = partidas.map((p) => p['idEscalacao'] as int).toList();
-    }
+    // Escalações (partidas jogadas) — agora por id_jogador
+    List<Map<String, dynamic>> partidas = await banco.rawQuery(
+      "SELECT esc.id AS idEscalacao, pa.id AS idPartida, "
+      "pa.qtd_gols_time_casa, pa.qtd_gols_time_visitante, pa.wo, "
+      "r.numero AS numeroRodada, r.data AS dataRodada, "
+      "c.nome AS nomeCompeticao, tc.nome_time AS timeCasa, "
+      "tv.nome_time AS timeVisitante "
+      "FROM escalacao esc "
+      "JOIN partida pa ON esc.id_partida = pa.id "
+      "JOIN rodada r ON pa.id_rodada = r.id "
+      "JOIN competicao c ON r.id_competicao = c.id "
+      "JOIN time tc ON pa.id_time_casa = tc.id_time "
+      "JOIN time tv ON pa.id_time_visitante = tv.id_time "
+      "WHERE esc.id_jogador = ? "
+      "ORDER BY r.data DESC",
+      [idJogador],
+    );
+    List<int> idsEsc = partidas.map((p) => p['idEscalacao'] as int).toList();
 
     // Eventos
     List<Map<String, dynamic>> eventos = [];

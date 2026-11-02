@@ -58,9 +58,7 @@ class ControlSuspensao {
       "JOIN evento_partida ep ON s.id_evento = ep.id "
       "JOIN tipo_evento te ON ep.id_tipo_evento = te.id "
       "JOIN escalacao e ON ep.id_escalacao = e.id "
-      "JOIN participacao_jogador_time pjt "
-      "ON e.id_participacao_jogador_time = pjt.id "
-      "JOIN jogador j ON pjt.id_jogador = j.id "
+      "JOIN jogador j ON e.id_jogador = j.id "
       "ORDER BY j.nome",
     );
   }
@@ -75,14 +73,12 @@ class ControlSuspensao {
       "SELECT s.id AS id_suspensao, "
       "s.qtd_jogos_suspensao AS qtd_jogos, "
       "r.data AS data_infracao, "
-      "pjt.id_jogador AS id_jogador "
+      "e.id_jogador AS id_jogador "
       "FROM suspensao s "
       "JOIN evento_partida ep ON s.id_evento = ep.id "
       "JOIN escalacao e ON ep.id_escalacao = e.id "
       "JOIN partida p ON e.id_partida = p.id "
       "JOIN rodada r ON p.id_rodada = r.id "
-      "JOIN participacao_jogador_time pjt "
-      "ON e.id_participacao_jogador_time = pjt.id "
       "WHERE s.cumprida = 0",
     );
 
@@ -100,9 +96,7 @@ class ControlSuspensao {
         "FROM partida p2 "
         "JOIN rodada r2 ON p2.id_rodada = r2.id "
         "JOIN escalacao e2 ON e2.id_partida = p2.id "
-        "JOIN participacao_jogador_time pjt2 "
-        "ON e2.id_participacao_jogador_time = pjt2.id "
-        "WHERE pjt2.id_jogador = ? AND r2.data > ?",
+        "WHERE e2.id_jogador = ? AND r2.data > ?",
         [idJogador, dataInfracao],
       );
 
