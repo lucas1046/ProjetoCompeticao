@@ -130,7 +130,6 @@ class _MenuState extends State<Menu> {
   _body(BuildContext ctx) {
     return Column(
       children: [
-        _dashboard(),
         Card(
           color: Colors.purple,
           margin: EdgeInsets.all(16),
