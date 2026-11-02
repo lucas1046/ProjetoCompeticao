@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 9;
+  static const int _versao = 10;
 
   Database? _db;
 
@@ -122,8 +122,11 @@ class BancoDados {
           await db.execute(
             "ALTER TABLE escalacao ADD COLUMN id_jogador INTEGER REFERENCES jogador(id)",
           );
-          // recria a tabela para remover colunas NOT NULL obsoletas
-          await db.execute("CREATE TABLE escalacao_new("
+        }
+
+        // Migracao v9 -> v10: recria escalacao (remove NOT NULL obsoletos)
+        if (oldVersion < 10) {
+          await db.execute("CREATE TABLE IF NOT EXISTS escalacao_new("
               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
               "id_partida INTEGER NOT NULL REFERENCES partida(id) ON DELETE CASCADE, "
               "id_jogador INTEGER REFERENCES jogador(id), "
