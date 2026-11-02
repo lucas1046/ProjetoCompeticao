@@ -167,7 +167,7 @@ class _MenuState extends State<Menu> {
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
-        childAspectRatio: 1.0,
+        childAspectRatio: 1.2,
       ),
       itemCount: opcoesVisiveis.length,
       itemBuilder: (context, index) {
@@ -181,18 +181,12 @@ class _MenuState extends State<Menu> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(opcao.icone, size: 44, color: Colors.blue),
-                  SizedBox(height: 12),
+                  Icon(opcao.icone, size: 36, color: Colors.blue),
+                  SizedBox(height: 8),
                   Text(
                     opcao.titulo,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    "Toque para abrir",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
