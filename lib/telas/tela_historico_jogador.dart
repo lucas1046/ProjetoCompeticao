@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/telas/menu.dart';
+import 'package:projeto_final/util/gerador_pdf.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -38,6 +39,27 @@ class _TelaHistoricoJogadorState extends State<TelaHistoricoJogador> {
     }
   }
 
+  Future<void> _gerarFicha() async {
+    try {
+      final j = _dados['jogador'] as Map<String, dynamic>? ?? {};
+      final part = (_dados['participacoes'] as List?)?.cast<Map<String, dynamic>>() ?? [];
+      final pags = _dados['pagamentos'] as Map? ?? {};
+      final pagamentos = <int, List<Map<String, dynamic>>>{};
+      pags.forEach((k, v) {
+        pagamentos[k as int] = (v as List).cast<Map<String, dynamic>>();
+      });
+
+      final bytes = await GeradorPdf().fichaJogador(j, part, pagamentos);
+      await GeradorPdf().compartilhar(bytes, "ficha_${j['nome'] ?? 'jogador'}.pdf");
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Erro ao gerar ficha: $e")),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +67,11 @@ class _TelaHistoricoJogadorState extends State<TelaHistoricoJogador> {
         title: Text("Histórico: ${widget.nomeJogador}"),
         backgroundColor: Colors.teal,
         actions: [
+          IconButton(
+            tooltip: "Gerar ficha PDF",
+            icon: Icon(Icons.picture_as_pdf),
+            onPressed: _gerarFicha,
+          ),
           IconButton(
             icon: Icon(Icons.home),
             onPressed: () => Navigator.pushAndRemoveUntil(

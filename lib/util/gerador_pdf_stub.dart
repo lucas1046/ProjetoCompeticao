@@ -36,6 +36,14 @@ class GeradorPdf {
     throw UnsupportedError("Exportação em PDF não disponível na web.");
   }
 
+  Future<Uint8List> fichaJogador(
+    Map<String, dynamic> jogador,
+    List<Map<String, dynamic>> participacoes,
+    Map<int, List<Map<String, dynamic>>> pagamentos,
+  ) async {
+    throw UnsupportedError("Exportação em PDF não disponível na web.");
+  }
+
   Future<String> salvar(Uint8List bytes, String nomeArquivo) async {
     throw UnsupportedError("Exportação em PDF não disponível na web.");
   }

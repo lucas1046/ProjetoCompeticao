@@ -180,6 +180,98 @@ class GeradorPdf {
     );
   }
 
+  /// Ficha de inscrição individual do jogador (RNFR-06.x)
+  Future<Uint8List> fichaJogador(
+    Map<String, dynamic> jogador,
+    List<Map<String, dynamic>> participacoes,
+    Map<int, List<Map<String, dynamic>>> pagamentos,
+  ) async {
+    await _carregarFontes();
+
+    pw.Document documento = pw.Document(
+      theme: pw.ThemeData.withFont(base: _fonteBase!, bold: _fonteBold!),
+    );
+
+    List<pw.Widget> conteudo = [];
+
+    conteudo.add(_cabecalho("Ficha de inscrição do jogador"));
+    conteudo.add(pw.SizedBox(height: 8));
+
+    // Dados do jogador
+    conteudo.add(pw.Text("Dados do jogador",
+        style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 12)));
+    conteudo.add(pw.SizedBox(height: 4));
+    conteudo.add(_linha("Nome", jogador['nome']?.toString() ?? "-"));
+    conteudo.add(_linha("CPF", jogador['cpf']?.toString() ?? "-"));
+    conteudo.add(_linha("Data de nascimento", jogador['data_nascimento']?.toString() ?? "-"));
+    conteudo.add(_linha("Responsável", jogador['nomeResponsavel']?.toString() ?? "-"));
+    conteudo.add(pw.SizedBox(height: 12));
+
+    // Participações
+    conteudo.add(pw.Text("Inscrições em times",
+        style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 12)));
+    conteudo.add(pw.SizedBox(height: 4));
+
+    if (participacoes.isEmpty) {
+      conteudo.add(pw.Text("Nenhuma inscrição registrada.",
+          style: pw.TextStyle(fontSize: 10, color: PdfColors.grey600)));
+    } else {
+      for (var p in participacoes) {
+        int id = p['id'] as int;
+        List pgs = pagamentos[id] ?? [];
+        double pago = pgs.fold(0.0, (s, pg) => s + ((pg['valor_pago'] as num?)?.toDouble() ?? 0));
+        double insc = (p['valor_inscricao'] as num?)?.toDouble() ?? 0;
+
+        conteudo.add(pw.Container(
+          margin: pw.EdgeInsets.only(bottom: 8),
+          padding: pw.EdgeInsets.all(8),
+          decoration: pw.BoxDecoration(
+            border: pw.Border.all(color: PdfColors.grey400),
+            borderRadius: pw.BorderRadius.circular(4),
+          ),
+          child: pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Text(p['nome_time']?.toString() ?? "-",
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+              pw.Text("Escola: ${p['nomeEscola'] ?? '-'}", style: pw.TextStyle(fontSize: 10)),
+              pw.Text("Número da camisa: ${p['numero_camisa'] ?? '-'}", style: pw.TextStyle(fontSize: 10)),
+              pw.Text("Inscrição: R\$ ${insc.toStringAsFixed(2)}", style: pw.TextStyle(fontSize: 10)),
+              pw.Text("Pago: R\$ ${pago.toStringAsFixed(2)}", style: pw.TextStyle(fontSize: 10)),
+            ],
+          ),
+        ));
+      }
+    }
+
+    conteudo.add(pw.SizedBox(height: 12));
+    conteudo.add(pw.Text("Assinatura do responsável: ______________________________",
+        style: pw.TextStyle(fontSize: 10)));
+    conteudo.add(pw.SizedBox(height: 4));
+    conteudo.add(pw.Text("Data: ___/___/______", style: pw.TextStyle(fontSize: 10)));
+
+    documento.addPage(
+      pw.MultiPage(
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) => conteudo,
+      ),
+    );
+
+    return documento.save();
+  }
+
+  pw.Widget _linha(String rotulo, String valor) {
+    return pw.Padding(
+      padding: pw.EdgeInsets.only(bottom: 2),
+      child: pw.Row(
+        children: [
+          pw.Text("$rotulo: ", style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 10)),
+          pw.Text(valor, style: pw.TextStyle(fontSize: 10)),
+        ],
+      ),
+    );
+  }
+
   // ---------------------------------------------------------
   // SALVAR E COMPARTILHAR
   // ---------------------------------------------------------
