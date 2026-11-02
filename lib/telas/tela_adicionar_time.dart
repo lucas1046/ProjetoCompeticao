@@ -98,6 +98,12 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
             _idEscola = v;
           });
         }),
+        SizedBox(height: 4),
+        TextButton.icon(
+          onPressed: _novaEscola,
+          icon: Icon(Icons.add, color: Colors.green),
+          label: Text("Nova escola", style: TextStyle(color: Colors.green)),
+        ),
         SizedBox(height: 12),
         _dropdown("Categoria", _idCategoria, _categorias
             .map((c) => _Item(c.id.toString(), c.nome))
@@ -130,6 +136,60 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
       }).toList(),
       onChanged: onChanged,
     );
+  }
+
+  Future<void> _novaEscola() async {
+    final nomeCtrl = TextEditingController();
+    final cidadeCtrl = TextEditingController();
+    final estadoCtrl = TextEditingController();
+    final telCtrl = TextEditingController();
+
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("Nova escola"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(controller: nomeCtrl, decoration: InputDecoration(labelText: "Nome")),
+            SizedBox(height: 8),
+            TextField(controller: cidadeCtrl, decoration: InputDecoration(labelText: "Cidade")),
+            SizedBox(height: 8),
+            TextField(controller: estadoCtrl, decoration: InputDecoration(labelText: "Estado")),
+            SizedBox(height: 8),
+            TextField(controller: telCtrl, decoration: InputDecoration(labelText: "Telefone")),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")),
+          TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar")),
+        ],
+      ),
+    );
+
+    if (ok != true) return;
+
+    try {
+      final escola = Escola(
+        nome: nomeCtrl.text,
+        cidade: cidadeCtrl.text,
+        estado: estadoCtrl.text,
+        telefone: telCtrl.text,
+      );
+      await ControlEscola().insertDatabase(escola);
+      await _carregarListas();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Escola criada.")),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())),
+        );
+      }
+    }
   }
 
   Future<void> _registrar() async {
