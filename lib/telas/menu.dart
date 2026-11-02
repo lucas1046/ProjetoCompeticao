@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/control/banco_dados.dart';
 import 'package:projeto_final/control/control_sessao.dart';
 import 'package:projeto_final/telas/tela_adicionar_categoria.dart';
 import 'package:projeto_final/telas/tela_adicionar_competicao.dart';
@@ -45,8 +46,62 @@ import 'package:projeto_final/telas/tela_consulta_tipo_evento.dart';
 import 'package:projeto_final/telas/tela_detalhe_entidade.dart';
 import 'package:projeto_final/telas/tela_login.dart';
 
-class Menu extends StatelessWidget {
+class Menu extends StatefulWidget {
   const Menu({super.key});
+
+  @override
+  State<Menu> createState() => _MenuState();
+}
+
+class _MenuState extends State<Menu> {
+  int _competicoesAtivas = 0;
+  int _pagamentosPendentes = 0;
+  int _suspensosAbertos = 0;
+  int _proximasPartidas = 0;
+  bool _carregando = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _carregarKpis();
+  }
+
+  Future<void> _carregarKpis() async {
+    try {
+      final db = await BancoDados().db;
+      final hoje = DateTime.now().toIso8601String().substring(0, 10);
+
+      final r1 = await db.rawQuery(
+        "SELECT COUNT(*) AS total FROM competicao "
+        "WHERE data_inicio <= ? AND data_fim >= ?",
+        [hoje, hoje],
+      );
+      _competicoesAtivas = (r1.first['total'] as int?) ?? 0;
+
+      final r2 = await db.rawQuery(
+        "SELECT COUNT(*) AS total FROM participacao_jogador_time p "
+        "LEFT JOIN pagamento_inscricao pg ON pg.id_participacao_jogador_time = p.id "
+        "WHERE COALESCE(pg.valor_pago, 0) < COALESCE(p.valor_inscricao, 0)",
+      );
+      _pagamentosPendentes = (r2.first['total'] as int?) ?? 0;
+
+      final r3 = await db.rawQuery(
+        "SELECT COUNT(*) AS total FROM suspensao WHERE cumprida = 0",
+      );
+      _suspensosAbertos = (r3.first['total'] as int?) ?? 0;
+
+      final r4 = await db.rawQuery(
+        "SELECT COUNT(*) AS total FROM partida pa "
+        "JOIN rodada r ON pa.id_rodada = r.id "
+        "WHERE r.data >= ?",
+        [hoje],
+      );
+      _proximasPartidas = (r4.first['total'] as int?) ?? 0;
+    } catch (_) {
+      // banco indisponível — mantém zeros
+    }
+    if (mounted) setState(() => _carregando = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +110,6 @@ class Menu extends StatelessWidget {
         title: Text("Competições Escolares"),
         backgroundColor: Colors.blue,
         actions: [
-          // RNFR-15.2 — encerra a sessao e volta para a tela de login
           IconButton(
             tooltip: "Sair",
             icon: Icon(Icons.logout),
@@ -70,6 +124,7 @@ class Menu extends StatelessWidget {
   _body(BuildContext ctx) {
     return Column(
       children: [
+        _dashboard(),
         Card(
           color: Colors.purple,
           margin: EdgeInsets.all(16),
@@ -93,6 +148,60 @@ class Menu extends StatelessWidget {
         ),
         Expanded(child: _grid(ctx)),
       ],
+    );
+  }
+
+  _dashboard() {
+    if (_carregando) {
+      return SizedBox(
+        height: 36,
+        child: Center(child: SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2))),
+      );
+    }
+    return SizedBox(
+      height: 36,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        child: Row(
+          children: [
+            _kpi("Ativas", _competicoesAtivas, Colors.blue),
+            SizedBox(width: 6),
+            _kpi("Pendentes", _pagamentosPendentes, Colors.orange),
+            SizedBox(width: 6),
+            _kpi("Suspensos", _suspensosAbertos, Colors.red),
+            SizedBox(width: 6),
+            _kpi("Futuras", _proximasPartidas, Colors.green),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _kpi(String titulo, int valor, Color cor) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: cor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "$valor",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(width: 6),
+          Text(
+            titulo,
+            style: TextStyle(color: Colors.white, fontSize: 11),
+          ),
+        ],
+      ),
     );
   }
 
@@ -146,8 +255,6 @@ class Menu extends StatelessWidget {
           destinoDireto: () => TelaDadosExemplo()),
     ];
 
-    // RNFR-15.2, RNFR-05.2 e RNFR-16.2 — nao mostra no menu o que exige
-    // perfil de administrador quando o usuario logado nao tem esse perfil
     final opcoesVisiveis = opcoes
         .where((o) => !o.soAdministrador || ControlSessao().isAdministrador)
         .toList();
@@ -158,7 +265,7 @@ class Menu extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
-        childAspectRatio: 1.0,
+        childAspectRatio: 1.3,
       ),
       itemCount: opcoesVisiveis.length,
       itemBuilder: (context, index) {
@@ -166,7 +273,6 @@ class Menu extends StatelessWidget {
         return Card(
           elevation: 3,
           child: InkWell(
-            // O card inteiro abre a tela de detalhe da entidade
             onTap: () => _aoToqueCard(ctx, opcao),
             child: Padding(
               padding: EdgeInsets.all(16),
@@ -195,7 +301,6 @@ class Menu extends StatelessWidget {
     );
   }
 
-  // Cards de CRUD abrem a tela de detalhe; os demais vão direto ao destino
   _aoToqueCard(BuildContext ctx, _Opcao opcao) {
     if (opcao.destinoDireto != null) {
       _abreTelas(ctx, opcao.destinoDireto!());
@@ -222,7 +327,6 @@ class Menu extends StatelessWidget {
     );
   }
 
-  // RNFR-15.2 — encerra a sessao e volta para a tela de login
   _sair(BuildContext ctx) {
     ControlSessao().sair();
     Navigator.pushReplacement(
@@ -238,8 +342,6 @@ class _Opcao {
   final Function()? abreCadastro;
   final Function()? abreConsulta;
   final bool soAdministrador;
-
-  // Opcoes que nao sao CRUD (Relatorios, Dados exemplo) vao direto ao destino
   final Function()? destinoDireto;
 
   _Opcao(
