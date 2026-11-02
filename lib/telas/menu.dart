@@ -3,9 +3,8 @@ import 'package:projeto_final/control/control_sessao.dart';
 import 'package:projeto_final/telas/tela_adicionar_categoria.dart';
 import 'package:projeto_final/telas/tela_adicionar_competicao.dart';
 import 'package:projeto_final/telas/tela_adicionar_documento.dart';
-import 'package:projeto_final/telas/tela_adicionar_escalacao.dart';
-import 'package:projeto_final/telas/tela_adicionar_escola.dart';
 import 'package:projeto_final/telas/tela_adicionar_evento.dart';
+import 'package:projeto_final/telas/tela_adicionar_escola.dart';
 import 'package:projeto_final/telas/tela_adicionar_foto.dart';
 import 'package:projeto_final/telas/tela_adicionar_jogador.dart';
 import 'package:projeto_final/telas/tela_adicionar_modalidade.dart';
@@ -132,8 +131,6 @@ class _MenuState extends State<Menu> {
           () => TelaConsultaPagamento()),
       _Opcao("Partida", Icons.sports_score, () => TelaAdicionarPartida(),
           () => TelaConsultaPartida()),
-      _Opcao("Escalação", Icons.format_list_numbered,
-          () => TelaAdicionarEscalacao(), () => TelaConsultaEscalacao()),
       _Opcao("Evento", Icons.timer, () => TelaAdicionarEvento(),
           () => TelaConsultaEvento()),
       _Opcao("Suspensão", Icons.block, () => TelaAdicionarSuspensao(),

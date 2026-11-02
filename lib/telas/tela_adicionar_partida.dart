@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_competicao.dart';
+import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/control/control_escalacao.dart';
 import 'package:projeto_final/control/control_evento.dart';
 import 'package:projeto_final/control/control_partida.dart';
@@ -12,6 +13,7 @@ import 'package:projeto_final/model/escalacao.dart';
 import 'package:projeto_final/model/evento_partida.dart';
 import 'package:projeto_final/model/partida.dart';
 import 'package:projeto_final/model/rodada.dart';
+import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/model/time.dart';
 import 'package:projeto_final/model/tipo_evento.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
@@ -35,6 +37,11 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
   List<TipoEvento> _tiposEvento = [];
   List<Map<String, dynamic>> _eventos = [];
   String _resultado = "";
+  List<Jogador> _jogadores = [];
+  Set<int> _selCasa = {};
+  Set<int> _selVis = {};
+  final _filtroCasa = TextEditingController();
+  final _filtroVis = TextEditingController();
 
   @override
   void initState() {
@@ -46,10 +53,12 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
     final rodadas = await ControlRodada().queryFind();
     final times = await ControlTime().queryFind();
     final tipos = await ControlTipoEvento().queryFind();
+    final jogadores = await ControlJogador().queryFind();
     setState(() {
       _rodadas = rodadas;
       _times = times;
       _tiposEvento = tipos;
+      _jogadores = jogadores;
       if (rodadas.isNotEmpty) _idRodada = rodadas[0].id.toString();
       if (times.isNotEmpty) {
         _idTimeCasa = times[0].idTime.toString();
@@ -69,23 +78,16 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
     );
     try {
       final id = await ControlPartida().insertDatabase(partida);
-      // copia o roster (escalacoes do time) para esta partida
-      final timeCasaId = int.tryParse(_idTimeCasa ?? "0") ?? 0;
-      final timeVisId = int.tryParse(_idTimeVisitante ?? "0") ?? 0;
-      final roster = (await ControlEscalacao().queryFind()).where((e) => e.idPartida == 0).toList();
-      for (final r in roster) {
-        if (r.idTime == timeCasaId || r.idTime == timeVisId) {
-          try {
-            await ControlEscalacao().insertDatabase(Escalacao(
-              idPartida: id,
-              idTime: r.idTime,
-              titular: r.titular,
-              numeroCamisa: r.numeroCamisa,
-              idPosicao: r.idPosicao,
-              idParticipacao: r.idParticipacao,
-            ));
-          } catch (_) {}
-        }
+      // cria escalações para os jogadores selecionados
+      for (final jid in _selCasa) {
+        try {
+          await ControlEscalacao().insertDatabase(Escalacao(idPartida: id, idJogador: jid, idTime: int.tryParse(_idTimeCasa ?? "0")));
+        } catch (_) {}
+      }
+      for (final jid in _selVis) {
+        try {
+          await ControlEscalacao().insertDatabase(Escalacao(idPartida: id, idJogador: jid, idTime: int.tryParse(_idTimeVisitante ?? "0")));
+        } catch (_) {}
       }
       setState(() {
         _idPartida = id;
@@ -285,6 +287,19 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
               onChanged: (v) => setState(() => _idTimeVisitante = v),
             ),
             CheckboxListTile(title: Text("WO (W.O.)"), value: _wo, onChanged: (v) => setState(() => _wo = v ?? false)),
+            SizedBox(height: 8),
+            Text("Jogadores da casa:", style: TextStyle(fontWeight: FontWeight.bold)),
+            ..._jogadores.where((j) => _filtroCasa.text.isEmpty || j.nome.toLowerCase().contains(_filtroCasa.text.toLowerCase())).map((j) => CheckboxListTile(
+              title: Text(j.nome),
+              value: _selCasa.contains(j.id),
+              onChanged: (v) => setState(() { if (v == true) _selCasa.add(j.id!); else _selCasa.remove(j.id); }),
+            )),
+            Text("Jogadores do visitante:", style: TextStyle(fontWeight: FontWeight.bold)),
+            ..._jogadores.where((j) => _filtroVis.text.isEmpty || j.nome.toLowerCase().contains(_filtroVis.text.toLowerCase())).map((j) => CheckboxListTile(
+              title: Text(j.nome),
+              value: _selVis.contains(j.id),
+              onChanged: (v) => setState(() { if (v == true) _selVis.add(j.id!); else _selVis.remove(j.id); }),
+            )),
             SizedBox(height: 8),
             Buttons("Criar partida", onPressed: _criarPartida),
             TextosCustom(_resultado, 16, Colors.red),

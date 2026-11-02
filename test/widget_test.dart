@@ -313,15 +313,11 @@ void main() {
     Escalacao e = Escalacao(
       id: 1,
       idPartida: 1,
-      titular: 'Titular',
-      numeroCamisa: 9,
-      idPosicao: 1,
-      idParticipacao: 1,
+      idJogador: 1,
     );
     Escalacao deVolta = Escalacao.fromMap(e.toMap());
 
-    expect(deVolta.titular, 'Titular');
-    expect(deVolta.numeroCamisa, 9);
+    expect(deVolta.idJogador, 1);
   });
 
   test('Model EventoPartida converte para Map e volta', () {

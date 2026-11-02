@@ -1,31 +1,25 @@
 class Escalacao {
   final int? id;
   final int idPartida;
-  final int? idTime;
+  final int idJogador;
+  final int? idTime; // time (lado) da partida
   final String titular;
-  final int numeroCamisa;
-  final int idPosicao;
-  final int idParticipacao;
 
   Escalacao({
     this.id,
-    this.idPartida = 0,
+    required this.idPartida,
+    required this.idJogador,
     this.idTime,
-    required this.titular,
-    required this.numeroCamisa,
-    required this.idPosicao,
-    required this.idParticipacao,
+    this.titular = "Titular",
   });
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'id_partida': idPartida,
+      'id_jogador': idJogador,
       'id_time': idTime,
       'titular': titular,
-      'numero_camisa': numeroCamisa,
-      'id_posicao': idPosicao,
-      'id_participacao_jogador_time': idParticipacao,
     };
   }
 
@@ -33,11 +27,9 @@ class Escalacao {
     return Escalacao(
       id: map['id'],
       idPartida: map['id_partida'] ?? 0,
+      idJogador: map['id_jogador'] ?? 0,
       idTime: map['id_time'],
-      titular: map['titular'],
-      numeroCamisa: map['numero_camisa'],
-      idPosicao: map['id_posicao'],
-      idParticipacao: map['id_participacao_jogador_time'],
+      titular: map['titular'] ?? "Titular",
     );
   }
 }

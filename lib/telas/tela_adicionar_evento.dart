@@ -81,7 +81,7 @@ class _TelaAdicionarEventoState extends State<TelaAdicionarEvento> {
           items: _escalacoes.map((e) {
             return DropdownMenuItem<String>(
               value: e.id.toString(),
-              child: Text("Escalação ${e.id} - camisa ${e.numeroCamisa}"),
+              child: Text("Escalação ${e.id} - jogador ${e.idJogador}"),
             );
           }).toList(),
           onChanged: (v) => setState(() => _idEscalacao = v),

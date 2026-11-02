@@ -342,10 +342,8 @@ class ControlDadosExemplo {
       Escalacao(
         id: 1,
         idPartida: 1,
-        titular: "Titular",
-        numeroCamisa: 9,
-        idPosicao: 3,
-        idParticipacao: 1,
+        idJogador: 1,
+        idTime: 1,
       ).toMap(),
     );
     await BancoDados().inserir(
@@ -353,10 +351,8 @@ class ControlDadosExemplo {
       Escalacao(
         id: 2,
         idPartida: 1,
-        titular: "Titular",
-        numeroCamisa: 7,
-        idPosicao: 4,
-        idParticipacao: 3,
+        idJogador: 3,
+        idTime: 1,
       ).toMap(),
     );
     await BancoDados().inserir(
@@ -364,50 +360,8 @@ class ControlDadosExemplo {
       Escalacao(
         id: 3,
         idPartida: 1,
-        titular: "Titular",
-        numeroCamisa: 10,
-        idPosicao: 2,
-        idParticipacao: 2,
-      ).toMap(),
-    );
-
-    // ---------------------------------------------------------
-    // ROSTER (escalacao por time, reutilizavel em partidas)
-    // ---------------------------------------------------------
-    await BancoDados().inserir(
-      "escalacao",
-      Escalacao(
-        id: 4,
-        idPartida: 0,
-        idTime: 1,
-        titular: "Titular",
-        numeroCamisa: 9,
-        idPosicao: 3,
-        idParticipacao: 1,
-      ).toMap(),
-    );
-    await BancoDados().inserir(
-      "escalacao",
-      Escalacao(
-        id: 5,
-        idPartida: 0,
-        idTime: 1,
-        titular: "Titular",
-        numeroCamisa: 7,
-        idPosicao: 4,
-        idParticipacao: 3,
-      ).toMap(),
-    );
-    await BancoDados().inserir(
-      "escalacao",
-      Escalacao(
-        id: 6,
-        idPartida: 0,
+        idJogador: 2,
         idTime: 2,
-        titular: "Titular",
-        numeroCamisa: 10,
-        idPosicao: 2,
-        idParticipacao: 2,
       ).toMap(),
     );
 
