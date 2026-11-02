@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_partida.dart';
+import 'package:projeto_final/control/control_competicao.dart';
 import 'package:projeto_final/control/control_rodada.dart';
+import 'package:projeto_final/model/competicao.dart';
 import 'package:projeto_final/control/control_time.dart';
 import 'package:projeto_final/model/partida.dart';
 import 'package:projeto_final/model/rodada.dart';
@@ -81,19 +83,31 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        DropdownButtonFormField<String>(
-          value: _idRodada,
-          decoration: InputDecoration(
-            labelText: "Rodada",
-            border: OutlineInputBorder(),
-          ),
-          items: _rodadas.map((r) {
-            return DropdownMenuItem<String>(
-              value: r.id.toString(),
-              child: Text("Rodada ${r.numero}"),
-            );
-          }).toList(),
-          onChanged: (v) => setState(() => _idRodada = v),
+        Row(
+          children: [
+            Expanded(
+              child: DropdownButtonFormField<String>(
+                value: _idRodada,
+                decoration: InputDecoration(
+                  labelText: "Rodada",
+                  border: OutlineInputBorder(),
+                ),
+                items: _rodadas.map((r) {
+                  return DropdownMenuItem<String>(
+                    value: r.id.toString(),
+                    child: Text("Rodada ${r.numero}"),
+                  );
+                }).toList(),
+                onChanged: (v) => setState(() => _idRodada = v),
+              ),
+            ),
+            SizedBox(width: 8),
+            IconButton(
+              tooltip: "Nova rodada",
+              icon: Icon(Icons.add_circle, color: Colors.green),
+              onPressed: _novaRodada,
+            ),
+          ],
         ),
         SizedBox(height: 12),
         DropdownButtonFormField<String>(
@@ -155,6 +169,73 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
         TextosCustom(_resultado, 18, Colors.red),
       ],
     );
+  }
+
+  Future<void> _novaRodada() async {
+    final numeroCtrl = TextEditingController();
+    final dataCtrl = TextEditingController();
+    List<Competicao> comps = await ControlCompeticao().queryFind();
+    int? idComp = comps.isNotEmpty ? comps[0].id : null;
+
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setStateDialog) => AlertDialog(
+          title: Text("Nova rodada"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              DropdownButtonFormField<int>(
+                value: idComp,
+                decoration: InputDecoration(labelText: "Competição"),
+                items: comps.map((c) {
+                  return DropdownMenuItem<int>(value: c.id, child: Text(c.nome));
+                }).toList(),
+                onChanged: (v) => setStateDialog(() => idComp = v),
+              ),
+              SizedBox(height: 8),
+              TextField(
+                controller: numeroCtrl,
+                decoration: InputDecoration(labelText: "Número"),
+                keyboardType: TextInputType.number,
+              ),
+              SizedBox(height: 8),
+              TextField(
+                controller: dataCtrl,
+                decoration: InputDecoration(labelText: "Data (AAAA-MM-DD)"),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")),
+            TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar")),
+          ],
+        ),
+      ),
+    );
+
+    if (ok != true) return;
+
+    try {
+      final rodada = Rodada(
+        numero: int.tryParse(numeroCtrl.text) ?? 0,
+        data: dataCtrl.text,
+        idCompeticao: idComp ?? 0,
+      );
+      await ControlRodada().insertDatabase(rodada);
+      await _carregarListas();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Rodada criada.")),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())),
+        );
+      }
+    }
   }
 
   Future<void> _registrar() async {

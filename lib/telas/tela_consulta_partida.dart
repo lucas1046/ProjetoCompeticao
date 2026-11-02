@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
-import 'package:projeto_final/telas/tela_adicionar_rodada.dart';
+
 import 'package:projeto_final/control/control_partida.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
@@ -37,14 +37,6 @@ class _TelaConsultaPartidaState extends State<TelaConsultaPartida> {
         title: Text("Consultar partidas"),
         backgroundColor: Colors.orange,
         actions: [
-          IconButton(
-            tooltip: "Nova rodada",
-            icon: Icon(Icons.calendar_month),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => TelaAdicionarRodada()),
-            ),
-          ),
           IconButton(
             icon: Icon(Icons.home),
             onPressed: () => Navigator.pushAndRemoveUntil(
