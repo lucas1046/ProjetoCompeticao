@@ -4,6 +4,7 @@ import 'package:projeto_final/control/control_sessao.dart';
 import 'package:projeto_final/telas/tela_classificacao.dart';
 import 'package:projeto_final/telas/tela_estatisticas_jogador.dart';
 import 'package:projeto_final/telas/tela_relatorio_financeiro.dart';
+import 'package:projeto_final/telas/tela_relatorio_chave.dart';
 import 'package:projeto_final/telas/tela_relatorio_partidas.dart';
 import 'package:projeto_final/telas/tela_relatorio_suspensos.dart';
 
@@ -37,6 +38,8 @@ class MenuRelatorios extends StatelessWidget {
     final opcoes = [
       _Relatorio("Estatísticas do jogador", Icons.person_search,
           () => TelaEstatisticasJogador()),
+      _Relatorio("Chave da competição", Icons.account_tree,
+          () => TelaRelatorioChave()),
       _Relatorio("Classificação geral", Icons.leaderboard,
           () => TelaClassificacao()),
       _Relatorio("Histórico de partidas", Icons.history,

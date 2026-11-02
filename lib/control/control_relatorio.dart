@@ -141,6 +141,62 @@ class ControlRelatorio {
     );
   }
 
+  // Chave da competição: times participantes com escola e jogadores
+  Future<Map<String, dynamic>> chaveCompeticao(int idCompeticao) async {
+    Database banco = await BancoDados().db;
+
+    final comp = await banco.query(
+      "competicao",
+      where: "id = ?",
+      whereArgs: [idCompeticao],
+      limit: 1,
+    );
+    if (comp.isEmpty) return {};
+
+    // times que aparecem em partidas da competição
+    final timesRows = await banco.rawQuery(
+      "SELECT DISTINCT t.id_time AS idTime, t.nome_time AS nomeTime, "
+      "e.nome AS nomeEscola, e.cidade AS cidadeEscola "
+      "FROM time t "
+      "JOIN escola e ON t.id_escola = e.id "
+      "JOIN partida p ON (p.id_time_casa = t.id_time OR p.id_time_visitante = t.id_time) "
+      "JOIN rodada r ON p.id_rodada = r.id "
+      "WHERE r.id_competicao = ? "
+      "ORDER BY t.nome_time",
+      [idCompeticao],
+    );
+
+    List<Map<String, dynamic>> times = [];
+    for (final t in timesRows) {
+      final idTime = t['idTime'] as int;
+      final jogs = await banco.rawQuery(
+        "SELECT j.nome AS nome, pj.numero_camisa AS camisa "
+        "FROM participacao_jogador_time pj "
+        "JOIN jogador j ON pj.id_jogador = j.id "
+        "WHERE pj.id_time = ? "
+        "ORDER BY j.nome",
+        [idTime],
+      );
+      times.add({
+        'idTime': idTime,
+        'nomeTime': t['nomeTime'],
+        'nomeEscola': t['nomeEscola'],
+        'cidadeEscola': t['cidadeEscola'],
+        'jogadores': jogs,
+      });
+    }
+
+    return {
+      'competicao': comp.first,
+      'times': times,
+    };
+  }
+
+  // Lista de competições para selecionar
+  Future<List<Map<String, dynamic>>> listarCompeticoes() async {
+    Database banco = await BancoDados().db;
+    return await banco.query("competicao", orderBy: "nome");
+  }
   // Jogadores suspensos (suspensões não cumpridas)
   Future<List<Map<String, dynamic>>> jogadoresSuspensos() async {
     Database banco = await BancoDados().db;
