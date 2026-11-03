@@ -137,23 +137,35 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
             ),
           ],
         ),
-        DropdownButtonFormField<String>(
-          value: _idFotoSelecionada,
-          decoration: InputDecoration(
-            labelText: "Foto (opcional)",
-            border: OutlineInputBorder(),
-          ),
-          items: _fotos.map((f) {
-            return DropdownMenuItem<String>(
-              value: f.id.toString(),
-              child: Text(f.caminhoArquivo.split('/').last),
-            );
-          }).toList(),
-          onChanged: (valor) {
-            setState(() {
-              _idFotoSelecionada = valor;
-            });
-          },
+        Row(
+          children: [
+            Expanded(
+              child: DropdownButtonFormField<String>(
+                value: _idFotoSelecionada,
+                decoration: InputDecoration(
+                  labelText: "Foto (opcional)",
+                  border: OutlineInputBorder(),
+                ),
+                items: _fotos.map((f) {
+                  return DropdownMenuItem<String>(
+                    value: f.id.toString(),
+                    child: Text(f.caminhoArquivo.split('/').last),
+                  );
+                }).toList(),
+                onChanged: (valor) {
+                  setState(() {
+                    _idFotoSelecionada = valor;
+                  });
+                },
+              ),
+            ),
+            SizedBox(width: 8),
+            IconButton(
+              tooltip: "Nova foto",
+              icon: Icon(Icons.add_circle, color: Colors.green),
+              onPressed: _novaFoto,
+            ),
+          ],
         ),
         SizedBox(height: 8),
         Row(
@@ -243,6 +255,30 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     }
   }
 
+  Future<void> _novaFoto() async {
+    final pathCtrl = TextEditingController();
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("Nova foto"),
+        content: TextField(controller: pathCtrl, decoration: InputDecoration(labelText: "Caminho do arquivo")),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")),
+          TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar")),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    try {
+      final f = FotoFigurinha(caminhoArquivo: pathCtrl.text, dataUpload: DateTime.now().toIso8601String().substring(0, 10));
+      final id = await ControlFoto().insertDatabase(f);
+      await _carregarFotos();
+      setState(() => _idFotoSelecionada = id.toString());
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Foto criada.")));
+    } catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
   Future<void> _registrar() async {
     Jogador jogador = Jogador(
       nome: _nome.text,

@@ -5,7 +5,6 @@ import 'package:projeto_final/telas/tela_adicionar_competicao.dart';
 import 'package:projeto_final/telas/tela_adicionar_documento.dart';
 import 'package:projeto_final/telas/tela_adicionar_evento.dart';
 import 'package:projeto_final/telas/tela_adicionar_escola.dart';
-import 'package:projeto_final/telas/tela_adicionar_foto.dart';
 import 'package:projeto_final/telas/tela_adicionar_jogador.dart';
 import 'package:projeto_final/telas/tela_adicionar_modalidade.dart';
 import 'package:projeto_final/telas/tela_adicionar_pagamento.dart';
@@ -119,8 +118,6 @@ class _MenuState extends State<Menu> {
       _Opcao("Documento", Icons.description, () => TelaAdicionarDocumento(),
           () => TelaConsultaDocumento(),
           soAdministrador: true),
-      _Opcao("Foto", Icons.photo_camera, () => TelaAdicionarFoto(),
-          () => TelaConsultaFoto()),
       _Opcao("Time", Icons.groups, () => TelaAdicionarTime(),
           () => TelaConsultaTime()),
       _Opcao("Técnico/Time", Icons.link, () => TelaAdicionarTecnicoTime(),
