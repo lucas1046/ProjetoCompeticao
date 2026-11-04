@@ -52,8 +52,8 @@ class ControlDadosExemplo {
 
     await BancoDados().inserir("tecnico", Tecnico(id: 1, nome: "Professor Zé", telefone: "15999997777", email: "ze@email.com").toMap());
 
-    await BancoDados().inserir("time", Time(idTime: 1, nomeTime: "Tigres", idModalidade: 1, idEscola: 1, idCategoria: 1).toMap());
-    await BancoDados().inserir("time", Time(idTime: 2, nomeTime: "Águias", idModalidade: 1, idEscola: 2, idCategoria: 1).toMap());
+    await BancoDados().inserir("time", Time(idTime: 1, nomeTime: "Tigres", idEscola: 1, idCategoria: 1).toMap());
+    await BancoDados().inserir("time", Time(idTime: 2, nomeTime: "Águias", idEscola: 2, idCategoria: 1).toMap());
 
     return "Banco populado com dados básicos independentes.";
   }

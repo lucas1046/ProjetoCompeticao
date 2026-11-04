@@ -17,7 +17,7 @@ class ControlTime {
     }
 
     // RNFR-04.1 — time exige escola, modalidade e categoria
-    if (time.idEscola <= 0 || time.idModalidade <= 0 || time.idCategoria <= 0) {
+    if (time.idEscola <= 0 || time.idCategoria <= 0) {
       throw RegraNegocioException(
         "O time deve estar vinculado a uma escola, modalidade e categoria.",
       );
@@ -28,12 +28,10 @@ class ControlTime {
     // RNFR-04.2 — nome do time único por escola/modalidade/categoria
     List<Map<String, dynamic>> existentes = await banco.query(
       "time",
-      where: "nome_time = ? AND id_escola = ? "
-          "AND id_modalidade = ? AND id_categoria = ?",
+      where: "nome_time = ? AND id_escola = ? AND id_categoria = ?",
       whereArgs: [
         time.nomeTime,
         time.idEscola,
-        time.idModalidade,
         time.idCategoria,
       ],
     );

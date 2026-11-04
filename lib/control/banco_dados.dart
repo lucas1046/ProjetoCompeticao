@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 13;
+  static const int _versao = 14;
 
   Database? _db;
 
@@ -135,10 +135,22 @@ class BancoDados {
           await _criarTabelas(db);
         }
 
-        if (oldVersion < 13) {
+        if (oldVersion < 14) {
           try {
             await db.execute("ALTER TABLE partida ADD COLUMN horario TEXT");
           } catch (_) {}
+          try {
+            await db.execute("ALTER TABLE time DROP COLUMN id_modalidade");
+          } catch (_) {}
+          await db.execute(
+            "CREATE TABLE IF NOT EXISTS jogador_time("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            "id_time INTEGER NOT NULL REFERENCES time(id_time) ON DELETE CASCADE, "
+            "id_jogador INTEGER NOT NULL REFERENCES jogador(id), "
+            "id_posicao INTEGER REFERENCES posicao(id), "
+            "numero_camisa INTEGER, "
+            "UNIQUE(id_time, id_jogador))",
+          );
         }
       },
     );
@@ -275,14 +287,21 @@ class BancoDados {
     await db.execute(
       "CREATE TABLE IF NOT EXISTS time("
       "id_time INTEGER PRIMARY KEY AUTOINCREMENT, "
-      "id_modalidade INTEGER NOT NULL REFERENCES modalidade(id), "
       "id_escola INTEGER NOT NULL REFERENCES escola(id) ON DELETE CASCADE, "
       "id_categoria INTEGER NOT NULL REFERENCES categoria(id), "
       "nome_time VARCHAR(100) NOT NULL, "
-      "UNIQUE(nome_time, id_escola, id_modalidade, id_categoria))",
+      "UNIQUE(nome_time, id_escola, id_categoria))",
     );
 
-    // RNFR-07.1 — cada vinculo tecnico/time e unico (um tecnico pode ter varios)
+    await db.execute(
+      "CREATE TABLE IF NOT EXISTS jogador_time("
+      "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+      "id_time INTEGER NOT NULL REFERENCES time(id_time) ON DELETE CASCADE, "
+      "id_jogador INTEGER NOT NULL REFERENCES jogador(id), "
+      "id_posicao INTEGER REFERENCES posicao(id), "
+      "numero_camisa INTEGER, "
+      "UNIQUE(id_time, id_jogador))",
+    );
     await db.execute(
       "CREATE TABLE IF NOT EXISTS tecnico_time("
       "id_tecnico_time INTEGER PRIMARY KEY AUTOINCREMENT, "

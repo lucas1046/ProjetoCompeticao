@@ -225,14 +225,13 @@ void main() {
     Time t = Time(
       idTime: 1,
       nomeTime: 'Tigres',
-      idModalidade: 1,
       idEscola: 1,
       idCategoria: 1,
     );
     Time deVolta = Time.fromMap(t.toMap());
 
     expect(deVolta.nomeTime, 'Tigres');
-    expect(deVolta.idModalidade, 1);
+    expect(deVolta.idEscola, 1);
     expect(deVolta.idCategoria, 1);
   });
 
