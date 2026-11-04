@@ -100,6 +100,10 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
         idTime = await ControlTime().insertDatabase(time);
       }
 
+      if (_idTimeEdicao != null) {
+        await ControlJogadorTime().deleteByTime(idTime);
+      }
+
       int criadas = 0;
       for (final jid in _selJogadores) {
         try {

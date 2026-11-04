@@ -21,7 +21,7 @@ class ControlJogadorTime {
   Future<List<Map<String, dynamic>>> queryByTime(int idTime) async {
     Database banco = await BancoDados().db;
     return await banco.rawQuery(
-      "SELECT jt.id, jt.numero_camisa, j.id AS idJogador, j.nome AS nomeJogador, p.nome AS nomePosicao "
+      "SELECT jt.id, jt.id_posicao AS idPosicao, jt.numero_camisa, j.id AS idJogador, j.nome AS nomeJogador, p.nome AS nomePosicao "
       "FROM jogador_time jt "
       "JOIN jogador j ON jt.id_jogador = j.id "
       "LEFT JOIN posicao p ON jt.id_posicao = p.id "
