@@ -19,6 +19,7 @@ import 'package:projeto_final/telas/tela_adicionar_tecnico_time.dart';
 import 'package:projeto_final/telas/tela_adicionar_time.dart';
 import 'package:projeto_final/telas/tela_adicionar_tipo_evento.dart';
 import 'package:projeto_final/telas/tela_dados_exemplo.dart';
+import 'package:projeto_final/telas/tela_menu_configuracoes.dart';
 import 'package:projeto_final/telas/tela_menu_relatorios.dart';
 import 'package:projeto_final/telas/tela_consulta_categoria.dart';
 import 'package:projeto_final/telas/tela_consulta_competicao.dart';
@@ -111,8 +112,6 @@ class _MenuState extends State<Menu> {
           () => TelaConsultaCompeticao()),
       _Opcao("Tipo de evento", Icons.flag, () => TelaAdicionarTipoEvento(),
           () => TelaConsultaTipoEvento()),
-      _Opcao("Posição", Icons.pan_tool, () => TelaAdicionarPosicao(),
-          () => TelaConsultaPosicao()),
       _Opcao("Jogador", Icons.person, () => TelaAdicionarJogador(),
           () => TelaConsultaJogador()),
       _Opcao("Documento", Icons.description, () => TelaAdicionarDocumento(),
@@ -128,12 +127,12 @@ class _MenuState extends State<Menu> {
           () => TelaConsultaPagamento()),
       _Opcao("Partida", Icons.sports_score, () => TelaAdicionarPartida(),
           () => TelaConsultaPartida()),
-      _Opcao("Evento", Icons.timer, () => TelaAdicionarEvento(),
-          () => TelaConsultaEvento()),
       _Opcao("Suspensão", Icons.block, () => TelaAdicionarSuspensao(),
           () => TelaConsultaSuspensao()),
       _Opcao("Relatórios", Icons.assessment, null, null,
           destinoDireto: () => MenuRelatorios()),
+      _Opcao("Configurações", Icons.settings, null, null,
+          destinoDireto: () => MenuConfiguracoes()),
       _Opcao("Dados exemplo", Icons.science, null, null,
           destinoDireto: () => TelaDadosExemplo()),
       _Opcao("Auditoria", Icons.history, null, null,

@@ -52,11 +52,11 @@ void main() {
 
     // O GridView e lazy: o ultimo card precisa de scroll para aparecer
     await tester.scrollUntilVisible(
-      find.text('Posição'),
+      find.text('Suspensão'),
       200,
       scrollable: find.byType(Scrollable).last,
     );
-    expect(find.text('Posição'), findsOneWidget);
+    expect(find.text('Suspensão'), findsOneWidget);
   });
 
   testWidgets('Navega para o cadastro de competicao',
