@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_competicao.dart';
 import 'package:projeto_final/control/control_jogador.dart';
+import 'package:projeto_final/control/control_jogador_time.dart';
 import 'package:projeto_final/control/control_escalacao.dart';
 import 'package:projeto_final/control/control_evento.dart';
 import 'package:projeto_final/control/control_partida.dart';
@@ -40,6 +41,8 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
   List<Jogador> _jogadores = [];
   Set<int> _selCasa = {};
   Set<int> _selVis = {};
+  Set<int> _rosterCasa = {};
+  Set<int> _rosterVis = {};
   final _filtroCasa = TextEditingController();
   final _filtroVis = TextEditingController();
   final _horarioCtrl = TextEditingController();
@@ -67,6 +70,14 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
         _idTimeVisitante = times.length > 1 ? times[1].idTime.toString() : times[0].idTime.toString();
       }
     });
+    if (_idTimeCasa != null) {
+      final rows = await ControlJogadorTime().queryByTime(int.parse(_idTimeCasa!));
+      setState(() => _rosterCasa = rows.map((r) => r['idJogador'] as int).toSet());
+    }
+    if (_idTimeVisitante != null) {
+      final rows = await ControlJogadorTime().queryByTime(int.parse(_idTimeVisitante!));
+      setState(() => _rosterVis = rows.map((r) => r['idJogador'] as int).toSet());
+    }
   }
 
   Future<void> _criarPartida() async {
@@ -288,27 +299,39 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
               value: _idTimeCasa,
               decoration: const InputDecoration(labelText: "Time da casa", border: OutlineInputBorder()),
               items: _times.map((t) => DropdownMenuItem<String>(value: t.idTime.toString(), child: Text(t.nomeTime))).toList(),
-              onChanged: (v) => setState(() => _idTimeCasa = v),
+              onChanged: (v) async {
+                setState(() => _idTimeCasa = v);
+                if (v != null) {
+                  final rows = await ControlJogadorTime().queryByTime(int.parse(v));
+                  setState(() => _rosterCasa = rows.map((r) => r['idJogador'] as int).toSet());
+                }
+              },
             ),
             SizedBox(height: 12),
             DropdownButtonFormField<String>(
               value: _idTimeVisitante,
               decoration: const InputDecoration(labelText: "Time visitante", border: OutlineInputBorder()),
               items: _times.map((t) => DropdownMenuItem<String>(value: t.idTime.toString(), child: Text(t.nomeTime))).toList(),
-              onChanged: (v) => setState(() => _idTimeVisitante = v),
+              onChanged: (v) async {
+                setState(() => _idTimeVisitante = v);
+                if (v != null) {
+                  final rows = await ControlJogadorTime().queryByTime(int.parse(v));
+                  setState(() => _rosterVis = rows.map((r) => r['idJogador'] as int).toSet());
+                }
+              },
             ),
             TextField(controller: _horarioCtrl, decoration: InputDecoration(labelText: "Horário (ex: 09:00)", border: OutlineInputBorder())),
             SizedBox(height: 12),
             CheckboxListTile(title: Text("WO (W.O.)"), value: _wo, onChanged: (v) => setState(() => _wo = v ?? false)),
             SizedBox(height: 8),
             Text("Jogadores da casa:", style: TextStyle(fontWeight: FontWeight.bold)),
-            ..._jogadores.where((j) => _filtroCasa.text.isEmpty || j.nome.toLowerCase().contains(_filtroCasa.text.toLowerCase())).map((j) => CheckboxListTile(
+            ..._jogadores.where((j) => _rosterCasa.contains(j.id) && (_filtroCasa.text.isEmpty || j.nome.toLowerCase().contains(_filtroCasa.text.toLowerCase()))).map((j) => CheckboxListTile(
               title: Text(j.nome),
               value: _selCasa.contains(j.id),
               onChanged: (v) => setState(() { if (v == true) _selCasa.add(j.id!); else _selCasa.remove(j.id); }),
             )),
             Text("Jogadores do visitante:", style: TextStyle(fontWeight: FontWeight.bold)),
-            ..._jogadores.where((j) => _filtroVis.text.isEmpty || j.nome.toLowerCase().contains(_filtroVis.text.toLowerCase())).map((j) => CheckboxListTile(
+            ..._jogadores.where((j) => _rosterVis.contains(j.id) && (_filtroVis.text.isEmpty || j.nome.toLowerCase().contains(_filtroVis.text.toLowerCase()))).map((j) => CheckboxListTile(
               title: Text(j.nome),
               value: _selVis.contains(j.id),
               onChanged: (v) => setState(() { if (v == true) _selVis.add(j.id!); else _selVis.remove(j.id); }),
