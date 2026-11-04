@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_escola.dart';
+import 'package:projeto_final/telas/tela_adicionar_escola.dart';
 import 'package:projeto_final/model/escola.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
@@ -68,19 +69,25 @@ class _TelaConsultaEscolaState extends State<TelaConsultaEscola> {
                   if (e.telefone.trim().isNotEmpty) "Telefone: ${e.telefone}",
                 ],
                 icone: Icons.school,
+                onTap: () => _editar(e),
               )),
       ],
     );
   }
 
-  Future _pesquisar() async {
-    try {
-    ControlEscola control = ControlEscola();
-    List<Escola> lista = await control.queryFind(_inputPesquisa.text);
+  Future<void> _editar(Escola e) async {
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarEscola(escola: e)));
+    _pesquisar();
+  }
 
-    setState(() {
-      _lista = lista;
-    });
+  Future<void> _pesquisar() async {
+    try {
+      ControlEscola control = ControlEscola();
+      List<Escola> lista = await control.queryFind(_inputPesquisa.text);
+
+      setState(() {
+        _lista = lista;
+      });
     } catch (_) {
       // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
     }

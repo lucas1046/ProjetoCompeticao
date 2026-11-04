@@ -7,7 +7,8 @@ import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaAdicionarEscola extends StatefulWidget {
-  const TelaAdicionarEscola({super.key});
+  final Escola? escola;
+  const TelaAdicionarEscola({super.key, this.escola});
 
   @override
   State<TelaAdicionarEscola> createState() => _TelaAdicionarEscolaState();
@@ -19,6 +20,19 @@ class _TelaAdicionarEscolaState extends State<TelaAdicionarEscola> {
   final _estado = TextEditingController();
   final _telefone = TextEditingController();
   String _resultado = "";
+  int? _idEdicao;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.escola != null) {
+      _idEdicao = widget.escola!.id;
+      _nome.text = widget.escola!.nome;
+      _cidade.text = widget.escola!.cidade;
+      _estado.text = widget.escola!.estado;
+      _telefone.text = widget.escola!.telefone;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,11 +96,14 @@ class _TelaAdicionarEscolaState extends State<TelaAdicionarEscola> {
 
     try {
       ControlEscola control = ControlEscola();
-      int id = await control.insertDatabase(escola);
-
-      setState(() {
-    _resultado = "Escola ${escola.nome} cadastrada! (id: $id)";
-      });
+      if (_idEdicao != null) {
+        Escola e = Escola(id: _idEdicao, nome: _nome.text, cidade: _cidade.text, estado: _estado.text, telefone: _telefone.text);
+        await control.updateDatabase(e);
+        setState(() => _resultado = "Escola ${e.nome} atualizada!");
+      } else {
+        int id = await control.insertDatabase(escola);
+        setState(() => _resultado = "Escola ${escola.nome} cadastrada! (id: $id)");
+      }
     } catch (e) {
       setState(() {
         _resultado = e.toString();
