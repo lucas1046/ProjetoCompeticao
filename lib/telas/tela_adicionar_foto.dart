@@ -7,7 +7,8 @@ import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaAdicionarFoto extends StatefulWidget {
-  const TelaAdicionarFoto({super.key});
+  final FotoFigurinha? foto;
+  const TelaAdicionarFoto({super.key, this.foto});
 
   @override
   State<TelaAdicionarFoto> createState() => _TelaAdicionarFotoState();
@@ -17,6 +18,17 @@ class _TelaAdicionarFotoState extends State<TelaAdicionarFoto> {
   final _caminhoArquivo = TextEditingController();
   final _dataUpload = TextEditingController();
   String _resultado = "";
+  int? _idEdicao;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.foto != null) {
+      _idEdicao = widget.foto!.id;
+      _caminhoArquivo.text = widget.foto!.caminhoArquivo;
+      _dataUpload.text = widget.foto!.dataUpload;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,11 +75,14 @@ class _TelaAdicionarFotoState extends State<TelaAdicionarFoto> {
 
     try {
       ControlFoto control = ControlFoto();
-      int id = await control.insertDatabase(foto);
-
-      setState(() {
-    _resultado = "Foto cadastrada! (id: $id)";
-      });
+      if (_idEdicao != null) {
+        FotoFigurinha f = FotoFigurinha(id: _idEdicao, caminhoArquivo: _caminhoArquivo.text, dataUpload: _dataUpload.text);
+        await control.updateDatabase(f);
+        setState(() => _resultado = "Foto atualizada!");
+      } else {
+        int id = await control.insertDatabase(foto);
+        setState(() => _resultado = "Foto cadastrada! (id: $id)");
+      }
     } catch (e) {
       setState(() {
         _resultado = e.toString();

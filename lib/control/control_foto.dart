@@ -11,20 +11,22 @@ class ControlFoto {
 
   factory ControlFoto() => _instancia;
 
-  // RNFR-03.2 — imagem de no maximo 5 MB, em JPG, PNG ou WEBP
   Future<int> insertDatabase(FotoFigurinha foto) async {
     String? erroImagem = await validarImagem(foto.caminhoArquivo);
     if (erroImagem != null) {
       throw RegraNegocioException(erroImagem);
     }
-
     if (!Validacoes.dataValida(foto.dataUpload)) {
       throw RegraNegocioException(
         "Data de upload inválida. Use o formato AAAA-MM-DD.",
       );
     }
-
     return await BancoDados().inserir("foto_figurinha", foto.toMap());
+  }
+
+  Future<void> updateDatabase(FotoFigurinha foto) async {
+    Database banco = await BancoDados().db;
+    await banco.update("foto_figurinha", foto.toMap(), where: "id = ?", whereArgs: [foto.id]);
   }
 
   Future<List<FotoFigurinha>> queryFind([String? caminho]) async {

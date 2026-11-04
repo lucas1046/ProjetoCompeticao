@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_foto.dart';
+import 'package:projeto_final/telas/tela_adicionar_foto.dart';
 import 'package:projeto_final/model/foto_figurinha.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
@@ -70,19 +71,25 @@ class _TelaConsultaFotoState extends State<TelaConsultaFoto> {
                 f.caminhoArquivo,
                 ["Enviada em: ${f.dataUpload}", "Id: ${f.id}"],
                 icone: Icons.photo_camera,
+                onTap: () => _editar(f),
               )),
       ],
     );
   }
 
-  Future _pesquisar() async {
-    try {
-    ControlFoto control = ControlFoto();
-    List<FotoFigurinha> lista = await control.queryFind(_inputPesquisa.text);
+  Future<void> _editar(FotoFigurinha f) async {
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarFoto(foto: f)));
+    _pesquisar();
+  }
 
-    setState(() {
-      _lista = lista;
-    });
+  Future<void> _pesquisar() async {
+    try {
+      ControlFoto control = ControlFoto();
+      List<FotoFigurinha> lista = await control.queryFind(_inputPesquisa.text);
+
+      setState(() {
+        _lista = lista;
+      });
     } catch (_) {
       // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
     }
