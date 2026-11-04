@@ -57,6 +57,11 @@ class ControlEvento {
     return await BancoDados().inserir("evento_partida", evento.toMap());
   }
 
+  Future<void> updateDatabase(EventoPartida evento) async {
+    Database banco = await BancoDados().db;
+    await banco.update("evento_partida", evento.toMap(), where: "id = ?", whereArgs: [evento.id]);
+  }
+
   Future<void> deleteDatabase(int id) async {
     Database banco = await BancoDados().db;
     await banco.delete("evento_partida", where: "id = ?", whereArgs: [id]);

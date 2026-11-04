@@ -45,6 +45,11 @@ class ControlSuspensao {
     return await BancoDados().inserir("suspensao", suspensao.toMap());
   }
 
+  Future<void> updateDatabase(Suspensao suspensao) async {
+    Database banco = await BancoDados().db;
+    await banco.update("suspensao", suspensao.toMap(), where: "id = ?", whereArgs: [suspensao.id]);
+  }
+
   // Consulta detalhada: traz o jogador e o tipo de evento em vez dos ids
   Future<List<Map<String, dynamic>>> queryFindDetalhado() async {
     Database banco = await BancoDados().db;
