@@ -5,6 +5,9 @@ import 'package:projeto_final/control/control_partida.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
+import 'package:projeto_final/telas/tela_adicionar_partida.dart';
+import 'package:projeto_final/control/control_partida.dart';
+import 'package:projeto_final/model/partida.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaConsultaPartida extends StatefulWidget {
@@ -90,6 +93,19 @@ class _TelaConsultaPartidaState extends State<TelaConsultaPartida> {
       selo: resultado,
       corSelo: Colors.blue,
       icone: Icons.sports_score,
+      onTap: () async {
+        List<Partida> todos = await ControlPartida().queryFind();
+        Partida? pt;
+        try {
+          pt = todos.firstWhere((x) => x.id == p['id']);
+        } catch (_) {
+          pt = null;
+        }
+        if (pt != null) {
+          await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarPartida(partida: pt)));
+          _pesquisar();
+        }
+      },
     );
   }
 

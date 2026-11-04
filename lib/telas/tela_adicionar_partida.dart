@@ -21,7 +21,8 @@ import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaAdicionarPartida extends StatefulWidget {
-  const TelaAdicionarPartida({super.key});
+  final Partida? partida;
+  const TelaAdicionarPartida({super.key, this.partida});
 
   @override
   State<TelaAdicionarPartida> createState() => _TelaAdicionarPartidaState();
@@ -64,10 +65,19 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
       _times = times;
       _tiposEvento = tipos;
       _jogadores = jogadores;
-      if (rodadas.isNotEmpty) _idRodada = rodadas[0].id.toString();
-      if (times.isNotEmpty) {
-        _idTimeCasa = times[0].idTime.toString();
-        _idTimeVisitante = times.length > 1 ? times[1].idTime.toString() : times[0].idTime.toString();
+      if (widget.partida != null) {
+        _idPartida = widget.partida!.id;
+        _idRodada = widget.partida!.idRodada.toString();
+        _idTimeCasa = widget.partida!.idTimeCasa.toString();
+        _idTimeVisitante = widget.partida!.idTimeVisitante.toString();
+        _wo = widget.partida!.wo;
+        if (widget.partida!.horario != null) _horarioCtrl.text = widget.partida!.horario!;
+      } else {
+        if (rodadas.isNotEmpty) _idRodada = rodadas[0].id.toString();
+        if (times.isNotEmpty) {
+          _idTimeCasa = times[0].idTime.toString();
+          _idTimeVisitante = times.length > 1 ? times[1].idTime.toString() : times[0].idTime.toString();
+        }
       }
     });
     if (_idTimeCasa != null) {
@@ -78,24 +88,37 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
       final rows = await ControlJogadorTime().queryByTime(int.parse(_idTimeVisitante!));
       setState(() => _rosterVis = rows.map((r) => r['idJogador'] as int).toSet());
     }
+    if (widget.partida != null) {
+      final escs = await ControlEscalacao().queryFind();
+      setState(() {
+        _selCasa.clear();
+        _selVis.clear();
+        for (final e in escs.where((x) => x.idPartida == widget.partida!.id)) {
+          if (e.idTime == int.tryParse(_idTimeCasa ?? "0")) _selCasa.add(e.idJogador);
+          else _selVis.add(e.idJogador);
+        }
+      });
+      await _refreshEventos();
+    }
   }
 
   Future<void> _criarPartida() async {
-    final partida = Partida(
-      idRodada: int.tryParse(_idRodada ?? "0") ?? 0,
-      idTimeCasa: int.tryParse(_idTimeCasa ?? "0") ?? 0,
-      idTimeVisitante: int.tryParse(_idTimeVisitante ?? "0") ?? 0,
-      qtdGolsTimeCasa: 0,
-      qtdGolsTimeVisitante: 0,
-      wo: _wo,
-      horario: _horarioCtrl.text.trim().isEmpty ? null : _horarioCtrl.text.trim(),
-    );
     try {
-      final id = await ControlPartida().insertDatabase(partida);
+      final id = _idPartida;
+      final int idPartida;
+      if (id != null) {
+        final partida = Partida(id: id, idRodada: int.tryParse(_idRodada ?? "0") ?? 0, idTimeCasa: int.tryParse(_idTimeCasa ?? "0") ?? 0, idTimeVisitante: int.tryParse(_idTimeVisitante ?? "0") ?? 0, qtdGolsTimeCasa: 0, qtdGolsTimeVisitante: 0, wo: _wo, horario: _horarioCtrl.text.trim().isEmpty ? null : _horarioCtrl.text.trim());
+        await ControlPartida().updateDatabase(partida);
+        await ControlEscalacao().deleteByPartida(id);
+        idPartida = id;
+      } else {
+        final partida = Partida(idRodada: int.tryParse(_idRodada ?? "0") ?? 0, idTimeCasa: int.tryParse(_idTimeCasa ?? "0") ?? 0, idTimeVisitante: int.tryParse(_idTimeVisitante ?? "0") ?? 0, qtdGolsTimeCasa: 0, qtdGolsTimeVisitante: 0, wo: _wo, horario: _horarioCtrl.text.trim().isEmpty ? null : _horarioCtrl.text.trim());
+        idPartida = await ControlPartida().insertDatabase(partida);
+      }
       int criadas = 0;
       for (final jid in _selCasa) {
         try {
-          await ControlEscalacao().insertDatabase(Escalacao(idPartida: id, idJogador: jid, idTime: int.tryParse(_idTimeCasa ?? "0")));
+          await ControlEscalacao().insertDatabase(Escalacao(idPartida: idPartida, idJogador: jid, idTime: int.tryParse(_idTimeCasa ?? "0")));
           criadas++;
         } catch (e) {
           if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erro casa: $e")));
@@ -103,15 +126,15 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
       }
       for (final jid in _selVis) {
         try {
-          await ControlEscalacao().insertDatabase(Escalacao(idPartida: id, idJogador: jid, idTime: int.tryParse(_idTimeVisitante ?? "0")));
+          await ControlEscalacao().insertDatabase(Escalacao(idPartida: idPartida, idJogador: jid, idTime: int.tryParse(_idTimeVisitante ?? "0")));
           criadas++;
         } catch (e) {
           if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erro vis: $e")));
         }
       }
       setState(() {
-        _idPartida = id;
-        _resultado = "Partida criada (id: $id). Escalações: $criadas.";
+        _idPartida = idPartida;
+        _resultado = "Partida ${id == null ? 'criada' : 'atualizada'} (id: $idPartida). Escalações: $criadas.";
       });
       await _refreshEventos();
     } catch (e) {

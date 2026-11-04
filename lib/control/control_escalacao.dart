@@ -49,6 +49,11 @@ class ControlEscalacao {
     );
   }
 
+  Future<void> deleteByPartida(int idPartida) async {
+    Database banco = await BancoDados().db;
+    await banco.delete("escalacao", where: "id_partida = ?", whereArgs: [idPartida]);
+  }
+
   Future<List<Escalacao>> queryFind() async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados = await banco.query("escalacao");
