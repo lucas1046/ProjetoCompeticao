@@ -8,7 +8,8 @@ import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaAdicionarResponsavel extends StatefulWidget {
-  const TelaAdicionarResponsavel({super.key});
+  final Responsavel? responsavel;
+  const TelaAdicionarResponsavel({super.key, this.responsavel});
 
   @override
   State<TelaAdicionarResponsavel> createState() =>
@@ -22,6 +23,20 @@ class _TelaAdicionarResponsavelState extends State<TelaAdicionarResponsavel> {
   final _email = TextEditingController();
   final _parentesco = TextEditingController();
   String _resultado = "";
+  int? _idEdicao;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.responsavel != null) {
+      _idEdicao = widget.responsavel!.id;
+      _nome.text = widget.responsavel!.nome;
+      _cpf.text = widget.responsavel!.cpf;
+      _telefone.text = widget.responsavel!.telefone;
+      _email.text = widget.responsavel!.email;
+      _parentesco.text = widget.responsavel!.parentesco;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,11 +108,14 @@ class _TelaAdicionarResponsavelState extends State<TelaAdicionarResponsavel> {
 
     try {
       ControlResponsavel control = ControlResponsavel();
-      int id = await control.insertDatabase(responsavel);
-
-      setState(() {
-    _resultado = "Responsável ${responsavel.nome} cadastrado! (id: $id)";
-      });
+      if (_idEdicao != null) {
+        Responsavel r = Responsavel(id: _idEdicao, nome: _nome.text, cpf: _cpf.text, telefone: _telefone.text, email: _email.text, parentesco: _parentesco.text);
+        await control.updateDatabase(r);
+        setState(() => _resultado = "Responsável ${r.nome} atualizado!");
+      } else {
+        int id = await control.insertDatabase(responsavel);
+        setState(() => _resultado = "Responsável ${responsavel.nome} cadastrado! (id: $id)");
+      }
     } catch (e) {
       setState(() {
         _resultado = e.toString();

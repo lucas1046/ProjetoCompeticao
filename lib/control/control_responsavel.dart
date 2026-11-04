@@ -15,12 +15,15 @@ class ControlResponsavel {
     if (responsavel.nome.trim().isEmpty) {
       throw RegraNegocioException("Informe o nome do responsável.");
     }
-
     if (!Validacoes.cpfValido(responsavel.cpf)) {
       throw RegraNegocioException("CPF do responsável inválido.");
     }
-
     return await BancoDados().inserir("responsavel", responsavel.toMap());
+  }
+
+  Future<void> updateDatabase(Responsavel responsavel) async {
+    Database banco = await BancoDados().db;
+    await banco.update("responsavel", responsavel.toMap(), where: "id = ?", whereArgs: [responsavel.id]);
   }
 
   Future<List<Responsavel>> queryFind([String? nome]) async {

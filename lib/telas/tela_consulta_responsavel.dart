@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_responsavel.dart';
+import 'package:projeto_final/telas/tela_adicionar_responsavel.dart';
 import 'package:projeto_final/model/responsavel.dart';
 import 'package:projeto_final/util/guarda_permissao.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
@@ -78,19 +79,25 @@ class _TelaConsultaResponsavelState extends State<TelaConsultaResponsavel> {
                   "Parentesco: ${r.parentesco}",
                 ],
                 icone: Icons.family_restroom,
+                onTap: () => _editar(r),
               )),
       ],
     );
   }
 
-  Future _pesquisar() async {
-    try {
-    ControlResponsavel control = ControlResponsavel();
-    List<Responsavel> lista = await control.queryFind(_inputPesquisa.text);
+  Future<void> _editar(Responsavel r) async {
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarResponsavel(responsavel: r)));
+    _pesquisar();
+  }
 
-    setState(() {
-      _lista = lista;
-    });
+  Future<void> _pesquisar() async {
+    try {
+      ControlResponsavel control = ControlResponsavel();
+      List<Responsavel> lista = await control.queryFind(_inputPesquisa.text);
+
+      setState(() {
+        _lista = lista;
+      });
     } catch (_) {
       // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
     }
