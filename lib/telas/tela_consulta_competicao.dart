@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_competicao.dart';
+import 'package:projeto_final/telas/tela_adicionar_competicao.dart';
 import 'package:projeto_final/model/competicao.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
@@ -68,19 +69,25 @@ class _TelaConsultaCompeticaoState extends State<TelaConsultaCompeticao> {
                   "De ${c.dataInicio} até ${c.dataFim}",
                 ],
                 icone: Icons.emoji_events,
+                onTap: () => _editar(c),
               )),
       ],
     );
   }
 
-  Future _pesquisar() async {
-    try {
-    ControlCompeticao control = ControlCompeticao();
-    List<Competicao> lista = await control.queryFind(_inputPesquisa.text);
+  Future<void> _editar(Competicao c) async {
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarCompeticao(competicao: c)));
+    _pesquisar();
+  }
 
-    setState(() {
-      _lista = lista;
-    });
+  Future<void> _pesquisar() async {
+    try {
+      ControlCompeticao control = ControlCompeticao();
+      List<Competicao> lista = await control.queryFind(_inputPesquisa.text);
+
+      setState(() {
+        _lista = lista;
+      });
     } catch (_) {
       // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
     }

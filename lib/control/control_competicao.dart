@@ -49,6 +49,11 @@ class ControlCompeticao {
     return await BancoDados().inserir("competicao", competicao.toMap());
   }
 
+  Future<void> updateDatabase(Competicao competicao) async {
+    Database banco = await BancoDados().db;
+    await banco.update("competicao", competicao.toMap(), where: "id = ?", whereArgs: [competicao.id]);
+  }
+
   Future<List<Competicao>> queryFind([String? nome]) async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados;

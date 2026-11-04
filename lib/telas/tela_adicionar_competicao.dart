@@ -7,7 +7,8 @@ import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaAdicionarCompeticao extends StatefulWidget {
-  const TelaAdicionarCompeticao({super.key});
+  final Competicao? competicao;
+  const TelaAdicionarCompeticao({super.key, this.competicao});
 
   @override
   State<TelaAdicionarCompeticao> createState() =>
@@ -20,6 +21,19 @@ class _TelaAdicionarCompeticaoState extends State<TelaAdicionarCompeticao> {
   final _dataInicio = TextEditingController();
   final _dataFim = TextEditingController();
   String _resultado = "";
+  int? _idEdicao;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.competicao != null) {
+      _idEdicao = widget.competicao!.id;
+      _nome.text = widget.competicao!.nome;
+      _cidade.text = widget.competicao!.cidade;
+      _dataInicio.text = widget.competicao!.dataInicio;
+      _dataFim.text = widget.competicao!.dataFim;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +88,14 @@ class _TelaAdicionarCompeticaoState extends State<TelaAdicionarCompeticao> {
 
     try {
       ControlCompeticao control = ControlCompeticao();
-      int id = await control.insertDatabase(competicao);
-
-      setState(() {
-    _resultado = "Competição ${competicao.nome} cadastrada! (id: $id)";
-      });
+      if (_idEdicao != null) {
+        Competicao c = Competicao(id: _idEdicao, nome: _nome.text, cidade: _cidade.text, dataInicio: _dataInicio.text, dataFim: _dataFim.text);
+        await control.updateDatabase(c);
+        setState(() => _resultado = "Competição ${c.nome} atualizada!");
+      } else {
+        int id = await control.insertDatabase(competicao);
+        setState(() => _resultado = "Competição ${competicao.nome} cadastrada! (id: $id)");
+      }
     } catch (e) {
       setState(() {
         _resultado = e.toString();
