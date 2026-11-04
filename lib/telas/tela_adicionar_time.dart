@@ -173,6 +173,7 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
                                 child: TextField(
                                   decoration: InputDecoration(labelText: "Camisa"),
                                   keyboardType: TextInputType.number,
+                                  controller: TextEditingController(text: _camisaPorJogador[j.id]?.toString() ?? ""),
                                   onChanged: (v) => _camisaPorJogador[j.id!] = int.tryParse(v),
                                 ),
                               ),
