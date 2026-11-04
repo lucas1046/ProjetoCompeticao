@@ -8,6 +8,7 @@ import 'package:projeto_final/control/control_posicao.dart';
 import 'package:projeto_final/control/control_time.dart';
 import 'package:projeto_final/model/categoria.dart';
 import 'package:projeto_final/model/escola.dart';
+import 'package:projeto_final/control/control_jogador_time.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/model/jogador_time.dart';
 import 'package:projeto_final/model/posicao.dart';
@@ -16,13 +17,15 @@ import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaAdicionarTime extends StatefulWidget {
-  const TelaAdicionarTime({super.key});
+  final Time? time;
+  const TelaAdicionarTime({super.key, this.time});
 
   @override
   State<TelaAdicionarTime> createState() => _TelaAdicionarTimeState();
 }
 
 class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
+  int? _idTimeEdicao;
   String? _idEscola;
   String? _idCategoria;
   List<Escola> _escolas = [];
@@ -45,16 +48,33 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
     final escolas = await ControlEscola().queryFind();
     final categorias = await ControlCategoria().queryFind();
     final posicoes = await ControlPosicao().queryFind();
-    final idEscola = escolas.isNotEmpty ? escolas[0].id : null;
+    final idEscola = widget.time != null ? widget.time!.idEscola : (escolas.isNotEmpty ? escolas[0].id : null);
     final jogadores = idEscola != null ? await ControlJogador().queryByEscola(idEscola) : await ControlJogador().queryFind();
     setState(() {
       _escolas = escolas;
       _categorias = categorias;
       _jogadores = jogadores;
       _posicoes = posicoes;
-      if (escolas.isNotEmpty) _idEscola = escolas[0].id.toString();
-      if (categorias.isNotEmpty) _idCategoria = categorias[0].id.toString();
+      if (widget.time != null) {
+        _idTimeEdicao = widget.time!.idTime;
+        _idEscola = widget.time!.idEscola.toString();
+        _idCategoria = widget.time!.idCategoria.toString();
+      } else {
+        if (escolas.isNotEmpty) _idEscola = escolas[0].id.toString();
+        if (categorias.isNotEmpty) _idCategoria = categorias[0].id.toString();
+      }
     });
+    if (widget.time != null) {
+      final rows = await ControlJogadorTime().queryByTime(widget.time!.idTime!);
+      setState(() {
+        for (final r in rows) {
+          final jid = r['idJogador'] as int;
+          _selJogadores.add(jid);
+          _posicaoPorJogador[jid] = r['idPosicao'] as int?;
+          _camisaPorJogador[jid] = r['numeroCamisa'] as int?;
+        }
+      });
+    }
   }
 
   Future<void> _registrar() async {
@@ -64,14 +84,21 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
       String base = "${escola.nome} ${categoria.nome}";
       final existentes = await ControlTime().queryFind();
       int count = existentes.where((t) => t.nomeTime.startsWith(base)).length;
-      String nome = count == 0 ? base : "$base (${count + 1})";
+      String nome = _idTimeEdicao != null ? widget.time!.nomeTime : (count == 0 ? base : "$base (${count + 1})");
 
-      final time = Time(
+      Time time = Time(
         idEscola: int.parse(_idEscola!),
         idCategoria: int.parse(_idCategoria!),
         nomeTime: nome,
       );
-      final idTime = await ControlTime().insertDatabase(time);
+      final int idTime;
+      if (_idTimeEdicao != null) {
+        time = Time(idTime: _idTimeEdicao, idEscola: time.idEscola, idCategoria: time.idCategoria, nomeTime: time.nomeTime);
+        await ControlTime().updateDatabase(time);
+        idTime = _idTimeEdicao!;
+      } else {
+        idTime = await ControlTime().insertDatabase(time);
+      }
 
       int criadas = 0;
       for (final jid in _selJogadores) {

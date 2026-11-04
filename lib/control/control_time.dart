@@ -1,4 +1,5 @@
 import 'package:projeto_final/control/banco_dados.dart';
+import 'package:projeto_final/control/control_jogador_time.dart';
 import 'package:projeto_final/model/time.dart';
 import 'package:projeto_final/util/validacoes.dart';
 import 'package:sqflite/sqflite.dart';
@@ -44,10 +45,14 @@ class ControlTime {
     return await BancoDados().inserir("time", time.toMap());
   }
 
+  Future<void> updateDatabase(Time time) async {
+    Database banco = await BancoDados().db;
+    await banco.update("time", time.toMap(), where: "id_time = ?", whereArgs: [time.idTime]);
+    await ControlJogadorTime().deleteByTime(time.idTime!);
+  }
   Future<List<Time>> queryFind([String? nome]) async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados;
-
     if (nome != null && nome.isNotEmpty) {
       resultados = await banco.query(
         "time",
@@ -57,10 +62,7 @@ class ControlTime {
     } else {
       resultados = await banco.query("time");
     }
-
-    return List.generate(resultados.length, (i) {
-      return Time.fromMap(resultados[i]);
-    });
+    return resultados.map((m) => Time.fromMap(m)).toList();
   }
 
   // Consulta detalhada: traz os nomes de escola, modalidade e categoria em

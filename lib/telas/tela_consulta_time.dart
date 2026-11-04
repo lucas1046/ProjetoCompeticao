@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_time.dart';
+import 'package:projeto_final/telas/tela_adicionar_time.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
@@ -68,20 +69,29 @@ class _TelaConsultaTimeState extends State<TelaConsultaTime> {
                   "Categoria: ${t['nomeCategoria']}",
                 ],
                 icone: Icons.groups,
+                onTap: () => _editar(t),
               )),
       ],
     );
   }
 
-  Future _pesquisar() async {
-    try {
-    ControlTime control = ControlTime();
-    List<Map<String, dynamic>> lista =
-        await control.queryFindDetalhado(_inputPesquisa.text);
+  Future<void> _editar(Map<String, dynamic> t) async {
+    final times = await ControlTime().queryFind();
+    final time = times.firstWhere((x) => x.idTime == t['idTime'], orElse: () => times.first);
+    if (!mounted) return;
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarTime(time: time)));
+    _pesquisar();
+  }
 
-    setState(() {
-      _lista = lista;
-    });
+  Future<void> _pesquisar() async {
+    try {
+      ControlTime control = ControlTime();
+      List<Map<String, dynamic>> lista =
+          await control.queryFindDetalhado(_inputPesquisa.text);
+
+      setState(() {
+        _lista = lista;
+      });
     } catch (_) {
       // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
     }
