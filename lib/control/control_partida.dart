@@ -52,6 +52,11 @@ class ControlPartida {
     return id;
   }
 
+  Future<void> updateDatabase(Partida partida) async {
+    Database banco = await BancoDados().db;
+    await banco.update("partida", partida.toMap(), where: "id = ?", whereArgs: [partida.id]);
+  }
+
   Future<void> updateHorarioCraque(int idPartida, String? horario, int? idEscalacaoCraque) async {
     Database banco = await BancoDados().db;
     await banco.update(
