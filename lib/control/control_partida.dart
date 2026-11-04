@@ -52,6 +52,16 @@ class ControlPartida {
     return id;
   }
 
+  Future<void> updateHorarioCraque(int idPartida, String? horario, int? idEscalacaoCraque) async {
+    Database banco = await BancoDados().db;
+    await banco.update(
+      "partida",
+      {"horario": horario, "id_escalacao_craque": idEscalacaoCraque},
+      where: "id = ?",
+      whereArgs: [idPartida],
+    );
+  }
+
   Future<List<Partida>> queryFind() async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados = await banco.query("partida");
@@ -78,12 +88,16 @@ class ControlPartida {
       "  JOIN tipo_evento te ON ep.id_tipo_evento = te.id "
       "  WHERE e.id_partida = p.id AND e.id_time = p.id_time_visitante AND LOWER(te.descricao) LIKE '%gol%') AS golsVisitante, "
       "p.wo AS wo, "
+      "p.horario AS horario, "
+      "jc.nome AS nomeCraque, "
       "r.numero AS numeroRodada, "
       "c.nome AS nomeCompeticao "
       "FROM partida p "
       "JOIN time tc ON p.id_time_casa = tc.id_time "
       "JOIN time tv ON p.id_time_visitante = tv.id_time "
       "JOIN rodada r ON p.id_rodada = r.id "
+      "LEFT JOIN escalacao ec ON p.id_escalacao_craque = ec.id "
+      "LEFT JOIN jogador jc ON ec.id_jogador = jc.id "
       "JOIN competicao c ON r.id_competicao = c.id "
       "ORDER BY c.nome, r.numero",
     );

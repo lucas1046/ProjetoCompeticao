@@ -42,6 +42,8 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
   Set<int> _selVis = {};
   final _filtroCasa = TextEditingController();
   final _filtroVis = TextEditingController();
+  final _horarioCtrl = TextEditingController();
+  String? _idCraque;
 
   @override
   void initState() {
@@ -75,6 +77,7 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
       qtdGolsTimeCasa: 0,
       qtdGolsTimeVisitante: 0,
       wo: _wo,
+      horario: _horarioCtrl.text.trim().isEmpty ? null : _horarioCtrl.text.trim(),
     );
     try {
       final id = await ControlPartida().insertDatabase(partida);
@@ -294,6 +297,8 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
               items: _times.map((t) => DropdownMenuItem<String>(value: t.idTime.toString(), child: Text(t.nomeTime))).toList(),
               onChanged: (v) => setState(() => _idTimeVisitante = v),
             ),
+            TextField(controller: _horarioCtrl, decoration: InputDecoration(labelText: "Horário (ex: 09:00)", border: OutlineInputBorder())),
+            SizedBox(height: 12),
             CheckboxListTile(title: Text("WO (W.O.)"), value: _wo, onChanged: (v) => setState(() => _wo = v ?? false)),
             SizedBox(height: 8),
             Text("Jogadores da casa:", style: TextStyle(fontWeight: FontWeight.bold)),

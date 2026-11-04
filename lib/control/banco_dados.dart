@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 12;
+  static const int _versao = 13;
 
   Database? _db;
 
@@ -133,6 +133,12 @@ class BancoDados {
             await db.execute("DROP TABLE IF EXISTS ${t['name']}");
           }
           await _criarTabelas(db);
+        }
+
+        if (oldVersion < 13) {
+          try {
+            await db.execute("ALTER TABLE partida ADD COLUMN horario TEXT");
+          } catch (_) {}
         }
       },
     );
@@ -319,7 +325,8 @@ class BancoDados {
       "qtd_gols_time_visitante INTEGER DEFAULT 0, "
       "wo INTEGER DEFAULT 0, "
       "id_time_wo INTEGER REFERENCES time(id_time), "
-      "id_escalacao_craque INTEGER)",
+      "id_escalacao_craque INTEGER, "
+      "horario TEXT)",
     );
 
     // RNFR-10.1 — um jogador escalado uma única vez por partida

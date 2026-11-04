@@ -84,6 +84,8 @@ class _TelaConsultaPartidaState extends State<TelaConsultaPartida> {
       "${p['nomeTimeCasa']} x ${p['nomeTimeVisitante']}",
       [
         "${p['nomeCompeticao']} - Rodada ${p['numeroRodada']}",
+        if (p['horario'] != null) "Horário: ${p['horario']}",
+        if (p['nomeCraque'] != null) "Craque: ${p['nomeCraque']}",
       ],
       selo: resultado,
       corSelo: Colors.blue,

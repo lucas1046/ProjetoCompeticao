@@ -8,6 +8,7 @@ class Partida {
   final bool wo;
   final int? idTimeWo;
   final int? idEscalacaoCraque;
+  final String? horario;
 
   Partida({
     this.id,
@@ -19,6 +20,7 @@ class Partida {
     this.wo = false,
     this.idTimeWo,
     this.idEscalacaoCraque,
+    this.horario,
   });
 
   Map<String, dynamic> toMap() {
@@ -32,6 +34,7 @@ class Partida {
       'wo': wo ? 1 : 0,
       'id_time_wo': idTimeWo,
       'id_escalacao_craque': idEscalacaoCraque,
+      'horario': horario,
     };
   }
 
@@ -46,6 +49,7 @@ class Partida {
       wo: map['wo'] == 1,
       idTimeWo: map['id_time_wo'],
       idEscalacaoCraque: map['id_escalacao_craque'],
+      horario: map['horario'],
     );
   }
 }
