@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_posicao.dart';
+import 'package:projeto_final/telas/tela_adicionar_posicao.dart';
+import 'package:projeto_final/model/posicao.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
@@ -65,20 +67,28 @@ class _TelaConsultaPosicaoState extends State<TelaConsultaPosicao> {
                 p['nome'],
                 ["Modalidade: ${p['nomeModalidade']}"],
                 icone: Icons.pan_tool,
+                onTap: () => _editar(p),
               )),
       ],
     );
   }
 
-  Future _pesquisar() async {
-    try {
-    ControlPosicao control = ControlPosicao();
-    List<Map<String, dynamic>> lista =
-        await control.queryFindDetalhado(_inputPesquisa.text);
+  Future<void> _editar(Map<String, dynamic> p) async {
+    final lista = await ControlPosicao().queryFind();
+    final pos = lista.firstWhere((x) => x.id == p['id'], orElse: () => lista.first);
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarPosicao(posicao: pos)));
+    _pesquisar();
+  }
 
-    setState(() {
-      _lista = lista;
-    });
+  Future<void> _pesquisar() async {
+    try {
+      ControlPosicao control = ControlPosicao();
+      List<Map<String, dynamic>> lista =
+          await control.queryFindDetalhado(_inputPesquisa.text);
+
+      setState(() {
+        _lista = lista;
+      });
     } catch (_) {
       // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
     }

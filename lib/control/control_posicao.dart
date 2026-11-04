@@ -13,6 +13,11 @@ class ControlPosicao {
     return await BancoDados().inserir("posicao", posicao.toMap());
   }
 
+  Future<void> updateDatabase(Posicao posicao) async {
+    Database banco = await BancoDados().db;
+    await banco.update("posicao", posicao.toMap(), where: "id = ?", whereArgs: [posicao.id]);
+  }
+
   Future<List<Posicao>> queryFind([String? nome]) async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados;

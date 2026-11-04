@@ -9,7 +9,8 @@ import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaAdicionarPosicao extends StatefulWidget {
-  const TelaAdicionarPosicao({super.key});
+  final Posicao? posicao;
+  const TelaAdicionarPosicao({super.key, this.posicao});
 
   @override
   State<TelaAdicionarPosicao> createState() => _TelaAdicionarPosicaoState();
@@ -20,11 +21,17 @@ class _TelaAdicionarPosicaoState extends State<TelaAdicionarPosicao> {
   String? _idModalidadeSelecionada;
   List<Modalidade> _modalidades = [];
   String _resultado = "";
+  int? _idEdicao;
 
   @override
   void initState() {
     super.initState();
     _carregarModalidades();
+    if (widget.posicao != null) {
+      _idEdicao = widget.posicao!.id;
+      _nome.text = widget.posicao!.nome;
+      _idModalidadeSelecionada = widget.posicao!.idModalidade.toString();
+    }
   }
 
   Future<void> _carregarModalidades() async {
@@ -97,11 +104,14 @@ class _TelaAdicionarPosicaoState extends State<TelaAdicionarPosicao> {
 
     try {
       ControlPosicao control = ControlPosicao();
-      int id = await control.insertDatabase(posicao);
-
-      setState(() {
-    _resultado = "Posição ${posicao.nome} cadastrada! (id: $id)";
-      });
+      if (_idEdicao != null) {
+        Posicao p = Posicao(id: _idEdicao, nome: _nome.text, idModalidade: int.tryParse(_idModalidadeSelecionada ?? "0") ?? 0);
+        await control.updateDatabase(p);
+        setState(() => _resultado = "Posição ${p.nome} atualizada!");
+      } else {
+        int id = await control.insertDatabase(posicao);
+        setState(() => _resultado = "Posição ${posicao.nome} cadastrada! (id: $id)");
+      }
     } catch (e) {
       setState(() {
         _resultado = e.toString();
