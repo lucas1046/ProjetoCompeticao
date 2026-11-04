@@ -71,7 +71,7 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
           final jid = r['idJogador'] as int;
           _selJogadores.add(jid);
           _posicaoPorJogador[jid] = r['idPosicao'] as int?;
-          _camisaPorJogador[jid] = r['numeroCamisa'] as int?;
+          _camisaPorJogador[jid] = r['numero_camisa'] as int?;
         }
       });
     }
