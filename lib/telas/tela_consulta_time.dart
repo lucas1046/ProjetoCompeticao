@@ -65,8 +65,7 @@ class _TelaConsultaTimeState extends State<TelaConsultaTime> {
                 t['nomeTime'],
                 [
                   "Escola: ${t['nomeEscola']}",
-                  "Modalidade: ${t['nomeModalidade']}  -  "
-                      "Categoria: ${t['nomeCategoria']}",
+                  "Categoria: ${t['nomeCategoria']}",
                 ],
                 icone: Icons.groups,
               )),
