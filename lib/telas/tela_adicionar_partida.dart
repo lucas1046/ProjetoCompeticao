@@ -122,12 +122,7 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
   Future<void> _refreshEventos() async {
     if (_idPartida == null) return;
     final all = await ControlEvento().queryFindDetalhado();
-    final timeCasa = _times.firstWhere((t) => t.idTime.toString() == _idTimeCasa, orElse: () => _times.first).nomeTime;
-    final timeVis = _times.firstWhere((t) => t.idTime.toString() == _idTimeVisitante, orElse: () => _times.first).nomeTime;
-    final filtered = all.where((e) {
-      final t = (e['nomeTime'] ?? '').toString();
-      return t == timeCasa || t == timeVis;
-    }).toList();
+    final filtered = all.where((e) => e['idPartida'] == _idPartida).toList();
     setState(() => _eventos = filtered);
   }
 

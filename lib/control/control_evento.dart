@@ -74,7 +74,7 @@ class ControlEvento {
     return await banco.rawQuery(
       "SELECT ep.id AS id, ep.minuto_evento AS minuto, "
       "ep.descricao AS descricao, te.descricao AS tipoEvento, "
-      "j.nome AS nomeJogador, t.nome_time AS nomeTime "
+      "j.nome AS nomeJogador, t.nome_time AS nomeTime, e.id_partida AS idPartida "
       "FROM evento_partida ep "
       "JOIN tipo_evento te ON ep.id_tipo_evento = te.id "
       "JOIN escalacao e ON ep.id_escalacao = e.id "
