@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_tecnico.dart';
+import 'package:projeto_final/telas/tela_adicionar_tecnico.dart';
 import 'package:projeto_final/model/tecnico.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
@@ -68,19 +69,25 @@ class _TelaConsultaTecnicoState extends State<TelaConsultaTecnico> {
                   if (t.email.trim().isNotEmpty) "E-mail: ${t.email}",
                 ],
                 icone: Icons.escalator_warning,
+                onTap: () => _editar(t),
               )),
       ],
     );
   }
 
-  Future _pesquisar() async {
-    try {
-    ControlTecnico control = ControlTecnico();
-    List<Tecnico> lista = await control.queryFind(_inputPesquisa.text);
+  Future<void> _editar(Tecnico t) async {
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarTecnico(tecnico: t)));
+    _pesquisar();
+  }
 
-    setState(() {
-      _lista = lista;
-    });
+  Future<void> _pesquisar() async {
+    try {
+      ControlTecnico control = ControlTecnico();
+      List<Tecnico> lista = await control.queryFind(_inputPesquisa.text);
+
+      setState(() {
+        _lista = lista;
+      });
     } catch (_) {
       // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
     }

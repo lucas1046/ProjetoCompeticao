@@ -13,6 +13,11 @@ class ControlTecnico {
     return await BancoDados().inserir("tecnico", tecnico.toMap());
   }
 
+  Future<void> updateDatabase(Tecnico tecnico) async {
+    Database banco = await BancoDados().db;
+    await banco.update("tecnico", tecnico.toMap(), where: "id = ?", whereArgs: [tecnico.id]);
+  }
+
   Future<List<Tecnico>> queryFind([String? nome]) async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados;

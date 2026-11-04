@@ -7,7 +7,8 @@ import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaAdicionarTecnico extends StatefulWidget {
-  const TelaAdicionarTecnico({super.key});
+  final Tecnico? tecnico;
+  const TelaAdicionarTecnico({super.key, this.tecnico});
 
   @override
   State<TelaAdicionarTecnico> createState() => _TelaAdicionarTecnicoState();
@@ -18,6 +19,18 @@ class _TelaAdicionarTecnicoState extends State<TelaAdicionarTecnico> {
   final _telefone = TextEditingController();
   final _email = TextEditingController();
   String _resultado = "";
+  int? _idEdicao;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.tecnico != null) {
+      _idEdicao = widget.tecnico!.id;
+      _nome.text = widget.tecnico!.nome;
+      _telefone.text = widget.tecnico!.telefone;
+      _email.text = widget.tecnico!.email;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +75,14 @@ class _TelaAdicionarTecnicoState extends State<TelaAdicionarTecnico> {
 
     try {
       ControlTecnico control = ControlTecnico();
-      int id = await control.insertDatabase(tecnico);
-
-      setState(() {
-    _resultado = "Técnico ${tecnico.nome} cadastrado! (id: $id)";
-      });
+      if (_idEdicao != null) {
+        Tecnico t = Tecnico(id: _idEdicao, nome: _nome.text, telefone: _telefone.text, email: _email.text);
+        await control.updateDatabase(t);
+        setState(() => _resultado = "Técnico ${t.nome} atualizado!");
+      } else {
+        int id = await control.insertDatabase(tecnico);
+        setState(() => _resultado = "Técnico ${tecnico.nome} cadastrado! (id: $id)");
+      }
     } catch (e) {
       setState(() {
         _resultado = e.toString();
