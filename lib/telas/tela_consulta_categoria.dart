@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_categoria.dart';
+import 'package:projeto_final/telas/tela_adicionar_categoria.dart';
 import 'package:projeto_final/model/categoria.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
@@ -65,19 +66,25 @@ class _TelaConsultaCategoriaState extends State<TelaConsultaCategoria> {
                 c.nome,
                 ["Faixa etária: ${c.idadeMin} a ${c.idadeMax} anos"],
                 icone: Icons.category,
+                onTap: () => _editar(c),
               )),
       ],
     );
   }
 
-  Future _pesquisar() async {
-    try {
-    ControlCategoria control = ControlCategoria();
-    List<Categoria> lista = await control.queryFind(_inputPesquisa.text);
+  Future<void> _editar(Categoria c) async {
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarCategoria(categoria: c)));
+    _pesquisar();
+  }
 
-    setState(() {
-      _lista = lista;
-    });
+  Future<void> _pesquisar() async {
+    try {
+      ControlCategoria control = ControlCategoria();
+      List<Categoria> lista = await control.queryFind(_inputPesquisa.text);
+
+      setState(() {
+        _lista = lista;
+      });
     } catch (_) {
       // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
     }

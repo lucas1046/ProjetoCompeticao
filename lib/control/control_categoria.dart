@@ -15,18 +15,20 @@ class ControlCategoria {
     if (categoria.nome.trim().isEmpty) {
       throw RegraNegocioException("Informe o nome da categoria.");
     }
-
     if (categoria.idadeMin >= categoria.idadeMax) {
       throw RegraNegocioException(
         "A idade mínima deve ser menor que a idade máxima.",
       );
     }
-
     if (categoria.idadeMin < 0 || categoria.idadeMax < 0) {
       throw RegraNegocioException("As idades não podem ser negativas.");
     }
-
     return await BancoDados().inserir("categoria", categoria.toMap());
+  }
+
+  Future<void> updateDatabase(Categoria categoria) async {
+    Database banco = await BancoDados().db;
+    await banco.update("categoria", categoria.toMap(), where: "id = ?", whereArgs: [categoria.id]);
   }
 
   // RNFR-02.2 — não permite excluir categoria com times vinculados
