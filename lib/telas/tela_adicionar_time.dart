@@ -12,6 +12,10 @@ import 'package:projeto_final/control/control_jogador_time.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/model/jogador_time.dart';
 import 'package:projeto_final/model/posicao.dart';
+import 'package:projeto_final/control/control_tecnico.dart';
+import 'package:projeto_final/control/control_tecnico_time.dart';
+import 'package:projeto_final/model/tecnico.dart';
+import 'package:projeto_final/model/tecnico_time.dart';
 import 'package:projeto_final/model/time.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -28,10 +32,12 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
   int? _idTimeEdicao;
   String? _idEscola;
   String? _idCategoria;
+  String? _idTecnico;
   List<Escola> _escolas = [];
   List<Categoria> _categorias = [];
   List<Jogador> _jogadores = [];
   List<Posicao> _posicoes = [];
+  List<Tecnico> _tecnicos = [];
   final Set<int> _selJogadores = {};
   final Map<int, int?> _posicaoPorJogador = {};
   final Map<int, int?> _camisaPorJogador = {};
@@ -48,6 +54,7 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
     final escolas = await ControlEscola().queryFind();
     final categorias = await ControlCategoria().queryFind();
     final posicoes = await ControlPosicao().queryFind();
+    final tecnicos = await ControlTecnico().queryFind();
     final idEscola = widget.time != null ? widget.time!.idEscola : (escolas.isNotEmpty ? escolas[0].id : null);
     final jogadores = idEscola != null ? await ControlJogador().queryByEscola(idEscola) : await ControlJogador().queryFind();
     setState(() {
@@ -55,6 +62,8 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
       _categorias = categorias;
       _jogadores = jogadores;
       _posicoes = posicoes;
+      _tecnicos = tecnicos;
+      if (tecnicos.isNotEmpty && _idTecnico == null) _idTecnico = tecnicos[0].id.toString();
       if (widget.time != null) {
         _idTimeEdicao = widget.time!.idTime;
         _idEscola = widget.time!.idEscola.toString();
@@ -66,6 +75,9 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
     });
     if (widget.time != null) {
       final rows = await ControlJogadorTime().queryByTime(widget.time!.idTime!);
+      // load tecnico vinculo
+      final tecs = await ControlTecnicoTime().queryFind();
+      final vinc = tecs.where((t) => t.idTime == widget.time!.idTime).toList();
       setState(() {
         for (final r in rows) {
           final jid = r['idJogador'] as int;
@@ -73,6 +85,7 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
           _posicaoPorJogador[jid] = r['idPosicao'] as int?;
           _camisaPorJogador[jid] = r['numero_camisa'] as int?;
         }
+        if (vinc.isNotEmpty) _idTecnico = vinc.first.idTecnico.toString();
       });
     }
   }
@@ -118,6 +131,10 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
           if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erro: $e")));
         }
       }
+      if (_idTecnico != null) {
+        await ControlTecnicoTime().deleteByTime(idTime);
+        await ControlTecnicoTime().insertDatabase(TecnicoTime(idTecnico: int.parse(_idTecnico!), idTime: idTime));
+      }
       setState(() => _resultado = "Time criado: $nome. Jogadores: $criadas.");
       await _carregarListas();
     } catch (e) {
@@ -147,6 +164,13 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
           }),
           SizedBox(height: 12),
           _dropdown("Categoria", _idCategoria, _categorias.map((c) => _Item(c.id.toString(), c.nome)).toList(), (v) => setState(() => _idCategoria = v)),
+          SizedBox(height: 12),
+          DropdownButtonFormField<String>(
+            value: _idTecnico,
+            decoration: InputDecoration(labelText: "Técnico", border: OutlineInputBorder()),
+            items: _tecnicos.map((t) => DropdownMenuItem<String>(value: t.id.toString(), child: Text(t.nome))).toList(),
+            onChanged: (v) => setState(() => _idTecnico = v),
+          ),
           SizedBox(height: 12),
           Text("Jogadores:", style: TextStyle(fontWeight: FontWeight.bold)),
           ..._jogadores

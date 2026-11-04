@@ -49,6 +49,11 @@ class ControlTecnicoTime {
     });
   }
 
+  Future<void> deleteByTime(int idTime) async {
+    Database banco = await BancoDados().db;
+    await banco.delete("tecnico_time", where: "id_time = ?", whereArgs: [idTime]);
+  }
+
   Future<List<TecnicoTime>> queryFind() async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados =
