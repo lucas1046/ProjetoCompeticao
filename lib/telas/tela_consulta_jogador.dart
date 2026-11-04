@@ -64,47 +64,27 @@ class _TelaConsultaJogadorState extends State<TelaConsultaJogador> {
         if (_lista.isEmpty)
           TextosCustom("Nenhum resultado", 18, Colors.red)
         else
-          ..._lista.map((j) => Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => TelaHistoricoJogador(
-                            idJogador: j['id'] as int,
-                            nomeJogador: j['nome'],
-                          ),
-                        ),
-                      ),
-                      child: CartaoConsulta(
-                        j['nome'],
-                        [
-                          "CPF: ${j['cpf']}",
-                          "Nascimento: ${j['dataNascimento']}",
-                          "Responsável: ${j['nomeResponsavel'] ?? '-'}",
-                        ],
-                        icone: Icons.person,
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () async {
-                      Jogador? jj;
-                      List<Jogador> todos = await ControlJogador().queryFind();
-                      try {
-                        jj = todos.firstWhere((x) => x.id == j['id']);
-                      } catch (_) {
-                        jj = null;
-                      }
-                      if (jj != null) {
-                        await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarJogador(jogador: jj)));
-                        _pesquisar();
-                      }
-                    },
-                  ),
+          ..._lista.map((j) => CartaoConsulta(
+                j['nome'],
+                [
+                  "CPF: ${j['cpf']}",
+                  "Nascimento: ${j['dataNascimento']}",
+                  "Responsável: ${j['nomeResponsavel'] ?? '-'}",
                 ],
+                icone: Icons.person,
+                onTap: () async {
+                  List<Jogador> todos = await ControlJogador().queryFind();
+                  Jogador? jj;
+                  try {
+                    jj = todos.firstWhere((x) => x.id == j['id']);
+                  } catch (_) {
+                    jj = null;
+                  }
+                  if (jj != null) {
+                    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarJogador(jogador: jj)));
+                    _pesquisar();
+                  }
+                },
               )),
       ],
     );
