@@ -75,9 +75,7 @@ class ControlJogador {
   Future<List<Jogador>> queryByEscola(int idEscola) async {
     Database banco = await BancoDados().db;
     final res = await banco.rawQuery(
-      "SELECT DISTINCT j.* FROM jogador j "
-      "JOIN participacao_jogador_time p ON p.id_jogador = j.id "
-      "WHERE p.id_escola = ?",
+      "SELECT * FROM jogador WHERE id_escola = ?",
       [idEscola],
     );
     return res.map((m) => Jogador.fromMap(m)).toList();
