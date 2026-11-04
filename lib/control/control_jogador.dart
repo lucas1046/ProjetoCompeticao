@@ -53,6 +53,11 @@ class ControlJogador {
     return id;
   }
 
+  Future<void> updateDatabase(Jogador jogador) async {
+    Database banco = await BancoDados().db;
+    await banco.update("jogador", jogador.toMap(), where: "id = ?", whereArgs: [jogador.id]);
+  }
+
   Future<List<Jogador>> queryFind([String? nome]) async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados;

@@ -14,7 +14,8 @@ import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaAdicionarJogador extends StatefulWidget {
-  const TelaAdicionarJogador({super.key});
+  final Jogador? jogador;
+  const TelaAdicionarJogador({super.key, this.jogador});
 
   @override
   State<TelaAdicionarJogador> createState() => _TelaAdicionarJogadorState();
@@ -32,6 +33,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
   List<FotoFigurinha> _fotos = [];
   List<Escola> _escolas = [];
   String _resultado = "";
+  int? _idEdicao;
 
   @override
   void initState() {
@@ -39,6 +41,15 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     _carregarResponsaveis();
     _carregarFotos();
     _carregarEscolas();
+    if (widget.jogador != null) {
+      _idEdicao = widget.jogador!.id;
+      _nome.text = widget.jogador!.nome;
+      _cpf.text = widget.jogador!.cpf;
+      _dataNascimento.text = widget.jogador!.dataNascimento;
+      if (widget.jogador!.idResponsavel != null) _idResponsavelSelecionado = widget.jogador!.idResponsavel.toString();
+      if (widget.jogador!.idFoto != null) _idFotoSelecionada = widget.jogador!.idFoto.toString();
+      if (widget.jogador!.idEscola != null) _idEscolaSelecionada = widget.jogador!.idEscola.toString();
+    }
   }
 
   Future<void> _carregarResponsaveis() async {
@@ -270,11 +281,14 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
 
     try {
       ControlJogador control = ControlJogador();
-      int id = await control.insertDatabase(jogador);
-
-      setState(() {
-    _resultado = "Jogador ${jogador.nome} cadastrado! (id: $id)";
-      });
+      if (_idEdicao != null) {
+        Jogador j = Jogador(id: _idEdicao, nome: _nome.text, cpf: _cpf.text, dataNascimento: _dataNascimento.text, idResponsavel: int.tryParse(_idResponsavelSelecionado ?? "0") ?? 0, idFoto: int.tryParse(_idFotoSelecionada ?? ""), idEscola: int.tryParse(_idEscolaSelecionada ?? ""));
+        await control.updateDatabase(j);
+        setState(() => _resultado = "Jogador ${j.nome} atualizado!");
+      } else {
+        int id = await control.insertDatabase(jogador);
+        setState(() => _resultado = "Jogador ${jogador.nome} cadastrado! (id: $id)");
+      }
     } catch (e) {
       setState(() {
         _resultado = e.toString();
