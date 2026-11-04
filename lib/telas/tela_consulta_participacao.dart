@@ -5,6 +5,9 @@ import 'package:projeto_final/util/financeiro.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
+import 'package:projeto_final/telas/tela_adicionar_participacao.dart';
+import 'package:projeto_final/control/control_participacao.dart';
+import 'package:projeto_final/model/participacao_jogador_time.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 /// Consulta de inscrições com o status financeiro do jogador (RNFR-13.3).
@@ -91,6 +94,19 @@ class _TelaConsultaParticipacaoState extends State<TelaConsultaParticipacao> {
       selo: status,
       corSelo: Financeiro.cor(status),
       icone: Icons.how_to_reg,
+      onTap: () async {
+        List<ParticipacaoJogadorTime> todos = await ControlParticipacao().queryFind();
+        ParticipacaoJogadorTime? p;
+        try {
+          p = todos.firstWhere((x) => x.id == item['idParticipacao']);
+        } catch (_) {
+          p = null;
+        }
+        if (p != null) {
+          await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarParticipacao(participacao: p)));
+          _pesquisar();
+        }
+      },
     );
   }
 

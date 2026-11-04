@@ -36,6 +36,11 @@ class ControlParticipacao {
     );
   }
 
+  Future<void> updateDatabase(ParticipacaoJogadorTime participacao) async {
+    Database banco = await BancoDados().db;
+    await banco.update("participacao_jogador_time", participacao.toMap(), where: "id = ?", whereArgs: [participacao.id]);
+  }
+
   Future<List<ParticipacaoJogadorTime>> queryFind() async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados =

@@ -13,7 +13,8 @@ import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaAdicionarParticipacao extends StatefulWidget {
-  const TelaAdicionarParticipacao({super.key});
+  final ParticipacaoJogadorTime? participacao;
+  const TelaAdicionarParticipacao({super.key, this.participacao});
 
   @override
   State<TelaAdicionarParticipacao> createState() =>
@@ -28,11 +29,15 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
   List<Escola> _escolas = [];
   List<Responsavel> _responsaveis = [];
   String _resultado = "";
+  int? _idEdicao;
 
   @override
   void initState() {
     super.initState();
     _carregarListas();
+    if (widget.participacao != null) {
+      _idEdicao = widget.participacao!.id;
+    }
   }
 
   Future<void> _carregarListas() async {
@@ -44,8 +49,14 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
       _jogadores = jogadores;
       _escolas = escolas;
       _responsaveis = resps;
-      if (jogadores.isNotEmpty) _idJogador = jogadores[0].id.toString();
-      if (escolas.isNotEmpty) _idEscola = escolas[0].id.toString();
+      if (widget.participacao != null) {
+        _idJogador = widget.participacao!.idJogador.toString();
+        if (widget.participacao!.idEscola != null) _idEscola = widget.participacao!.idEscola.toString();
+        if (widget.participacao!.valorInscricao != null) _valorInscricao.text = widget.participacao!.valorInscricao.toString();
+      } else {
+        if (jogadores.isNotEmpty) _idJogador = jogadores[0].id.toString();
+        if (escolas.isNotEmpty) _idEscola = escolas[0].id.toString();
+      }
     });
   }
 
@@ -190,11 +201,14 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
 
     try {
       ControlParticipacao control = ControlParticipacao();
-      int id = await control.insertDatabase(participacao);
-
-      setState(() {
-        _resultado = "Inscrição cadastrada! (id: $id)";
-      });
+      if (_idEdicao != null) {
+        ParticipacaoJogadorTime p = ParticipacaoJogadorTime(id: _idEdicao, idJogador: int.tryParse(_idJogador ?? "0") ?? 0, idEscola: int.tryParse(_idEscola ?? "0"), valorInscricao: double.tryParse(_valorInscricao.text));
+        await control.updateDatabase(p);
+        setState(() => _resultado = "Inscrição atualizada!");
+      } else {
+        int id = await control.insertDatabase(participacao);
+        setState(() => _resultado = "Inscrição cadastrada! (id: $id)");
+      }
     } catch (e) {
       setState(() {
         _resultado = e.toString();
