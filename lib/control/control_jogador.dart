@@ -72,6 +72,17 @@ class ControlJogador {
     });
   }
 
+  Future<List<Jogador>> queryByEscola(int idEscola) async {
+    Database banco = await BancoDados().db;
+    final res = await banco.rawQuery(
+      "SELECT DISTINCT j.* FROM jogador j "
+      "JOIN participacao_jogador_time p ON p.id_jogador = j.id "
+      "WHERE p.id_escola = ?",
+      [idEscola],
+    );
+    return res.map((m) => Jogador.fromMap(m)).toList();
+  }
+
   // Consulta detalhada: traz o nome do responsável em vez do id
   Future<List<Map<String, dynamic>>> queryFindDetalhado([String? nome]) async {
     Database banco = await BancoDados().db;

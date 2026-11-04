@@ -44,8 +44,9 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
   Future<void> _carregarListas() async {
     final escolas = await ControlEscola().queryFind();
     final categorias = await ControlCategoria().queryFind();
-    final jogadores = await ControlJogador().queryFind();
     final posicoes = await ControlPosicao().queryFind();
+    final idEscola = escolas.isNotEmpty ? escolas[0].id : null;
+    final jogadores = idEscola != null ? await ControlJogador().queryByEscola(idEscola) : await ControlJogador().queryFind();
     setState(() {
       _escolas = escolas;
       _categorias = categorias;
@@ -106,7 +107,13 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
-          _dropdown("Escola", _idEscola, _escolas.map((e) => _Item(e.id.toString(), e.nome)).toList(), (v) => setState(() => _idEscola = v)),
+          _dropdown("Escola", _idEscola, _escolas.map((e) => _Item(e.id.toString(), e.nome)).toList(), (v) async {
+            setState(() => _idEscola = v);
+            if (v != null) {
+              final js = await ControlJogador().queryByEscola(int.parse(v));
+              setState(() => _jogadores = js);
+            }
+          }),
           SizedBox(height: 12),
           _dropdown("Categoria", _idCategoria, _categorias.map((c) => _Item(c.id.toString(), c.nome)).toList(), (v) => setState(() => _idCategoria = v)),
           SizedBox(height: 12),
