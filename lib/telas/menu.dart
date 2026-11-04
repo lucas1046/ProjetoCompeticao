@@ -117,8 +117,6 @@ class _MenuState extends State<Menu> {
           soAdministrador: true),
       _Opcao("Time", Icons.groups, () => TelaAdicionarTime(),
           () => TelaConsultaTime()),
-      _Opcao("Inscrição", Icons.how_to_reg, () => TelaAdicionarParticipacao(),
-          () => TelaConsultaParticipacao()),
       _Opcao("Pagamento", Icons.payments, () => TelaAdicionarPagamento(),
           () => TelaConsultaPagamento()),
       _Opcao("Partida", Icons.sports_score, () => TelaAdicionarPartida(),

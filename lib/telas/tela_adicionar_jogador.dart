@@ -3,7 +3,9 @@ import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_escola.dart';
 import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/control/control_responsavel.dart';
+import 'package:projeto_final/control/control_participacao.dart';
 import 'package:projeto_final/model/jogador.dart';
+import 'package:projeto_final/model/participacao_jogador_time.dart';
 import 'package:projeto_final/control/control_foto.dart';
 import 'package:projeto_final/model/escola.dart';
 import 'package:projeto_final/model/foto_figurinha.dart';
@@ -25,6 +27,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
   final _nome = TextEditingController();
   final _cpf = TextEditingController();
   final _dataNascimento = TextEditingController();
+  final _valorInscricao = TextEditingController();
   final _camisa = TextEditingController();
   String? _idResponsavelSelecionado;
   String? _idFotoSelecionada;
@@ -186,6 +189,8 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
           items: _escolas.map((e) => DropdownMenuItem<String>(value: e.id.toString(), child: Text(e.nome))).toList(),
           onChanged: (v) => setState(() => _idEscolaSelecionada = v),
         ),
+        SizedBox(height: 8),
+        InputTextos("Valor da inscrição", "0.00", controller: _valorInscricao),
         SizedBox(height: 16),
         Buttons("Registrar", onPressed: _registrar),
         TextosCustom(_resultado, 18, Colors.red),
@@ -281,13 +286,30 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
 
     try {
       ControlJogador control = ControlJogador();
+      int idJogador;
       if (_idEdicao != null) {
         Jogador j = Jogador(id: _idEdicao, nome: _nome.text, cpf: _cpf.text, dataNascimento: _dataNascimento.text, idResponsavel: int.tryParse(_idResponsavelSelecionado ?? "0") ?? 0, idFoto: int.tryParse(_idFotoSelecionada ?? ""), idEscola: int.tryParse(_idEscolaSelecionada ?? ""));
         await control.updateDatabase(j);
+        idJogador = _idEdicao!;
         setState(() => _resultado = "Jogador ${j.nome} atualizado!");
       } else {
-        int id = await control.insertDatabase(jogador);
-        setState(() => _resultado = "Jogador ${jogador.nome} cadastrado! (id: $id)");
+        idJogador = await control.insertDatabase(jogador);
+        setState(() => _resultado = "Jogador ${jogador.nome} cadastrado! (id: $idJogador)");
+      }
+      // inscricao integrada
+      if (_idEscolaSelecionada != null) {
+        final part = ParticipacaoJogadorTime(
+          idJogador: idJogador,
+          idEscola: int.tryParse(_idEscolaSelecionada ?? "0"),
+          valorInscricao: double.tryParse(_valorInscricao.text),
+        );
+        final existentes = await ControlParticipacao().queryFind();
+        final vinc = existentes.where((p) => p.idJogador == idJogador).toList();
+        if (vinc.isNotEmpty) {
+          await ControlParticipacao().updateDatabase(ParticipacaoJogadorTime(id: vinc.first.id, idJogador: idJogador, idEscola: part.idEscola, valorInscricao: part.valorInscricao));
+        } else {
+          await ControlParticipacao().insertDatabase(part);
+        }
       }
     } catch (e) {
       setState(() {
