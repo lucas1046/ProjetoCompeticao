@@ -13,6 +13,11 @@ class ControlTipoEvento {
     return await BancoDados().inserir("tipo_evento", tipoEvento.toMap());
   }
 
+  Future<void> updateDatabase(TipoEvento tipoEvento) async {
+    Database banco = await BancoDados().db;
+    await banco.update("tipo_evento", tipoEvento.toMap(), where: "id = ?", whereArgs: [tipoEvento.id]);
+  }
+
   Future<List<TipoEvento>> queryFind([String? descricao]) async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados;

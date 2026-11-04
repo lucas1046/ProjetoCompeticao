@@ -7,7 +7,8 @@ import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaAdicionarTipoEvento extends StatefulWidget {
-  const TelaAdicionarTipoEvento({super.key});
+  final TipoEvento? tipoEvento;
+  const TelaAdicionarTipoEvento({super.key, this.tipoEvento});
 
   @override
   State<TelaAdicionarTipoEvento> createState() =>
@@ -17,6 +18,16 @@ class TelaAdicionarTipoEvento extends StatefulWidget {
 class _TelaAdicionarTipoEventoState extends State<TelaAdicionarTipoEvento> {
   final _descricao = TextEditingController();
   String _resultado = "";
+  int? _idEdicao;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.tipoEvento != null) {
+      _idEdicao = widget.tipoEvento!.id;
+      _descricao.text = widget.tipoEvento!.descricao;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +70,14 @@ class _TelaAdicionarTipoEventoState extends State<TelaAdicionarTipoEvento> {
 
     try {
       ControlTipoEvento control = ControlTipoEvento();
-      int id = await control.insertDatabase(tipoEvento);
-
-      setState(() {
-    _resultado = "Tipo de evento ${tipoEvento.descricao} cadastrado! (id: $id)";
-      });
+      if (_idEdicao != null) {
+        TipoEvento t = TipoEvento(id: _idEdicao, descricao: _descricao.text);
+        await control.updateDatabase(t);
+        setState(() => _resultado = "Tipo de evento ${t.descricao} atualizado!");
+      } else {
+        int id = await control.insertDatabase(tipoEvento);
+        setState(() => _resultado = "Tipo de evento ${tipoEvento.descricao} cadastrado! (id: $id)");
+      }
     } catch (e) {
       setState(() {
         _resultado = e.toString();

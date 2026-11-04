@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_tipo_evento.dart';
+import 'package:projeto_final/telas/tela_adicionar_tipo_evento.dart';
 import 'package:projeto_final/model/tipo_evento.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
@@ -69,19 +70,25 @@ class _TelaConsultaTipoEventoState extends State<TelaConsultaTipoEvento> {
                 t.descricao,
                 ["Id: ${t.id}"],
                 icone: Icons.flag,
+                onTap: () => _editar(t),
               )),
       ],
     );
   }
 
-  Future _pesquisar() async {
-    try {
-    ControlTipoEvento control = ControlTipoEvento();
-    List<TipoEvento> lista = await control.queryFind(_inputPesquisa.text);
+  Future<void> _editar(TipoEvento t) async {
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarTipoEvento(tipoEvento: t)));
+    _pesquisar();
+  }
 
-    setState(() {
-      _lista = lista;
-    });
+  Future<void> _pesquisar() async {
+    try {
+      ControlTipoEvento control = ControlTipoEvento();
+      List<TipoEvento> lista = await control.queryFind(_inputPesquisa.text);
+
+      setState(() {
+        _lista = lista;
+      });
     } catch (_) {
       // banco indisponível (ex.: ambiente de teste) — mantém lista vazia
     }
