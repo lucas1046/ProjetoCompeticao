@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 14;
+  static const int _versao = 15;
 
   Database? _db;
 
@@ -135,22 +135,14 @@ class BancoDados {
           await _criarTabelas(db);
         }
 
-        if (oldVersion < 14) {
-          try {
-            await db.execute("ALTER TABLE partida ADD COLUMN horario TEXT");
-          } catch (_) {}
-          try {
-            await db.execute("ALTER TABLE time DROP COLUMN id_modalidade");
-          } catch (_) {}
-          await db.execute(
-            "CREATE TABLE IF NOT EXISTS jogador_time("
-            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-            "id_time INTEGER NOT NULL REFERENCES time(id_time) ON DELETE CASCADE, "
-            "id_jogador INTEGER NOT NULL REFERENCES jogador(id), "
-            "id_posicao INTEGER REFERENCES posicao(id), "
-            "numero_camisa INTEGER, "
-            "UNIQUE(id_time, id_jogador))",
+        if (oldVersion < 15) {
+          List<Map<String, dynamic>> tabelas = await db.rawQuery(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'",
           );
+          for (final t in tabelas) {
+            await db.execute("DROP TABLE IF EXISTS ${t['name']}");
+          }
+          await _criarTabelas(db);
         }
       },
     );
