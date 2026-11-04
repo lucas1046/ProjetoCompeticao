@@ -77,10 +77,10 @@ class _TelaConsultaPagamentoState extends State<TelaConsultaPagamento> {
     return CartaoConsulta(
       p['nomeJogador'] ?? "-",
       [
-        "Time: ${p['nomeTime']} - Camisa: ${p['numeroCamisa']}",
+        "Escola: ${p['nomeEscola'] ?? '-'}",
         "Forma: ${p['formaPagamento']} - Data: ${p['dataPagamento']}",
       ],
-      selo: "R\$ ${valor.toStringAsFixed(2)}",
+      selo: "R\$ " + valor.toStringAsFixed(2),
       corSelo: Colors.green,
       icone: Icons.payments,
       onTap: () async {

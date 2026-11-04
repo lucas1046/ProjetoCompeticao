@@ -70,13 +70,13 @@ class ControlPagamento {
       "SELECT pg.id AS id, pg.valor_pago AS valorPago, "
       "pg.forma_pagamento AS formaPagamento, "
       "pg.data_pagamento AS dataPagamento, "
-      "j.nome AS nomeJogador, t.nome_time AS nomeTime, "
-      "pjt.numero_camisa AS numeroCamisa "
+      "j.nome AS nomeJogador, e.nome AS nomeEscola, "
+      "pjt.valor_inscricao AS valorInscricao "
       "FROM pagamento_inscricao pg "
       "JOIN participacao_jogador_time pjt "
       "ON pg.id_participacao_jogador_time = pjt.id "
       "JOIN jogador j ON pjt.id_jogador = j.id "
-      "JOIN time t ON pjt.id_time = t.id_time "
+      "LEFT JOIN escola e ON pjt.id_escola = e.id "
       "ORDER BY j.nome",
     );
   }
