@@ -41,9 +41,9 @@ class ControlDadosExemplo {
 
     await BancoDados().inserir("responsavel", Responsavel(id: 1, nome: "Maria Silva", cpf: "12345678900", telefone: "15999998888", email: "maria@email.com", parentesco: "Mãe").toMap());
 
-    await BancoDados().inserir("jogador", Jogador(id: 1, cpf: "11122233344", nome: "João Pedro", dataNascimento: "2010-05-10", idResponsavel: 1, idPosicao: 3, numeroCamisa: 9).toMap());
-    await BancoDados().inserir("jogador", Jogador(id: 2, cpf: "22233344455", nome: "Carlos Lima", dataNascimento: "2009-08-20", idResponsavel: 1, idPosicao: 2, numeroCamisa: 10).toMap());
-    await BancoDados().inserir("jogador", Jogador(id: 3, cpf: "33344455566", nome: "Ana Souza", dataNascimento: "2011-03-15", idResponsavel: 1, idPosicao: 4, numeroCamisa: 7).toMap());
+    await BancoDados().inserir("jogador", Jogador(id: 1, cpf: "11122233344", nome: "João Pedro", dataNascimento: "2010-05-10", idResponsavel: 1, idEscola: 1).toMap());
+    await BancoDados().inserir("jogador", Jogador(id: 2, cpf: "22233344455", nome: "Carlos Lima", dataNascimento: "2009-08-20", idResponsavel: 1, idEscola: 1).toMap());
+    await BancoDados().inserir("jogador", Jogador(id: 3, cpf: "33344455566", nome: "Ana Souza", dataNascimento: "2011-03-15", idResponsavel: 1, idEscola: 2).toMap());
 
     await BancoDados().inserir("documento", Documento(idJogador: 1, tipoDocumento: "RG", caminhoArquivo: "/docs/joao_rg.pdf").toMap());
 

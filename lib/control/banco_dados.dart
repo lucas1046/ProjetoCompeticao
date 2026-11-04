@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 15;
+  static const int _versao = 16;
 
   Database? _db;
 
@@ -135,7 +135,7 @@ class BancoDados {
           await _criarTabelas(db);
         }
 
-        if (oldVersion < 15) {
+        if (oldVersion < 16) {
           List<Map<String, dynamic>> tabelas = await db.rawQuery(
             "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'",
           );
@@ -246,8 +246,7 @@ class BancoDados {
       "data_nascimento DATE NOT NULL, "
       "id_responsavel INTEGER REFERENCES responsavel(id) ON DELETE SET NULL, "
       "id_foto INTEGER REFERENCES foto_figurinha(id), "
-      "id_posicao INTEGER REFERENCES posicao(id), "
-      "numero_camisa INTEGER)",
+      "id_escola INTEGER REFERENCES escola(id))",
     );
 
     await db.execute(

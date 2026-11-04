@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
+import 'package:projeto_final/control/control_escola.dart';
 import 'package:projeto_final/control/control_jogador.dart';
-import 'package:projeto_final/control/control_posicao.dart';
 import 'package:projeto_final/control/control_responsavel.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/control/control_foto.dart';
+import 'package:projeto_final/model/escola.dart';
 import 'package:projeto_final/model/foto_figurinha.dart';
 import 'package:projeto_final/model/posicao.dart';
 import 'package:projeto_final/model/responsavel.dart';
@@ -26,10 +27,10 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
   final _camisa = TextEditingController();
   String? _idResponsavelSelecionado;
   String? _idFotoSelecionada;
-  String? _idPosicaoSelecionada;
+  String? _idEscolaSelecionada;
   List<Responsavel> _responsaveis = [];
   List<FotoFigurinha> _fotos = [];
-  List<Posicao> _posicoes = [];
+  List<Escola> _escolas = [];
   String _resultado = "";
 
   @override
@@ -37,7 +38,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     super.initState();
     _carregarResponsaveis();
     _carregarFotos();
-    _carregarPosicoes();
+    _carregarEscolas();
   }
 
   Future<void> _carregarResponsaveis() async {
@@ -59,11 +60,11 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     });
   }
 
-  Future<void> _carregarPosicoes() async {
-    final lista = await ControlPosicao().queryFind();
+  Future<void> _carregarEscolas() async {
+    final lista = await ControlEscola().queryFind();
     setState(() {
-      _posicoes = lista;
-      if (lista.isNotEmpty) _idPosicaoSelecionada = lista[0].id.toString();
+      _escolas = lista;
+      if (lista.isNotEmpty) _idEscolaSelecionada = lista[0].id.toString();
     });
   }
   @override
@@ -168,33 +169,11 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
           ],
         ),
         SizedBox(height: 8),
-        Row(
-          children: [
-            Expanded(
-              child: DropdownButtonFormField<String>(
-                value: _idPosicaoSelecionada,
-                decoration: InputDecoration(
-                  labelText: "Posição",
-                  border: OutlineInputBorder(),
-                ),
-                items: _posicoes.map((p) {
-                  return DropdownMenuItem<String>(
-                    value: p.id.toString(),
-                    child: Text(p.nome),
-                  );
-                }).toList(),
-                onChanged: (valor) {
-                  setState(() {
-                    _idPosicaoSelecionada = valor;
-                  });
-                },
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: InputTextos("Camisa", "Nº", controller: _camisa),
-            ),
-          ],
+        DropdownButtonFormField<String>(
+          value: _idEscolaSelecionada,
+          decoration: InputDecoration(labelText: "Escola (origem)", border: OutlineInputBorder()),
+          items: _escolas.map((e) => DropdownMenuItem<String>(value: e.id.toString(), child: Text(e.nome))).toList(),
+          onChanged: (v) => setState(() => _idEscolaSelecionada = v),
         ),
         SizedBox(height: 16),
         Buttons("Registrar", onPressed: _registrar),
@@ -286,8 +265,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
       dataNascimento: _dataNascimento.text,
       idResponsavel: int.tryParse(_idResponsavelSelecionado ?? "0") ?? 0,
       idFoto: int.tryParse(_idFotoSelecionada ?? ""),
-      idPosicao: int.tryParse(_idPosicaoSelecionada ?? ""),
-      numeroCamisa: int.tryParse(_camisa.text),
+      idEscola: int.tryParse(_idEscolaSelecionada ?? ""),
     );
 
     try {
