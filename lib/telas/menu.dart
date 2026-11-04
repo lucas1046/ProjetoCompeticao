@@ -110,8 +110,6 @@ class _MenuState extends State<Menu> {
     final opcoes = [
       _Opcao("Competição", Icons.emoji_events, () => TelaAdicionarCompeticao(),
           () => TelaConsultaCompeticao()),
-      _Opcao("Tipo de evento", Icons.flag, () => TelaAdicionarTipoEvento(),
-          () => TelaConsultaTipoEvento()),
       _Opcao("Jogador", Icons.person, () => TelaAdicionarJogador(),
           () => TelaConsultaJogador()),
       _Opcao("Documento", Icons.description, () => TelaAdicionarDocumento(),

@@ -48,7 +48,6 @@ void main() {
 
     expect(find.byType(Menu), findsOneWidget);
     expect(find.text('Competição'), findsOneWidget);
-    expect(find.text('Tipo de evento'), findsOneWidget);
 
     // O GridView e lazy: o ultimo card precisa de scroll para aparecer
     await tester.scrollUntilVisible(

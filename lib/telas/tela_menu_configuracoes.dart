@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/telas/tela_adicionar_evento.dart';
 import 'package:projeto_final/telas/tela_consulta_evento.dart';
+import 'package:projeto_final/telas/tela_adicionar_tipo_evento.dart';
+import 'package:projeto_final/telas/tela_consulta_tipo_evento.dart';
 import 'package:projeto_final/telas/tela_adicionar_posicao.dart';
 import 'package:projeto_final/telas/tela_consulta_posicao.dart';
 import 'package:projeto_final/telas/tela_detalhe_entidade.dart';
@@ -37,6 +39,8 @@ class _MenuConfiguracoesState extends State<MenuConfiguracoes> {
 
   _grid(BuildContext ctx) {
     final opcoes = [
+      _Opcao("Tipo de evento", Icons.flag, () => TelaAdicionarTipoEvento(),
+          () => TelaConsultaTipoEvento()),
       _Opcao("Evento", Icons.timer, () => TelaAdicionarEvento(),
           () => TelaConsultaEvento()),
       _Opcao("Posição", Icons.pan_tool, () => TelaAdicionarPosicao(),
