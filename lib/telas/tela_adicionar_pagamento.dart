@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
+import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/control/control_pagamento.dart';
 import 'package:projeto_final/control/control_participacao.dart';
+import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/model/pagamento_inscricao.dart';
 import 'package:projeto_final/model/participacao_jogador_time.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
@@ -23,6 +25,8 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
   final _observacoes = TextEditingController();
   String? _idParticipacao;
   List<ParticipacaoJogadorTime> _participacoes = [];
+  List<Jogador> _jogadores = [];
+  Map<int, String> _nomeJogador = {};
   String _resultado = "";
   int? _idEdicao;
 
@@ -38,8 +42,11 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
   Future<void> _carregarParticipacoes() async {
     ControlParticipacao control = ControlParticipacao();
     List<ParticipacaoJogadorTime> lista = await control.queryFind();
+    List<Jogador> jogs = await ControlJogador().queryFind();
     setState(() {
       _participacoes = lista;
+      _jogadores = jogs;
+      _nomeJogador = {for (final j in jogs) j.id!: j.nome};
       if (widget.pagamento != null) {
         _idParticipacao = widget.pagamento!.idParticipacao.toString();
         _valorPago.text = widget.pagamento!.valorPago.toString();
@@ -86,7 +93,7 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
           items: _participacoes.map((p) {
             return DropdownMenuItem<String>(
               value: p.id.toString(),
-              child: Text("Inscrição ${p.id} - jogador ${p.idJogador}"),
+              child: Text("Inscrição ${p.id} - ${_nomeJogador[p.idJogador] ?? 'jogador ${p.idJogador}'}"),
             );
           }).toList(),
           onChanged: (v) => setState(() => _idParticipacao = v),
