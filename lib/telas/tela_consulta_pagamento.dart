@@ -4,6 +4,8 @@ import 'package:projeto_final/control/control_pagamento.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
+import 'package:projeto_final/telas/tela_adicionar_pagamento.dart';
+import 'package:projeto_final/model/pagamento_inscricao.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaConsultaPagamento extends StatefulWidget {
@@ -81,6 +83,19 @@ class _TelaConsultaPagamentoState extends State<TelaConsultaPagamento> {
       selo: "R\$ ${valor.toStringAsFixed(2)}",
       corSelo: Colors.green,
       icone: Icons.payments,
+      onTap: () async {
+        List<PagamentoInscricao> todos = await ControlPagamento().queryFind();
+        PagamentoInscricao? pg;
+        try {
+          pg = todos.firstWhere((x) => x.id == p['id']);
+        } catch (_) {
+          pg = null;
+        }
+        if (pg != null) {
+          await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarPagamento(pagamento: pg)));
+          _pesquisar();
+        }
+      },
     );
   }
 

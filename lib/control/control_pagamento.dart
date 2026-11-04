@@ -47,6 +47,11 @@ class ControlPagamento {
     return await BancoDados().inserir("pagamento_inscricao", pagamento.toMap());
   }
 
+  Future<void> updateDatabase(PagamentoInscricao pagamento) async {
+    Database banco = await BancoDados().db;
+    await banco.update("pagamento_inscricao", pagamento.toMap(), where: "id = ?", whereArgs: [pagamento.id]);
+  }
+
   Future<List<PagamentoInscricao>> queryFind() async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultados =

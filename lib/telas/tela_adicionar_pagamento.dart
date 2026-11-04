@@ -9,11 +9,11 @@ import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaAdicionarPagamento extends StatefulWidget {
-  const TelaAdicionarPagamento({super.key});
+  final PagamentoInscricao? pagamento;
+  const TelaAdicionarPagamento({super.key, this.pagamento});
 
   @override
-  State<TelaAdicionarPagamento> createState() =>
-      _TelaAdicionarPagamentoState();
+  State<TelaAdicionarPagamento> createState() => _TelaAdicionarPagamentoState();
 }
 
 class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
@@ -24,11 +24,15 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
   String? _idParticipacao;
   List<ParticipacaoJogadorTime> _participacoes = [];
   String _resultado = "";
+  int? _idEdicao;
 
   @override
   void initState() {
     super.initState();
     _carregarParticipacoes();
+    if (widget.pagamento != null) {
+      _idEdicao = widget.pagamento!.id;
+    }
   }
 
   Future<void> _carregarParticipacoes() async {
@@ -36,7 +40,15 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
     List<ParticipacaoJogadorTime> lista = await control.queryFind();
     setState(() {
       _participacoes = lista;
-      if (lista.isNotEmpty) _idParticipacao = lista[0].id.toString();
+      if (widget.pagamento != null) {
+        _idParticipacao = widget.pagamento!.idParticipacao.toString();
+        _valorPago.text = widget.pagamento!.valorPago.toString();
+        _dataPagamento.text = widget.pagamento!.dataPagamento;
+        _formaPagamento.text = widget.pagamento!.formaPagamento;
+        _observacoes.text = widget.pagamento!.observacoes;
+      } else {
+        if (lista.isNotEmpty) _idParticipacao = lista[0].id.toString();
+      }
     });
   }
 
@@ -123,11 +135,14 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
 
     try {
       ControlPagamento control = ControlPagamento();
-      int id = await control.insertDatabase(pagamento);
-
-      setState(() {
-    _resultado = "Pagamento registrado! (id: $id)";
-      });
+      if (_idEdicao != null) {
+        PagamentoInscricao p = PagamentoInscricao(id: _idEdicao, idParticipacao: int.tryParse(_idParticipacao ?? "0") ?? 0, valorPago: double.tryParse(_valorPago.text) ?? 0, dataPagamento: _dataPagamento.text, formaPagamento: _formaPagamento.text, observacoes: _observacoes.text);
+        await control.updateDatabase(p);
+        setState(() => _resultado = "Pagamento atualizado!");
+      } else {
+        int id = await control.insertDatabase(pagamento);
+        setState(() => _resultado = "Pagamento registrado! (id: $id)");
+      }
     } catch (e) {
       setState(() {
         _resultado = e.toString();
