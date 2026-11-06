@@ -128,7 +128,7 @@ flutter build apk --release
 | Relatórios e estatísticas | Implementado |
 | Exportação em PDF | Implementado |
 | APK release | Gerado |
-| Testes automatizados | 62 testes passando |
+| Testes automatizados | 66 testes passando |
 
 ## Licença
 
