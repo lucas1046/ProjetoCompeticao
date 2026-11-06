@@ -111,6 +111,28 @@ class _TelaAdicionarPosicaoState extends State<TelaAdicionarPosicao> {
       } else {
         int id = await control.insertDatabase(posicao);
         setState(() => _resultado = "Posição ${posicao.nome} cadastrada! (id: $id)");
+
+        if (mounted) {
+
+          await showDialog<void>(
+
+            context: context,
+
+            builder: (ctx) => AlertDialog(
+
+              title: Text("Sucesso"),
+
+              content: Text("Posição ${posicao.nome} cadastrada! (id: $id)"),
+
+              actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: Text("OK"))],
+
+            ),
+
+          );
+
+          if (mounted) Navigator.pop(context);
+
+        }
       }
     } catch (e) {
       setState(() {

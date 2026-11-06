@@ -311,6 +311,28 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
       } else {
         idJogador = await control.insertDatabase(jogador);
         setState(() => _resultado = "Jogador ${jogador.nome} cadastrado! (id: $idJogador)");
+
+        if (mounted) {
+
+          await showDialog<void>(
+
+            context: context,
+
+            builder: (ctx) => AlertDialog(
+
+              title: Text("Sucesso"),
+
+              content: Text("Jogador ${jogador.nome} cadastrado! (id: $idJogador)"),
+
+              actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: Text("OK"))],
+
+            ),
+
+          );
+
+          if (mounted) Navigator.pop(context);
+
+        }
       }
       // inscricao integrada
       if (_idEscolaSelecionada != null) {

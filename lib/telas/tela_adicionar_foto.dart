@@ -82,6 +82,28 @@ class _TelaAdicionarFotoState extends State<TelaAdicionarFoto> {
       } else {
         int id = await control.insertDatabase(foto);
         setState(() => _resultado = "Foto cadastrada! (id: $id)");
+
+        if (mounted) {
+
+          await showDialog<void>(
+
+            context: context,
+
+            builder: (ctx) => AlertDialog(
+
+              title: Text("Sucesso"),
+
+              content: Text("Foto cadastrada! (id: $id)"),
+
+              actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: Text("OK"))],
+
+            ),
+
+          );
+
+          if (mounted) Navigator.pop(context);
+
+        }
       }
     } catch (e) {
       setState(() {

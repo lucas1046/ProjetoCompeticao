@@ -77,6 +77,28 @@ class _TelaAdicionarTipoEventoState extends State<TelaAdicionarTipoEvento> {
       } else {
         int id = await control.insertDatabase(tipoEvento);
         setState(() => _resultado = "Tipo de evento ${tipoEvento.descricao} cadastrado! (id: $id)");
+
+        if (mounted) {
+
+          await showDialog<void>(
+
+            context: context,
+
+            builder: (ctx) => AlertDialog(
+
+              title: Text("Sucesso"),
+
+              content: Text("Tipo de evento ${tipoEvento.descricao} cadastrado! (id: $id)"),
+
+              actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: Text("OK"))],
+
+            ),
+
+          );
+
+          if (mounted) Navigator.pop(context);
+
+        }
       }
     } catch (e) {
       setState(() {

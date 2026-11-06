@@ -115,6 +115,28 @@ class _TelaAdicionarResponsavelState extends State<TelaAdicionarResponsavel> {
       } else {
         int id = await control.insertDatabase(responsavel);
         setState(() => _resultado = "Responsável ${responsavel.nome} cadastrado! (id: $id)");
+
+        if (mounted) {
+
+          await showDialog<void>(
+
+            context: context,
+
+            builder: (ctx) => AlertDialog(
+
+              title: Text("Sucesso"),
+
+              content: Text("Responsável ${responsavel.nome} cadastrado! (id: $id)"),
+
+              actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: Text("OK"))],
+
+            ),
+
+          );
+
+          if (mounted) Navigator.pop(context);
+
+        }
       }
     } catch (e) {
       setState(() {

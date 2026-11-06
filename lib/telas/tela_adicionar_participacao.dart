@@ -208,6 +208,28 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
       } else {
         int id = await control.insertDatabase(participacao);
         setState(() => _resultado = "Inscrição cadastrada! (id: $id)");
+
+        if (mounted) {
+
+          await showDialog<void>(
+
+            context: context,
+
+            builder: (ctx) => AlertDialog(
+
+              title: Text("Sucesso"),
+
+              content: Text("Inscrição cadastrada! (id: $id)"),
+
+              actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: Text("OK"))],
+
+            ),
+
+          );
+
+          if (mounted) Navigator.pop(context);
+
+        }
       }
     } catch (e) {
       setState(() {

@@ -100,16 +100,27 @@ class _TelaAdicionarCategoriaState extends State<TelaAdicionarCategoria> {
       } else {
         int id = await control.insertDatabase(categoria);
         setState(() => _resultado = "Categoria ${categoria.nome} cadastrada! (id: $id)");
+
         if (mounted) {
+
           await showDialog<void>(
+
             context: context,
+
             builder: (ctx) => AlertDialog(
+
               title: Text("Sucesso"),
-              content: Text("Categoria ${categoria.nome} cadastrada!"),
+
+              content: Text("Categoria ${categoria.nome} cadastrada! (id: $id)"),
+
               actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: Text("OK"))],
+
             ),
+
           );
+
           if (mounted) Navigator.pop(context);
+
         }
       }
     } catch (e) {
