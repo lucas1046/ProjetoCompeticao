@@ -8,14 +8,10 @@ import 'package:projeto_final/telas/tela_adicionar_posicao.dart';
 import 'package:projeto_final/telas/tela_consulta_posicao.dart';
 import 'package:projeto_final/telas/tela_detalhe_entidade.dart';
 
-class MenuConfiguracoes extends StatefulWidget {
+/// Menu de configurações (mesmo layout dos relatórios).
+class MenuConfiguracoes extends StatelessWidget {
   const MenuConfiguracoes({super.key});
 
-  @override
-  State<MenuConfiguracoes> createState() => _MenuConfiguracoesState();
-}
-
-class _MenuConfiguracoesState extends State<MenuConfiguracoes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +29,11 @@ class _MenuConfiguracoesState extends State<MenuConfiguracoes> {
           ),
         ],
       ),
-      body: _grid(context),
+      body: _body(context),
     );
   }
 
-  GridView _grid(BuildContext ctx) {
+  ListView _body(BuildContext ctx) {
     final opcoes = [
       _Opcao("Tipo de evento", Icons.flag, () => TelaAdicionarTipoEvento(),
           () => TelaConsultaTipoEvento()),
@@ -47,36 +43,22 @@ class _MenuConfiguracoesState extends State<MenuConfiguracoes> {
           () => TelaConsultaPosicao()),
     ];
 
-    return GridView.builder(
+    return ListView.builder(
       padding: EdgeInsets.all(16),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 1.2,
-      ),
       itemCount: opcoes.length,
       itemBuilder: (context, index) {
         final opcao = opcoes[index];
         return Card(
           elevation: 3,
-          child: InkWell(
-            onTap: () => _abre(ctx, opcao),
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(opcao.icone, size: 36, color: Colors.blue),
-                  SizedBox(height: 8),
-                  Text(
-                    opcao.titulo,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+          margin: EdgeInsets.only(bottom: 12),
+          child: ListTile(
+            leading: Icon(opcao.icone, size: 32, color: Colors.blue),
+            title: Text(
+              opcao.titulo,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () => _abre(ctx, opcao),
           ),
         );
       },
