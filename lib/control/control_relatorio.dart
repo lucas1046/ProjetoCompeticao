@@ -74,45 +74,50 @@ class ControlRelatorio {
   // RF-15 - RELATÓRIOS GERENCIAIS
   // ---------------------------------------------------------
 
-  // Classificação geral dos times (pontos, jogos, vitórias, saldo de gols)
-  Future<List<Map<String, dynamic>>> classificacaoGeral() async {
+  // Relatório da competição: classificação por competição
+  Future<List<Map<String, dynamic>>> classificacaoGeral({int? idCompeticao}) async {
     Database banco = await BancoDados().db;
-    return await banco.rawQuery(
-      "SELECT t.id_time AS idTime, t.nome_time AS nomeTime, "
-      "COUNT(*) AS jogos, "
-      "SUM(CASE "
-      "  WHEN p.wo = 1 AND p.id_time_wo = t.id_time THEN 1 "  // vitoria por WO
-      "  WHEN p.wo = 0 AND ((t.id_time = p.id_time_casa AND p.qtd_gols_time_casa > p.qtd_gols_time_visitante) "
-      "       OR (t.id_time = p.id_time_visitante AND p.qtd_gols_time_visitante > p.qtd_gols_time_casa)) THEN 1 "
-      "  ELSE 0 END) AS vitorias, "
-      "SUM(CASE WHEN p.wo = 0 AND p.qtd_gols_time_casa = p.qtd_gols_time_visitante THEN 1 ELSE 0 END) AS empates, "
-      "SUM(CASE "
-      "  WHEN p.wo = 1 AND p.id_time_wo <> t.id_time THEN 1 "  // derrota por WO
-      "  WHEN p.wo = 0 AND ((t.id_time = p.id_time_casa AND p.qtd_gols_time_casa < p.qtd_gols_time_visitante) "
-      "       OR (t.id_time = p.id_time_visitante AND p.qtd_gols_time_visitante < p.qtd_gols_time_casa)) THEN 1 "
-      "  ELSE 0 END) AS derrotas, "
-      "SUM(CASE "
-      "  WHEN p.wo = 1 AND p.id_time_wo = t.id_time THEN 3 "  // gols pro WO (3-0)
-      "  WHEN p.wo = 1 AND p.id_time_wo <> t.id_time THEN 0 "
-      "  WHEN t.id_time = p.id_time_casa THEN p.qtd_gols_time_casa "
-      "  ELSE p.qtd_gols_time_visitante END) AS golsPro, "
-      "SUM(CASE "
-      "  WHEN p.wo = 1 AND p.id_time_wo = t.id_time THEN 0 "
-      "  WHEN p.wo = 1 AND p.id_time_wo <> t.id_time THEN 3 "
-      "  WHEN t.id_time = p.id_time_casa THEN p.qtd_gols_time_visitante "
-      "  ELSE p.qtd_gols_time_casa END) AS golsContra, "
-      "SUM(CASE "
-      "  WHEN p.wo = 1 AND p.id_time_wo = t.id_time THEN 3 "  // pontos WO
-      "  WHEN p.wo = 1 AND p.id_time_wo <> t.id_time THEN 0 "
-      "  WHEN (t.id_time = p.id_time_casa AND p.qtd_gols_time_casa > p.qtd_gols_time_visitante) "
-      "       OR (t.id_time = p.id_time_visitante AND p.qtd_gols_time_visitante > p.qtd_gols_time_casa) THEN 3 "
-      "  WHEN p.qtd_gols_time_casa = p.qtd_gols_time_visitante THEN 1 "
-      "  ELSE 0 END) AS pontos "
-      "FROM partida p "
-      "JOIN time t ON t.id_time = p.id_time_casa OR t.id_time = p.id_time_visitante "
-      "GROUP BY t.id_time, t.nome_time "
-      "ORDER BY pontos DESC, golsPro DESC",
-    );
+    String sql = "SELECT t.id_time AS idTime, t.nome_time AS nomeTime, "
+        "cat.nome AS categoria, "
+        "COUNT(*) AS jogos, "
+        "SUM(CASE "
+        "  WHEN p.wo = 1 AND p.id_time_wo = t.id_time THEN 1 "
+        "  WHEN p.wo = 0 AND ((t.id_time = p.id_time_casa AND p.qtd_gols_time_casa > p.qtd_gols_time_visitante) "
+        "       OR (t.id_time = p.id_time_visitante AND p.qtd_gols_time_visitante > p.qtd_gols_time_casa)) THEN 1 "
+        "  ELSE 0 END) AS vitorias, "
+        "SUM(CASE WHEN p.wo = 0 AND p.qtd_gols_time_casa = p.qtd_gols_time_visitante THEN 1 ELSE 0 END) AS empates, "
+        "SUM(CASE "
+        "  WHEN p.wo = 1 AND p.id_time_wo <> t.id_time THEN 1 "
+        "  WHEN p.wo = 0 AND ((t.id_time = p.id_time_casa AND p.qtd_gols_time_casa < p.qtd_gols_time_visitante) "
+        "       OR (t.id_time = p.id_time_visitante AND p.qtd_gols_time_visitante < p.qtd_gols_time_casa)) THEN 1 "
+        "  ELSE 0 END) AS derrotas, "
+        "SUM(CASE "
+        "  WHEN p.wo = 1 AND p.id_time_wo = t.id_time THEN 3 "
+        "  WHEN p.wo = 1 AND p.id_time_wo <> t.id_time THEN 0 "
+        "  WHEN t.id_time = p.id_time_casa THEN p.qtd_gols_time_casa "
+        "  ELSE p.qtd_gols_time_visitante END) AS golsPro, "
+        "SUM(CASE "
+        "  WHEN p.wo = 1 AND p.id_time_wo = t.id_time THEN 0 "
+        "  WHEN p.wo = 1 AND p.id_time_wo <> t.id_time THEN 3 "
+        "  WHEN t.id_time = p.id_time_casa THEN p.qtd_gols_time_visitante "
+        "  ELSE p.qtd_gols_time_casa END) AS golsContra, "
+        "SUM(CASE "
+        "  WHEN p.wo = 1 AND p.id_time_wo = t.id_time THEN 3 "
+        "  WHEN p.wo = 1 AND p.id_time_wo <> t.id_time THEN 0 "
+        "  WHEN (t.id_time = p.id_time_casa AND p.qtd_gols_time_casa > p.qtd_gols_time_visitante) "
+        "       OR (t.id_time = p.id_time_visitante AND p.qtd_gols_time_visitante > p.qtd_gols_time_casa) THEN 3 "
+        "  WHEN p.qtd_gols_time_casa = p.qtd_gols_time_visitante THEN 1 "
+        "  ELSE 0 END) AS pontos "
+        "FROM partida p "
+        "JOIN time t ON t.id_time = p.id_time_casa OR t.id_time = p.id_time_visitante "
+        "JOIN categoria cat ON cat.id = t.id_categoria "
+        "JOIN rodada r ON r.id = p.id_rodada ";
+    if (idCompeticao != null) {
+      sql += "WHERE r.id_competicao = $idCompeticao ";
+    }
+    sql += "GROUP BY t.id_time, t.nome_time, cat.nome "
+        "ORDER BY pontos DESC, golsPro DESC";
+    return await banco.rawQuery(sql);
   }
 
   // Situação financeira: valor pago por inscrição de jogador

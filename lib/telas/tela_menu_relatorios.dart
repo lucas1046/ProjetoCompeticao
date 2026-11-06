@@ -37,7 +37,7 @@ class MenuRelatorios extends StatelessWidget {
     final opcoes = [
       _Relatorio("Ficha do jogador", Icons.person_search,
           () => TelaEstatisticasJogador()),
-      _Relatorio("Classificação geral", Icons.leaderboard,
+      _Relatorio("Relatório da competição", Icons.leaderboard,
           () => TelaClassificacao()),
       _Relatorio("Histórico de partidas", Icons.history,
           () => TelaRelatorioPartidas()),
