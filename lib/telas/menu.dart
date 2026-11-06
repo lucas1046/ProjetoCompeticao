@@ -6,7 +6,6 @@ import 'package:projeto_final/telas/tela_adicionar_jogador.dart';
 import 'package:projeto_final/telas/tela_adicionar_pagamento.dart';
 import 'package:projeto_final/telas/tela_adicionar_partida.dart';
 import 'package:projeto_final/telas/tela_adicionar_suspensao.dart';
-import 'package:projeto_final/telas/tela_adicionar_tecnico_time.dart';
 import 'package:projeto_final/telas/tela_adicionar_time.dart';
 import 'package:projeto_final/telas/tela_dados_exemplo.dart';
 import 'package:projeto_final/telas/tela_menu_configuracoes.dart';
@@ -54,7 +53,7 @@ class _MenuState extends State<Menu> {
     );
   }
 
-  _body(BuildContext ctx) {
+  Column _body(BuildContext ctx) {
     return Column(
       children: [
         Card(
@@ -83,7 +82,7 @@ class _MenuState extends State<Menu> {
     );
   }
 
-  _grid(BuildContext ctx) {
+  GridView _grid(BuildContext ctx) {
     final opcoes = [
       _Opcao("Competição", Icons.emoji_events, () => TelaAdicionarCompeticao(),
           () => TelaConsultaCompeticao()),
@@ -150,7 +149,7 @@ class _MenuState extends State<Menu> {
     );
   }
 
-  _aoToqueCard(BuildContext ctx, _Opcao opcao) {
+  void _aoToqueCard(BuildContext ctx, _Opcao opcao) {
     if (opcao.destinoDireto != null) {
       _abreTelas(ctx, opcao.destinoDireto!());
       return;
@@ -167,7 +166,7 @@ class _MenuState extends State<Menu> {
     );
   }
 
-  _abreTelas(ctx, page) {
+  void _abreTelas(ctx, page) {
     Navigator.push(
       ctx,
       MaterialPageRoute(builder: (BuildContext context) {
@@ -176,7 +175,7 @@ class _MenuState extends State<Menu> {
     );
   }
 
-  _sair(BuildContext ctx) {
+  void _sair(BuildContext ctx) {
     ControlSessao().sair();
     Navigator.pushReplacement(
       ctx,

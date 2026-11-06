@@ -3,7 +3,6 @@ import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_escalacao.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
-import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
 class TelaConsultaEscalacao extends StatefulWidget {
@@ -50,7 +49,7 @@ class _TelaConsultaEscalacaoState extends State<TelaConsultaEscalacao> {
     );
   }
 
-  _body() {
+  ListView _body() {
     String f = _filtro.text.trim().toLowerCase();
     List<Map<String, dynamic>> filtrados = f.isEmpty
         ? _lista

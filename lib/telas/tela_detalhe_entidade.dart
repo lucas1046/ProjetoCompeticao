@@ -40,7 +40,7 @@ class TelaDetalheEntidade extends StatelessWidget {
     );
   }
 
-  _body(BuildContext ctx) {
+  ListView _body(BuildContext ctx) {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
@@ -67,7 +67,7 @@ class TelaDetalheEntidade extends StatelessWidget {
   }
 
   // Icone grande centralizado logo abaixo do AppBar
-  _cabecalho() {
+  Column _cabecalho() {
     return Column(
       children: [
         SizedBox(height: 24),
@@ -88,7 +88,7 @@ class TelaDetalheEntidade extends StatelessWidget {
     );
   }
 
-  _abrir(BuildContext ctx, Widget page) {
+  void _abrir(BuildContext ctx, Widget page) {
     Navigator.push(
       ctx,
       MaterialPageRoute(builder: (BuildContext context) => page),

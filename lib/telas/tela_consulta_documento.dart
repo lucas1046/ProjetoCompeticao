@@ -3,7 +3,6 @@ import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_documento.dart';
 import 'package:projeto_final/util/guarda_permissao.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
-import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -59,7 +58,7 @@ class _TelaConsultaDocumentoState extends State<TelaConsultaDocumento> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [

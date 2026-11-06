@@ -3,7 +3,6 @@ import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_time.dart';
 import 'package:projeto_final/telas/tela_adicionar_time.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
-import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -53,7 +52,7 @@ class _TelaConsultaTimeState extends State<TelaConsultaTime> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [

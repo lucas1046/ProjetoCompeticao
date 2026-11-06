@@ -66,7 +66,7 @@ class _TelaAdicionarTecnicoTimeState extends State<TelaAdicionarTecnicoTime> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
@@ -74,7 +74,7 @@ class _TelaAdicionarTecnicoTimeState extends State<TelaAdicionarTecnicoTime> {
           children: [
             Expanded(
               child: DropdownButtonFormField<String>(
-                value: _idTecnico,
+                initialValue: _idTecnico,
                 decoration: InputDecoration(
                   labelText: "Técnico",
                   border: OutlineInputBorder(),
@@ -98,7 +98,7 @@ class _TelaAdicionarTecnicoTimeState extends State<TelaAdicionarTecnicoTime> {
         ),
         SizedBox(height: 12),
         DropdownButtonFormField<String>(
-          value: _idTime,
+          initialValue: _idTime,
           decoration: InputDecoration(
             labelText: "Time",
             border: OutlineInputBorder(),

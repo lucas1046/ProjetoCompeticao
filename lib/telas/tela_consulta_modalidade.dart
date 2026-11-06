@@ -3,7 +3,6 @@ import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_modalidade.dart';
 import 'package:projeto_final/model/modalidade.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
-import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -52,7 +51,7 @@ class _TelaConsultaModalidadeState extends State<TelaConsultaModalidade> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [

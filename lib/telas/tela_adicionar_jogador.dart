@@ -9,7 +9,6 @@ import 'package:projeto_final/model/participacao_jogador_time.dart';
 import 'package:projeto_final/control/control_foto.dart';
 import 'package:projeto_final/model/escola.dart';
 import 'package:projeto_final/model/foto_figurinha.dart';
-import 'package:projeto_final/model/posicao.dart';
 import 'package:projeto_final/model/responsavel.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
@@ -48,7 +47,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
       _nome.text = widget.jogador!.nome;
       _cpf.text = widget.jogador!.cpf;
       _dataNascimento.text = widget.jogador!.dataNascimento;
-      if (widget.jogador!.idResponsavel != null) _idResponsavelSelecionado = widget.jogador!.idResponsavel.toString();
+      _idResponsavelSelecionado = widget.jogador!.idResponsavel.toString();
       if (widget.jogador!.idFoto != null) _idFotoSelecionada = widget.jogador!.idFoto.toString();
       if (widget.jogador!.idEscola != null) _idEscolaSelecionada = widget.jogador!.idEscola.toString();
     }
@@ -101,7 +100,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
@@ -125,7 +124,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
           children: [
             Expanded(
               child: DropdownButtonFormField<String>(
-                value: _idResponsavelSelecionado,
+                initialValue: _idResponsavelSelecionado,
                 decoration: InputDecoration(
                   labelText: "Responsável legal",
                   border: OutlineInputBorder(),
@@ -155,7 +154,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
           children: [
             Expanded(
               child: DropdownButtonFormField<String>(
-                value: _idFotoSelecionada,
+                initialValue: _idFotoSelecionada,
                 decoration: InputDecoration(
                   labelText: "Foto (opcional)",
                   border: OutlineInputBorder(),
@@ -185,7 +184,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
         Row(
           children: [
             Expanded(child: DropdownButtonFormField<String>(
-              value: _idEscolaSelecionada,
+              initialValue: _idEscolaSelecionada,
               decoration: InputDecoration(labelText: "Escola (origem)", border: OutlineInputBorder()),
               items: _escolas.map((e) => DropdownMenuItem<String>(value: e.id.toString(), child: Text(e.nome))).toList(),
               onChanged: (v) => setState(() => _idEscolaSelecionada = v),

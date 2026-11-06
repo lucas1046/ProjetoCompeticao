@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
-import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/telas/tela_adicionar_jogador.dart';
-import 'package:projeto_final/telas/tela_historico_jogador.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -55,7 +53,7 @@ class _TelaConsultaJogadorState extends State<TelaConsultaJogador> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [

@@ -4,7 +4,6 @@ import 'package:projeto_final/control/control_tipo_evento.dart';
 import 'package:projeto_final/telas/tela_adicionar_tipo_evento.dart';
 import 'package:projeto_final/model/tipo_evento.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
-import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -53,7 +52,7 @@ class _TelaConsultaTipoEventoState extends State<TelaConsultaTipoEvento> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [

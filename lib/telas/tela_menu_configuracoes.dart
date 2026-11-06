@@ -37,7 +37,7 @@ class _MenuConfiguracoesState extends State<MenuConfiguracoes> {
     );
   }
 
-  _grid(BuildContext ctx) {
+  GridView _grid(BuildContext ctx) {
     final opcoes = [
       _Opcao("Tipo de evento", Icons.flag, () => TelaAdicionarTipoEvento(),
           () => TelaConsultaTipoEvento()),
@@ -83,15 +83,15 @@ class _MenuConfiguracoesState extends State<MenuConfiguracoes> {
     );
   }
 
-  _abre(BuildContext ctx, _Opcao opcao) {
+  void _abre(BuildContext ctx, _Opcao opcao) {
     Navigator.push(
       ctx,
       MaterialPageRoute(
         builder: (BuildContext context) => TelaDetalheEntidade(
           titulo: opcao.titulo,
           icone: opcao.icone,
-          telaCadastro: opcao.abreCadastro!(),
-          telaConsulta: opcao.abreConsulta!(),
+          telaCadastro: opcao.abreCadastro(),
+          telaConsulta: opcao.abreConsulta(),
         ),
       ),
     );

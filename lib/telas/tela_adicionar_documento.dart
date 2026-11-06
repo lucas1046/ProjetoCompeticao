@@ -67,12 +67,12 @@ class _TelaAdicionarDocumentoState extends State<TelaAdicionarDocumento> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
         DropdownButtonFormField<String>(
-          value: _idJogadorSelecionado,
+          initialValue: _idJogadorSelecionado,
           decoration: InputDecoration(
             labelText: "Jogador",
             border: OutlineInputBorder(),

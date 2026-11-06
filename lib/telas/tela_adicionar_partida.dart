@@ -40,8 +40,8 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
   List<Map<String, dynamic>> _eventos = [];
   String _resultado = "";
   List<Jogador> _jogadores = [];
-  Set<int> _selCasa = {};
-  Set<int> _selVis = {};
+  final Set<int> _selCasa = {};
+  final Set<int> _selVis = {};
   Set<int> _rosterCasa = {};
   Set<int> _rosterVis = {};
   final _filtroCasa = TextEditingController();
@@ -94,8 +94,11 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
         _selCasa.clear();
         _selVis.clear();
         for (final e in escs.where((x) => x.idPartida == widget.partida!.id)) {
-          if (e.idTime == int.tryParse(_idTimeCasa ?? "0")) _selCasa.add(e.idJogador);
-          else _selVis.add(e.idJogador);
+          if (e.idTime == int.tryParse(_idTimeCasa ?? "0")) {
+            _selCasa.add(e.idJogador);
+          } else {
+            _selVis.add(e.idJogador);
+          }
         }
       });
       await _refreshEventos();
@@ -191,14 +194,14 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 DropdownButtonFormField<int>(
-                  value: idTipo,
+                  initialValue: idTipo,
                   decoration: const InputDecoration(labelText: "Tipo de evento"),
                   items: _tiposEvento.map((t) => DropdownMenuItem<int>(value: t.id, child: Text(t.descricao))).toList(),
                   onChanged: (v) => setD(() => idTipo = v),
                 ),
                 SizedBox(height: 8),
                 DropdownButtonFormField<int>(
-                  value: idEsc,
+                  initialValue: idEsc,
                   decoration: const InputDecoration(labelText: "Jogador escalado"),
                   items: escs.map((e) => DropdownMenuItem<int>(value: e['id'] as int, child: Text(e['nomeJogador']?.toString() ?? 'Jogador ${e['id']}'))).toList(),
                   onChanged: (v) => setD(() => idEsc = v),
@@ -254,7 +257,7 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
             mainAxisSize: MainAxisSize.min,
             children: [
               DropdownButtonFormField<int>(
-                value: idComp,
+                initialValue: idComp,
                 decoration: InputDecoration(labelText: "Competição"),
                 items: comps.map((c) => DropdownMenuItem<int>(value: c.id, child: Text(c.nome))).toList(),
                 onChanged: (v) => setStateDialog(() => idComp = v),
@@ -302,7 +305,7 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
               children: [
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    value: _idRodada,
+                    initialValue: _idRodada,
                     decoration: const InputDecoration(labelText: "Rodada", border: OutlineInputBorder()),
                     items: _rodadas.map((r) => DropdownMenuItem<String>(value: r.id.toString(), child: Text("Rodada ${r.numero}"))).toList(),
                     onChanged: (v) => setState(() => _idRodada = v),
@@ -314,7 +317,7 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
             ),
             SizedBox(height: 12),
             DropdownButtonFormField<String>(
-              value: _idTimeCasa,
+              initialValue: _idTimeCasa,
               decoration: const InputDecoration(labelText: "Time da casa", border: OutlineInputBorder()),
               items: _times.map((t) => DropdownMenuItem<String>(value: t.idTime.toString(), child: Text(t.nomeTime))).toList(),
               onChanged: (v) async {
@@ -327,7 +330,7 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
             ),
             SizedBox(height: 12),
             DropdownButtonFormField<String>(
-              value: _idTimeVisitante,
+              initialValue: _idTimeVisitante,
               decoration: const InputDecoration(labelText: "Time visitante", border: OutlineInputBorder()),
               items: _times.map((t) => DropdownMenuItem<String>(value: t.idTime.toString(), child: Text(t.nomeTime))).toList(),
               onChanged: (v) async {
@@ -346,13 +349,21 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
             ..._jogadores.where((j) => _rosterCasa.contains(j.id) && (_filtroCasa.text.isEmpty || j.nome.toLowerCase().contains(_filtroCasa.text.toLowerCase()))).map((j) => CheckboxListTile(
               title: Text(j.nome),
               value: _selCasa.contains(j.id),
-              onChanged: (v) => setState(() { if (v == true) _selCasa.add(j.id!); else _selCasa.remove(j.id); }),
+              onChanged: (v) => setState(() { if (v == true) {
+                _selCasa.add(j.id!);
+              } else {
+                _selCasa.remove(j.id);
+              } }),
             )),
             Text("Jogadores do visitante:", style: TextStyle(fontWeight: FontWeight.bold)),
             ..._jogadores.where((j) => _rosterVis.contains(j.id) && (_filtroVis.text.isEmpty || j.nome.toLowerCase().contains(_filtroVis.text.toLowerCase()))).map((j) => CheckboxListTile(
               title: Text(j.nome),
               value: _selVis.contains(j.id),
-              onChanged: (v) => setState(() { if (v == true) _selVis.add(j.id!); else _selVis.remove(j.id); }),
+              onChanged: (v) => setState(() { if (v == true) {
+                _selVis.add(j.id!);
+              } else {
+                _selVis.remove(j.id);
+              } }),
             )),
             SizedBox(height: 8),
             Buttons("Criar partida", onPressed: _criarPartida),

@@ -26,7 +26,6 @@ import 'package:projeto_final/model/time.dart';
 import 'package:projeto_final/model/tipo_evento.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/telas/tela_adicionar_competicao.dart';
-import 'package:projeto_final/telas/tela_adicionar_modalidade.dart';
 
 void main() {
   setUp(() => ControlSessao().sair());

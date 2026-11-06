@@ -56,7 +56,7 @@ class _TelaAdicionarCompeticaoState extends State<TelaAdicionarCompeticao> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [

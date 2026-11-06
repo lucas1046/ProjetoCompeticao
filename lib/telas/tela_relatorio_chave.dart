@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_relatorio.dart';
 import 'package:projeto_final/telas/menu.dart';
-import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -63,7 +62,7 @@ class _TelaRelatorioChaveState extends State<TelaRelatorioChave> {
         padding: EdgeInsets.all(16),
         children: [
           DropdownButtonFormField<int>(
-            value: _idCompeticao,
+            initialValue: _idCompeticao,
             decoration: InputDecoration(
               labelText: "Competição",
               border: OutlineInputBorder(),

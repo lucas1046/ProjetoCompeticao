@@ -9,7 +9,6 @@ import 'package:projeto_final/model/responsavel.dart';
 import 'package:projeto_final/model/tecnico.dart';
 import 'package:projeto_final/model/time.dart';
 import 'package:projeto_final/model/tipo_evento.dart';
-import 'package:sqflite/sqflite.dart';
 
 /// Popula o banco com dados de exemplo independentes (sem FK cruzadas).
 class ControlDadosExemplo {

@@ -66,13 +66,13 @@ class _TelaAdicionarPosicaoState extends State<TelaAdicionarPosicao> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
         InputTextos("Digite o nome", "Ex: Goleiro, Zagueiro", controller: _nome),
         DropdownButtonFormField<String>(
-          value: _idModalidadeSelecionada,
+          initialValue: _idModalidadeSelecionada,
           decoration: InputDecoration(
             labelText: "Modalidade",
             border: OutlineInputBorder(),

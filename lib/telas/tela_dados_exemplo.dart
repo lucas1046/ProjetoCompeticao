@@ -54,7 +54,7 @@ class _TelaDadosExemploState extends State<TelaDadosExemplo> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [

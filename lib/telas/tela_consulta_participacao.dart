@@ -4,7 +4,6 @@ import 'package:projeto_final/control/control_relatorio.dart';
 import 'package:projeto_final/util/financeiro.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
-import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/telas/tela_adicionar_participacao.dart';
 import 'package:projeto_final/control/control_participacao.dart';
 import 'package:projeto_final/model/participacao_jogador_time.dart';
@@ -57,7 +56,7 @@ class _TelaConsultaParticipacaoState extends State<TelaConsultaParticipacao> {
     );
   }
 
-  _body() {
+  ListView _body() {
     String f = _filtro.text.trim().toLowerCase();
     List<Map<String, dynamic>> filtrados = f.isEmpty
         ? _lista

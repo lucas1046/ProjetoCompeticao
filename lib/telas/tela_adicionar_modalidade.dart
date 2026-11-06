@@ -39,7 +39,7 @@ class _TelaAdicionarModalidadeState extends State<TelaAdicionarModalidade> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [

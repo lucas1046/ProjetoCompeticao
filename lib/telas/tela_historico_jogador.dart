@@ -88,7 +88,7 @@ class _TelaHistoricoJogadorState extends State<TelaHistoricoJogador> {
     );
   }
 
-  _body() {
+  ListView _body() {
     final j = _dados['jogador'] as Map<String, dynamic>? ?? {};
     final part = _dados['participacoes'] as List? ?? [];
     final pags = _dados['pagamentos'] as Map? ?? {};

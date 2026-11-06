@@ -33,7 +33,7 @@ class MenuRelatorios extends StatelessWidget {
     );
   }
 
-  _body(BuildContext ctx) {
+  ListView _body(BuildContext ctx) {
     // RNFR-15.2 — o relatório financeiro só aparece para administradores
     final opcoes = [
       _Relatorio("Estatísticas do jogador", Icons.person_search,
@@ -73,7 +73,7 @@ class MenuRelatorios extends StatelessWidget {
     );
   }
 
-  _abreTela(ctx, page) {
+  void _abreTela(ctx, page) {
     Navigator.push(
       ctx,
       MaterialPageRoute(builder: (BuildContext context) {

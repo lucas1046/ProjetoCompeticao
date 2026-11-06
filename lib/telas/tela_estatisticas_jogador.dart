@@ -67,12 +67,12 @@ class _TelaEstatisticasJogadorState extends State<TelaEstatisticasJogador> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
         DropdownButtonFormField<String>(
-          value: _idParticipacao,
+          initialValue: _idParticipacao,
           decoration: InputDecoration(
             labelText: "Jogador inscrito",
             border: OutlineInputBorder(),

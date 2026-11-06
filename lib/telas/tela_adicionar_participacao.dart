@@ -81,7 +81,7 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
@@ -89,7 +89,7 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
           children: [
             Expanded(
               child: DropdownButtonFormField<String>(
-                value: _idJogador,
+                initialValue: _idJogador,
                 decoration: InputDecoration(
                   labelText: "Jogador",
                   border: OutlineInputBorder(),
@@ -113,7 +113,7 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
         ),
         SizedBox(height: 12),
         DropdownButtonFormField<String>(
-          value: _idEscola,
+          initialValue: _idEscola,
           decoration: InputDecoration(
             labelText: "Escola de origem",
             border: OutlineInputBorder(),
@@ -157,7 +157,7 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
                 TextField(controller: dataCtrl, decoration: InputDecoration(labelText: "Data nasc. (AAAA-MM-DD)")),
                 SizedBox(height: 8),
                 DropdownButtonFormField<int>(
-                  value: idResp,
+                  initialValue: idResp,
                   decoration: InputDecoration(labelText: "Responsável"),
                   items: _responsaveis.map((r) {
                     return DropdownMenuItem<int>(value: r.id, child: Text(r.nome));

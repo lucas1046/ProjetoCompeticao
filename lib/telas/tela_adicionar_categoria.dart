@@ -54,7 +54,7 @@ class _TelaAdicionarCategoriaState extends State<TelaAdicionarCategoria> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [

@@ -8,7 +8,6 @@ import 'package:projeto_final/control/control_posicao.dart';
 import 'package:projeto_final/control/control_time.dart';
 import 'package:projeto_final/model/categoria.dart';
 import 'package:projeto_final/model/escola.dart';
-import 'package:projeto_final/control/control_jogador_time.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/model/jogador_time.dart';
 import 'package:projeto_final/model/posicao.dart';
@@ -218,7 +217,7 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
           Row(
             children: [
               Expanded(child: DropdownButtonFormField<String>(
-                value: _idTecnico,
+                initialValue: _idTecnico,
                 decoration: InputDecoration(labelText: "Técnico", border: OutlineInputBorder()),
                 items: _tecnicos.map((t) => DropdownMenuItem<String>(value: t.id.toString(), child: Text(t.nome))).toList(),
                 onChanged: (v) => setState(() => _idTecnico = v),
@@ -234,8 +233,11 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
                     title: Text(j.nome),
                     value: _selJogadores.contains(j.id),
                     onChanged: (v) => setState(() {
-                      if (v == true) _selJogadores.add(j.id!);
-                      else _selJogadores.remove(j.id);
+                      if (v == true) {
+                        _selJogadores.add(j.id!);
+                      } else {
+                        _selJogadores.remove(j.id);
+                      }
                     }),
                     subtitle: _selJogadores.contains(j.id)
                         ? Row(
@@ -270,7 +272,7 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
 
   Widget _dropdown(String rotulo, String? valor, List<_Item> itens, void Function(String?) onChanged) {
     return DropdownButtonFormField<String>(
-      value: valor,
+      initialValue: valor,
       decoration: InputDecoration(labelText: rotulo, border: OutlineInputBorder()),
       items: itens.map((i) => DropdownMenuItem<String>(value: i.id, child: Text(i.nome))).toList(),
       onChanged: onChanged,

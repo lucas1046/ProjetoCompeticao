@@ -58,12 +58,12 @@ class _TelaAdicionarRodadaState extends State<TelaAdicionarRodada> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
         DropdownButtonFormField<String>(
-          value: _idCompeticao,
+          initialValue: _idCompeticao,
           decoration: InputDecoration(
             labelText: "Competição",
             border: OutlineInputBorder(),

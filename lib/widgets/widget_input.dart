@@ -8,7 +8,7 @@ class InputTextos extends StatelessWidget {
 
   InputTextos(
     this.rotulo,
-    this.label, {
+    this.label, {super.key, 
     required this.controller,
     this.senha = false,
   });

@@ -78,12 +78,12 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
         DropdownButtonFormField<String>(
-          value: _idParticipacao,
+          initialValue: _idParticipacao,
           decoration: InputDecoration(
             labelText: "Inscrição do jogador",
             border: OutlineInputBorder(),

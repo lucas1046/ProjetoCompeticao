@@ -58,12 +58,12 @@ class _TelaAdicionarSuspensaoState extends State<TelaAdicionarSuspensao> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
         DropdownButtonFormField<String>(
-          value: _idEvento,
+          initialValue: _idEvento,
           decoration: InputDecoration(
             labelText: "Evento que originou",
             border: OutlineInputBorder(),

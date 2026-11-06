@@ -3,7 +3,6 @@ import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_pagamento.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
-import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/telas/tela_adicionar_pagamento.dart';
 import 'package:projeto_final/model/pagamento_inscricao.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -52,7 +51,7 @@ class _TelaConsultaPagamentoState extends State<TelaConsultaPagamento> {
     );
   }
 
-  _body() {
+  ListView _body() {
     String f = _filtro.text.trim().toLowerCase();
     List<Map<String, dynamic>> filtrados = f.isEmpty
         ? _lista
@@ -80,7 +79,7 @@ class _TelaConsultaPagamentoState extends State<TelaConsultaPagamento> {
         "Escola: ${p['nomeEscola'] ?? '-'}",
         "Forma: ${p['formaPagamento']} - Data: ${p['dataPagamento']}",
       ],
-      selo: "R\$ " + valor.toStringAsFixed(2),
+      selo: "R\$ ${valor.toStringAsFixed(2)}",
       corSelo: Colors.green,
       icone: Icons.payments,
       onTap: () async {

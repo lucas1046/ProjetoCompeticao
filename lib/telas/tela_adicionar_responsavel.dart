@@ -65,7 +65,7 @@ class _TelaAdicionarResponsavelState extends State<TelaAdicionarResponsavel> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [

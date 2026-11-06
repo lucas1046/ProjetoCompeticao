@@ -51,7 +51,7 @@ class _TelaRelatorioFinanceiroState extends State<TelaRelatorioFinanceiro> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [

@@ -68,12 +68,12 @@ class _TelaAdicionarEventoState extends State<TelaAdicionarEvento> {
     );
   }
 
-  _body() {
+  ListView _body() {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
         DropdownButtonFormField<String>(
-          value: _idEscalacao,
+          initialValue: _idEscalacao,
           decoration: InputDecoration(
             labelText: "Jogador escalado",
             border: OutlineInputBorder(),
@@ -88,7 +88,7 @@ class _TelaAdicionarEventoState extends State<TelaAdicionarEvento> {
         ),
         SizedBox(height: 12),
         DropdownButtonFormField<String>(
-          value: _idTipoEvento,
+          initialValue: _idTipoEvento,
           decoration: InputDecoration(
             labelText: "Tipo de evento",
             border: OutlineInputBorder(),

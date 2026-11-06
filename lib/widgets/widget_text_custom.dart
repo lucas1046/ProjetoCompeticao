@@ -5,7 +5,7 @@ class TextosCustom extends StatelessWidget {
   double fontSize;
   Color fontColor;
 
-  TextosCustom(this.seuTexto, this.fontSize, this.fontColor);
+  TextosCustom(this.seuTexto, this.fontSize, this.fontColor, {super.key});
 
   @override
   Widget build(BuildContext context) {
