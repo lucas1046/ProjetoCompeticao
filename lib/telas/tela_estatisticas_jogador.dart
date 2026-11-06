@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
-import 'package:projeto_final/control/control_participacao.dart';
 import 'package:projeto_final/control/control_relatorio.dart';
-import 'package:projeto_final/model/participacao_jogador_time.dart';
-import 'package:projeto_final/util/exportacao.dart';
-import 'package:projeto_final/util/gerador_pdf.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -17,40 +13,15 @@ class TelaEstatisticasJogador extends StatefulWidget {
 }
 
 class _TelaEstatisticasJogadorState extends State<TelaEstatisticasJogador> {
-  String? _idParticipacao;
-  List<ParticipacaoJogadorTime> _participacoes = [];
+  final _nome = TextEditingController();
   String _resultado = "";
-  String _avisoPdf = "";
   bool _carregando = false;
-  bool _exportando = false;
-
-  List<Map<String, dynamic>> _eventos = [];
-  int _craques = 0;
-  int _jogos = 0;
-  String _identificacao = "";
-
-  @override
-  void initState() {
-    super.initState();
-    _carregarParticipacoes();
-  }
-
-  Future<void> _carregarParticipacoes() async {
-    ControlParticipacao control = ControlParticipacao();
-    List<ParticipacaoJogadorTime> lista = await control.queryFind();
-    setState(() {
-      _participacoes = lista;
-      if (lista.isNotEmpty) {
-        _idParticipacao = lista[0].id.toString();
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Estatísticas do jogador"),
+        title: Text("Ficha do jogador"),
         backgroundColor: Colors.purple,
         actions: [
           IconButton(
@@ -71,125 +42,71 @@ class _TelaEstatisticasJogadorState extends State<TelaEstatisticasJogador> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        DropdownButtonFormField<String>(
-          initialValue: _idParticipacao,
+        TextField(
+          controller: _nome,
           decoration: InputDecoration(
-            labelText: "Jogador inscrito",
+            labelText: "Nome do jogador",
             border: OutlineInputBorder(),
           ),
-          items: _participacoes.map((p) {
-            return DropdownMenuItem<String>(
-              value: p.id.toString(),
-              child: Text("Inscrição ${p.id} - jogador ${p.idJogador}"),
-            );
-          }).toList(),
-          onChanged: (v) => setState(() => _idParticipacao = v),
         ),
         SizedBox(height: 16),
-        Buttons("Consultar", onPressed: _carregando ? null : () { _consultar(); }),
-        SizedBox(height: 12),
-        // RNFR-15.1 — exportacao das estatisticas em PDF
-        Buttons(
-          "Exportar PDF",
-          onPressed: _exportando ? null : () { _exportarPdf(); },
-        ),
+        Buttons("Consultar", onPressed: _carregando ? null : () {
+          _consultar();
+        }),
         SizedBox(height: 16),
-        if (_carregando || _exportando) Center(child: CircularProgressIndicator()),
-        TextosCustom(_resultado, 18, Colors.black),
-        if (_avisoPdf.isNotEmpty) TextosCustom(_avisoPdf, 16, Colors.green),
+        if (_carregando) Center(child: CircularProgressIndicator()),
+        TextosCustom(_resultado, 16, Colors.black),
       ],
     );
   }
 
-  Future _consultar() async {
-    if (_idParticipacao == null) {
-      setState(() {
-        _resultado = "Nenhuma inscrição encontrada.";
-      });
-      return;
-    }
-
+  Future<void> _consultar() async {
     setState(() {
       _carregando = true;
       _resultado = "";
     });
 
-    int idParticipacao = int.parse(_idParticipacao!);
-
-    // RNFR-14.1 — medicao do tempo de processamento das estatisticas
-    final cronometro = Stopwatch()..start();
-
-    ControlRelatorio control = ControlRelatorio();
-
-    List<Map<String, dynamic>> eventos =
-        await control.estatisticasPorTipo(idParticipacao);
-    int craques = await control.totalCraques(idParticipacao);
-    int jogos = await control.totalJogos(idParticipacao);
-
-    cronometro.stop();
-
-    setState(() {
-      _eventos = eventos;
-      _craques = craques;
-      _jogos = jogos;
-      _identificacao = "Inscrição $idParticipacao";
-    });
-
-    String texto = "Jogos participados: $jogos\n"
-        "Craque da partida: $craques vez(es)\n\n"
-        "Eventos em campo:\n";
-
-    if (eventos.isEmpty) {
-      texto += "  Nenhum evento registrado\n";
-    } else {
-      for (Map<String, dynamic> e in eventos) {
-        texto += "  ${e['tipo']}: ${e['total']}\n";
-      }
-    }
-
-    texto += "\nRNFR-14.1 — processado em ${cronometro.elapsedMilliseconds} ms\n";
-
-    setState(() {
-      _resultado = texto;
-      _carregando = false;
-    });
-  }
-
-  // RNFR-15.1 — gera o PDF, salva no dispositivo e abre o compartilhamento
-  Future _exportarPdf() async {
-    if (_eventos.isEmpty && _jogos == 0) {
-      setState(() {
-        _avisoPdf = "Consulte as estatísticas antes de exportar.";
-      });
-      return;
-    }
-
-    setState(() {
-      _exportando = true;
-      _avisoPdf = "";
-    });
-
     try {
-      String caminho = await Exportacao.exportar(
-        gerar: () => GeradorPdf().estatisticasJogador(
-          _identificacao,
-          _eventos,
-          _craques,
-          _jogos,
-        ),
-        nomeArquivo: Exportacao.nomeComData("estatisticas"),
-      );
+      ControlRelatorio control = ControlRelatorio();
+      List<Map<String, dynamic>> lista = await control.fichaJogador();
+      String busca = _nome.text.trim().toLowerCase();
+      if (busca.isNotEmpty) {
+        lista = lista
+            .where((m) => (m['jogador'] ?? '')
+                .toString()
+                .toLowerCase()
+                .contains(busca))
+            .toList();
+      }
+
+      if (lista.isEmpty) {
+        setState(() {
+          _resultado = "Nenhum jogador encontrado.";
+          _carregando = false;
+        });
+        return;
+      }
+
+      String texto = "";
+      for (var m in lista) {
+        texto += "ESCOLA: ${m['escola'] ?? ''}\n";
+        texto += "JOGADOR: ${m['jogador'] ?? ''}\n";
+        texto += "CATEGORIA: ${m['categoria'] ?? ''}\n";
+        texto += "TOTAL DE GOLS: ${m['total_gols'] ?? 0}\n";
+        texto += "VALOR TOTAL: ${m['valor_total'] ?? ''}\n";
+        texto += "RESPONSÁVEL: ${m['responsavel'] ?? ''}\n";
+        texto += "DATA NASCIMENTO: ${m['data_nascimento'] ?? ''}\n";
+        texto += "-----------------------------\n";
+      }
 
       setState(() {
-        _avisoPdf = "PDF salvo em:\n$caminho";
+        _resultado = texto;
+        _carregando = false;
       });
     } catch (e) {
       setState(() {
-        _avisoPdf = "Erro ao exportar: $e";
-      });
-    } finally {
-      setState(() {
-        _exportando = false;
+        _resultado = "Erro: $e";
+        _carregando = false;
       });
     }
   }
