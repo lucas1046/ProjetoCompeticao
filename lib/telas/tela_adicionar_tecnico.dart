@@ -82,6 +82,17 @@ class _TelaAdicionarTecnicoState extends State<TelaAdicionarTecnico> {
       } else {
         int id = await control.insertDatabase(tecnico);
         setState(() => _resultado = "Técnico ${tecnico.nome} cadastrado! (id: $id)");
+        if (mounted) {
+          await showDialog<void>(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              title: Text("Sucesso"),
+              content: Text("Técnico ${tecnico.nome} cadastrado!"),
+              actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: Text("OK"))],
+            ),
+          );
+          if (mounted) Navigator.pop(context);
+        }
       }
     } catch (e) {
       setState(() {

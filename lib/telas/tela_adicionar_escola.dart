@@ -103,6 +103,17 @@ class _TelaAdicionarEscolaState extends State<TelaAdicionarEscola> {
       } else {
         int id = await control.insertDatabase(escola);
         setState(() => _resultado = "Escola ${escola.nome} cadastrada! (id: $id)");
+        if (mounted) {
+          await showDialog<void>(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              title: Text("Sucesso"),
+              content: Text("Escola ${escola.nome} cadastrada!"),
+              actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: Text("OK"))],
+            ),
+          );
+          if (mounted) Navigator.pop(context);
+        }
       }
     } catch (e) {
       setState(() {
