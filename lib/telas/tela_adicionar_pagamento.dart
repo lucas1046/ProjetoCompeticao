@@ -25,7 +25,6 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
   final _observacoes = TextEditingController();
   String? _idParticipacao;
   List<ParticipacaoJogadorTime> _participacoes = [];
-  List<Jogador> _jogadores = [];
   Map<int, String> _nomeJogador = {};
   String _resultado = "";
   int? _idEdicao;
@@ -45,7 +44,6 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
     List<Jogador> jogs = await ControlJogador().queryFind();
     setState(() {
       _participacoes = lista;
-      _jogadores = jogs;
       _nomeJogador = {for (final j in jogs) j.id!: j.nome};
       if (widget.pagamento != null) {
         _idParticipacao = widget.pagamento!.idParticipacao.toString();

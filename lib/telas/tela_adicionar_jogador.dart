@@ -28,7 +28,6 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
   final _cpf = TextEditingController();
   final _dataNascimento = TextEditingController();
   final _valorInscricao = TextEditingController();
-  final _camisa = TextEditingController();
   String? _idResponsavelSelecionado;
   String? _idFotoSelecionada;
   String? _idEscolaSelecionada;
