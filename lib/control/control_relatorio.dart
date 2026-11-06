@@ -30,7 +30,24 @@ class ControlRelatorio {
     );
   }
 
-  // Quantas vezes o jogador foi craque da partida
+  // Ficha do jogador: lista com escola, jogador, categoria, total de gols,
+  // situação, valor total, responsável e data de nascimento.
+  Future<List<Map<String, dynamic>>> fichaJogador() async {
+    Database banco = await BancoDados().db;
+    return await banco.rawQuery(
+      "SELECT e.nome AS escola, j.nome AS jogador, c.nome AS categoria, "
+      "  (SELECT COUNT(*) FROM evento_partida ep JOIN escalacao esc ON ep.id_escalacao = esc.id "
+      "     WHERE esc.id_jogador = j.id AND ep.id_tipo_evento IN (SELECT id FROM tipo_evento WHERE descricao LIKE '%gol%')) AS total_gols, "
+      "  pj.valor_inscricao AS valor_total, r.nome AS responsavel, j.data_nascimento, "
+      "  pj.id AS id_participacao "
+      "FROM jogador j "
+      "LEFT JOIN escola e ON j.id_escola = e.id "
+      "LEFT JOIN participacao_jogador_time pj ON pj.id_jogador = j.id "
+      "LEFT JOIN categoria c ON c.id = (SELECT id_categoria FROM time t WHERE t.id_time = pj.id_time) "
+      "LEFT JOIN responsavel r ON j.id_responsavel = r.id "
+      "ORDER BY j.nome",
+    );
+  }
   Future<int> totalCraques(int idParticipacao) async {
     Database banco = await BancoDados().db;
     List<Map<String, dynamic>> resultado = await banco.rawQuery(

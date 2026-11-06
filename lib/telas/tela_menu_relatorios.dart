@@ -36,7 +36,7 @@ class MenuRelatorios extends StatelessWidget {
   ListView _body(BuildContext ctx) {
     // RNFR-15.2 — o relatório financeiro só aparece para administradores
     final opcoes = [
-      _Relatorio("Estatísticas do jogador", Icons.person_search,
+      _Relatorio("Ficha do jogador", Icons.person_search,
           () => TelaEstatisticasJogador()),
       _Relatorio("Chave da competição", Icons.account_tree,
           () => TelaRelatorioChave()),
