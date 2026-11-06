@@ -92,8 +92,6 @@ class _MenuState extends State<Menu> {
           () => TelaConsultaPartida()),
       _Opcao("Suspensão", Icons.block, () => TelaAdicionarSuspensao(),
           () => TelaConsultaSuspensao()),
-      _Opcao("Relatórios", Icons.assessment, null, null,
-          destinoDireto: () => MenuRelatorios()),
       _Opcao("Configurações", Icons.settings, null, null,
           destinoDireto: () => MenuConfiguracoes()),
       _Opcao("Dados exemplo", Icons.science, null, null,
