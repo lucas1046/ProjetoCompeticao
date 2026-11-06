@@ -153,6 +153,17 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
         await ControlTecnicoTime().insertDatabase(TecnicoTime(idTecnico: int.parse(_idTecnico!), idTime: idTime));
       }
       setState(() => _resultado = "Time criado: $nome. Jogadores: $criadas.");
+      if (mounted) {
+        await showDialog<void>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text("Sucesso"),
+            content: Text("Time $nome cadastrado!"),
+            actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: Text("OK"))],
+          ),
+        );
+        if (mounted) Navigator.pop(context);
+      }
       await _carregarListas();
     } catch (e) {
       setState(() => _resultado = e.toString());
