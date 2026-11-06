@@ -90,6 +90,46 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
     }
   }
 
+  Future<void> _novaEscola() async {
+    final ctrl = TextEditingController();
+    final ok = await showDialog<bool>(context: context, builder: (ctx) => AlertDialog(title: Text("Nova escola"), content: TextField(controller: ctrl, decoration: InputDecoration(labelText: "Nome")), actions: [TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")), TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar"))]));
+    if (ok != true || ctrl.text.trim().isEmpty) return;
+    try {
+      await ControlEscola().insertDatabase(Escola(nome: ctrl.text.trim(), cidade: "", estado: "", telefone: ""));
+      await _carregarListas();
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Escola criada.")));
+    } catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
+  Future<void> _novaCategoria() async {
+    final ctrl = TextEditingController();
+    final ok = await showDialog<bool>(context: context, builder: (ctx) => AlertDialog(title: Text("Nova categoria"), content: TextField(controller: ctrl, decoration: InputDecoration(labelText: "Nome")), actions: [TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")), TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar"))]));
+    if (ok != true || ctrl.text.trim().isEmpty) return;
+    try {
+      await ControlCategoria().insertDatabase(Categoria(nome: ctrl.text.trim(), idadeMin: 0, idadeMax: 99));
+      await _carregarListas();
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Categoria criada.")));
+    } catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
+  Future<void> _novoTecnico() async {
+    final nomeCtrl = TextEditingController();
+    final telCtrl = TextEditingController();
+    final ok = await showDialog<bool>(context: context, builder: (ctx) => AlertDialog(title: Text("Novo técnico"), content: Column(mainAxisSize: MainAxisSize.min, children: [TextField(controller: nomeCtrl, decoration: InputDecoration(labelText: "Nome")), SizedBox(height: 8), TextField(controller: telCtrl, decoration: InputDecoration(labelText: "Telefone"))]), actions: [TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")), TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar"))]));
+    if (ok != true || nomeCtrl.text.trim().isEmpty) return;
+    try {
+      await ControlTecnico().insertDatabase(Tecnico(nome: nomeCtrl.text.trim(), telefone: telCtrl.text.trim(), email: ""));
+      await _carregarListas();
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Técnico criado.")));
+    } catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
   Future<void> _registrar() async {
     try {
       final escola = _escolas.firstWhere((e) => e.id.toString() == _idEscola);
@@ -155,21 +195,36 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
-          _dropdown("Escola", _idEscola, _escolas.map((e) => _Item(e.id.toString(), e.nome)).toList(), (v) async {
-            setState(() => _idEscola = v);
-            if (v != null) {
-              final js = await ControlJogador().queryByEscola(int.parse(v));
-              setState(() => _jogadores = js);
-            }
-          }),
+          Row(
+            children: [
+              Expanded(child: _dropdown("Escola", _idEscola, _escolas.map((e) => _Item(e.id.toString(), e.nome)).toList(), (v) async {
+                setState(() => _idEscola = v);
+                if (v != null) {
+                  final js = await ControlJogador().queryByEscola(int.parse(v));
+                  setState(() => _jogadores = js);
+                }
+              })),
+              IconButton(tooltip: "Nova escola", icon: Icon(Icons.add_circle, color: Colors.green), onPressed: _novaEscola),
+            ],
+          ),
           SizedBox(height: 12),
-          _dropdown("Categoria", _idCategoria, _categorias.map((c) => _Item(c.id.toString(), c.nome)).toList(), (v) => setState(() => _idCategoria = v)),
+          Row(
+            children: [
+              Expanded(child: _dropdown("Categoria", _idCategoria, _categorias.map((c) => _Item(c.id.toString(), c.nome)).toList(), (v) => setState(() => _idCategoria = v))),
+              IconButton(tooltip: "Nova categoria", icon: Icon(Icons.add_circle, color: Colors.green), onPressed: _novaCategoria),
+            ],
+          ),
           SizedBox(height: 12),
-          DropdownButtonFormField<String>(
-            value: _idTecnico,
-            decoration: InputDecoration(labelText: "Técnico", border: OutlineInputBorder()),
-            items: _tecnicos.map((t) => DropdownMenuItem<String>(value: t.id.toString(), child: Text(t.nome))).toList(),
-            onChanged: (v) => setState(() => _idTecnico = v),
+          Row(
+            children: [
+              Expanded(child: DropdownButtonFormField<String>(
+                value: _idTecnico,
+                decoration: InputDecoration(labelText: "Técnico", border: OutlineInputBorder()),
+                items: _tecnicos.map((t) => DropdownMenuItem<String>(value: t.id.toString(), child: Text(t.nome))).toList(),
+                onChanged: (v) => setState(() => _idTecnico = v),
+              )),
+              IconButton(tooltip: "Novo técnico", icon: Icon(Icons.add_circle, color: Colors.green), onPressed: _novoTecnico),
+            ],
           ),
           SizedBox(height: 12),
           Text("Jogadores:", style: TextStyle(fontWeight: FontWeight.bold)),
