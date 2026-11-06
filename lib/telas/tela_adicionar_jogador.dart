@@ -183,11 +183,16 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
           ],
         ),
         SizedBox(height: 8),
-        DropdownButtonFormField<String>(
-          value: _idEscolaSelecionada,
-          decoration: InputDecoration(labelText: "Escola (origem)", border: OutlineInputBorder()),
-          items: _escolas.map((e) => DropdownMenuItem<String>(value: e.id.toString(), child: Text(e.nome))).toList(),
-          onChanged: (v) => setState(() => _idEscolaSelecionada = v),
+        Row(
+          children: [
+            Expanded(child: DropdownButtonFormField<String>(
+              value: _idEscolaSelecionada,
+              decoration: InputDecoration(labelText: "Escola (origem)", border: OutlineInputBorder()),
+              items: _escolas.map((e) => DropdownMenuItem<String>(value: e.id.toString(), child: Text(e.nome))).toList(),
+              onChanged: (v) => setState(() => _idEscolaSelecionada = v),
+            )),
+            IconButton(tooltip: "Nova escola", icon: Icon(Icons.add_circle, color: Colors.green), onPressed: _novaEscola),
+          ],
         ),
         SizedBox(height: 8),
         InputTextos("Valor da inscrição", "0.00", controller: _valorInscricao),
@@ -274,6 +279,19 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
+  Future<void> _novaEscola() async {
+    final ctrl = TextEditingController();
+    final ok = await showDialog<bool>(context: context, builder: (ctx) => AlertDialog(title: Text("Nova escola"), content: TextField(controller: ctrl, decoration: InputDecoration(labelText: "Nome")), actions: [TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")), TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar"))]));
+    if (ok != true || ctrl.text.trim().isEmpty) return;
+    try {
+      await ControlEscola().insertDatabase(Escola(nome: ctrl.text.trim(), cidade: "", estado: "", telefone: ""));
+      await _carregarEscolas();
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Escola criada.")));
+    } catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
   Future<void> _registrar() async {
     Jogador jogador = Jogador(
       nome: _nome.text,
