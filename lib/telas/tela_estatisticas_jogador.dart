@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/telas/menu.dart';
+import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/control/control_relatorio.dart';
+import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -13,9 +15,24 @@ class TelaEstatisticasJogador extends StatefulWidget {
 }
 
 class _TelaEstatisticasJogadorState extends State<TelaEstatisticasJogador> {
-  final _nome = TextEditingController();
+  List<Jogador> _jogadores = [];
+  String? _idJogador;
   String _resultado = "";
   bool _carregando = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _carregarJogadores();
+  }
+
+  Future<void> _carregarJogadores() async {
+    List<Jogador> lista = await ControlJogador().queryFind();
+    setState(() {
+      _jogadores = lista;
+      if (lista.isNotEmpty) _idJogador = lista.first.id.toString();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +59,19 @@ class _TelaEstatisticasJogadorState extends State<TelaEstatisticasJogador> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        TextField(
-          controller: _nome,
+        DropdownButtonFormField<String>(
+          value: _idJogador,
           decoration: InputDecoration(
-            labelText: "Nome do jogador",
+            labelText: "Jogador",
             border: OutlineInputBorder(),
           ),
+          items: _jogadores.map((j) {
+            return DropdownMenuItem<String>(
+              value: j.id.toString(),
+              child: Text(j.nome),
+            );
+          }).toList(),
+          onChanged: (v) => setState(() => _idJogador = v),
         ),
         SizedBox(height: 16),
         Buttons("Consultar", onPressed: _carregando ? null : () {
@@ -69,7 +93,11 @@ class _TelaEstatisticasJogadorState extends State<TelaEstatisticasJogador> {
     try {
       ControlRelatorio control = ControlRelatorio();
       List<Map<String, dynamic>> lista = await control.fichaJogador();
-      String busca = _nome.text.trim().toLowerCase();
+      String busca = "";
+      if (_idJogador != null) {
+        Jogador? j = _jogadores.firstWhere((x) => x.id.toString() == _idJogador, orElse: () => _jogadores.first);
+        busca = j.nome.toLowerCase();
+      }
       if (busca.isNotEmpty) {
         lista = lista
             .where((m) => (m['jogador'] ?? '')
