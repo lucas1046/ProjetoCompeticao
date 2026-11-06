@@ -17,8 +17,6 @@ import 'package:projeto_final/telas/tela_consulta_pagamento.dart';
 import 'package:projeto_final/telas/tela_consulta_partida.dart';
 import 'package:projeto_final/telas/tela_consulta_suspensao.dart';
 import 'package:projeto_final/telas/tela_consulta_time.dart';
-import 'package:projeto_final/telas/tela_busca_global.dart';
-import 'package:projeto_final/telas/tela_auditoria.dart';
 import 'package:projeto_final/telas/tela_detalhe_entidade.dart';
 import 'package:projeto_final/telas/tela_login.dart';
 
@@ -37,11 +35,6 @@ class _MenuState extends State<Menu> {
         title: Text("Competições Escolares"),
         backgroundColor: Colors.blue,
         actions: [
-          IconButton(
-            tooltip: "Busca global",
-            icon: Icon(Icons.search),
-            onPressed: () => _abreTelas(context, TelaBuscaGlobal()),
-          ),
           IconButton(
             tooltip: "Sair",
             icon: Icon(Icons.logout),
@@ -105,8 +98,6 @@ class _MenuState extends State<Menu> {
           destinoDireto: () => MenuConfiguracoes()),
       _Opcao("Dados exemplo", Icons.science, null, null,
           destinoDireto: () => TelaDadosExemplo()),
-      _Opcao("Auditoria", Icons.history, null, null,
-          destinoDireto: () => TelaAuditoria(), soAdministrador: true),
     ];
 
     final opcoesVisiveis = opcoes
