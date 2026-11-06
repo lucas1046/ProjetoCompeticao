@@ -14,7 +14,7 @@ class BancoDados {
   factory BancoDados() => _instancia;
 
   static const String _nomeBanco = "bd_competicao.db";
-  static const int _versao = 16;
+  static const int _versao = 17;
 
   Database? _db;
 
@@ -39,111 +39,17 @@ class BancoDados {
         await _garantirAdmin(db);
       },
       onUpgrade: (db, oldVersion, newVersion) async {
-        // Migracao v1 -> v2: adiciona as constraints de unicidade
-        // (RNFR-01.2, 04.2, 06.2, 08.2, 10.1) como indices UNIQUE.
-        // As tabelas sao preservadas para nao apagar os dados ja cadastrados.
-        if (oldVersion < 2) {
-          await db.execute(
-            "CREATE UNIQUE INDEX IF NOT EXISTS idx_competicao_nome "
-            "ON competicao(nome)",
-          );
-          await db.execute(
-            "CREATE UNIQUE INDEX IF NOT EXISTS idx_categoria_nome "
-            "ON categoria(nome)",
-          );
-          await db.execute(
-            "CREATE UNIQUE INDEX IF NOT EXISTS idx_time_nome_escola_modalidade "
-            "ON time(nome_time, id_escola, id_modalidade, id_categoria)",
-          );
-          await db.execute(
-            "CREATE UNIQUE INDEX IF NOT EXISTS idx_participacao_jogador_time "
-            "ON participacao_jogador_time(id_jogador, id_time)",
-          );
-          await db.execute(
-            "CREATE UNIQUE INDEX IF NOT EXISTS idx_rodada_numero_competicao "
-            "ON rodada(numero, id_competicao)",
-          );
-          await db.execute(
-            "CREATE UNIQUE INDEX IF NOT EXISTS idx_escalacao_partida_jogador "
-            "ON escalacao(id_partida, id_participacao_jogador_time)",
-          );
+        // App em desenvolvimento: consolida todas as migrações anteriores
+        // em uma única recriação do banco do zero (sem compatibilidade
+        // retroativa com versões anteriores).
+        List<Map<String, dynamic>> tabelas = await db.rawQuery(
+          "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'",
+        );
+        for (final t in tabelas) {
+          await db.execute("DROP TABLE IF EXISTS ${t['name']}");
         }
-
-        // Migracao v2 -> v3: unicidade do vinculo tecnico/time (RNFR-07.1)
-        // e a tabela de usuarios para o controle de acesso (RNFR-15.2)
-        if (oldVersion < 3) {
-          await db.execute(
-            "CREATE UNIQUE INDEX IF NOT EXISTS idx_tecnico_time_unico "
-            "ON tecnico_time(id_tecnico, id_time)",
-          );
-          await db.execute(_sqlTabelaUsuario);
-          await db.execute(_sqlTabelaLog);
-          await _garantirAdmin(db);
-        }
-
-        // Migracao v3 -> v4: tabela de auditoria (RNFR extra)
-        if (oldVersion < 4) {
-          await db.execute(_sqlTabelaLog);
-        }
-
-        // Migracao v4 -> v5: vinculo de foto ao jogador
-        if (oldVersion < 5) {
-          await db.execute(
-            "ALTER TABLE jogador ADD COLUMN id_foto INTEGER REFERENCES foto_figurinha(id)",
-          );
-        }
-
-        // Migracao v5 -> v6: vinculo da escalação ao time (roster reutilizavel)
-        if (oldVersion < 6) {
-          await db.execute(
-            "ALTER TABLE escalacao ADD COLUMN id_time INTEGER REFERENCES time(id_time)",
-          );
-        }
-
-        // Migracao v6 -> v7: posição e camisa no jogador (Fase A)
-        if (oldVersion < 7) {
-          await db.execute(
-            "ALTER TABLE jogador ADD COLUMN id_posicao INTEGER REFERENCES posicao(id)",
-          );
-          await db.execute(
-            "ALTER TABLE jogador ADD COLUMN numero_camisa INTEGER",
-          );
-        }
-
-        // Migracao v7 -> v8: inscrição simplificada (escola de origem, sem time)
-        if (oldVersion < 8) {
-          await db.execute(
-            "ALTER TABLE participacao_jogador_time ADD COLUMN id_escola INTEGER REFERENCES escola(id)",
-          );
-        }
-
-        // Migracao v8 -> v9: escalação por jogador (Fase C)
-        if (oldVersion < 9) {
-          await db.execute(
-            "ALTER TABLE escalacao ADD COLUMN id_jogador INTEGER REFERENCES jogador(id)",
-          );
-        }
-
-        // Migracao v11 -> v12: recria o banco inteiro do zero
-        if (oldVersion < 12) {
-          List<Map<String, dynamic>> tabelas = await db.rawQuery(
-            "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'",
-          );
-          for (final t in tabelas) {
-            await db.execute("DROP TABLE IF EXISTS ${t['name']}");
-          }
-          await _criarTabelas(db);
-        }
-
-        if (oldVersion < 16) {
-          List<Map<String, dynamic>> tabelas = await db.rawQuery(
-            "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'",
-          );
-          for (final t in tabelas) {
-            await db.execute("DROP TABLE IF EXISTS ${t['name']}");
-          }
-          await _criarTabelas(db);
-        }
+        await _criarTabelas(db);
+        await _garantirAdmin(db);
       },
     );
   }
