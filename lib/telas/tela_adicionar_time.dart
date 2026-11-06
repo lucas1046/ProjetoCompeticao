@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/telas/tela_adicionar_escola.dart';
+import 'package:projeto_final/telas/tela_adicionar_categoria.dart';
+import 'package:projeto_final/telas/tela_adicionar_tecnico.dart';
 import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_categoria.dart';
 import 'package:projeto_final/control/control_escola.dart';
@@ -90,43 +93,18 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
   }
 
   Future<void> _novaEscola() async {
-    final ctrl = TextEditingController();
-    final ok = await showDialog<bool>(context: context, builder: (ctx) => AlertDialog(title: Text("Nova escola"), content: TextField(controller: ctrl, decoration: InputDecoration(labelText: "Nome")), actions: [TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")), TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar"))]));
-    if (ok != true || ctrl.text.trim().isEmpty) return;
-    try {
-      await ControlEscola().insertDatabase(Escola(nome: ctrl.text.trim(), cidade: "", estado: "", telefone: ""));
-      await _carregarListas();
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Escola criada.")));
-    } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
-    }
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarEscola()));
+    await _carregarListas();
   }
 
   Future<void> _novaCategoria() async {
-    final ctrl = TextEditingController();
-    final ok = await showDialog<bool>(context: context, builder: (ctx) => AlertDialog(title: Text("Nova categoria"), content: TextField(controller: ctrl, decoration: InputDecoration(labelText: "Nome")), actions: [TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")), TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar"))]));
-    if (ok != true || ctrl.text.trim().isEmpty) return;
-    try {
-      await ControlCategoria().insertDatabase(Categoria(nome: ctrl.text.trim(), idadeMin: 0, idadeMax: 99));
-      await _carregarListas();
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Categoria criada.")));
-    } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
-    }
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarCategoria()));
+    await _carregarListas();
   }
 
   Future<void> _novoTecnico() async {
-    final nomeCtrl = TextEditingController();
-    final telCtrl = TextEditingController();
-    final ok = await showDialog<bool>(context: context, builder: (ctx) => AlertDialog(title: Text("Novo técnico"), content: Column(mainAxisSize: MainAxisSize.min, children: [TextField(controller: nomeCtrl, decoration: InputDecoration(labelText: "Nome")), SizedBox(height: 8), TextField(controller: telCtrl, decoration: InputDecoration(labelText: "Telefone"))]), actions: [TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text("Cancelar")), TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text("Salvar"))]));
-    if (ok != true || nomeCtrl.text.trim().isEmpty) return;
-    try {
-      await ControlTecnico().insertDatabase(Tecnico(nome: nomeCtrl.text.trim(), telefone: telCtrl.text.trim(), email: ""));
-      await _carregarListas();
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Técnico criado.")));
-    } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
-    }
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => TelaAdicionarTecnico()));
+    await _carregarListas();
   }
 
   Future<void> _registrar() async {
