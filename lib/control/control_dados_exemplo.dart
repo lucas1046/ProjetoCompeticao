@@ -17,6 +17,10 @@ class ControlDadosExemplo {
   }
 
   Future<String> popular() async {
+    final banco = await BancoDados().db;
+    for (final t in ['jogador','responsavel','escola','categoria','tipo_evento']) {
+      await banco.delete(t);
+    }
     await BancoDados().inserir('escola', Escola(id: 1, nome: 'Anglo', cidade: 'Itapetininga', estado: 'SP', telefone: '').toMap());
     await BancoDados().inserir('escola', Escola(id: 2, nome: 'COC', cidade: 'Itapetininga', estado: 'SP', telefone: '').toMap());
     await BancoDados().inserir('escola', Escola(id: 3, nome: 'Colégio Objetivo', cidade: 'Itapetininga', estado: 'SP', telefone: '').toMap());
