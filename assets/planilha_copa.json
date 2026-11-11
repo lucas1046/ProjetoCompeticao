@@ -4171,7 +4171,7 @@
   {
    "id": 2,
    "nome": "Abner Bryan Bueno de Lima",
-   "cpf": "639911511.0",
+   "cpf": "639911511",
    "dataNascimento": "2012-06-27",
    "idResponsavel": 3,
    "idEscola": 7
@@ -4195,7 +4195,7 @@
   {
    "id": 5,
    "nome": "Antonio Gobbo Dalcin",
-   "cpf": "661650145.0",
+   "cpf": "661650145",
    "dataNascimento": "2016-04-29",
    "idResponsavel": 148,
    "idEscola": 6
@@ -4203,7 +4203,7 @@
   {
    "id": 6,
    "nome": "Anthony José Gonçalves sardemberg",
-   "cpf": "55538596893.0",
+   "cpf": "55538596893",
    "dataNascimento": "2014-06-17",
    "idResponsavel": 255,
    "idEscola": 2
@@ -4219,7 +4219,7 @@
   {
    "id": 8,
    "nome": "Antonio Augusto Fraga dos Santos",
-   "cpf": "595042235.0",
+   "cpf": "595042235",
    "dataNascimento": "2009-01-27",
    "idResponsavel": 434,
    "idEscola": 1
@@ -4227,7 +4227,7 @@
   {
    "id": 9,
    "nome": "Antônio tadeu haidar malavazzi",
-   "cpf": "621069334.0",
+   "cpf": "621069334",
    "dataNascimento": "2015-01-11",
    "idResponsavel": 271,
    "idEscola": 1
@@ -4243,7 +4243,7 @@
   {
    "id": 11,
    "nome": "Artur Pontes Maruno",
-   "cpf": "602284983.0",
+   "cpf": "602284983",
    "dataNascimento": "2015-05-13",
    "idResponsavel": 481,
    "idEscola": 6
@@ -4251,7 +4251,7 @@
   {
    "id": 12,
    "nome": "Liz Lobo Delfino Santiago de Oliveira",
-   "cpf": "649330298.0",
+   "cpf": "649330298",
    "dataNascimento": "2018-04-16",
    "idResponsavel": 27,
    "idEscola": 10
@@ -4267,7 +4267,7 @@
   {
    "id": 14,
    "nome": "Arthur Kawalciuk Santos Carvalho",
-   "cpf": "538423043.0",
+   "cpf": "538423043",
    "dataNascimento": "2008-04-30",
    "idResponsavel": 472,
    "idEscola": 1
@@ -4283,7 +4283,7 @@
   {
    "id": 16,
    "nome": "Antônio Sylos A. Fortes",
-   "cpf": "645380192.0",
+   "cpf": "645380192",
    "dataNascimento": "2012-01-18",
    "idResponsavel": 157,
    "idEscola": 2
@@ -4291,7 +4291,7 @@
   {
    "id": 17,
    "nome": "Antônio Sylos Assis Fortes",
-   "cpf": "645380192.0",
+   "cpf": "645380192-17",
    "dataNascimento": "2012-01-18",
    "idResponsavel": 157,
    "idEscola": 2
@@ -4307,7 +4307,7 @@
   {
    "id": 19,
    "nome": "Arthur Apolinário Machado Nunes Vieira",
-   "cpf": "57866835837.0",
+   "cpf": "57866835837",
    "dataNascimento": "2013-08-20",
    "idResponsavel": 478,
    "idEscola": 4
@@ -4315,7 +4315,7 @@
   {
    "id": 20,
    "nome": "Arthur Assunção Wiltemburg",
-   "cpf": "48753656830.0",
+   "cpf": "48753656830",
    "dataNascimento": "2014-05-19",
    "idResponsavel": 427,
    "idEscola": 7
@@ -4323,7 +4323,7 @@
   {
    "id": 21,
    "nome": "Arthur Lopes da Silva",
-   "cpf": "54236820889.0",
+   "cpf": "54236820889",
    "dataNascimento": "2018-01-29",
    "idResponsavel": 499,
    "idEscola": 5
@@ -4331,7 +4331,7 @@
   {
    "id": 22,
    "nome": "RAVI MAIA FRANCO",
-   "cpf": "655421713.0",
+   "cpf": "655421713",
    "dataNascimento": "2018-07-10",
    "idResponsavel": 413,
    "idEscola": 10
@@ -4339,7 +4339,7 @@
   {
    "id": 23,
    "nome": "Arthur dos Santos Rocha",
-   "cpf": "652198156.0",
+   "cpf": "652198156",
    "dataNascimento": "2015-07-18",
    "idResponsavel": 211,
    "idEscola": 2
@@ -4347,7 +4347,7 @@
   {
    "id": 24,
    "nome": "Benjamin Rolim Nunes Cardoso",
-   "cpf": "51450247890.0",
+   "cpf": "51450247890",
    "dataNascimento": "2016-06-24",
    "idResponsavel": 298,
    "idEscola": 6
@@ -4355,7 +4355,7 @@
   {
    "id": 25,
    "nome": "Adryan rodrigues de Lima Santos",
-   "cpf": "602329863.0",
+   "cpf": "602329863",
    "dataNascimento": "2011-02-26",
    "idResponsavel": 120,
    "idEscola": 8
@@ -4363,7 +4363,7 @@
   {
    "id": 26,
    "nome": "Antonio Ferreira Zunarelli",
-   "cpf": "588794223.0",
+   "cpf": "588794223",
    "dataNascimento": "2014-03-03",
    "idResponsavel": 85,
    "idEscola": 3
@@ -4371,7 +4371,7 @@
   {
    "id": 27,
    "nome": "Benjamin Machado Estanagel de Oliveira",
-   "cpf": "658958884.0",
+   "cpf": "658958884",
    "dataNascimento": "2015-11-15",
    "idResponsavel": 179,
    "idEscola": 7
@@ -4379,7 +4379,7 @@
   {
    "id": 28,
    "nome": "Benjamin Teixeira Mariano",
-   "cpf": "646141910.0",
+   "cpf": "646141910",
    "dataNascimento": "2018-04-28",
    "idResponsavel": 188,
    "idEscola": 5
@@ -4387,7 +4387,7 @@
   {
    "id": 29,
    "nome": "Augusto Silva santana",
-   "cpf": "693491553.0",
+   "cpf": "693491553",
    "dataNascimento": "2012-10-17",
    "idResponsavel": 423,
    "idEscola": 8
@@ -4395,7 +4395,7 @@
   {
    "id": 30,
    "nome": "Bento Greselle Lorenzo",
-   "cpf": "9084229118.0",
+   "cpf": "9084229118",
    "dataNascimento": "2018-02-15",
    "idResponsavel": 149,
    "idEscola": 6
@@ -4403,7 +4403,7 @@
   {
    "id": 31,
    "nome": "Bernardo Monteiro de Mesquita Moreira Franco",
-   "cpf": "648906747.0",
+   "cpf": "648906747",
    "dataNascimento": "2013-06-19",
    "idResponsavel": 352,
    "idEscola": 5
@@ -4411,7 +4411,7 @@
   {
    "id": 32,
    "nome": "Bernardo",
-   "cpf": "648906747.0",
+   "cpf": "648906747-32",
    "dataNascimento": "2013-06-19",
    "idResponsavel": 355,
    "idEscola": 5
@@ -4419,7 +4419,7 @@
   {
    "id": 33,
    "nome": "Bento Nikko Onodera",
-   "cpf": "50589879880.0",
+   "cpf": "50589879880",
    "dataNascimento": "2015-12-19",
    "idResponsavel": 57,
    "idEscola": 6
@@ -4427,7 +4427,7 @@
   {
    "id": 34,
    "nome": "Artur Enrique Godoy Parra",
-   "cpf": "607992954.0",
+   "cpf": "607992954",
    "dataNascimento": "2013-04-16",
    "idResponsavel": 221,
    "idEscola": 2
@@ -4443,7 +4443,7 @@
   {
    "id": 36,
    "nome": "Bernardo Franco",
-   "cpf": "648906747.0",
+   "cpf": "648906747-36",
    "dataNascimento": "2013-06-19",
    "idResponsavel": 356,
    "idEscola": 5
@@ -4451,7 +4451,7 @@
   {
    "id": 37,
    "nome": "Benjamin Rezende da Silva Pereira",
-   "cpf": "663130463.0",
+   "cpf": "663130463",
    "dataNascimento": "2014-03-27",
    "idResponsavel": 56,
    "idEscola": 8
@@ -4459,7 +4459,7 @@
   {
    "id": 38,
    "nome": "Bernardo Calamari",
-   "cpf": "575676000.0",
+   "cpf": "575676000",
    "dataNascimento": "2010-11-29",
    "idResponsavel": 412,
    "idEscola": 6
@@ -4467,7 +4467,7 @@
   {
    "id": 39,
    "nome": "Bianca Pelepka de Souza",
-   "cpf": "630426107.0",
+   "cpf": "630426107",
    "dataNascimento": "2015-07-18",
    "idResponsavel": 358,
    "idEscola": 10
@@ -4475,7 +4475,7 @@
   {
    "id": 40,
    "nome": "Miguel Augusto de Almeida Rocha",
-   "cpf": "49280846833.0",
+   "cpf": "49280846833",
    "dataNascimento": "2014-11-27",
    "idResponsavel": 420,
    "idEscola": 4
@@ -4483,7 +4483,7 @@
   {
    "id": 41,
    "nome": "Bernardo Campos de Almeida",
-   "cpf": "676266447.0",
+   "cpf": "676266447",
    "dataNascimento": "2016-01-17",
    "idResponsavel": 374,
    "idEscola": 6
@@ -4491,7 +4491,7 @@
   {
    "id": 42,
    "nome": "Bernardo Piedade Jensen",
-   "cpf": "632254567.0",
+   "cpf": "632254567",
    "dataNascimento": "2016-06-22",
    "idResponsavel": 257,
    "idEscola": 6
@@ -4499,7 +4499,7 @@
   {
    "id": 43,
    "nome": "Caio Morais de Araujo",
-   "cpf": "647661202.0",
+   "cpf": "647661202",
    "dataNascimento": "2014-08-03",
    "idResponsavel": 230,
    "idEscola": 6
@@ -4507,7 +4507,7 @@
   {
    "id": 44,
    "nome": "Cainan ryu maeda",
-   "cpf": "22699335.0",
+   "cpf": "22699335",
    "dataNascimento": "2012-02-11",
    "idResponsavel": 87,
    "idEscola": 3
@@ -4515,7 +4515,7 @@
   {
    "id": 45,
    "nome": "Caio Brasil Ayres Ribas",
-   "cpf": "609002697.0",
+   "cpf": "609002697",
    "dataNascimento": "2025-12-25",
    "idResponsavel": 251,
    "idEscola": 1
@@ -4523,7 +4523,7 @@
   {
    "id": 46,
    "nome": "Caio Morais de Araújo",
-   "cpf": "647661202.0",
+   "cpf": "647661202-46",
    "dataNascimento": "2014-08-03",
    "idResponsavel": 230,
    "idEscola": 6
@@ -4531,7 +4531,7 @@
   {
    "id": 47,
    "nome": "Caio Piedade Jensen",
-   "cpf": "650970317.0",
+   "cpf": "650970317",
    "dataNascimento": "2017-11-01",
    "idResponsavel": 284,
    "idEscola": 6
@@ -4547,7 +4547,7 @@
   {
    "id": 49,
    "nome": "Davi Albuquerque Tobias",
-   "cpf": "620447023.0",
+   "cpf": "620447023",
    "dataNascimento": "2010-05-17",
    "idResponsavel": 471,
    "idEscola": 6
@@ -4555,7 +4555,7 @@
   {
    "id": 50,
    "nome": "Augusto Cesar Mariano Da Cruz Beltramini",
-   "cpf": "542863200.0",
+   "cpf": "542863200",
    "dataNascimento": "2010-04-19",
    "idResponsavel": 113,
    "idEscola": 2
@@ -4571,7 +4571,7 @@
   {
    "id": 52,
    "nome": "Ari Fernandes da Silva Neto",
-   "cpf": "642451539.0",
+   "cpf": "642451539",
    "dataNascimento": "2013-12-06",
    "idResponsavel": 417,
    "idEscola": 3
@@ -4587,7 +4587,7 @@
   {
    "id": 54,
    "nome": "Carlos Mateus Branco de Lima Oliveira",
-   "cpf": "692427430.0",
+   "cpf": "692427430",
    "dataNascimento": "2012-11-05",
    "idResponsavel": 58,
    "idEscola": 8
@@ -4595,7 +4595,7 @@
   {
    "id": 55,
    "nome": "Davi Bernades Calegari",
-   "cpf": "649236865.0",
+   "cpf": "649236865",
    "dataNascimento": "2017-11-20",
    "idResponsavel": 129,
    "idEscola": 6
@@ -4611,7 +4611,7 @@
   {
    "id": 57,
    "nome": "Arthur Lotfi",
-   "cpf": "565933036.0",
+   "cpf": "565933036",
    "dataNascimento": "2025-09-07",
    "idResponsavel": 15,
    "idEscola": 3
@@ -4643,7 +4643,7 @@
   {
    "id": 61,
    "nome": "Davi da Costa Meira",
-   "cpf": "693812369.0",
+   "cpf": "693812369",
    "dataNascimento": "2015-11-28",
    "idResponsavel": 196,
    "idEscola": 5
@@ -4651,7 +4651,7 @@
   {
    "id": 62,
    "nome": "Davi Gomes",
-   "cpf": "643358997.0",
+   "cpf": "643358997",
    "dataNascimento": "2010-11-14",
    "idResponsavel": 233,
    "idEscola": 6
@@ -4667,7 +4667,7 @@
   {
    "id": 64,
    "nome": "Davi Luiz abe",
-   "cpf": "121698549-2",
+   "cpf": "121698549-2-64",
    "dataNascimento": "2016-11-14",
    "idResponsavel": 285,
    "idEscola": 6
@@ -4675,7 +4675,7 @@
   {
    "id": 65,
    "nome": "Davi Sttefano Hungria",
-   "cpf": "57002228846.0",
+   "cpf": "57002228846",
    "dataNascimento": "2007-11-19",
    "idResponsavel": 367,
    "idEscola": 6
@@ -4691,7 +4691,7 @@
   {
    "id": 67,
    "nome": "davi eduardo amaral maciel",
-   "cpf": "585538657.0",
+   "cpf": "585538657",
    "dataNascimento": "2010-09-28",
    "idResponsavel": 132,
    "idEscola": 9
@@ -4699,7 +4699,7 @@
   {
    "id": 68,
    "nome": "Dayan Lopes Mori Júnior",
-   "cpf": "648748790.0",
+   "cpf": "648748790",
    "dataNascimento": "2011-09-10",
    "idResponsavel": 25,
    "idEscola": 6
@@ -4707,7 +4707,7 @@
   {
    "id": 69,
    "nome": "Diego Belfort",
-   "cpf": "589965311.0",
+   "cpf": "589965311",
    "dataNascimento": "2010-11-03",
    "idResponsavel": 62,
    "idEscola": 6
@@ -4715,7 +4715,7 @@
   {
    "id": 70,
    "nome": "Davi Lucca Ferreira",
-   "cpf": "661417141.0",
+   "cpf": "661417141",
    "dataNascimento": "2014-03-26",
    "idResponsavel": 119,
    "idEscola": 8
@@ -4739,7 +4739,7 @@
   {
    "id": 73,
    "nome": "Eduardo Gryczynski Furtado",
-   "cpf": "628525291.0",
+   "cpf": "628525291",
    "dataNascimento": "2013-07-04",
    "idResponsavel": 275,
    "idEscola": 6
@@ -4747,7 +4747,7 @@
   {
    "id": 74,
    "nome": "Davi Montenegro Canto",
-   "cpf": "607367398.0",
+   "cpf": "607367398",
    "dataNascimento": "2013-05-29",
    "idResponsavel": 121,
    "idEscola": 8
@@ -4755,7 +4755,7 @@
   {
    "id": 75,
    "nome": "Davi Ribeiro Pereira",
-   "cpf": "645756258.0",
+   "cpf": "645756258",
    "dataNascimento": "2013-06-17",
    "idResponsavel": 190,
    "idEscola": 5
@@ -4771,7 +4771,7 @@
   {
    "id": 77,
    "nome": "Eduardo Moucachen",
-   "cpf": "596980577.0",
+   "cpf": "596980577",
    "dataNascimento": "2008-04-13",
    "idResponsavel": 272,
    "idEscola": 6
@@ -4779,7 +4779,7 @@
   {
    "id": 78,
    "nome": "Enrique Biondi Martins",
-   "cpf": "601667359.0",
+   "cpf": "601667359",
    "dataNascimento": "2010-04-25",
    "idResponsavel": 93,
    "idEscola": 6
@@ -4787,7 +4787,7 @@
   {
    "id": 79,
    "nome": "Davy kaiolly vieira",
-   "cpf": "648215544.0",
+   "cpf": "648215544",
    "dataNascimento": "2013-06-13",
    "idResponsavel": 494,
    "idEscola": 7
@@ -4811,7 +4811,7 @@
   {
    "id": 82,
    "nome": "Enzo Gabriel Leite Sobral",
-   "cpf": "647355784.0",
+   "cpf": "647355784",
    "dataNascimento": "2013-02-25",
    "idResponsavel": 301,
    "idEscola": 6
@@ -4843,7 +4843,7 @@
   {
    "id": 86,
    "nome": "Enzo watanabe",
-   "cpf": "64.236.117-4",
+   "cpf": "64.236.117-4-86",
    "dataNascimento": "2014-09-08",
    "idResponsavel": 135,
    "idEscola": 6
@@ -4851,7 +4851,7 @@
   {
    "id": 87,
    "nome": "Erick Farias Silva Munaro",
-   "cpf": "599722988.0",
+   "cpf": "599722988",
    "dataNascimento": "2013-09-18",
    "idResponsavel": 391,
    "idEscola": 5
@@ -4859,7 +4859,7 @@
   {
    "id": 88,
    "nome": "Felipe Eberle Donida",
-   "cpf": "667478462.0",
+   "cpf": "667478462",
    "dataNascimento": "2015-08-11",
    "idResponsavel": 313,
    "idEscola": 6
@@ -4875,7 +4875,7 @@
   {
    "id": 90,
    "nome": "Beatriz Rebouças de Medeiros",
-   "cpf": "55442019860.0",
+   "cpf": "55442019860",
    "dataNascimento": "2018-07-22",
    "idResponsavel": 164,
    "idEscola": 2
@@ -4931,7 +4931,7 @@
   {
    "id": 97,
    "nome": "Francisco da Silva Branchini Lucchesi",
-   "cpf": "678718520.0",
+   "cpf": "678718520",
    "dataNascimento": "2017-10-03",
    "idResponsavel": 350,
    "idEscola": 6
@@ -4947,7 +4947,7 @@
   {
    "id": 99,
    "nome": "Enzo Bossi Gava",
-   "cpf": "51367066867.0",
+   "cpf": "51367066867",
    "dataNascimento": "2016-06-01",
    "idResponsavel": 281,
    "idEscola": 10
@@ -4955,7 +4955,7 @@
   {
    "id": 100,
    "nome": "Arthur Miguel Moura dos Santos",
-   "cpf": "1150516641.0",
+   "cpf": "1150516641",
    "dataNascimento": "2015-04-04",
    "idResponsavel": 102,
    "idEscola": 3
@@ -4971,7 +4971,7 @@
   {
    "id": 102,
    "nome": "Enzo Gabriel Domingues Martines",
-   "cpf": "637019209.0",
+   "cpf": "637019209",
    "dataNascimento": "2013-07-20",
    "idResponsavel": 192,
    "idEscola": 8
@@ -4979,7 +4979,7 @@
   {
    "id": 103,
    "nome": "Breno Nolasco de Oliveira",
-   "cpf": "594314148.0",
+   "cpf": "594314148",
    "dataNascimento": "2008-05-16",
    "idResponsavel": 151,
    "idEscola": 2
@@ -4987,7 +4987,7 @@
   {
    "id": 104,
    "nome": "Franco Altieri Horst",
-   "cpf": "625648237.0",
+   "cpf": "625648237",
    "dataNascimento": "2014-06-18",
    "idResponsavel": 43,
    "idEscola": 6
@@ -5011,7 +5011,7 @@
   {
    "id": 107,
    "nome": "Enzo Vieira do valle",
-   "cpf": "663583755.0",
+   "cpf": "663583755",
    "dataNascimento": "2010-07-26",
    "idResponsavel": 105,
    "idEscola": 4
@@ -5019,7 +5019,7 @@
   {
    "id": 108,
    "nome": "Breno Nolasco de Oliveira Stanagel",
-   "cpf": "594314148.0",
+   "cpf": "594314148-108",
    "dataNascimento": "2008-05-16",
    "idResponsavel": 151,
    "idEscola": 2
@@ -5035,7 +5035,7 @@
   {
    "id": 110,
    "nome": "GAEL DE MELO BRISOLA",
-   "cpf": "608483199.0",
+   "cpf": "608483199",
    "dataNascimento": "2013-05-19",
    "idResponsavel": 70,
    "idEscola": 6
@@ -5059,7 +5059,7 @@
   {
    "id": 113,
    "nome": "Felipe de Oliveira Silva",
-   "cpf": "46383602896.0",
+   "cpf": "46383602896",
    "dataNascimento": "2012-12-28",
    "idResponsavel": 60,
    "idEscola": 5
@@ -5067,7 +5067,7 @@
   {
    "id": 114,
    "nome": "Benicio Soares Leonel",
-   "cpf": "636906851.0",
+   "cpf": "636906851",
    "dataNascimento": "2009-08-06",
    "idResponsavel": 386,
    "idEscola": 3
@@ -5075,7 +5075,7 @@
   {
    "id": 115,
    "nome": "Felipe Eduardo Ribeiro Muller Botelho",
-   "cpf": "70190754.0",
+   "cpf": "70190754",
    "dataNascimento": "2018-12-20",
    "idResponsavel": 314,
    "idEscola": 2
@@ -5091,7 +5091,7 @@
   {
    "id": 117,
    "nome": "FERNANDO MEIRA MENDES",
-   "cpf": "646248091.0",
+   "cpf": "646248091",
    "dataNascimento": "2009-07-05",
    "idResponsavel": 217,
    "idEscola": 3
@@ -5099,7 +5099,7 @@
   {
    "id": 118,
    "nome": "Filipe Aleixo Machado",
-   "cpf": "60952740.0",
+   "cpf": "60952740",
    "dataNascimento": "2012-06-13",
    "idResponsavel": 385,
    "idEscola": 2
@@ -5107,7 +5107,7 @@
   {
    "id": 119,
    "nome": "Francisco Ribeiro Sakate",
-   "cpf": "571548702.0",
+   "cpf": "571548702",
    "dataNascimento": "2009-05-01",
    "idResponsavel": 430,
    "idEscola": 1
@@ -5115,7 +5115,7 @@
   {
    "id": 120,
    "nome": "Gabriel Affonso Brandino do Nascimento",
-   "cpf": "643707220.0",
+   "cpf": "643707220",
    "dataNascimento": "2011-04-10",
    "idResponsavel": 187,
    "idEscola": 5
@@ -5123,7 +5123,7 @@
   {
    "id": 121,
    "nome": "Gabriel eiji de Araújo siomi",
-   "cpf": "56195169897.0",
+   "cpf": "56195169897",
    "dataNascimento": "2013-07-03",
    "idResponsavel": 198,
    "idEscola": 5
@@ -5131,7 +5131,7 @@
   {
    "id": 122,
    "nome": "Gabriel José Prado Fernandes",
-   "cpf": "637047734.0",
+   "cpf": "637047734",
    "dataNascimento": "2014-01-07",
    "idResponsavel": 465,
    "idEscola": 8
@@ -5155,7 +5155,7 @@
   {
    "id": 125,
    "nome": "Gabriel Siomi",
-   "cpf": "652895086.0",
+   "cpf": "652895086",
    "dataNascimento": "2013-07-03",
    "idResponsavel": 197,
    "idEscola": 5
@@ -5163,7 +5163,7 @@
   {
    "id": 126,
    "nome": "Benjamim Asafe Camporez de Oliveira",
-   "cpf": "570526048.0",
+   "cpf": "570526048",
    "dataNascimento": "2012-04-11",
    "idResponsavel": 242,
    "idEscola": 3
@@ -5171,7 +5171,7 @@
   {
    "id": 127,
    "nome": "Guilherme Almeida Alves dos Santos",
-   "cpf": "631667271.0",
+   "cpf": "631667271",
    "dataNascimento": "2008-02-07",
    "idResponsavel": 73,
    "idEscola": 6
@@ -5187,7 +5187,7 @@
   {
    "id": 129,
    "nome": "Guilherme Pereira Munakata",
-   "cpf": "681751836.0",
+   "cpf": "681751836",
    "dataNascimento": "2018-08-01",
    "idResponsavel": 328,
    "idEscola": 6
@@ -5203,7 +5203,7 @@
   {
    "id": 131,
    "nome": "Guilherme Sutil",
-   "cpf": "599336420.0",
+   "cpf": "599336420",
    "dataNascimento": "2008-10-28",
    "idResponsavel": 274,
    "idEscola": 6
@@ -5211,7 +5211,7 @@
   {
    "id": 132,
    "nome": "Arthur Campitelli de Oliveira",
-   "cpf": "666208712.0",
+   "cpf": "666208712",
    "dataNascimento": "2016-05-30",
    "idResponsavel": 140,
    "idEscola": 7
@@ -5227,7 +5227,7 @@
   {
    "id": 134,
    "nome": "Bernardo Machado Estanagel de Oliveira",
-   "cpf": "652514340.0",
+   "cpf": "652514340",
    "dataNascimento": "2015-11-15",
    "idResponsavel": 181,
    "idEscola": 7
@@ -5235,7 +5235,7 @@
   {
    "id": 135,
    "nome": "Benjamim da silva costa Mariotto",
-   "cpf": "643005043.0",
+   "cpf": "643005043",
    "dataNascimento": "2016-08-29",
    "idResponsavel": 209,
    "idEscola": 3
@@ -5243,7 +5243,7 @@
   {
    "id": 136,
    "nome": "Gustavo Nalesso de Oliveira",
-   "cpf": "555040136.0",
+   "cpf": "555040136",
    "dataNascimento": "2010-04-06",
    "idResponsavel": 5,
    "idEscola": 6
@@ -5251,7 +5251,7 @@
   {
    "id": 137,
    "nome": "Gustavo Nanini",
-   "cpf": "665940920.0",
+   "cpf": "665940920",
    "dataNascimento": "2013-09-23",
    "idResponsavel": 180,
    "idEscola": 6
@@ -5259,7 +5259,7 @@
   {
    "id": 138,
    "nome": "Heytor José de Oliveira",
-   "cpf": "645097937.0",
+   "cpf": "645097937",
    "dataNascimento": "2017-06-29",
    "idResponsavel": 82,
    "idEscola": 6
@@ -5283,7 +5283,7 @@
   {
    "id": 141,
    "nome": "Giovanni Vendramini",
-   "cpf": "653535508.0",
+   "cpf": "653535508",
    "dataNascimento": "2013-06-29",
    "idResponsavel": 384,
    "idEscola": 3
@@ -5307,7 +5307,7 @@
   {
    "id": 144,
    "nome": "Hiram Neto",
-   "cpf": "58702205-X",
+   "cpf": "58702205-X-144",
    "dataNascimento": "2013-06-19",
    "idResponsavel": 316,
    "idEscola": 6
@@ -5315,7 +5315,7 @@
   {
    "id": 145,
    "nome": "Guilherme da Rocha Plens",
-   "cpf": "659316535.0",
+   "cpf": "659316535",
    "dataNascimento": "2011-07-21",
    "idResponsavel": 191,
    "idEscola": 7
@@ -5339,7 +5339,7 @@
   {
    "id": 148,
    "nome": "Guilherme Merighi Godoi",
-   "cpf": "597667366.0",
+   "cpf": "597667366",
    "dataNascimento": "2009-07-05",
    "idResponsavel": 76,
    "idEscola": 4
@@ -5347,7 +5347,7 @@
   {
    "id": 149,
    "nome": "João De Meira Ribeiro",
-   "cpf": "48203138861.0",
+   "cpf": "48203138861",
    "dataNascimento": "2014-02-09",
    "idResponsavel": 306,
    "idEscola": 6
@@ -5355,7 +5355,7 @@
   {
    "id": 150,
    "nome": "Gustavo Agorreta de Albuquerque",
-   "cpf": "596587028.0",
+   "cpf": "596587028",
    "dataNascimento": "2014-05-21",
    "idResponsavel": 86,
    "idEscola": 7
@@ -5363,7 +5363,7 @@
   {
    "id": 151,
    "nome": "Gustavo Bavaroski",
-   "cpf": "151811221.0",
+   "cpf": "151811221",
    "dataNascimento": "2017-08-30",
    "idResponsavel": 184,
    "idEscola": 5
@@ -5371,7 +5371,7 @@
   {
    "id": 152,
    "nome": "Gustavo De Oliveira Meira",
-   "cpf": "590523892.0",
+   "cpf": "590523892",
    "dataNascimento": "2010-02-22",
    "idResponsavel": 433,
    "idEscola": 3
@@ -5387,7 +5387,7 @@
   {
    "id": 154,
    "nome": "Gustavo dos Santos Leonel Mariano",
-   "cpf": "589613947.0",
+   "cpf": "589613947",
    "dataNascimento": "2011-06-02",
    "idResponsavel": 325,
    "idEscola": 7
@@ -5395,7 +5395,7 @@
   {
    "id": 155,
    "nome": "Daniel Martins dos Santos Licht",
-   "cpf": "651136738.0",
+   "cpf": "651136738",
    "dataNascimento": "2014-11-02",
    "idResponsavel": 202,
    "idEscola": 2
@@ -5419,7 +5419,7 @@
   {
    "id": 158,
    "nome": "Gustavo Schlic Camargo Luiz",
-   "cpf": "48247760827.0",
+   "cpf": "48247760827",
    "dataNascimento": "2013-08-05",
    "idResponsavel": 341,
    "idEscola": 8
@@ -5435,7 +5435,7 @@
   {
    "id": 160,
    "nome": "Heitor riello Ramos",
-   "cpf": "651992977.0",
+   "cpf": "651992977",
    "dataNascimento": "2013-11-04",
    "idResponsavel": 279,
    "idEscola": 7
@@ -5443,7 +5443,7 @@
   {
    "id": 161,
    "nome": "Joao Lucas Martins Plens",
-   "cpf": "624954316.0",
+   "cpf": "624954316",
    "dataNascimento": "2016-05-13",
    "idResponsavel": 469,
    "idEscola": 6
@@ -5451,7 +5451,7 @@
   {
    "id": 162,
    "nome": "João Miguel Ayres de Almeida",
-   "cpf": "634697833.0",
+   "cpf": "634697833",
    "dataNascimento": "2017-05-02",
    "idResponsavel": 199,
    "idEscola": 6
@@ -5459,7 +5459,7 @@
   {
    "id": 163,
    "nome": "Enzo Borges Oliveira",
-   "cpf": "678101371.0",
+   "cpf": "678101371",
    "dataNascimento": "2011-05-28",
    "idResponsavel": 474,
    "idEscola": 2
@@ -5467,7 +5467,7 @@
   {
    "id": 164,
    "nome": "João Miguel Ayres de Almeida Vieira",
-   "cpf": "634697833.0",
+   "cpf": "634697833-164",
    "dataNascimento": "2017-05-02",
    "idResponsavel": 199,
    "idEscola": 6
@@ -5475,7 +5475,7 @@
   {
    "id": 165,
    "nome": "João Miguel Garcia Galvão",
-   "cpf": "53679277857.0",
+   "cpf": "53679277857",
    "dataNascimento": "2017-10-24",
    "idResponsavel": 248,
    "idEscola": 6
@@ -5483,7 +5483,7 @@
   {
    "id": 166,
    "nome": "João Paulo Delaqua",
-   "cpf": "638593682.0",
+   "cpf": "638593682",
    "dataNascimento": "2013-07-27",
    "idResponsavel": 492,
    "idEscola": 6
@@ -5491,7 +5491,7 @@
   {
    "id": 167,
    "nome": "João Pedro braz Jorge",
-   "cpf": "561162578.0",
+   "cpf": "561162578",
    "dataNascimento": "2011-07-17",
    "idResponsavel": 315,
    "idEscola": 6
@@ -5515,7 +5515,7 @@
   {
    "id": 170,
    "nome": "João Gabriel de Campos Gomes",
-   "cpf": "630658353.0",
+   "cpf": "630658353",
    "dataNascimento": "2010-04-19",
    "idResponsavel": 464,
    "idEscola": 4
@@ -5523,7 +5523,7 @@
   {
    "id": 171,
    "nome": "João Pedro Mariano Furtado",
-   "cpf": "660524600.0",
+   "cpf": "660524600",
    "dataNascimento": "2014-05-08",
    "idResponsavel": 45,
    "idEscola": 6
@@ -5539,7 +5539,7 @@
   {
    "id": 173,
    "nome": "José Eduardo Bodo de Miranda",
-   "cpf": "657916171.0",
+   "cpf": "657916171",
    "dataNascimento": "2015-12-22",
    "idResponsavel": 17,
    "idEscola": 6
@@ -5547,7 +5547,7 @@
   {
    "id": 174,
    "nome": "José Eduardo Palmeira",
-   "cpf": "659814584.0",
+   "cpf": "659814584",
    "dataNascimento": "2015-04-18",
    "idResponsavel": 357,
    "idEscola": 6
@@ -5563,7 +5563,7 @@
   {
    "id": 176,
    "nome": "Joao Paulo Camargo de Andrade",
-   "cpf": "42802142801.0",
+   "cpf": "42802142801",
    "dataNascimento": "2009-03-15",
    "idResponsavel": 216,
    "idEscola": 4
@@ -5571,7 +5571,7 @@
   {
    "id": 177,
    "nome": "José Luiz Correia Larroza",
-   "cpf": "608533750.0",
+   "cpf": "608533750",
    "dataNascimento": "2012-12-12",
    "idResponsavel": 441,
    "idEscola": 6
@@ -5579,7 +5579,7 @@
   {
    "id": 178,
    "nome": "João Paulo de Almeida Ferreira",
-   "cpf": "620454957.0",
+   "cpf": "620454957",
    "dataNascimento": "2008-04-03",
    "idResponsavel": 103,
    "idEscola": 4
@@ -5587,7 +5587,7 @@
   {
    "id": 179,
    "nome": "José Paulo Murat Leonel Filho",
-   "cpf": "635144013.0",
+   "cpf": "635144013",
    "dataNascimento": "2016-03-28",
    "idResponsavel": 432,
    "idEscola": 6
@@ -5595,7 +5595,7 @@
   {
    "id": 180,
    "nome": "José Pedro de Mello Leonel",
-   "cpf": "633066904.0",
+   "cpf": "633066904",
    "dataNascimento": "2015-07-16",
    "idResponsavel": 18,
    "idEscola": 6
@@ -5603,7 +5603,7 @@
   {
    "id": 181,
    "nome": "Juliano Lorençatto Filho",
-   "cpf": "629828015.0",
+   "cpf": "629828015",
    "dataNascimento": "2015-09-10",
    "idResponsavel": 458,
    "idEscola": 6
@@ -5611,7 +5611,7 @@
   {
    "id": 182,
    "nome": "João pedro Cardoso Arantes",
-   "cpf": "602146409.0",
+   "cpf": "602146409",
    "dataNascimento": "2025-06-21",
    "idResponsavel": 462,
    "idEscola": 4
@@ -5619,7 +5619,7 @@
   {
    "id": 183,
    "nome": "Daniel Camargo Vieira",
-   "cpf": "652140063.0",
+   "cpf": "652140063",
    "dataNascimento": "2013-06-10",
    "idResponsavel": 44,
    "idEscola": 8
@@ -5627,7 +5627,7 @@
   {
    "id": 184,
    "nome": "João Pedro Fernandes de Souza",
-   "cpf": "53277375862.0",
+   "cpf": "53277375862",
    "dataNascimento": "2014-05-29",
    "idResponsavel": 305,
    "idEscola": 4
@@ -5635,7 +5635,7 @@
   {
    "id": 185,
    "nome": "João Pedro Gonçalves Cavalcante",
-   "cpf": "626899576.0",
+   "cpf": "626899576",
    "dataNascimento": "2015-01-30",
    "idResponsavel": 170,
    "idEscola": 5
@@ -5643,7 +5643,7 @@
   {
    "id": 186,
    "nome": "Leo Furtado",
-   "cpf": "652326808.0",
+   "cpf": "652326808",
    "dataNascimento": "2015-03-10",
    "idResponsavel": 320,
    "idEscola": 6
@@ -5659,7 +5659,7 @@
   {
    "id": 188,
    "nome": "Caio Caselli Aragón",
-   "cpf": "533984026.0",
+   "cpf": "533984026",
    "dataNascimento": "2007-07-02",
    "idResponsavel": 7,
    "idEscola": 3
@@ -5675,7 +5675,7 @@
   {
    "id": 190,
    "nome": "Léo Morais de Araújo",
-   "cpf": "64766186x",
+   "cpf": "64766186x-190",
    "dataNascimento": "2012-06-27",
    "idResponsavel": 230,
    "idEscola": 6
@@ -5683,7 +5683,7 @@
   {
    "id": 191,
    "nome": "JOÃO VICTOR DE SOUZA BARROS",
-   "cpf": "590206783.0",
+   "cpf": "590206783",
    "dataNascimento": "2010-08-26",
    "idResponsavel": 194,
    "idEscola": 3
@@ -5691,7 +5691,7 @@
   {
    "id": 192,
    "nome": "Leonardo Delaqua",
-   "cpf": "638594169.0",
+   "cpf": "638594169",
    "dataNascimento": "2016-05-28",
    "idResponsavel": 492,
    "idEscola": 6
@@ -5699,7 +5699,7 @@
   {
    "id": 193,
    "nome": "José André de Oliveira ruivo da Silva",
-   "cpf": "538538533.0",
+   "cpf": "538538533",
    "dataNascimento": "2008-08-11",
    "idResponsavel": 34,
    "idEscola": 2
@@ -5731,7 +5731,7 @@
   {
    "id": 197,
    "nome": "Luca Martin",
-   "cpf": "633885940.0",
+   "cpf": "633885940",
    "dataNascimento": "2016-02-20",
    "idResponsavel": 234,
    "idEscola": 6
@@ -5739,7 +5739,7 @@
   {
    "id": 198,
    "nome": "Lucas Araújo Rodrigues",
-   "cpf": "687637569.0",
+   "cpf": "687637569",
    "dataNascimento": "2017-06-05",
    "idResponsavel": 482,
    "idEscola": 6
@@ -5747,7 +5747,7 @@
   {
    "id": 199,
    "nome": "Júlio César da Silva Macedo",
-   "cpf": "656866597.0",
+   "cpf": "656866597",
    "dataNascimento": "2017-12-04",
    "idResponsavel": 476,
    "idEscola": 5
@@ -5763,7 +5763,7 @@
   {
    "id": 201,
    "nome": "Lara Siqueira Ramos",
-   "cpf": "623667587.0",
+   "cpf": "623667587",
    "dataNascimento": "2015-06-29",
    "idResponsavel": 448,
    "idEscola": 10
@@ -5771,7 +5771,7 @@
   {
    "id": 202,
    "nome": "Leandro Haruo Takahagui",
-   "cpf": "659008397.0",
+   "cpf": "659008397",
    "dataNascimento": "2013-06-06",
    "idResponsavel": 305,
    "idEscola": 4
@@ -5795,7 +5795,7 @@
   {
    "id": 205,
    "nome": "Vinicius Marinho Arruda",
-   "cpf": "683215528.0",
+   "cpf": "683215528",
    "dataNascimento": "2011-11-23",
    "idResponsavel": 178,
    "idEscola": 4
@@ -5811,7 +5811,7 @@
   {
    "id": 207,
    "nome": "Lucas Barretti Scudeler",
-   "cpf": "638102635.0",
+   "cpf": "638102635",
    "dataNascimento": "2011-01-31",
    "idResponsavel": 40,
    "idEscola": 6
@@ -5827,7 +5827,7 @@
   {
    "id": 209,
    "nome": "Lucas Nalesso De Oliveira",
-   "cpf": "676171606.0",
+   "cpf": "676171606",
    "dataNascimento": "2013-10-28",
    "idResponsavel": 5,
    "idEscola": 6
@@ -5835,7 +5835,7 @@
   {
    "id": 210,
    "nome": "Leo Ozi Seixas",
-   "cpf": "655950655.0",
+   "cpf": "655950655",
    "dataNascimento": "2018-06-26",
    "idResponsavel": 454,
    "idEscola": 10
@@ -5843,7 +5843,7 @@
   {
    "id": 211,
    "nome": "Lucas Silva Vasconcellos",
-   "cpf": "673334636.0",
+   "cpf": "673334636",
    "dataNascimento": "2014-11-18",
    "idResponsavel": 387,
    "idEscola": 6
@@ -5859,7 +5859,7 @@
   {
    "id": 213,
    "nome": "Leonardo Araujo",
-   "cpf": "554182816.0",
+   "cpf": "554182816",
    "dataNascimento": "2010-03-12",
    "idResponsavel": 345,
    "idEscola": 2
@@ -5867,7 +5867,7 @@
   {
    "id": 214,
    "nome": "Lucca Rezende Cintra Tamura Brites",
-   "cpf": "647748198.0",
+   "cpf": "647748198",
    "dataNascimento": "2018-02-19",
    "idResponsavel": 229,
    "idEscola": 6
@@ -5883,7 +5883,7 @@
   {
    "id": 216,
    "nome": "Luiz Gustavo Santos Wada",
-   "cpf": "577840933.0",
+   "cpf": "577840933",
    "dataNascimento": "2009-03-15",
    "idResponsavel": 64,
    "idEscola": 6
@@ -5891,7 +5891,7 @@
   {
    "id": 217,
    "nome": "Leonardo Silveira Macedo",
-   "cpf": "651660452.0",
+   "cpf": "651660452",
    "dataNascimento": "2012-09-17",
    "idResponsavel": 484,
    "idEscola": 3
@@ -5915,7 +5915,7 @@
   {
    "id": 220,
    "nome": "Mateus Calixtro de moraes",
-   "cpf": "603760752.0",
+   "cpf": "603760752",
    "dataNascimento": "2025-08-03",
    "idResponsavel": 162,
    "idEscola": 6
@@ -5923,7 +5923,7 @@
   {
    "id": 221,
    "nome": "Mateus Gobbo Dalcin",
-   "cpf": "574402263.0",
+   "cpf": "574402263",
    "dataNascimento": "2010-01-10",
    "idResponsavel": 148,
    "idEscola": 6
@@ -5931,7 +5931,7 @@
   {
    "id": 222,
    "nome": "Lucas Albuquerque Pontes Vilela",
-   "cpf": "632553984.0",
+   "cpf": "632553984",
    "dataNascimento": "2007-10-08",
    "idResponsavel": 411,
    "idEscola": 1
@@ -5947,7 +5947,7 @@
   {
    "id": 224,
    "nome": "Mateus Pereira Munakata",
-   "cpf": "554794524.0",
+   "cpf": "554794524",
    "dataNascimento": "2009-01-25",
    "idResponsavel": 328,
    "idEscola": 6
@@ -5963,7 +5963,7 @@
   {
    "id": 226,
    "nome": "Matheus de Albuquerque lara",
-   "cpf": "636818494.0",
+   "cpf": "636818494",
    "dataNascimento": "2016-04-14",
    "idResponsavel": 235,
    "idEscola": 6
@@ -5971,7 +5971,7 @@
   {
    "id": 227,
    "nome": "Lucas Carriel Silveira",
-   "cpf": "48694717875.0",
+   "cpf": "48694717875",
    "dataNascimento": "2010-02-17",
    "idResponsavel": 405,
    "idEscola": 4
@@ -5979,7 +5979,7 @@
   {
    "id": 228,
    "nome": "Matheus Duarte de Paula",
-   "cpf": "526302471.0",
+   "cpf": "526302471",
    "dataNascimento": "2007-11-19",
    "idResponsavel": 36,
    "idEscola": 6
@@ -5987,7 +5987,7 @@
   {
    "id": 229,
    "nome": "Lucas Cesar",
-   "cpf": "665564065.0",
+   "cpf": "665564065",
    "dataNascimento": "2017-07-29",
    "idResponsavel": 261,
    "idEscola": 5
@@ -5995,7 +5995,7 @@
   {
    "id": 230,
    "nome": "Lucas Fogaça Souza",
-   "cpf": "685944815.0",
+   "cpf": "685944815",
    "dataNascimento": "2012-03-12",
    "idResponsavel": 96,
    "idEscola": 7
@@ -6003,7 +6003,7 @@
   {
    "id": 231,
    "nome": "Lucas gaona Barbosa de Oliveira",
-   "cpf": "637241320.0",
+   "cpf": "637241320",
    "dataNascimento": "2014-03-10",
    "idResponsavel": 155,
    "idEscola": 8
@@ -6019,7 +6019,7 @@
   {
    "id": 233,
    "nome": "Matheus Henrique Gouveia Barbosa",
-   "cpf": "644047859.0",
+   "cpf": "644047859",
    "dataNascimento": "2014-04-19",
    "idResponsavel": 236,
    "idEscola": 6
@@ -6027,7 +6027,7 @@
   {
    "id": 234,
    "nome": "Estevan Silveira de Melo",
-   "cpf": "637427208.0",
+   "cpf": "637427208",
    "dataNascimento": "2012-08-18",
    "idResponsavel": 460,
    "idEscola": 8
@@ -6043,7 +6043,7 @@
   {
    "id": 236,
    "nome": "Lucas Paulo siqueira de Lima",
-   "cpf": "55633484827.0",
+   "cpf": "55633484827",
    "dataNascimento": "2010-03-29",
    "idResponsavel": 77,
    "idEscola": 7
@@ -6051,7 +6051,7 @@
   {
    "id": 237,
    "nome": "Matheus Pelepka de Souza",
-   "cpf": "654742789.0",
+   "cpf": "654742789",
    "dataNascimento": "2017-08-03",
    "idResponsavel": 358,
    "idEscola": 6
@@ -6059,7 +6059,7 @@
   {
    "id": 238,
    "nome": "Lucas sumaio tonhato",
-   "cpf": "32095416.0",
+   "cpf": "32095416",
    "dataNascimento": "2012-03-28",
    "idResponsavel": 446,
    "idEscola": 2
@@ -6083,7 +6083,7 @@
   {
    "id": 241,
    "nome": "Miguel Alessandro caricati dos Santos",
-   "cpf": "582481740.0",
+   "cpf": "582481740",
    "dataNascimento": "2012-12-16",
    "idResponsavel": 360,
    "idEscola": 6
@@ -6091,7 +6091,7 @@
   {
    "id": 242,
    "nome": "CAUÃ PIERROTTI",
-   "cpf": "53554888893.0",
+   "cpf": "53554888893",
    "dataNascimento": "2016-11-06",
    "idResponsavel": 253,
    "idEscola": 4
@@ -6107,7 +6107,7 @@
   {
    "id": 244,
    "nome": "Miguel Bueno Monteiro",
-   "cpf": "628169450.0",
+   "cpf": "628169450",
    "dataNascimento": "2015-04-13",
    "idResponsavel": 111,
    "idEscola": 6
@@ -6123,7 +6123,7 @@
   {
    "id": 246,
    "nome": "Marco Antonio Rodrigues Nalesso",
-   "cpf": "667362836.0",
+   "cpf": "667362836",
    "dataNascimento": "2017-05-02",
    "idResponsavel": 189,
    "idEscola": 5
@@ -6131,7 +6131,7 @@
   {
    "id": 247,
    "nome": "Maria Rosa Fogaça Basile Martins",
-   "cpf": "635115931.0",
+   "cpf": "635115931",
    "dataNascimento": "2012-11-07",
    "idResponsavel": 225,
    "idEscola": 3
@@ -6147,7 +6147,7 @@
   {
    "id": 249,
    "nome": "Miguel Kortz Alciati",
-   "cpf": "662443688.0",
+   "cpf": "662443688",
    "dataNascimento": "2014-01-09",
    "idResponsavel": 459,
    "idEscola": 6
@@ -6163,7 +6163,7 @@
   {
    "id": 251,
    "nome": "Nathan Henrique Gouveia Barbosa",
-   "cpf": "644047604.0",
+   "cpf": "644047604",
    "dataNascimento": "2010-11-20",
    "idResponsavel": 375,
    "idEscola": 6
@@ -6171,7 +6171,7 @@
   {
    "id": 252,
    "nome": "Mateus Santos Dágola",
-   "cpf": "647772164.0",
+   "cpf": "647772164",
    "dataNascimento": "2015-12-29",
    "idResponsavel": 453,
    "idEscola": 3
@@ -6179,7 +6179,7 @@
   {
    "id": 253,
    "nome": "NICOLAS FERRAZZO VASCONCELLOS",
-   "cpf": "593384362.0",
+   "cpf": "593384362",
    "dataNascimento": "2012-11-10",
    "idResponsavel": 2,
    "idEscola": 6
@@ -6187,7 +6187,7 @@
   {
    "id": 254,
    "nome": "Nicolas Miguel",
-   "cpf": "651695600.0",
+   "cpf": "651695600",
    "dataNascimento": "2012-11-28",
    "idResponsavel": 67,
    "idEscola": 6
@@ -6195,7 +6195,7 @@
   {
    "id": 255,
    "nome": "Matheus Kostetzer Della Passe Cândido",
-   "cpf": "644884472.0",
+   "cpf": "644884472",
    "dataNascimento": "2013-10-29",
    "idResponsavel": 379,
    "idEscola": 4
@@ -6203,7 +6203,7 @@
   {
    "id": 256,
    "nome": "Matheus Madalena de Proença",
-   "cpf": "56462341823.0",
+   "cpf": "56462341823",
    "dataNascimento": "2015-03-16",
    "idResponsavel": 467,
    "idEscola": 1
@@ -6211,7 +6211,7 @@
   {
    "id": 257,
    "nome": "Matheus Nunes La",
-   "cpf": "562235863.0",
+   "cpf": "562235863",
    "dataNascimento": "2011-10-13",
    "idResponsavel": 245,
    "idEscola": 7
@@ -6219,7 +6219,7 @@
   {
    "id": 258,
    "nome": "NOAH DE MELO BRISOLA",
-   "cpf": "608483667.0",
+   "cpf": "608483667",
    "dataNascimento": "2013-05-19",
    "idResponsavel": 70,
    "idEscola": 6
@@ -6227,7 +6227,7 @@
   {
    "id": 259,
    "nome": "Noah Marochi Sampaio",
-   "cpf": "682163156.0",
+   "cpf": "682163156",
    "dataNascimento": "2016-01-13",
    "idResponsavel": 138,
    "idEscola": 6
@@ -6235,7 +6235,7 @@
   {
    "id": 260,
    "nome": "Miguel Augusto Garcia de Medeiros Leme",
-   "cpf": "676591048.0",
+   "cpf": "676591048",
    "dataNascimento": "2015-03-11",
    "idResponsavel": 75,
    "idEscola": 7
@@ -6251,7 +6251,7 @@
   {
    "id": 262,
    "nome": "Heitor Lopes Barbosa",
-   "cpf": "620387506.0",
+   "cpf": "620387506",
    "dataNascimento": "2015-07-29",
    "idResponsavel": 426,
    "idEscola": 7
@@ -6259,7 +6259,7 @@
   {
    "id": 263,
    "nome": "Olavo Machado Maschietto",
-   "cpf": "636237539.0",
+   "cpf": "636237539",
    "dataNascimento": "2016-01-21",
    "idResponsavel": 477,
    "idEscola": 6
@@ -6267,7 +6267,7 @@
   {
    "id": 264,
    "nome": "Otávio Biondi Martins",
-   "cpf": "601668492.0",
+   "cpf": "601668492",
    "dataNascimento": "2008-10-12",
    "idResponsavel": 93,
    "idEscola": 6
@@ -6275,7 +6275,7 @@
   {
    "id": 265,
    "nome": "Miguel Ferreira Motta",
-   "cpf": "648168633.0",
+   "cpf": "648168633",
    "dataNascimento": "2014-12-08",
    "idResponsavel": 8,
    "idEscola": 4
@@ -6299,7 +6299,7 @@
   {
    "id": 268,
    "nome": "Otavio Jara",
-   "cpf": "608650997.0",
+   "cpf": "608650997",
    "dataNascimento": "2007-11-21",
    "idResponsavel": 497,
    "idEscola": 6
@@ -6307,7 +6307,7 @@
   {
    "id": 269,
    "nome": "Miguel Righetti",
-   "cpf": "635096912.0",
+   "cpf": "635096912",
    "dataNascimento": "2017-01-05",
    "idResponsavel": 473,
    "idEscola": 5
@@ -6323,7 +6323,7 @@
   {
    "id": 271,
    "nome": "Mikhael Alexsander dos Santos Costa",
-   "cpf": "48634597857.0",
+   "cpf": "48634597857",
    "dataNascimento": "2013-06-07",
    "idResponsavel": 124,
    "idEscola": 4
@@ -6331,7 +6331,7 @@
   {
    "id": 272,
    "nome": "Pablo Sabóia de Almeida Brun",
-   "cpf": "598786029.0",
+   "cpf": "598786029",
    "dataNascimento": "2013-05-09",
    "idResponsavel": 438,
    "idEscola": 6
@@ -6339,7 +6339,7 @@
   {
    "id": 273,
    "nome": "Pedro Dors Beck",
-   "cpf": "684672133.0",
+   "cpf": "684672133",
    "dataNascimento": "2007-08-07",
    "idResponsavel": 109,
    "idEscola": 6
@@ -6347,7 +6347,7 @@
   {
    "id": 274,
    "nome": "Murilo bueno camargo",
-   "cpf": "689968668.0",
+   "cpf": "689968668",
    "dataNascimento": "2014-01-18",
    "idResponsavel": 38,
    "idEscola": 2
@@ -6355,7 +6355,7 @@
   {
    "id": 275,
    "nome": "Carlos Eduardo Rodrigues Grandeza",
-   "cpf": "60903739.0",
+   "cpf": "60903739",
    "dataNascimento": "2014-12-01",
    "idResponsavel": 107,
    "idEscola": 3
@@ -6363,7 +6363,7 @@
   {
    "id": 276,
    "nome": "João Pedro M.",
-   "cpf": "635754381.0",
+   "cpf": "635754381",
    "dataNascimento": "2014-03-01",
    "idResponsavel": 449,
    "idEscola": 7
@@ -6371,7 +6371,7 @@
   {
    "id": 277,
    "nome": "Murilo Galvão Ronconi",
-   "cpf": "639352960.0",
+   "cpf": "639352960",
    "dataNascimento": "2016-07-05",
    "idResponsavel": 425,
    "idEscola": 10
@@ -6379,7 +6379,7 @@
   {
    "id": 278,
    "nome": "Christian George",
-   "cpf": "578905243.0",
+   "cpf": "578905243",
    "dataNascimento": "2009-01-08",
    "idResponsavel": 470,
    "idEscola": 3
@@ -6395,7 +6395,7 @@
   {
    "id": 280,
    "nome": "Pedro Ferreira Miranda",
-   "cpf": "558118859.0",
+   "cpf": "558118859",
    "dataNascimento": "2008-05-02",
    "idResponsavel": 116,
    "idEscola": 6
@@ -6411,7 +6411,7 @@
   {
    "id": 282,
    "nome": "Nícolas Gemignani Camargo",
-   "cpf": "65.416.701-1",
+   "cpf": "65.416.701-1-282",
    "dataNascimento": "2015-08-07",
    "idResponsavel": 55,
    "idEscola": 5
@@ -6419,7 +6419,7 @@
   {
    "id": 283,
    "nome": "Mateus Henrique de Moraes Gonçalves",
-   "cpf": "657094985.0",
+   "cpf": "657094985",
    "dataNascimento": "2015-01-06",
    "idResponsavel": 348,
    "idEscola": 7
@@ -6451,7 +6451,7 @@
   {
    "id": 287,
    "nome": "Pedro Henrique Bassetto Ruiz",
-   "cpf": "592859861.0",
+   "cpf": "592859861",
    "dataNascimento": "2007-07-25",
    "idResponsavel": 407,
    "idEscola": 6
@@ -6459,7 +6459,7 @@
   {
    "id": 288,
    "nome": "Nicolas riello Ramos",
-   "cpf": "564146341.0",
+   "cpf": "564146341",
    "dataNascimento": "2008-03-31",
    "idResponsavel": 279,
    "idEscola": 7
@@ -6467,7 +6467,7 @@
   {
    "id": 289,
    "nome": "Pedro Henrique Góes Galvão",
-   "cpf": "588458326.0",
+   "cpf": "588458326",
    "dataNascimento": "2010-12-17",
    "idResponsavel": 338,
    "idEscola": 6
@@ -6483,7 +6483,7 @@
   {
    "id": 291,
    "nome": "MURILLO KUBO TANAKA",
-   "cpf": "645436422.0",
+   "cpf": "645436422",
    "dataNascimento": "2014-06-23",
    "idResponsavel": 169,
    "idEscola": 7
@@ -6499,7 +6499,7 @@
   {
    "id": 293,
    "nome": "Lorenzo B Pereira",
-   "cpf": "66854666.0",
+   "cpf": "66854666",
    "dataNascimento": "2014-06-22",
    "idResponsavel": 42,
    "idEscola": 1
@@ -6507,7 +6507,7 @@
   {
    "id": 294,
    "nome": "Pedro Lobo de Melo Salvalaggio",
-   "cpf": "634842237.0",
+   "cpf": "634842237",
    "dataNascimento": "2016-03-24",
    "idResponsavel": 130,
    "idEscola": 6
@@ -6515,7 +6515,7 @@
   {
    "id": 295,
    "nome": "Gabriel Enrique Gomes Espinosa",
-   "cpf": "680337258.0",
+   "cpf": "680337258",
    "dataNascimento": "2025-06-09",
    "idResponsavel": 32,
    "idEscola": 2
@@ -6539,7 +6539,7 @@
   {
    "id": 298,
    "nome": "OLÍVIA ZANOLLI PIZZA",
-   "cpf": "645790126.0",
+   "cpf": "645790126",
    "dataNascimento": "2018-01-10",
    "idResponsavel": 364,
    "idEscola": 10
@@ -6547,7 +6547,7 @@
   {
    "id": 299,
    "nome": "Eduardo Shinzo Ito",
-   "cpf": "700353069.0",
+   "cpf": "700353069",
    "dataNascimento": "2016-01-19",
    "idResponsavel": 450,
    "idEscola": 3
@@ -6555,7 +6555,7 @@
   {
    "id": 300,
    "nome": "Guilherme Barros Cipolli",
-   "cpf": "594782211.0",
+   "cpf": "594782211",
    "dataNascimento": "2011-02-01",
    "idResponsavel": 342,
    "idEscola": 2
@@ -6579,7 +6579,7 @@
   {
    "id": 303,
    "nome": "Otávio Augusto de Oliveira Silva",
-   "cpf": "654637957.0",
+   "cpf": "654637957",
    "dataNascimento": "2014-05-13",
    "idResponsavel": 61,
    "idEscola": 1
@@ -6595,7 +6595,7 @@
   {
    "id": 305,
    "nome": "João Lucas Almeida",
-   "cpf": "663200805.0",
+   "cpf": "663200805",
    "dataNascimento": "2013-06-14",
    "idResponsavel": 487,
    "idEscola": 5
@@ -6603,7 +6603,7 @@
   {
    "id": 306,
    "nome": "Enzo Rodrigues Darini",
-   "cpf": "661924397.0",
+   "cpf": "661924397",
    "dataNascimento": "2013-03-28",
    "idResponsavel": 142,
    "idEscola": 3
@@ -6611,7 +6611,7 @@
   {
    "id": 307,
    "nome": "Otavio Augusto Pereira Jacob",
-   "cpf": "579572602.0",
+   "cpf": "579572602",
    "dataNascimento": "2008-05-16",
    "idResponsavel": 122,
    "idEscola": 4
@@ -6627,7 +6627,7 @@
   {
    "id": 309,
    "nome": "Isaac Jubram Kodama",
-   "cpf": "53560586836.0",
+   "cpf": "53560586836",
    "dataNascimento": "2013-03-18",
    "idResponsavel": 455,
    "idEscola": 2
@@ -6635,7 +6635,7 @@
   {
    "id": 310,
    "nome": "Davi Neder Orsi Magalhães",
-   "cpf": "552437918.0",
+   "cpf": "552437918",
    "dataNascimento": "2008-01-05",
    "idResponsavel": 321,
    "idEscola": 1
@@ -6643,7 +6643,7 @@
   {
    "id": 311,
    "nome": "Caio Neder Gomes",
-   "cpf": "632265619.0",
+   "cpf": "632265619",
    "dataNascimento": "2011-02-21",
    "idResponsavel": 321,
    "idEscola": 1
@@ -6651,7 +6651,7 @@
   {
    "id": 312,
    "nome": "Kevin Chagas",
-   "cpf": "589840101.0",
+   "cpf": "589840101",
    "dataNascimento": "2010-01-07",
    "idResponsavel": 368,
    "idEscola": 1
@@ -6667,7 +6667,7 @@
   {
    "id": 314,
    "nome": "Alana Almeida Esgalha",
-   "cpf": "642938945.0",
+   "cpf": "642938945",
    "dataNascimento": "2016-12-14",
    "idResponsavel": 445,
    "idEscola": 10
@@ -6675,7 +6675,7 @@
   {
    "id": 315,
    "nome": "Pedro Rosa Moreira Rodrigues",
-   "cpf": "639370226.0",
+   "cpf": "639370226",
    "dataNascimento": "2012-02-23",
    "idResponsavel": 326,
    "idEscola": 6
@@ -6683,7 +6683,7 @@
   {
    "id": 316,
    "nome": "Otávio Henrique Bassetto Ruiz",
-   "cpf": "279652847.0",
+   "cpf": "279652847",
    "dataNascimento": "2016-04-16",
    "idResponsavel": 404,
    "idEscola": 10
@@ -6691,7 +6691,7 @@
   {
    "id": 317,
    "nome": "Giovanni Sacco Vendramini Nunes",
-   "cpf": "653535508.0",
+   "cpf": "653535508-317",
    "dataNascimento": "2013-06-29",
    "idResponsavel": 266,
    "idEscola": 3
@@ -6715,7 +6715,7 @@
   {
    "id": 320,
    "nome": "Heitor Silva Magnabosco",
-   "cpf": "50838676804.0",
+   "cpf": "50838676804",
    "dataNascimento": "2016-02-04",
    "idResponsavel": 334,
    "idEscola": 5
@@ -6723,7 +6723,7 @@
   {
    "id": 321,
    "nome": "Otávio Henrique dos Santos Proença",
-   "cpf": "46192458871.0",
+   "cpf": "46192458871",
    "dataNascimento": "2012-10-31",
    "idResponsavel": 174,
    "idEscola": 5
@@ -6747,7 +6747,7 @@
   {
    "id": 324,
    "nome": "Olavo Pereira Alcântara",
-   "cpf": "701723257.0",
+   "cpf": "701723257",
    "dataNascimento": "2016-01-15",
    "idResponsavel": 104,
    "idEscola": 7
@@ -6763,7 +6763,7 @@
   {
    "id": 326,
    "nome": "Pedro Borba de Almeida",
-   "cpf": "65.269.417-2",
+   "cpf": "65.269.417-2-326",
    "dataNascimento": "2016-01-24",
    "idResponsavel": 318,
    "idEscola": 7
@@ -6779,7 +6779,7 @@
   {
    "id": 328,
    "nome": "Gustavo Henrique Rozendo Rochel",
-   "cpf": "48388627848.0",
+   "cpf": "48388627848",
    "dataNascimento": "2009-08-17",
    "idResponsavel": 88,
    "idEscola": 1
@@ -6803,7 +6803,7 @@
   {
    "id": 331,
    "nome": "Rafael Arruda Villar",
-   "cpf": "622560840.0",
+   "cpf": "622560840",
    "dataNascimento": "2014-07-29",
    "idResponsavel": 286,
    "idEscola": 6
@@ -6811,7 +6811,7 @@
   {
    "id": 332,
    "nome": "João paulo Lopes machado",
-   "cpf": "45531967861.0",
+   "cpf": "45531967861",
    "dataNascimento": "2012-03-08",
    "idResponsavel": 204,
    "idEscola": 2
@@ -6819,7 +6819,7 @@
   {
    "id": 333,
    "nome": "Henrique de Campos Vieira",
-   "cpf": "47123272862.0",
+   "cpf": "47123272862",
    "dataNascimento": "2013-06-14",
    "idResponsavel": 1,
    "idEscola": 8
@@ -6827,7 +6827,7 @@
   {
    "id": 334,
    "nome": "Otávio Ferreira",
-   "cpf": "605396012.0",
+   "cpf": "605396012",
    "dataNascimento": "2010-05-22",
    "idResponsavel": 177,
    "idEscola": 5
@@ -6835,7 +6835,7 @@
   {
    "id": 335,
    "nome": "PEDRO PACHECO",
-   "cpf": "660519914.0",
+   "cpf": "660519914",
    "dataNascimento": "2011-04-11",
    "idResponsavel": 289,
    "idEscola": 1
@@ -6859,7 +6859,7 @@
   {
    "id": 338,
    "nome": "Heitor Dzioba de Araújo Protásio",
-   "cpf": "642313131.0",
+   "cpf": "642313131",
    "dataNascimento": "2025-08-06",
    "idResponsavel": 260,
    "idEscola": 3
@@ -6867,7 +6867,7 @@
   {
    "id": 339,
    "nome": "Henrique Angelieri Damásio",
-   "cpf": "675633199.0",
+   "cpf": "675633199",
    "dataNascimento": "2016-11-21",
    "idResponsavel": 152,
    "idEscola": 3
@@ -6875,7 +6875,7 @@
   {
    "id": 340,
    "nome": "Henrique Meira Mendes",
-   "cpf": "646248571.0",
+   "cpf": "646248571",
    "dataNascimento": "2007-10-10",
    "idResponsavel": 218,
    "idEscola": 3
@@ -6883,7 +6883,7 @@
   {
    "id": 341,
    "nome": "José Miguel Vieira de Campos",
-   "cpf": "651432923.0",
+   "cpf": "651432923",
    "dataNascimento": "2013-01-18",
    "idResponsavel": 276,
    "idEscola": 8
@@ -6891,7 +6891,7 @@
   {
    "id": 342,
    "nome": "BENJAMIN CARVALHO TRENTINI DE FREITAS",
-   "cpf": "632213632.0",
+   "cpf": "632213632",
    "dataNascimento": "2020-06-30",
    "idResponsavel": 205,
    "idEscola": 10
@@ -6907,7 +6907,7 @@
   {
    "id": 344,
    "nome": "Rafael Carneiro Guimarães",
-   "cpf": "13520516640.0",
+   "cpf": "13520516640",
    "dataNascimento": "2012-05-30",
    "idResponsavel": 31,
    "idEscola": 6
@@ -6915,7 +6915,7 @@
   {
    "id": 345,
    "nome": "Lucas Dos Santos Azevedo",
-   "cpf": "649403563.0",
+   "cpf": "649403563",
    "dataNascimento": "2010-01-04",
    "idResponsavel": 175,
    "idEscola": 1
@@ -6923,7 +6923,7 @@
   {
    "id": 346,
    "nome": "Rafael Carvalho de Araújo",
-   "cpf": "585693547.0",
+   "cpf": "585693547",
    "dataNascimento": "2012-12-16",
    "idResponsavel": 421,
    "idEscola": 6
@@ -6931,7 +6931,7 @@
   {
    "id": 347,
    "nome": "Rafael Momberg Venâncio de Andrade",
-   "cpf": "35755833.0",
+   "cpf": "35755833",
    "dataNascimento": "2012-12-11",
    "idResponsavel": 115,
    "idEscola": 6
@@ -6939,7 +6939,7 @@
   {
    "id": 348,
    "nome": "Kauã Henrique Baltussen Barros",
-   "cpf": "627907775.0",
+   "cpf": "627907775",
    "dataNascimento": "2011-03-20",
    "idResponsavel": 273,
    "idEscola": 8
@@ -6947,7 +6947,7 @@
   {
    "id": 349,
    "nome": "Pedro henrique Rodrigues de freitas valentim",
-   "cpf": "623059691.0",
+   "cpf": "623059691",
    "dataNascimento": "2008-05-14",
    "idResponsavel": 503,
    "idEscola": 4
@@ -6955,7 +6955,7 @@
   {
    "id": 350,
    "nome": "João Carl Lemos Petersen",
-   "cpf": "61144260884.0",
+   "cpf": "61144260884",
    "dataNascimento": "2007-12-24",
    "idResponsavel": 382,
    "idEscola": 3
@@ -6963,7 +6963,7 @@
   {
    "id": 351,
    "nome": "HELENA PACHECO",
-   "cpf": "700870179.0",
+   "cpf": "700870179",
    "dataNascimento": "2016-11-27",
    "idResponsavel": 312,
    "idEscola": 1
@@ -6971,7 +6971,7 @@
   {
    "id": 352,
    "nome": "Benicio Prestes",
-   "cpf": "602025564.0",
+   "cpf": "602025564",
    "dataNascimento": "2012-07-31",
    "idResponsavel": 376,
    "idEscola": 5
@@ -7003,7 +7003,7 @@
   {
    "id": 356,
    "nome": "Rafael Ribeiro Rocha",
-   "cpf": "624675427.0",
+   "cpf": "624675427",
    "dataNascimento": "2010-08-31",
    "idResponsavel": 504,
    "idEscola": 6
@@ -7011,7 +7011,7 @@
   {
    "id": 357,
    "nome": "Miguel França Pimenta",
-   "cpf": "603340155.0",
+   "cpf": "603340155",
    "dataNascimento": "2011-07-24",
    "idResponsavel": 396,
    "idEscola": 1
@@ -7027,7 +7027,7 @@
   {
    "id": 359,
    "nome": "Leandro Inácio Maschietto",
-   "cpf": "635426821.0",
+   "cpf": "635426821",
    "dataNascimento": "2012-07-04",
    "idResponsavel": 278,
    "idEscola": 8
@@ -7035,7 +7035,7 @@
   {
    "id": 360,
    "nome": "Lorenzo Inacio Maschietto",
-   "cpf": "635426821.0",
+   "cpf": "635426821-360",
    "dataNascimento": "2012-07-04",
    "idResponsavel": 278,
    "idEscola": 8
@@ -7059,7 +7059,7 @@
   {
    "id": 363,
    "nome": "Gabriel Gomes Antunes Damas",
-   "cpf": "677042061.0",
+   "cpf": "677042061",
    "dataNascimento": "2016-11-01",
    "idResponsavel": 485,
    "idEscola": 1
@@ -7067,7 +7067,7 @@
   {
    "id": 364,
    "nome": "João Guilherme Pizani Coimbra",
-   "cpf": "605300938.0",
+   "cpf": "605300938",
    "dataNascimento": "2012-01-23",
    "idResponsavel": 183,
    "idEscola": 3
@@ -7075,7 +7075,7 @@
   {
    "id": 365,
    "nome": "Pedro José Abrão Morelli",
-   "cpf": "551015287.0",
+   "cpf": "551015287",
    "dataNascimento": "2008-08-01",
    "idResponsavel": 92,
    "idEscola": 2
@@ -7083,7 +7083,7 @@
   {
    "id": 366,
    "nome": "Sérgio Romanha de Oliveira Holanda",
-   "cpf": "51024247856.0",
+   "cpf": "51024247856",
    "dataNascimento": "2016-03-13",
    "idResponsavel": 117,
    "idEscola": 10
@@ -7091,7 +7091,7 @@
   {
    "id": 367,
    "nome": "Cecília C T S João",
-   "cpf": "699629834.0",
+   "cpf": "699629834",
    "dataNascimento": "2012-01-02",
    "idResponsavel": 265,
    "idEscola": 1
@@ -7099,7 +7099,7 @@
   {
    "id": 368,
    "nome": "Joaquim C T S João",
-   "cpf": "690880819.0",
+   "cpf": "690880819",
    "dataNascimento": "2014-11-18",
    "idResponsavel": 265,
    "idEscola": 1
@@ -7115,7 +7115,7 @@
   {
    "id": 370,
    "nome": "Julia Eliza Sanches de Souza Rodrigues",
-   "cpf": "657798277.0",
+   "cpf": "657798277",
    "dataNascimento": "2013-08-22",
    "idResponsavel": 294,
    "idEscola": 3
@@ -7123,7 +7123,7 @@
   {
    "id": 371,
    "nome": "Gabriel Albuquerque",
-   "cpf": "636402277.0",
+   "cpf": "636402277",
    "dataNascimento": "2008-02-11",
    "idResponsavel": 143,
    "idEscola": 1
@@ -7155,7 +7155,7 @@
   {
    "id": 375,
    "nome": "Pedro Nobre Tanaka",
-   "cpf": "660357446.0",
+   "cpf": "660357446",
    "dataNascimento": "2018-05-24",
    "idResponsavel": 69,
    "idEscola": 10
@@ -7179,7 +7179,7 @@
   {
    "id": 378,
    "nome": "Vitor Mastromauro Bonini",
-   "cpf": "665479761.0",
+   "cpf": "665479761",
    "dataNascimento": "2012-01-24",
    "idResponsavel": 185,
    "idEscola": 1
@@ -7187,7 +7187,7 @@
   {
    "id": 379,
    "nome": "Pedro Henrique de Melo Vitor",
-   "cpf": "639541501.0",
+   "cpf": "639541501",
    "dataNascimento": "2011-10-06",
    "idResponsavel": 330,
    "idEscola": 1
@@ -7211,7 +7211,7 @@
   {
    "id": 382,
    "nome": "Marcelo Pereira Porto Martins",
-   "cpf": "673792936.0",
+   "cpf": "673792936",
    "dataNascimento": "2011-04-14",
    "idResponsavel": 299,
    "idEscola": 1
@@ -7219,7 +7219,7 @@
   {
    "id": 383,
    "nome": "Filipe Almenara",
-   "cpf": "647875639.0",
+   "cpf": "647875639",
    "dataNascimento": "2011-05-30",
    "idResponsavel": 219,
    "idEscola": 9
@@ -7227,7 +7227,7 @@
   {
    "id": 384,
    "nome": "Christian Rodrigo Fernandes Pereira",
-   "cpf": "690590829.0",
+   "cpf": "690590829",
    "dataNascimento": "2016-09-22",
    "idResponsavel": 401,
    "idEscola": 1
@@ -7235,7 +7235,7 @@
   {
    "id": 385,
    "nome": "Matheus Henrique Vieira Santos",
-   "cpf": "657494732.0",
+   "cpf": "657494732",
    "dataNascimento": "2011-06-01",
    "idResponsavel": 112,
    "idEscola": 8
@@ -7243,7 +7243,7 @@
   {
    "id": 386,
    "nome": "Thiago França pimenta",
-   "cpf": "643344123.0",
+   "cpf": "643344123",
    "dataNascimento": "2015-06-04",
    "idResponsavel": 396,
    "idEscola": 1
@@ -7251,7 +7251,7 @@
   {
    "id": 387,
    "nome": "Lucas Messias Lera dos Santos",
-   "cpf": "571598468.0",
+   "cpf": "571598468",
    "dataNascimento": "2012-12-20",
    "idResponsavel": 354,
    "idEscola": 3
@@ -7259,7 +7259,7 @@
   {
    "id": 388,
    "nome": "João Miguel Hamaue de Albuquerque Entelmann",
-   "cpf": "636480240.0",
+   "cpf": "636480240",
    "dataNascimento": "2015-11-08",
    "idResponsavel": 144,
    "idEscola": 1
@@ -7267,7 +7267,7 @@
   {
    "id": 389,
    "nome": "Gustavo Sonoda Almada",
-   "cpf": "51349836826.0",
+   "cpf": "51349836826",
    "dataNascimento": "2016-05-28",
    "idResponsavel": 186,
    "idEscola": 1
@@ -7275,7 +7275,7 @@
   {
    "id": 390,
    "nome": "Matheus Vinicius Nunes Viana",
-   "cpf": "603843438.0",
+   "cpf": "603843438",
    "dataNascimento": "2010-10-27",
    "idResponsavel": 172,
    "idEscola": 8
@@ -7291,7 +7291,7 @@
   {
    "id": 392,
    "nome": "Pedro Augusto Rodrigues Ribeiro",
-   "cpf": "693229652.0",
+   "cpf": "693229652",
    "dataNascimento": "2013-04-15",
    "idResponsavel": 52,
    "idEscola": 8
@@ -7299,7 +7299,7 @@
   {
    "id": 393,
    "nome": "Guilherme Tamura",
-   "cpf": "664814232.0",
+   "cpf": "664814232",
    "dataNascimento": "2016-02-15",
    "idResponsavel": 4,
    "idEscola": 1
@@ -7307,7 +7307,7 @@
   {
    "id": 394,
    "nome": "Pedro Bonini Melo La Luna",
-   "cpf": "609363116.0",
+   "cpf": "609363116",
    "dataNascimento": "2011-03-01",
    "idResponsavel": 14,
    "idEscola": 8
@@ -7315,7 +7315,7 @@
   {
    "id": 395,
    "nome": "João Lucas Barros holtz pires",
-   "cpf": "660030202.0",
+   "cpf": "660030202",
    "dataNascimento": "2016-04-23",
    "idResponsavel": 228,
    "idEscola": 1
@@ -7323,7 +7323,7 @@
   {
    "id": 396,
    "nome": "Luiz Fernando Cilento",
-   "cpf": "599124866.0",
+   "cpf": "599124866",
    "dataNascimento": "2008-09-02",
    "idResponsavel": 71,
    "idEscola": 3
@@ -7331,7 +7331,7 @@
   {
    "id": 397,
    "nome": "Pedro Henrique Almeida Marcondes",
-   "cpf": "687063887.0",
+   "cpf": "687063887",
    "dataNascimento": "2011-04-13",
    "idResponsavel": 381,
    "idEscola": 8
@@ -7339,7 +7339,7 @@
   {
    "id": 398,
    "nome": "Alexandre Ribas Nogueira",
-   "cpf": "607069685.0",
+   "cpf": "607069685",
    "dataNascimento": "2011-07-13",
    "idResponsavel": 365,
    "idEscola": 1
@@ -7347,7 +7347,7 @@
   {
    "id": 399,
    "nome": "Thiago Maurício Ferreira de Melo",
-   "cpf": "637427208.0",
+   "cpf": "637427208-399",
    "dataNascimento": "2012-08-18",
    "idResponsavel": 460,
    "idEscola": 8
@@ -7355,7 +7355,7 @@
   {
    "id": 400,
    "nome": "Rafael Rosa da Silva Rios",
-   "cpf": "637852928.0",
+   "cpf": "637852928",
    "dataNascimento": "2015-05-04",
    "idResponsavel": 331,
    "idEscola": 1
@@ -7379,7 +7379,7 @@
   {
    "id": 403,
    "nome": "João Pedro Castilho Onofre",
-   "cpf": "42441711.0",
+   "cpf": "42441711",
    "dataNascimento": "2013-08-09",
    "idResponsavel": 203,
    "idEscola": 2
@@ -7403,7 +7403,7 @@
   {
    "id": 406,
    "nome": "João Shrek",
-   "cpf": "660133349.0",
+   "cpf": "660133349",
    "dataNascimento": "2014-01-28",
    "idResponsavel": 443,
    "idEscola": 2
@@ -7411,7 +7411,7 @@
   {
    "id": 407,
    "nome": "Vinícius Almeida Delfino",
-   "cpf": "652487798.0",
+   "cpf": "652487798",
    "dataNascimento": "2011-01-23",
    "idResponsavel": 80,
    "idEscola": 8
@@ -7435,7 +7435,7 @@
   {
    "id": 410,
    "nome": "Lucas de Matos Pellegrinetti",
-   "cpf": "609899934.0",
+   "cpf": "609899934",
    "dataNascimento": "2014-04-21",
    "idResponsavel": 254,
    "idEscola": 5
@@ -7443,7 +7443,7 @@
   {
    "id": 411,
    "nome": "Kaua Henrique Lopes Carnauba",
-   "cpf": "639010325.0",
+   "cpf": "639010325",
    "dataNascimento": "2012-01-04",
    "idResponsavel": 296,
    "idEscola": 2
@@ -7459,7 +7459,7 @@
   {
    "id": 413,
    "nome": "Kauã Henrique Lopes Carnauba",
-   "cpf": "639010325.0",
+   "cpf": "639010325-413",
    "dataNascimento": "2012-01-04",
    "idResponsavel": 295,
    "idEscola": 2
@@ -7467,7 +7467,7 @@
   {
    "id": 414,
    "nome": "Rian Miguel Antunes de Oliveira",
-   "cpf": "620549981.0",
+   "cpf": "620549981",
    "dataNascimento": "2011-11-08",
    "idResponsavel": 171,
    "idEscola": 6
@@ -7475,7 +7475,7 @@
   {
    "id": 415,
    "nome": "Rafael Albuquerque Chauar",
-   "cpf": "633092460.0",
+   "cpf": "633092460",
    "dataNascimento": "2009-06-22",
    "idResponsavel": 30,
    "idEscola": 3
@@ -7491,7 +7491,7 @@
   {
    "id": 417,
    "nome": "rodrigo meira paulino",
-   "cpf": "675917839.0",
+   "cpf": "675917839",
    "dataNascimento": "2014-02-03",
    "idResponsavel": 501,
    "idEscola": 6
@@ -7515,7 +7515,7 @@
   {
    "id": 420,
    "nome": "Leonardo Carron de Araújo Imene",
-   "cpf": "652801596.0",
+   "cpf": "652801596",
    "dataNascimento": "2010-05-03",
    "idResponsavel": 447,
    "idEscola": 2
@@ -7523,7 +7523,7 @@
   {
    "id": 421,
    "nome": "Rafael Henrique de Araujo Rustichelli",
-   "cpf": "602278582.0",
+   "cpf": "602278582",
    "dataNascimento": "2013-03-12",
    "idResponsavel": 403,
    "idEscola": 7
@@ -7547,7 +7547,7 @@
   {
    "id": 424,
    "nome": "Rafael José de Mello Domingues",
-   "cpf": "656355943.0",
+   "cpf": "656355943",
    "dataNascimento": "2018-12-27",
    "idResponsavel": 308,
    "idEscola": 2
@@ -7571,7 +7571,7 @@
   {
    "id": 427,
    "nome": "Luca Nunes Lins",
-   "cpf": "653424711.0",
+   "cpf": "653424711",
    "dataNascimento": "2014-02-02",
    "idResponsavel": 66,
    "idEscola": 2
@@ -7579,7 +7579,7 @@
   {
    "id": 428,
    "nome": "Lucas Alves Mariano",
-   "cpf": "49243451804.0",
+   "cpf": "49243451804",
    "dataNascimento": "2014-11-22",
    "idResponsavel": 39,
    "idEscola": 2
@@ -7587,7 +7587,7 @@
   {
    "id": 429,
    "nome": "Otávio Ferreira Paes",
-   "cpf": "605396012.0",
+   "cpf": "605396012-429",
    "dataNascimento": "2010-05-22",
    "idResponsavel": 177,
    "idEscola": 5
@@ -7635,7 +7635,7 @@
   {
    "id": 435,
    "nome": "Tales Zauza",
-   "cpf": "602427307.0",
+   "cpf": "602427307",
    "dataNascimento": "2008-09-02",
    "idResponsavel": 128,
    "idEscola": 6
@@ -7643,7 +7643,7 @@
   {
    "id": 436,
    "nome": "Kauã Scanavacca Parrilha",
-   "cpf": "47797284873.0",
+   "cpf": "47797284873",
    "dataNascimento": "2013-02-23",
    "idResponsavel": 398,
    "idEscola": 9
@@ -7651,7 +7651,7 @@
   {
    "id": 437,
    "nome": "Theo Ferreira Pinheiro",
-   "cpf": "683860677.0",
+   "cpf": "683860677",
    "dataNascimento": "2014-10-16",
    "idResponsavel": 461,
    "idEscola": 6
@@ -7659,7 +7659,7 @@
   {
    "id": 438,
    "nome": "Thiago Ferreira Miranda",
-   "cpf": "602592045.0",
+   "cpf": "602592045",
    "dataNascimento": "2012-11-23",
    "idResponsavel": 116,
    "idEscola": 6
@@ -7667,7 +7667,7 @@
   {
    "id": 439,
    "nome": "Arthur Raggio Gomes Lima",
-   "cpf": "606216327.0",
+   "cpf": "606216327",
    "dataNascimento": "2010-04-28",
    "idResponsavel": 110,
    "idEscola": 9
@@ -7675,7 +7675,7 @@
   {
    "id": 440,
    "nome": "Luiz Gustavo Scardoeli M Nagaishi",
-   "cpf": "647645191.0",
+   "cpf": "647645191",
    "dataNascimento": "2014-04-07",
    "idResponsavel": 98,
    "idEscola": 2
@@ -7699,7 +7699,7 @@
   {
    "id": 443,
    "nome": "Marcus Vinicius Melo de Oliveira",
-   "cpf": "658121704.0",
+   "cpf": "658121704",
    "dataNascimento": "2012-02-17",
    "idResponsavel": 447,
    "idEscola": 2
@@ -7707,7 +7707,7 @@
   {
    "id": 444,
    "nome": "Rafael Calixto Rodrigues",
-   "cpf": "578566084.0",
+   "cpf": "578566084",
    "dataNascimento": "2008-07-02",
    "idResponsavel": 154,
    "idEscola": 9
@@ -7739,7 +7739,7 @@
   {
    "id": 448,
    "nome": "Luis Otavio Nascimento Machado",
-   "cpf": "641177859.0",
+   "cpf": "641177859",
    "dataNascimento": "2011-03-26",
    "idResponsavel": 444,
    "idEscola": 5
@@ -7747,7 +7747,7 @@
   {
    "id": 449,
    "nome": "Miguel Navarro Silva",
-   "cpf": "49253524820.0",
+   "cpf": "49253524820",
    "dataNascimento": "2014-06-14",
    "idResponsavel": 302,
    "idEscola": 2
@@ -7771,7 +7771,7 @@
   {
    "id": 452,
    "nome": "Miguel Angelieri Damasio",
-   "cpf": "675632080.0",
+   "cpf": "675632080",
    "dataNascimento": "2014-05-31",
    "idResponsavel": 150,
    "idEscola": 3
@@ -7787,7 +7787,7 @@
   {
    "id": 454,
    "nome": "Samuel Biondi",
-   "cpf": "51313196843.0",
+   "cpf": "51313196843",
    "dataNascimento": "2014-04-09",
    "idResponsavel": 232,
    "idEscola": 9
@@ -7795,7 +7795,7 @@
   {
    "id": 455,
    "nome": "Pedro Samuel de Almeida Ferreira",
-   "cpf": "50362137818.0",
+   "cpf": "50362137818",
    "dataNascimento": "2015-10-09",
    "idResponsavel": 372,
    "idEscola": 5
@@ -7811,7 +7811,7 @@
   {
    "id": 457,
    "nome": "Rafael Strimber Franciosi",
-   "cpf": "681961648.0",
+   "cpf": "681961648",
    "dataNascimento": "2016-11-04",
    "idResponsavel": 81,
    "idEscola": 10
@@ -7819,7 +7819,7 @@
   {
    "id": 458,
    "nome": "Samuel Cirineu Brumer ramos",
-   "cpf": "656090996.0",
+   "cpf": "656090996",
    "dataNascimento": "2013-02-18",
    "idResponsavel": 488,
    "idEscola": 9
@@ -7827,7 +7827,7 @@
   {
    "id": 459,
    "nome": "Murillo Coquetti da Silva",
-   "cpf": "638783926.0",
+   "cpf": "638783926",
    "dataNascimento": "2011-04-18",
    "idResponsavel": 83,
    "idEscola": 9
@@ -7835,7 +7835,7 @@
   {
    "id": 460,
    "nome": "Miguel Rodrigues Gomes da Silva",
-   "cpf": "639554532.0",
+   "cpf": "639554532",
    "dataNascimento": "2013-02-03",
    "idResponsavel": 226,
    "idEscola": 2
@@ -7843,7 +7843,7 @@
   {
    "id": 461,
    "nome": "Miguel Tabajara Siqueira Campos",
-   "cpf": "598940388.0",
+   "cpf": "598940388",
    "dataNascimento": "2014-06-23",
    "idResponsavel": 466,
    "idEscola": 2
@@ -7859,7 +7859,7 @@
   {
    "id": 463,
    "nome": "Renato Oliveira dos Santos",
-   "cpf": "53481362803.0",
+   "cpf": "53481362803",
    "dataNascimento": "2009-08-09",
    "idResponsavel": 99,
    "idEscola": 7
@@ -7867,7 +7867,7 @@
   {
    "id": 464,
    "nome": "Samuel Semeone Silva",
-   "cpf": "676258189.0",
+   "cpf": "676258189",
    "dataNascimento": "2014-05-08",
    "idResponsavel": 353,
    "idEscola": 9
@@ -7875,7 +7875,7 @@
   {
    "id": 465,
    "nome": "Rian Augusto da Rocha Pereira Barros",
-   "cpf": "585122866.0",
+   "cpf": "585122866",
    "dataNascimento": "2008-06-14",
    "idResponsavel": 246,
    "idEscola": 2
@@ -7883,7 +7883,7 @@
   {
    "id": 466,
    "nome": "Navarro",
-   "cpf": "49253524820.0",
+   "cpf": "49253524820-466",
    "dataNascimento": "2014-06-14",
    "idResponsavel": 302,
    "idEscola": 2
@@ -7907,7 +7907,7 @@
   {
    "id": 469,
    "nome": "Miguel Ferraresi Tolentino",
-   "cpf": "648282764.0",
+   "cpf": "648282764",
    "dataNascimento": "2014-03-11",
    "idResponsavel": 400,
    "idEscola": 3
@@ -7923,7 +7923,7 @@
   {
    "id": 471,
    "nome": "Ryan seiji Vicente Takahashi",
-   "cpf": "678258272.0",
+   "cpf": "678258272",
    "dataNascimento": "2011-03-22",
    "idResponsavel": 250,
    "idEscola": 2
@@ -7931,7 +7931,7 @@
   {
    "id": 472,
    "nome": "Nicolas Andrade Marinelli",
-   "cpf": "661930804.0",
+   "cpf": "661930804",
    "dataNascimento": "2007-08-13",
    "idResponsavel": 173,
    "idEscola": 3
@@ -7939,7 +7939,7 @@
   {
    "id": 473,
    "nome": "Nicollas Nunes",
-   "cpf": "573442320.0",
+   "cpf": "573442320",
    "dataNascimento": "2010-06-23",
    "idResponsavel": 46,
    "idEscola": 3
@@ -7947,7 +7947,7 @@
   {
    "id": 474,
    "nome": "Mateus Bueno Alves Moretto",
-   "cpf": "664088971.0",
+   "cpf": "664088971",
    "dataNascimento": "2018-05-09",
    "idResponsavel": 335,
    "idEscola": 10
@@ -7963,7 +7963,7 @@
   {
    "id": 476,
    "nome": "Pedro Polonio",
-   "cpf": "553952663.0",
+   "cpf": "553952663",
    "dataNascimento": "2009-05-09",
    "idResponsavel": 258,
    "idEscola": 2
@@ -7971,7 +7971,7 @@
   {
    "id": 477,
    "nome": "Pedro Rodrigues de Almeida Rolim",
-   "cpf": "624037514.0",
+   "cpf": "624037514",
    "dataNascimento": "2011-11-01",
    "idResponsavel": 371,
    "idEscola": 2
@@ -7979,7 +7979,7 @@
   {
    "id": 478,
    "nome": "Cauan Parrilha Rodrigues",
-   "cpf": "578710511.0",
+   "cpf": "578710511",
    "dataNascimento": "2013-03-21",
    "idResponsavel": 21,
    "idEscola": 5
@@ -7995,7 +7995,7 @@
   {
    "id": 480,
    "nome": "Pedro Vinicius",
-   "cpf": "164051277.0",
+   "cpf": "164051277",
    "dataNascimento": "2012-03-31",
    "idResponsavel": 340,
    "idEscola": 2
@@ -8019,7 +8019,7 @@
   {
    "id": 483,
    "nome": "Bernardo Carvalho Ribas Araújo",
-   "cpf": "591078685.0",
+   "cpf": "591078685",
    "dataNascimento": "2012-08-12",
    "idResponsavel": 136,
    "idEscola": 9
@@ -8027,7 +8027,7 @@
   {
    "id": 484,
    "nome": "Rafael cardoso de Oliveira",
-   "cpf": "65539218.0",
+   "cpf": "65539218",
    "dataNascimento": "2018-10-01",
    "idResponsavel": 395,
    "idEscola": 2
@@ -8035,7 +8035,7 @@
   {
    "id": 485,
    "nome": "Rafael Corrêa da Silva",
-   "cpf": "654060484.0",
+   "cpf": "654060484",
    "dataNascimento": "2025-03-10",
    "idResponsavel": 182,
    "idEscola": 2
@@ -8059,7 +8059,7 @@
   {
    "id": 488,
    "nome": "Samuel Briganti Dib",
-   "cpf": "660472314.0",
+   "cpf": "660472314",
    "dataNascimento": "2016-06-21",
    "idResponsavel": 213,
    "idEscola": 10
@@ -8067,7 +8067,7 @@
   {
    "id": 489,
    "nome": "RAFAEL COSTA CAMARGO",
-   "cpf": "663862176.0",
+   "cpf": "663862176",
    "dataNascimento": "2013-11-28",
    "idResponsavel": 244,
    "idEscola": 2
@@ -8075,7 +8075,7 @@
   {
    "id": 490,
    "nome": "Emanuel Pires Macedo",
-   "cpf": "659360731.0",
+   "cpf": "659360731",
    "dataNascimento": "2011-10-06",
    "idResponsavel": 336,
    "idEscola": 9
@@ -8099,7 +8099,7 @@
   {
    "id": 493,
    "nome": "Arthur Bernardo prudente pinto",
-   "cpf": "661016729.0",
+   "cpf": "661016729",
    "dataNascimento": "2014-12-19",
    "idResponsavel": 146,
    "idEscola": 5
@@ -8115,7 +8115,7 @@
   {
    "id": 495,
    "nome": "Gabriel Santos",
-   "cpf": "653077543.0",
+   "cpf": "653077543",
    "dataNascimento": "2008-02-28",
    "idResponsavel": 97,
    "idEscola": 9
@@ -8131,7 +8131,7 @@
   {
    "id": 497,
    "nome": "Samuel Maia Franco",
-   "cpf": "435688844.0",
+   "cpf": "435688844",
    "dataNascimento": "2015-12-16",
    "idResponsavel": 413,
    "idEscola": 10
@@ -8147,7 +8147,7 @@
   {
    "id": 499,
    "nome": "Samuel Marques Raiza Perigo Rangel",
-   "cpf": "626536844.0",
+   "cpf": "626536844",
    "dataNascimento": "2014-06-02",
    "idResponsavel": 304,
    "idEscola": 2
@@ -8155,7 +8155,7 @@
   {
    "id": 500,
    "nome": "Sofia Carminatti Nascimento",
-   "cpf": "657521966.0",
+   "cpf": "657521966",
    "dataNascimento": "2017-11-27",
    "idResponsavel": 456,
    "idEscola": 10
@@ -8179,7 +8179,7 @@
   {
    "id": 503,
    "nome": "Pedro Scotto Ventura",
-   "cpf": "653699189.0",
+   "cpf": "653699189",
    "dataNascimento": "2015-07-01",
    "idResponsavel": 291,
    "idEscola": 3
@@ -8187,7 +8187,7 @@
   {
    "id": 504,
    "nome": "Pedro Taizo Ito",
-   "cpf": "700353537.0",
+   "cpf": "700353537",
    "dataNascimento": "2016-01-19",
    "idResponsavel": 450,
    "idEscola": 3
@@ -8195,7 +8195,7 @@
   {
    "id": 505,
    "nome": "Miguel de Araújo Bertato",
-   "cpf": "657546033.0",
+   "cpf": "657546033",
    "dataNascimento": "2012-11-10",
    "idResponsavel": 282,
    "idEscola": 5
@@ -8203,7 +8203,7 @@
   {
    "id": 506,
    "nome": "Antonio Moucachen Marcondes Machado",
-   "cpf": "591296883.0",
+   "cpf": "591296883",
    "dataNascimento": "2014-02-25",
    "idResponsavel": 311,
    "idEscola": 9
@@ -8211,7 +8211,7 @@
   {
    "id": 507,
    "nome": "Pietro Noal",
-   "cpf": "635364815.0",
+   "cpf": "635364815",
    "dataNascimento": "2014-03-12",
    "idResponsavel": 84,
    "idEscola": 3
@@ -8235,7 +8235,7 @@
   {
    "id": 510,
    "nome": "João Vitor Reis Correia",
-   "cpf": "53188267843.0",
+   "cpf": "53188267843",
    "dataNascimento": "2009-12-03",
    "idResponsavel": 505,
    "idEscola": 9
@@ -8243,7 +8243,7 @@
   {
    "id": 511,
    "nome": "Enrico Rua",
-   "cpf": "68.659.750-3",
+   "cpf": "68.659.750-3-511",
    "dataNascimento": "2019-01-08",
    "idResponsavel": 293,
    "idEscola": 10
@@ -8251,7 +8251,7 @@
   {
    "id": 512,
    "nome": "Luiz Guilherme Domingues Nunes",
-   "cpf": "626116375.0",
+   "cpf": "626116375",
    "dataNascimento": "2013-02-25",
    "idResponsavel": 214,
    "idEscola": 5
@@ -8275,7 +8275,7 @@
   {
    "id": 515,
    "nome": "Viktor Hugo Machado Silva",
-   "cpf": "665595311.0",
+   "cpf": "665595311",
    "dataNascimento": "2013-04-26",
    "idResponsavel": 247,
    "idEscola": 9
@@ -8299,7 +8299,7 @@
   {
    "id": 518,
    "nome": "Raul Fogaça Rolim Basso Ponsi",
-   "cpf": "650826152.0",
+   "cpf": "650826152",
    "dataNascimento": "2014-12-27",
    "idResponsavel": 428,
    "idEscola": 3
@@ -8307,7 +8307,7 @@
   {
    "id": 519,
    "nome": "Samuel Teodoro de Camargo",
-   "cpf": "679574050.0",
+   "cpf": "679574050",
    "dataNascimento": "2017-08-30",
    "idResponsavel": 22,
    "idEscola": 3
@@ -8315,7 +8315,7 @@
   {
    "id": 520,
    "nome": "Miguel José Rolim Felicio",
-   "cpf": "51667218883.0",
+   "cpf": "51667218883",
    "dataNascimento": "2016-08-22",
    "idResponsavel": 329,
    "idEscola": 5
@@ -8331,7 +8331,7 @@
   {
    "id": 522,
    "nome": "Rodrigo Chagas do Nascimento Filho",
-   "cpf": "63330010-X",
+   "cpf": "63330010-X-522",
    "dataNascimento": "2025-06-05",
    "idResponsavel": 317,
    "idEscola": 2
@@ -8347,7 +8347,7 @@
   {
    "id": 524,
    "nome": "Victor Cirineo Alberto",
-   "cpf": "606391101.0",
+   "cpf": "606391101",
    "dataNascimento": "2014-12-26",
    "idResponsavel": 208,
    "idEscola": 3
@@ -8379,7 +8379,7 @@
   {
    "id": 528,
    "nome": "Rodrigo Guilherme Cruszynski Branco Michelin",
-   "cpf": "51245074890.0",
+   "cpf": "51245074890",
    "dataNascimento": "2011-11-13",
    "idResponsavel": 114,
    "idEscola": 2
@@ -8387,7 +8387,7 @@
   {
    "id": 529,
    "nome": "Victor Daniel Mariano saboia",
-   "cpf": "666233081.0",
+   "cpf": "666233081",
    "dataNascimento": "2010-05-16",
    "idResponsavel": 100,
    "idEscola": 4
@@ -8411,7 +8411,7 @@
   {
    "id": 532,
    "nome": "Mateus Tossin",
-   "cpf": "631624375.0",
+   "cpf": "631624375",
    "dataNascimento": "2015-11-05",
    "idResponsavel": 389,
    "idEscola": 5
@@ -8419,7 +8419,7 @@
   {
    "id": 533,
    "nome": "SAMUEL HENRIQUE DE FREITAS GALVÃO NOGUEIRA",
-   "cpf": "684746311.0",
+   "cpf": "684746311",
    "dataNascimento": "2009-08-31",
    "idResponsavel": 16,
    "idEscola": 2
@@ -8427,7 +8427,7 @@
   {
    "id": 534,
    "nome": "Vicente Gomes Andrade",
-   "cpf": "653569117.0",
+   "cpf": "653569117",
    "dataNascimento": "2014-12-21",
    "idResponsavel": 324,
    "idEscola": 2
@@ -8443,7 +8443,7 @@
   {
    "id": 536,
    "nome": "José Eduardo Fogaça Hazenfratz",
-   "cpf": "689571665.0",
+   "cpf": "689571665",
    "dataNascimento": "2013-09-02",
    "idResponsavel": 397,
    "idEscola": 9
@@ -8459,7 +8459,7 @@
   {
    "id": 538,
    "nome": "Wallace Gonçalves Sardemberg",
-   "cpf": "55538615863.0",
+   "cpf": "55538615863",
    "dataNascimento": "2012-05-30",
    "idResponsavel": 255,
    "idEscola": 2
@@ -8475,7 +8475,7 @@
   {
    "id": 540,
    "nome": "Bernardo de Góes Ferreira",
-   "cpf": "667175441.0",
+   "cpf": "667175441",
    "dataNascimento": "2014-12-29",
    "idResponsavel": 243,
    "idEscola": 5
@@ -8483,7 +8483,7 @@
   {
    "id": 541,
    "nome": "Vitor Prata de Almeida",
-   "cpf": "640276891.0",
+   "cpf": "640276891",
    "dataNascimento": "2013-04-03",
    "idResponsavel": 440,
    "idEscola": 9
@@ -8491,7 +8491,7 @@
   {
    "id": 542,
    "nome": "Benjamin Cantagallo",
-   "cpf": "156100749.0",
+   "cpf": "156100749",
    "dataNascimento": "2016-02-11",
    "idResponsavel": 269,
    "idEscola": 5
@@ -8499,7 +8499,7 @@
   {
    "id": 543,
    "nome": "Théo R. Fernandes",
-   "cpf": "622271684.0",
+   "cpf": "622271684",
    "dataNascimento": "2014-12-26",
    "idResponsavel": 414,
    "idEscola": 5
@@ -8507,7 +8507,7 @@
   {
    "id": 544,
    "nome": "Vinícius José Mello Domingues",
-   "cpf": "656355505.0",
+   "cpf": "656355505",
    "dataNascimento": "2012-10-24",
    "idResponsavel": 308,
    "idEscola": 9
@@ -8515,7 +8515,7 @@
   {
    "id": 545,
    "nome": "Miguel Campos",
-   "cpf": "689678174.0",
+   "cpf": "689678174",
    "dataNascimento": "2012-08-11",
    "idResponsavel": 406,
    "idEscola": 5
@@ -8523,7 +8523,7 @@
   {
    "id": 546,
    "nome": "João Pedro B. Paranhos",
-   "cpf": "634922166.0",
+   "cpf": "634922166",
    "dataNascimento": "2012-07-01",
    "idResponsavel": 156,
    "idEscola": 5
@@ -8531,7 +8531,7 @@
   {
    "id": 547,
    "nome": "William Ribeiro dos Santos",
-   "cpf": "55375874830.0",
+   "cpf": "55375874830",
    "dataNascimento": "2018-07-13",
    "idResponsavel": 493,
    "idEscola": 5
@@ -8547,7 +8547,7 @@
   {
    "id": 549,
    "nome": "Luiz guilherme albino silva",
-   "cpf": "599240106.0",
+   "cpf": "599240106",
    "dataNascimento": "2012-04-18",
    "idResponsavel": 490,
    "idEscola": 9
@@ -8555,7 +8555,7 @@
   {
    "id": 550,
    "nome": "Miguel dos Santos Witzel",
-   "cpf": "642552423.0",
+   "cpf": "642552423",
    "dataNascimento": "2012-12-02",
    "idResponsavel": 394,
    "idEscola": 5
@@ -8563,7 +8563,7 @@
   {
    "id": 551,
    "nome": "Isaaque Godoy Duarte",
-   "cpf": "65425289.0",
+   "cpf": "65425289",
    "dataNascimento": "2013-04-23",
    "idResponsavel": 410,
    "idEscola": 9
@@ -8571,7 +8571,7 @@
   {
    "id": 552,
    "nome": "Paulo Sergio Soares Junior",
-   "cpf": "56749689850.0",
+   "cpf": "56749689850",
    "dataNascimento": "2013-08-10",
    "idResponsavel": 377,
    "idEscola": 9
@@ -8579,7 +8579,7 @@
   {
    "id": 553,
    "nome": "Felipe Martins Antunes",
-   "cpf": "589576768.0",
+   "cpf": "589576768",
    "dataNascimento": "2013-04-17",
    "idResponsavel": 380,
    "idEscola": 9
@@ -8587,7 +8587,7 @@
   {
    "id": 554,
    "nome": "Ruan Almeida Alves Concianci",
-   "cpf": "666827977.0",
+   "cpf": "666827977",
    "dataNascimento": "2013-05-23",
    "idResponsavel": 390,
    "idEscola": 9
