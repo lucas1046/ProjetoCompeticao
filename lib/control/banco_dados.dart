@@ -89,7 +89,7 @@ class BancoDados {
       "CREATE TABLE IF NOT EXISTS responsavel("
       "id INTEGER PRIMARY KEY AUTOINCREMENT, "
       "nome VARCHAR(150) NOT NULL, "
-      "cpf VARCHAR(14) NOT NULL UNIQUE, "
+      "cpf VARCHAR(14) UNIQUE, "
       "telefone VARCHAR(20), "
       "email VARCHAR(100), "
       "parentesco VARCHAR(50))",
