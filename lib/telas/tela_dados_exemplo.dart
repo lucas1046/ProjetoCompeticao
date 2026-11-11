@@ -91,7 +91,7 @@ class _TelaDadosExemploState extends State<TelaDadosExemplo> {
 
     try {
       ControlDadosExemplo control = ControlDadosExemplo();
-      String mensagem = await control.popular();
+      String mensagem = await control.importarPlanilha();
 
       setState(() {
         _resultado = "$mensagem\n\n"
