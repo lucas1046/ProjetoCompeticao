@@ -53,6 +53,10 @@ class ControlDadosExemplo {
       }
     });
 
-    return "Banco populado com ${((dados['jogadores'] as List).length)} jogadores da planilha COPA SKILL 2025.";
+    int escolas = (await banco.rawQuery("SELECT COUNT(*) AS t FROM escola")).first['t'] as int;
+    int responsaveis = (await banco.rawQuery("SELECT COUNT(*) AS t FROM responsavel")).first['t'] as int;
+    int jogadores = (await banco.rawQuery("SELECT COUNT(*) AS t FROM jogador")).first['t'] as int;
+
+    return "Banco populado com $jogadores jogadores, $escolas escolas e $responsaveis responsáveis da planilha COPA SKILL 2025.";
   }
 }
