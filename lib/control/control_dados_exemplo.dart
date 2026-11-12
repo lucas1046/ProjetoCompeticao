@@ -34,20 +34,22 @@ class ControlDadosExemplo {
       for (var e in (dados['escolas'] as List)) {
         await txn.insert('escola', {
           'id': e['id'], 'nome': e['nome'], 'cidade': e['cidade'],
-          'estado': e['estado'], 'telefone': null,
+          'estado': e['estado'], 'telefone': '',
         });
       }
-      for (var r in (dados['responsaveis'] as List)) {
+      for (int i = 0; i < (dados['responsaveis'] as List).length; i++) {
+        var r = (dados['responsaveis'] as List)[i];
         await txn.insert('responsavel', {
-          'id': r['id'], 'nome': r['nome'], 'cpf': r['cpf'],
-          'telefone': r['telefone'], 'email': r['email'],
+          'id': r['id'], 'nome': r['nome'], 'cpf': 'resp${r['id']}',
+          'telefone': '', 'email': '',
           'parentesco': r['parentesco'],
         });
       }
       for (var j in (dados['jogadores'] as List)) {
         await txn.insert('jogador', {
-          'id': j['id'], 'cpf': j['cpf'], 'nome': j['nome'],
-          'data_nascimento': j['dataNascimento'],
+          'id': j['id'], 'cpf': j['cpf'] ?? 'jog${j['id']}',
+          'nome': j['nome'],
+          'data_nascimento': j['dataNascimento'] ?? '2012-01-01',
           'id_responsavel': j['idResponsavel'], 'id_escola': j['idEscola'],
         });
       }
