@@ -1,3 +1,5 @@
+import 'package:projeto_final/util/formatador.dart';
+
 /// Exceção lançada quando uma regra de negócio é violada.
 /// RNFRs do documento de requisitos.
 class RegraNegocioException implements Exception {
@@ -54,22 +56,13 @@ class Validacoes {
   // DATA
   // ---------------------------------------------------------
 
-  /// Verifica se a data está no formato AAAA-MM-DD e é válida
-  static bool dataValida(String data) {
-    if (!RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(data)) {
-      return false;
-    }
-    try {
-      DateTime.parse(data);
-      return true;
-    } catch (_) {
-      return false;
-    }
-  }
+  /// Verifica se a data está em dd/MM/yyyy (ou AAAA-MM-DD, aceito por
+  /// compatibilidade) e é válida.
+  static bool dataValida(String data) => Formatador.dataValida(data);
 
   /// RNFR-06.1 — Calcula a idade a partir da data de nascimento
   static int calcularIdade(String dataNascimento) {
-    DateTime nascimento = DateTime.parse(dataNascimento);
+    DateTime nascimento = Formatador.paraDateTime(dataNascimento)!;
     DateTime hoje = DateTime.now();
     int idade = hoje.year - nascimento.year;
 
@@ -82,9 +75,9 @@ class Validacoes {
 
   /// RNFR-08.1 — Verifica se uma data está dentro de um período
   static bool dentroDoPeriodo(String data, String inicio, String fim) {
-    DateTime d = DateTime.parse(data);
-    return !d.isBefore(DateTime.parse(inicio)) &&
-        !d.isAfter(DateTime.parse(fim));
+    DateTime d = Formatador.paraDateTime(data)!;
+    return !d.isBefore(Formatador.paraDateTime(inicio)!) &&
+        !d.isAfter(Formatador.paraDateTime(fim)!);
   }
 
   // ---------------------------------------------------------
