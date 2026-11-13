@@ -7,6 +7,7 @@ import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 class TelaConsultaFoto extends StatefulWidget {
   const TelaConsultaFoto({super.key});
@@ -69,7 +70,7 @@ class _TelaConsultaFotoState extends State<TelaConsultaFoto> {
         else
           ..._lista.map((f) => CartaoConsulta(
                 f.caminhoArquivo,
-                ["Enviada em: ${f.dataUpload}", "Id: ${f.id}"],
+                ["Enviada em: ${Formatador.dataBr(f.dataUpload)}", "Id: ${f.id}"],
                 icone: Icons.photo_camera,
                 onTap: () => _editar(f),
               )),

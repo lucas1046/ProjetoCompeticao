@@ -6,6 +6,7 @@ import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/telas/tela_adicionar_pagamento.dart';
 import 'package:projeto_final/model/pagamento_inscricao.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 class TelaConsultaPagamento extends StatefulWidget {
   const TelaConsultaPagamento({super.key});
@@ -77,7 +78,7 @@ class _TelaConsultaPagamentoState extends State<TelaConsultaPagamento> {
       p['nomeJogador'] ?? "-",
       [
         "Escola: ${p['nomeEscola'] ?? '-'}",
-        "Forma: ${p['formaPagamento']} - Data: ${p['dataPagamento']}",
+        "Forma: ${p['formaPagamento']} - Data: ${Formatador.dataBr(p['dataPagamento'])}",
       ],
       selo: "R\$ ${valor.toStringAsFixed(2)}",
       corSelo: Colors.green,

@@ -8,6 +8,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
 import 'package:projeto_final/util/financeiro.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 /// RNFR-15.1 — gera os relatórios do sistema em PDF e permite salvar ou
 /// compartilhar o arquivo gerado.
@@ -203,7 +204,8 @@ class GeradorPdf {
     conteudo.add(pw.SizedBox(height: 4));
     conteudo.add(_linha("Nome", jogador['nome']?.toString() ?? "-"));
     conteudo.add(_linha("CPF", jogador['cpf']?.toString() ?? "-"));
-    conteudo.add(_linha("Data de nascimento", jogador['data_nascimento']?.toString() ?? "-"));
+    conteudo.add(_linha("Data de nascimento",
+        Formatador.dataBr(jogador['data_nascimento']?.toString() ?? "-")));
     conteudo.add(_linha("Responsável", jogador['nomeResponsavel']?.toString() ?? "-"));
     conteudo.add(pw.SizedBox(height: 12));
 

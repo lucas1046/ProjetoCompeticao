@@ -6,6 +6,7 @@ import 'package:projeto_final/model/competicao.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 class TelaConsultaCompeticao extends StatefulWidget {
   const TelaConsultaCompeticao({super.key});
@@ -65,7 +66,7 @@ class _TelaConsultaCompeticaoState extends State<TelaConsultaCompeticao> {
                 c.nome,
                 [
                   "Cidade: ${c.cidade}",
-                  "De ${c.dataInicio} até ${c.dataFim}",
+                  "De ${Formatador.dataBr(c.dataInicio)} até ${Formatador.dataBr(c.dataFim)}",
                 ],
                 icone: Icons.emoji_events,
                 onTap: () => _editar(c),

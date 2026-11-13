@@ -4,6 +4,7 @@ import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/util/gerador_pdf.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 /// Histórico completo de um jogador: participações, partidas, eventos e suspensões.
 class TelaHistoricoJogador extends StatefulWidget {
@@ -104,7 +105,7 @@ class _TelaHistoricoJogadorState extends State<TelaHistoricoJogador> {
           j['nome'] ?? "-",
           [
             "CPF: ${j['cpf'] ?? '-'}",
-            "Nascimento: ${j['data_nascimento'] ?? '-'}",
+            "Nascimento: ${Formatador.dataBr(j['data_nascimento'] ?? '-')}",
             "Responsável: ${j['nomeResponsavel'] ?? '-'}",
           ],
           icone: Icons.person,
@@ -141,7 +142,7 @@ class _TelaHistoricoJogadorState extends State<TelaHistoricoJogador> {
                 "${p['timeCasa']} ${p['qtd_gols_time_casa']} x ${p['qtd_gols_time_visitante']} ${p['timeVisitante']}",
                 [
                   "${p['nomeCompeticao']} - Rodada ${p['numeroRodada']}",
-                  "Data: ${p['dataRodada']}",
+                  "Data: ${Formatador.dataBr(p['dataRodada'])}",
                   "Posição: ${p['nomePosicao']} - ${p['titular'] == 'titular' ? 'Titular' : 'Reserva'} - Camisa ${p['numero_camisa']}",
                 ],
                 icone: Icons.sports_score,

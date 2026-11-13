@@ -5,6 +5,7 @@ import 'package:projeto_final/control/control_relatorio.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 class TelaEstatisticasJogador extends StatefulWidget {
   const TelaEstatisticasJogador({super.key});
@@ -123,7 +124,7 @@ class _TelaEstatisticasJogadorState extends State<TelaEstatisticasJogador> {
         texto += "TOTAL DE GOLS: ${m['total_gols'] ?? 0}\n";
         texto += "VALOR TOTAL: ${m['valor_total'] ?? ''}\n";
         texto += "RESPONSÁVEL: ${m['responsavel'] ?? ''}\n";
-        texto += "DATA NASCIMENTO: ${m['data_nascimento'] ?? ''}\n";
+        texto += "DATA NASCIMENTO: ${Formatador.dataBr(m['data_nascimento'] ?? '')}\n";
         texto += "-----------------------------\n";
       }
 

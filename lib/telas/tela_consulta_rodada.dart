@@ -4,6 +4,7 @@ import 'package:projeto_final/control/control_rodada.dart';
 import 'package:projeto_final/widgets/cartao_consulta.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 class TelaConsultaRodada extends StatefulWidget {
   const TelaConsultaRodada({super.key});
@@ -71,7 +72,7 @@ class _TelaConsultaRodadaState extends State<TelaConsultaRodada> {
   Widget _cartao(Map<String, dynamic> r) {
     return CartaoConsulta(
       "Rodada ${r['numero']}",
-      ["${r['nomeCompeticao']} - Data: ${r['data']}"],
+      ["${r['nomeCompeticao']} - Data: ${Formatador.dataBr(r['data'])}"],
       icone: Icons.calendar_month,
     );
   }

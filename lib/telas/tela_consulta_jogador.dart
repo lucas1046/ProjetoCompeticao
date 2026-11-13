@@ -6,6 +6,7 @@ import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/telas/tela_adicionar_jogador.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 class TelaConsultaJogador extends StatefulWidget {
   const TelaConsultaJogador({super.key});
@@ -66,7 +67,7 @@ class _TelaConsultaJogadorState extends State<TelaConsultaJogador> {
                 j['nome'],
                 [
                   "CPF: ${j['cpf']}",
-                  "Nascimento: ${j['dataNascimento']}",
+                  "Nascimento: ${Formatador.dataBr(j['dataNascimento'])}",
                   "Responsável: ${j['nomeResponsavel'] ?? '-'}",
                 ],
                 icone: Icons.person,
