@@ -1,6 +1,7 @@
 import 'package:projeto_final/control/banco_dados.dart';
 import 'package:projeto_final/model/rodada.dart';
 import 'package:projeto_final/util/validacoes.dart';
+import 'package:projeto_final/util/formatador.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ControlRodada {
@@ -14,7 +15,7 @@ class ControlRodada {
   Future<int> insertDatabase(Rodada rodada) async {
     if (!Validacoes.dataValida(rodada.data)) {
       throw RegraNegocioException(
-        "Data da rodada inválida. Use o formato AAAA-MM-DD.",
+        "Data da rodada inválida. Use o formato dd/MM/yyyy.",
       );
     }
 
@@ -43,8 +44,8 @@ class ControlRodada {
 
     if (!Validacoes.dentroDoPeriodo(rodada.data, inicio, fim)) {
       throw RegraNegocioException(
-        "A data da rodada deve estar entre o início ($inicio) "
-        "e o término ($fim) da competição.",
+        "A data da rodada deve estar entre o início (${Formatador.dataBr(inicio)}) "
+        "e o término (${Formatador.dataBr(fim)}) da competição.",
       );
     }
 

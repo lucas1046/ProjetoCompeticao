@@ -25,7 +25,7 @@ class ControlPagamento {
 
     if (!Validacoes.dataValida(pagamento.dataPagamento)) {
       throw RegraNegocioException(
-        "Data de pagamento inválida. Use o formato AAAA-MM-DD.",
+        "Data de pagamento inválida. Use o formato dd/MM/yyyy.",
       );
     }
 

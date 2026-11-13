@@ -1,6 +1,7 @@
 import 'package:projeto_final/control/banco_dados.dart';
 import 'package:projeto_final/model/competicao.dart';
 import 'package:projeto_final/util/validacoes.dart';
+import 'package:projeto_final/util/formatador.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ControlCompeticao {
@@ -14,19 +15,19 @@ class ControlCompeticao {
   Future<int> insertDatabase(Competicao competicao) async {
     if (!Validacoes.dataValida(competicao.dataInicio)) {
       throw RegraNegocioException(
-        "Data de início inválida. Use o formato AAAA-MM-DD.",
+        "Data de início inválida. Use o formato dd/MM/yyyy.",
       );
     }
 
     if (!Validacoes.dataValida(competicao.dataFim)) {
       throw RegraNegocioException(
-        "Data de término inválida. Use o formato AAAA-MM-DD.",
+        "Data de término inválida. Use o formato dd/MM/yyyy.",
       );
     }
 
     // RNFR-01.1 — término não pode ser anterior ao início
-    if (DateTime.parse(competicao.dataFim)
-        .isBefore(DateTime.parse(competicao.dataInicio))) {
+    if (Formatador.paraDateTime(competicao.dataFim)!
+        .isBefore(Formatador.paraDateTime(competicao.dataInicio)!)) {
       throw RegraNegocioException(
         "A data de término deve ser maior ou igual à data de início.",
       );

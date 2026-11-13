@@ -18,7 +18,7 @@ class ControlFoto {
     }
     if (!Validacoes.dataValida(foto.dataUpload)) {
       throw RegraNegocioException(
-        "Data de upload inválida. Use o formato AAAA-MM-DD.",
+        "Data de upload inválida. Use o formato dd/MM/yyyy.",
       );
     }
     return await BancoDados().inserir("foto_figurinha", foto.toMap());
