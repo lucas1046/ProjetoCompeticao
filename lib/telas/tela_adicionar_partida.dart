@@ -16,6 +16,7 @@ import 'package:projeto_final/model/partida.dart';
 import 'package:projeto_final/model/rodada.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/model/time.dart';
+import 'package:projeto_final/util/formatador.dart';
 import 'package:projeto_final/model/tipo_evento.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -265,7 +266,7 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
               SizedBox(height: 8),
               TextField(controller: numeroCtrl, decoration: InputDecoration(labelText: "Número"), keyboardType: TextInputType.number),
               SizedBox(height: 8),
-              TextField(controller: dataCtrl, decoration: InputDecoration(labelText: "Data (AAAA-MM-DD)")),
+              TextField(controller: dataCtrl, decoration: InputDecoration(labelText: "Data (dd/MM/yyyy)")),
             ],
           ),
           actions: [
@@ -278,7 +279,7 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
 
     if (ok != true) return;
     try {
-      final rodada = Rodada(numero: int.tryParse(numeroCtrl.text) ?? 0, data: dataCtrl.text, idCompeticao: idComp ?? 0);
+      final rodada = Rodada(numero: int.tryParse(numeroCtrl.text) ?? 0, data: Formatador.dataIso(dataCtrl.text), idCompeticao: idComp ?? 0);
       await ControlRodada().insertDatabase(rodada);
       await _carregarListas();
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Rodada criada.")));

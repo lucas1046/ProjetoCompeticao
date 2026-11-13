@@ -11,6 +11,7 @@ import 'package:projeto_final/model/responsavel.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 class TelaAdicionarParticipacao extends StatefulWidget {
   final ParticipacaoJogadorTime? participacao;
@@ -154,7 +155,7 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
                 SizedBox(height: 8),
                 TextField(controller: cpfCtrl, decoration: InputDecoration(labelText: "CPF")),
                 SizedBox(height: 8),
-                TextField(controller: dataCtrl, decoration: InputDecoration(labelText: "Data nasc. (AAAA-MM-DD)")),
+                TextField(controller: dataCtrl, decoration: InputDecoration(labelText: "Data nasc. (dd/MM/yyyy)")),
                 SizedBox(height: 8),
                 DropdownButtonFormField<int>(
                   initialValue: idResp,
@@ -181,7 +182,7 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
       final j = Jogador(
         nome: nomeCtrl.text,
         cpf: cpfCtrl.text,
-        dataNascimento: dataCtrl.text,
+        dataNascimento: Formatador.dataIso(dataCtrl.text),
         idResponsavel: idResp ?? 0,
       );
       await ControlJogador().insertDatabase(j);

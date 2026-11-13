@@ -5,6 +5,7 @@ import 'package:projeto_final/model/foto_figurinha.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 class TelaAdicionarFoto extends StatefulWidget {
   final FotoFigurinha? foto;
@@ -26,7 +27,7 @@ class _TelaAdicionarFotoState extends State<TelaAdicionarFoto> {
     if (widget.foto != null) {
       _idEdicao = widget.foto!.id;
       _caminhoArquivo.text = widget.foto!.caminhoArquivo;
-      _dataUpload.text = widget.foto!.dataUpload;
+      _dataUpload.text = Formatador.dataBr(widget.foto!.dataUpload);
     }
   }
 
@@ -60,7 +61,7 @@ class _TelaAdicionarFotoState extends State<TelaAdicionarFoto> {
           "Informe o caminho",
           controller: _caminhoArquivo,
         ),
-        InputTextos("Data do upload", "AAAA-MM-DD", controller: _dataUpload),
+        InputTextos("Data do upload", "dd/MM/yyyy", controller: _dataUpload),
         Buttons("Registrar", onPressed: _registrar),
         TextosCustom(_resultado, 18, Colors.red),
       ],
@@ -70,13 +71,13 @@ class _TelaAdicionarFotoState extends State<TelaAdicionarFoto> {
   Future<void> _registrar() async {
     FotoFigurinha foto = FotoFigurinha(
       caminhoArquivo: _caminhoArquivo.text,
-      dataUpload: _dataUpload.text,
+      dataUpload: Formatador.dataIso(_dataUpload.text),
     );
 
     try {
       ControlFoto control = ControlFoto();
       if (_idEdicao != null) {
-        FotoFigurinha f = FotoFigurinha(id: _idEdicao, caminhoArquivo: _caminhoArquivo.text, dataUpload: _dataUpload.text);
+        FotoFigurinha f = FotoFigurinha(id: _idEdicao, caminhoArquivo: _caminhoArquivo.text, dataUpload: Formatador.dataIso(_dataUpload.text));
         await control.updateDatabase(f);
         setState(() => _resultado = "Foto atualizada!");
       } else {

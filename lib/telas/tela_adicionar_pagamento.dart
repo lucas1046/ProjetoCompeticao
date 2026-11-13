@@ -9,6 +9,7 @@ import 'package:projeto_final/model/participacao_jogador_time.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 class TelaAdicionarPagamento extends StatefulWidget {
   final PagamentoInscricao? pagamento;
@@ -48,7 +49,7 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
       if (widget.pagamento != null) {
         _idParticipacao = widget.pagamento!.idParticipacao.toString();
         _valorPago.text = widget.pagamento!.valorPago.toString();
-        _dataPagamento.text = widget.pagamento!.dataPagamento;
+        _dataPagamento.text = Formatador.dataBr(widget.pagamento!.dataPagamento);
         _formaPagamento.text = widget.pagamento!.formaPagamento;
         _observacoes.text = widget.pagamento!.observacoes;
       } else {
@@ -110,7 +111,7 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
             Expanded(
               child: InputTextos(
                 "Data do pagamento",
-                "AAAA-MM-DD",
+                "dd/MM/yyyy",
                 controller: _dataPagamento,
               ),
             ),
@@ -133,7 +134,7 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
     PagamentoInscricao pagamento = PagamentoInscricao(
       idParticipacao: int.tryParse(_idParticipacao ?? "0") ?? 0,
       valorPago: double.tryParse(_valorPago.text) ?? 0,
-      dataPagamento: _dataPagamento.text,
+      dataPagamento: Formatador.dataIso(_dataPagamento.text),
       formaPagamento: _formaPagamento.text,
       observacoes: _observacoes.text,
     );
@@ -141,7 +142,7 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
     try {
       ControlPagamento control = ControlPagamento();
       if (_idEdicao != null) {
-        PagamentoInscricao p = PagamentoInscricao(id: _idEdicao, idParticipacao: int.tryParse(_idParticipacao ?? "0") ?? 0, valorPago: double.tryParse(_valorPago.text) ?? 0, dataPagamento: _dataPagamento.text, formaPagamento: _formaPagamento.text, observacoes: _observacoes.text);
+        PagamentoInscricao p = PagamentoInscricao(id: _idEdicao, idParticipacao: int.tryParse(_idParticipacao ?? "0") ?? 0, valorPago: double.tryParse(_valorPago.text) ?? 0, dataPagamento: Formatador.dataIso(_dataPagamento.text), formaPagamento: _formaPagamento.text, observacoes: _observacoes.text);
         await control.updateDatabase(p);
         setState(() => _resultado = "Pagamento atualizado!");
       } else {

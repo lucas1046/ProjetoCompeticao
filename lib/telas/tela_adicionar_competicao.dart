@@ -5,6 +5,7 @@ import 'package:projeto_final/model/competicao.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 class TelaAdicionarCompeticao extends StatefulWidget {
   final Competicao? competicao;
@@ -30,8 +31,8 @@ class _TelaAdicionarCompeticaoState extends State<TelaAdicionarCompeticao> {
       _idEdicao = widget.competicao!.id;
       _nome.text = widget.competicao!.nome;
       _cidade.text = widget.competicao!.cidade;
-      _dataInicio.text = widget.competicao!.dataInicio;
-      _dataFim.text = widget.competicao!.dataFim;
+      _dataInicio.text = Formatador.dataBr(widget.competicao!.dataInicio);
+      _dataFim.text = Formatador.dataBr(widget.competicao!.dataFim);
     }
   }
 
@@ -64,12 +65,12 @@ class _TelaAdicionarCompeticaoState extends State<TelaAdicionarCompeticao> {
         InputTextos("Digite a cidade", "Informe a cidade", controller: _cidade),
         InputTextos(
           "Data de início",
-          "Informe a data de início",
+          "dd/MM/yyyy",
           controller: _dataInicio,
         ),
         InputTextos(
           "Data de término",
-          "Informe a data de término",
+          "dd/MM/yyyy",
           controller: _dataFim,
         ),
         Buttons("Registrar", onPressed: _registrar),
@@ -82,14 +83,14 @@ class _TelaAdicionarCompeticaoState extends State<TelaAdicionarCompeticao> {
     Competicao competicao = Competicao(
       nome: _nome.text,
       cidade: _cidade.text,
-      dataInicio: _dataInicio.text,
-      dataFim: _dataFim.text,
+      dataInicio: Formatador.dataIso(_dataInicio.text),
+      dataFim: Formatador.dataIso(_dataFim.text),
     );
 
     try {
       ControlCompeticao control = ControlCompeticao();
       if (_idEdicao != null) {
-        Competicao c = Competicao(id: _idEdicao, nome: _nome.text, cidade: _cidade.text, dataInicio: _dataInicio.text, dataFim: _dataFim.text);
+        Competicao c = Competicao(id: _idEdicao, nome: _nome.text, cidade: _cidade.text, dataInicio: Formatador.dataIso(_dataInicio.text), dataFim: Formatador.dataIso(_dataFim.text));
         await control.updateDatabase(c);
         setState(() => _resultado = "Competição ${c.nome} atualizada!");
       } else {

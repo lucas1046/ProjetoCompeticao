@@ -7,6 +7,7 @@ import 'package:projeto_final/model/rodada.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 class TelaAdicionarRodada extends StatefulWidget {
   const TelaAdicionarRodada({super.key});
@@ -90,7 +91,7 @@ class _TelaAdicionarRodadaState extends State<TelaAdicionarRodada> {
             Expanded(
               child: InputTextos(
                 "Data",
-                "AAAA-MM-DD",
+                "dd/MM/yyyy",
                 controller: _data,
               ),
             ),
@@ -106,7 +107,7 @@ class _TelaAdicionarRodadaState extends State<TelaAdicionarRodada> {
   Future<void> _registrar() async {
     Rodada rodada = Rodada(
       numero: int.tryParse(_numero.text) ?? 0,
-      data: _data.text,
+      data: Formatador.dataIso(_data.text),
       idCompeticao: int.tryParse(_idCompeticao ?? "0") ?? 0,
     );
 

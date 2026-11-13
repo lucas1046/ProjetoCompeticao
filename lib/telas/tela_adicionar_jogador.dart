@@ -13,6 +13,7 @@ import 'package:projeto_final/model/responsavel.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/formatador.dart';
 
 class TelaAdicionarJogador extends StatefulWidget {
   final Jogador? jogador;
@@ -46,7 +47,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
       _idEdicao = widget.jogador!.id;
       _nome.text = widget.jogador!.nome;
       _cpf.text = widget.jogador!.cpf;
-      _dataNascimento.text = widget.jogador!.dataNascimento;
+      _dataNascimento.text = Formatador.dataBr(widget.jogador!.dataNascimento);
       _idResponsavelSelecionado = widget.jogador!.idResponsavel.toString();
       if (widget.jogador!.idFoto != null) _idFotoSelecionada = widget.jogador!.idFoto.toString();
       if (widget.jogador!.idEscola != null) _idEscolaSelecionada = widget.jogador!.idEscola.toString();
@@ -114,7 +115,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
             Expanded(
               child: InputTextos(
                 "Data de nascimento",
-                "AAAA-MM-DD",
+                "dd/MM/yyyy",
                 controller: _dataNascimento,
               ),
             ),
@@ -294,7 +295,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     Jogador jogador = Jogador(
       nome: _nome.text,
       cpf: _cpf.text,
-      dataNascimento: _dataNascimento.text,
+      dataNascimento: Formatador.dataIso(_dataNascimento.text),
       idResponsavel: int.tryParse(_idResponsavelSelecionado ?? "0") ?? 0,
       idFoto: int.tryParse(_idFotoSelecionada ?? ""),
       idEscola: int.tryParse(_idEscolaSelecionada ?? ""),
@@ -304,7 +305,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
       ControlJogador control = ControlJogador();
       int idJogador;
       if (_idEdicao != null) {
-        Jogador j = Jogador(id: _idEdicao, nome: _nome.text, cpf: _cpf.text, dataNascimento: _dataNascimento.text, idResponsavel: int.tryParse(_idResponsavelSelecionado ?? "0") ?? 0, idFoto: int.tryParse(_idFotoSelecionada ?? ""), idEscola: int.tryParse(_idEscolaSelecionada ?? ""));
+        Jogador j = Jogador(id: _idEdicao, nome: _nome.text, cpf: _cpf.text, dataNascimento: Formatador.dataIso(_dataNascimento.text), idResponsavel: int.tryParse(_idResponsavelSelecionado ?? "0") ?? 0, idFoto: int.tryParse(_idFotoSelecionada ?? ""), idEscola: int.tryParse(_idEscolaSelecionada ?? ""));
         await control.updateDatabase(j);
         idJogador = _idEdicao!;
         setState(() => _resultado = "Jogador ${j.nome} atualizado!");
