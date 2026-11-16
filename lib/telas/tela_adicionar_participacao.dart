@@ -8,6 +8,7 @@ import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/model/participacao_jogador_time.dart';
 import 'package:projeto_final/control/control_responsavel.dart';
 import 'package:projeto_final/model/responsavel.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -89,19 +90,11 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
         Row(
           children: [
             Expanded(
-              child: DropdownButtonFormField<String>(
+              child: WidgetAutocomplete(
+                rotulo: "Jogador",
+                itens: _jogadores.map((j) => AutocompleteItem(j.id.toString(), j.nome)).toList(),
                 initialValue: _idJogador,
-                decoration: InputDecoration(
-                  labelText: "Jogador",
-                  border: OutlineInputBorder(),
-                ),
-                items: _jogadores.map((j) {
-                  return DropdownMenuItem<String>(
-                    value: j.id.toString(),
-                    child: Text(j.nome),
-                  );
-                }).toList(),
-                onChanged: (v) => setState(() => _idJogador = v),
+                onSelected: (v) => setState(() => _idJogador = v?.toString()),
               ),
             ),
             SizedBox(width: 8),
@@ -113,19 +106,11 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
           ],
         ),
         SizedBox(height: 12),
-        DropdownButtonFormField<String>(
+        WidgetAutocomplete(
+          rotulo: "Escola de origem",
+          itens: _escolas.map((e) => AutocompleteItem(e.id.toString(), e.nome)).toList(),
           initialValue: _idEscola,
-          decoration: InputDecoration(
-            labelText: "Escola de origem",
-            border: OutlineInputBorder(),
-          ),
-          items: _escolas.map((e) {
-            return DropdownMenuItem<String>(
-              value: e.id.toString(),
-              child: Text(e.nome),
-            );
-          }).toList(),
-          onChanged: (v) => setState(() => _idEscola = v),
+          onSelected: (v) => setState(() => _idEscola = v?.toString()),
         ),
         SizedBox(height: 12),
         InputTextos("Valor da inscrição", "0.00", controller: _valorInscricao),

@@ -4,6 +4,7 @@ import 'package:projeto_final/control/control_competicao.dart';
 import 'package:projeto_final/control/control_rodada.dart';
 import 'package:projeto_final/model/competicao.dart';
 import 'package:projeto_final/model/rodada.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -34,7 +35,7 @@ class _TelaAdicionarRodadaState extends State<TelaAdicionarRodada> {
     List<Competicao> lista = await control.queryFind();
     setState(() {
       _competicoes = lista;
-      if (lista.isNotEmpty) _idCompeticao = lista[0].id.toString();
+      if (lista.isNotEmpty && _idCompeticao == null) _idCompeticao = lista[0].id.toString();
     });
   }
 
@@ -63,19 +64,11 @@ class _TelaAdicionarRodadaState extends State<TelaAdicionarRodada> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        DropdownButtonFormField<String>(
+        WidgetAutocomplete(
+          rotulo: "Competição",
+          itens: _competicoes.map((c) => AutocompleteItem(c.id.toString(), c.nome)).toList(),
           initialValue: _idCompeticao,
-          decoration: InputDecoration(
-            labelText: "Competição",
-            border: OutlineInputBorder(),
-          ),
-          items: _competicoes.map((c) {
-            return DropdownMenuItem<String>(
-              value: c.id.toString(),
-              child: Text(c.nome),
-            );
-          }).toList(),
-          onChanged: (v) => setState(() => _idCompeticao = v),
+          onSelected: (v) => setState(() => _idCompeticao = v?.toString()),
         ),
         SizedBox(height: 12),
         Row(

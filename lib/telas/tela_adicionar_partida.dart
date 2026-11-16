@@ -18,6 +18,7 @@ import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/model/time.dart';
 import 'package:projeto_final/util/formatador.dart';
 import 'package:projeto_final/model/tipo_evento.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -305,11 +306,11 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
             Row(
               children: [
                 Expanded(
-                  child: DropdownButtonFormField<String>(
+                  child: WidgetAutocomplete(
+                    rotulo: "Rodada",
+                    itens: _rodadas.map((r) => AutocompleteItem(r.id.toString(), "Rodada ${r.numero}")).toList(),
                     initialValue: _idRodada,
-                    decoration: const InputDecoration(labelText: "Rodada", border: OutlineInputBorder()),
-                    items: _rodadas.map((r) => DropdownMenuItem<String>(value: r.id.toString(), child: Text("Rodada ${r.numero}"))).toList(),
-                    onChanged: (v) => setState(() => _idRodada = v),
+                    onSelected: (v) => setState(() => _idRodada = v?.toString()),
                   ),
                 ),
                 SizedBox(width: 8),
@@ -317,27 +318,27 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
               ],
             ),
             SizedBox(height: 12),
-            DropdownButtonFormField<String>(
+            WidgetAutocomplete(
+              rotulo: "Time da casa",
+              itens: _times.map((t) => AutocompleteItem(t.idTime.toString(), t.nomeTime)).toList(),
               initialValue: _idTimeCasa,
-              decoration: const InputDecoration(labelText: "Time da casa", border: OutlineInputBorder()),
-              items: _times.map((t) => DropdownMenuItem<String>(value: t.idTime.toString(), child: Text(t.nomeTime))).toList(),
-              onChanged: (v) async {
-                setState(() => _idTimeCasa = v);
+              onSelected: (v) async {
+                setState(() => _idTimeCasa = v?.toString());
                 if (v != null) {
-                  final rows = await ControlJogadorTime().queryByTime(int.parse(v));
+                  final rows = await ControlJogadorTime().queryByTime(int.parse(v.toString()));
                   setState(() => _rosterCasa = rows.map((r) => r['idJogador'] as int).toSet());
                 }
               },
             ),
             SizedBox(height: 12),
-            DropdownButtonFormField<String>(
+            WidgetAutocomplete(
+              rotulo: "Time visitante",
+              itens: _times.map((t) => AutocompleteItem(t.idTime.toString(), t.nomeTime)).toList(),
               initialValue: _idTimeVisitante,
-              decoration: const InputDecoration(labelText: "Time visitante", border: OutlineInputBorder()),
-              items: _times.map((t) => DropdownMenuItem<String>(value: t.idTime.toString(), child: Text(t.nomeTime))).toList(),
-              onChanged: (v) async {
-                setState(() => _idTimeVisitante = v);
+              onSelected: (v) async {
+                setState(() => _idTimeVisitante = v?.toString());
                 if (v != null) {
-                  final rows = await ControlJogadorTime().queryByTime(int.parse(v));
+                  final rows = await ControlJogadorTime().queryByTime(int.parse(v.toString()));
                   setState(() => _rosterVis = rows.map((r) => r['idJogador'] as int).toSet());
                 }
               },

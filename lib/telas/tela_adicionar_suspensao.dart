@@ -4,6 +4,7 @@ import 'package:projeto_final/control/control_evento.dart';
 import 'package:projeto_final/control/control_suspensao.dart';
 import 'package:projeto_final/model/evento_partida.dart';
 import 'package:projeto_final/model/suspensao.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -33,7 +34,7 @@ class _TelaAdicionarSuspensaoState extends State<TelaAdicionarSuspensao> {
     List<EventoPartida> lista = await control.queryFind();
     setState(() {
       _eventos = lista;
-      if (lista.isNotEmpty) _idEvento = lista[0].id.toString();
+      if (lista.isNotEmpty && _idEvento == null) _idEvento = lista[0].id.toString();
     });
   }
 
@@ -62,19 +63,11 @@ class _TelaAdicionarSuspensaoState extends State<TelaAdicionarSuspensao> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        DropdownButtonFormField<String>(
+        WidgetAutocomplete(
+          rotulo: "Evento que originou",
+          itens: _eventos.map((e) => AutocompleteItem(e.id.toString(), "Evento ${e.id} - ${e.minutoEvento}'")).toList(),
           initialValue: _idEvento,
-          decoration: InputDecoration(
-            labelText: "Evento que originou",
-            border: OutlineInputBorder(),
-          ),
-          items: _eventos.map((e) {
-            return DropdownMenuItem<String>(
-              value: e.id.toString(),
-              child: Text("Evento ${e.id} - ${e.minutoEvento}'"),
-            );
-          }).toList(),
-          onChanged: (v) => setState(() => _idEvento = v),
+          onSelected: (v) => setState(() => _idEvento = v?.toString()),
         ),
         SizedBox(height: 12),
         Row(

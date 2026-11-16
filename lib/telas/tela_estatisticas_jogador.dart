@@ -3,6 +3,7 @@ import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/control/control_relatorio.dart';
 import 'package:projeto_final/model/jogador.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 import 'package:projeto_final/util/formatador.dart';
@@ -60,19 +61,11 @@ class _TelaEstatisticasJogadorState extends State<TelaEstatisticasJogador> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        DropdownButtonFormField<String>(
-          value: _idJogador,
-          decoration: InputDecoration(
-            labelText: "Jogador",
-            border: OutlineInputBorder(),
-          ),
-          items: _jogadores.map((j) {
-            return DropdownMenuItem<String>(
-              value: j.id.toString(),
-              child: Text(j.nome),
-            );
-          }).toList(),
-          onChanged: (v) => setState(() => _idJogador = v),
+        WidgetAutocomplete(
+          rotulo: "Jogador",
+          itens: _jogadores.map((j) => AutocompleteItem(j.id.toString(), j.nome)).toList(),
+          initialValue: _idJogador,
+          onSelected: (v) => setState(() => _idJogador = v?.toString()),
         ),
         SizedBox(height: 16),
         Buttons("Consultar", onPressed: _carregando ? null : () {

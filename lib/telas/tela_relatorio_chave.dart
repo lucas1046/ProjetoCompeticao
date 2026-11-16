@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/control/control_relatorio.dart';
 import 'package:projeto_final/telas/menu.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -61,19 +62,11 @@ class _TelaRelatorioChaveState extends State<TelaRelatorioChave> {
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
-          DropdownButtonFormField<int>(
+          WidgetAutocomplete(
+            rotulo: "Competição",
+            itens: _competicoes.map((c) => AutocompleteItem(c['id'] as int, c['nome'] as String)).toList(),
             initialValue: _idCompeticao,
-            decoration: InputDecoration(
-              labelText: "Competição",
-              border: OutlineInputBorder(),
-            ),
-            items: _competicoes.map((c) {
-              return DropdownMenuItem<int>(
-                value: c['id'] as int,
-                child: Text(c['nome'] as String),
-              );
-            }).toList(),
-            onChanged: (v) => setState(() => _idCompeticao = v),
+            onSelected: (v) => setState(() => _idCompeticao = v as int?),
           ),
           SizedBox(height: 12),
           Buttons("Gerar chave", onPressed: _carregando ? null : _gerar),

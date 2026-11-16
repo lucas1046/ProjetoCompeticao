@@ -96,7 +96,8 @@ class ControlPartida {
       "p.horario AS horario, "
       "jc.nome AS nomeCraque, "
       "r.numero AS numeroRodada, "
-      "c.nome AS nomeCompeticao "
+      "c.nome AS nomeCompeticao, "
+      "cat.nome AS nomeCategoria "
       "FROM partida p "
       "JOIN time tc ON p.id_time_casa = tc.id_time "
       "JOIN time tv ON p.id_time_visitante = tv.id_time "
@@ -104,6 +105,7 @@ class ControlPartida {
       "LEFT JOIN escalacao ec ON p.id_escalacao_craque = ec.id "
       "LEFT JOIN jogador jc ON ec.id_jogador = jc.id "
       "JOIN competicao c ON r.id_competicao = c.id "
+      "JOIN categoria cat ON tc.id_categoria = cat.id "
       "ORDER BY c.nome, r.numero",
     );
   }

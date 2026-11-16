@@ -3,6 +3,7 @@ import 'package:projeto_final/telas/menu.dart';
 import 'package:projeto_final/control/control_competicao.dart';
 import 'package:projeto_final/control/control_relatorio.dart';
 import 'package:projeto_final/model/competicao.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -59,19 +60,11 @@ class _TelaClassificacaoState extends State<TelaClassificacao> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        DropdownButtonFormField<int>(
-          value: _idCompeticao,
-          decoration: InputDecoration(
-            labelText: "Competição",
-            border: OutlineInputBorder(),
-          ),
-          items: _competicoes.map((c) {
-            return DropdownMenuItem<int>(
-              value: c.id,
-              child: Text(c.nome),
-            );
-          }).toList(),
-          onChanged: (v) => setState(() => _idCompeticao = v),
+        WidgetAutocomplete(
+          rotulo: "Competição",
+          itens: _competicoes.map((c) => AutocompleteItem(c.id, c.nome)).toList(),
+          initialValue: _idCompeticao,
+          onSelected: (v) => setState(() => _idCompeticao = v as int?),
         ),
         SizedBox(height: 16),
         Buttons("Gerar", onPressed: _carregando ? null : () {

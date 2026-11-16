@@ -19,6 +19,7 @@ import 'package:projeto_final/control/control_tecnico_time.dart';
 import 'package:projeto_final/model/tecnico.dart';
 import 'package:projeto_final/model/tecnico_time.dart';
 import 'package:projeto_final/model/time.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -205,11 +206,11 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
           SizedBox(height: 12),
           Row(
             children: [
-              Expanded(child: DropdownButtonFormField<String>(
+              Expanded(child: WidgetAutocomplete(
+                rotulo: "Técnico",
+                itens: _tecnicos.map((t) => AutocompleteItem(t.id.toString(), t.nome)).toList(),
                 initialValue: _idTecnico,
-                decoration: InputDecoration(labelText: "Técnico", border: OutlineInputBorder()),
-                items: _tecnicos.map((t) => DropdownMenuItem<String>(value: t.id.toString(), child: Text(t.nome))).toList(),
-                onChanged: (v) => setState(() => _idTecnico = v),
+                onSelected: (v) => setState(() => _idTecnico = v?.toString()),
               )),
               IconButton(tooltip: "Novo técnico", icon: Icon(Icons.add_circle, color: Colors.green), onPressed: _novoTecnico),
             ],
@@ -260,11 +261,11 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
   }
 
   Widget _dropdown(String rotulo, String? valor, List<_Item> itens, void Function(String?) onChanged) {
-    return DropdownButtonFormField<String>(
+    return WidgetAutocomplete(
+      rotulo: rotulo,
+      itens: itens.map((i) => AutocompleteItem(i.id, i.nome)).toList(),
       initialValue: valor,
-      decoration: InputDecoration(labelText: rotulo, border: OutlineInputBorder()),
-      items: itens.map((i) => DropdownMenuItem<String>(value: i.id, child: Text(i.nome))).toList(),
-      onChanged: onChanged,
+      onSelected: (v) => onChanged(v?.toString()),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:projeto_final/control/control_tipo_evento.dart';
 import 'package:projeto_final/model/escalacao.dart';
 import 'package:projeto_final/model/evento_partida.dart';
 import 'package:projeto_final/model/tipo_evento.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -72,34 +73,18 @@ class _TelaAdicionarEventoState extends State<TelaAdicionarEvento> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        DropdownButtonFormField<String>(
+        WidgetAutocomplete(
+          rotulo: "Jogador escalado",
+          itens: _escalacoes.map((e) => AutocompleteItem(e.id.toString(), "Escalação ${e.id} - jogador ${e.idJogador}")).toList(),
           initialValue: _idEscalacao,
-          decoration: InputDecoration(
-            labelText: "Jogador escalado",
-            border: OutlineInputBorder(),
-          ),
-          items: _escalacoes.map((e) {
-            return DropdownMenuItem<String>(
-              value: e.id.toString(),
-              child: Text("Escalação ${e.id} - jogador ${e.idJogador}"),
-            );
-          }).toList(),
-          onChanged: (v) => setState(() => _idEscalacao = v),
+          onSelected: (valor) => setState(() => _idEscalacao = valor?.toString()),
         ),
         SizedBox(height: 12),
-        DropdownButtonFormField<String>(
+        WidgetAutocomplete(
+          rotulo: "Tipo de evento",
+          itens: _tipos.map((t) => AutocompleteItem(t.id.toString(), t.descricao)).toList(),
           initialValue: _idTipoEvento,
-          decoration: InputDecoration(
-            labelText: "Tipo de evento",
-            border: OutlineInputBorder(),
-          ),
-          items: _tipos.map((t) {
-            return DropdownMenuItem<String>(
-              value: t.id.toString(),
-              child: Text(t.descricao),
-            );
-          }).toList(),
-          onChanged: (v) => setState(() => _idTipoEvento = v),
+          onSelected: (valor) => setState(() => _idTipoEvento = valor?.toString()),
         ),
         SizedBox(height: 12),
         Row(

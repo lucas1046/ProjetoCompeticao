@@ -6,6 +6,7 @@ import 'package:projeto_final/control/control_time.dart';
 import 'package:projeto_final/model/tecnico.dart';
 import 'package:projeto_final/model/tecnico_time.dart';
 import 'package:projeto_final/model/time.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
 
@@ -40,8 +41,8 @@ class _TelaAdicionarTecnicoTimeState extends State<TelaAdicionarTecnicoTime> {
     setState(() {
       _tecnicos = tecnicos;
       _times = times;
-      if (tecnicos.isNotEmpty) _idTecnico = tecnicos[0].id.toString();
-      if (times.isNotEmpty) _idTime = times[0].idTime.toString();
+      if (tecnicos.isNotEmpty && _idTecnico == null) _idTecnico = tecnicos[0].id.toString();
+      if (times.isNotEmpty && _idTime == null) _idTime = times[0].idTime.toString();
     });
   }
 
@@ -73,19 +74,11 @@ class _TelaAdicionarTecnicoTimeState extends State<TelaAdicionarTecnicoTime> {
         Row(
           children: [
             Expanded(
-              child: DropdownButtonFormField<String>(
+              child: WidgetAutocomplete(
+                rotulo: "Técnico",
+                itens: _tecnicos.map((t) => AutocompleteItem(t.id.toString(), t.nome)).toList(),
                 initialValue: _idTecnico,
-                decoration: InputDecoration(
-                  labelText: "Técnico",
-                  border: OutlineInputBorder(),
-                ),
-                items: _tecnicos.map((t) {
-                  return DropdownMenuItem<String>(
-                    value: t.id.toString(),
-                    child: Text(t.nome),
-                  );
-                }).toList(),
-                onChanged: (v) => setState(() => _idTecnico = v),
+                onSelected: (v) => setState(() => _idTecnico = v?.toString()),
               ),
             ),
             SizedBox(width: 8),
@@ -97,19 +90,11 @@ class _TelaAdicionarTecnicoTimeState extends State<TelaAdicionarTecnicoTime> {
           ],
         ),
         SizedBox(height: 12),
-        DropdownButtonFormField<String>(
+        WidgetAutocomplete(
+          rotulo: "Time",
+          itens: _times.map((t) => AutocompleteItem(t.idTime.toString(), t.nomeTime)).toList(),
           initialValue: _idTime,
-          decoration: InputDecoration(
-            labelText: "Time",
-            border: OutlineInputBorder(),
-          ),
-          items: _times.map((t) {
-            return DropdownMenuItem<String>(
-              value: t.idTime.toString(),
-              child: Text(t.nomeTime),
-            );
-          }).toList(),
-          onChanged: (v) => setState(() => _idTime = v),
+          onSelected: (v) => setState(() => _idTime = v?.toString()),
         ),
         SizedBox(height: 16),
         Buttons("Registrar", onPressed: _registrar),

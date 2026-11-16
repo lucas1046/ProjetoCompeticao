@@ -81,11 +81,20 @@ class _TelaConsultaPartidaState extends State<TelaConsultaPartida> {
       resultado = "WO";
     }
 
+    String extrairNome(String nomeCompleto) {
+      final idx = nomeCompleto.toLowerCase().indexOf('sub');
+      if (idx > 0) return nomeCompleto.substring(0, idx).trim();
+      return nomeCompleto;
+    }
+
+    String nomeCasa = extrairNome(p['nomeTimeCasa'] ?? '');
+    String nomeVisitante = extrairNome(p['nomeTimeVisitante'] ?? '');
+
     return CartaoConsulta(
-      "${p['nomeTimeCasa']} x ${p['nomeTimeVisitante']}",
+      "${p['nomeCategoria'] ?? 'Categoria Desconhecida'}\n$nomeCasa x $nomeVisitante",
       [
         "${p['nomeCompeticao']} - Rodada ${p['numeroRodada']}",
-        if (p['horario'] != null) "Horário: ${p['horario']}",
+        if (p['horario'] != null && p['horario'] != '00:00') "Horário: ${p['horario']}",
         if (p['nomeCraque'] != null) "Craque: ${p['nomeCraque']}",
       ],
       selo: resultado,

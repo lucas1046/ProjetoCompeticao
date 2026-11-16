@@ -10,6 +10,7 @@ import 'package:projeto_final/control/control_foto.dart';
 import 'package:projeto_final/model/escola.dart';
 import 'package:projeto_final/model/foto_figurinha.dart';
 import 'package:projeto_final/model/responsavel.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -48,9 +49,34 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
       _nome.text = widget.jogador!.nome;
       _cpf.text = widget.jogador!.cpf;
       _dataNascimento.text = Formatador.dataBr(widget.jogador!.dataNascimento);
-      _idResponsavelSelecionado = widget.jogador!.idResponsavel.toString();
-      if (widget.jogador!.idFoto != null) _idFotoSelecionada = widget.jogador!.idFoto.toString();
-      if (widget.jogador!.idEscola != null) _idEscolaSelecionada = widget.jogador!.idEscola.toString();
+      if (widget.jogador!.idResponsavel != 0) {
+        _idResponsavelSelecionado = widget.jogador!.idResponsavel.toString();
+      }
+      if (widget.jogador!.idFoto != null) {
+        _idFotoSelecionada = widget.jogador!.idFoto.toString();
+      }
+      if (widget.jogador!.idEscola != null) {
+        _idEscolaSelecionada = widget.jogador!.idEscola.toString();
+      }
+      if (widget.jogador!.id != null) {
+        _carregarInscricao(widget.jogador!.id!);
+      }
+    }
+  }
+
+  Future<void> _carregarInscricao(int idJogador) async {
+    final participacoes = await ControlParticipacao().queryFind();
+    final list = participacoes.where((x) => x.idJogador == idJogador).toList();
+    if (list.isNotEmpty) {
+      final p = list.first;
+      setState(() {
+        if (p.valorInscricao != null) {
+          _valorInscricao.text = p.valorInscricao!.toStringAsFixed(2);
+        }
+        if (_idEscolaSelecionada == null && p.idEscola != null) {
+          _idEscolaSelecionada = p.idEscola.toString();
+        }
+      });
     }
   }
 
@@ -59,7 +85,7 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     List<Responsavel> lista = await control.queryFind();
     setState(() {
       _responsaveis = lista;
-      if (lista.isNotEmpty) {
+      if (widget.jogador == null && lista.isNotEmpty && _idResponsavelSelecionado == null) {
         _idResponsavelSelecionado = lista[0].id.toString();
       }
     });
@@ -69,7 +95,9 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     final lista = await ControlFoto().queryFind();
     setState(() {
       _fotos = lista;
-      if (lista.isNotEmpty) _idFotoSelecionada = lista[0].id.toString();
+      if (widget.jogador == null && lista.isNotEmpty && _idFotoSelecionada == null) {
+        _idFotoSelecionada = lista[0].id.toString();
+      }
     });
   }
 
@@ -77,7 +105,9 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     final lista = await ControlEscola().queryFind();
     setState(() {
       _escolas = lista;
-      if (lista.isNotEmpty) _idEscolaSelecionada = lista[0].id.toString();
+      if (widget.jogador == null && lista.isNotEmpty && _idEscolaSelecionada == null) {
+        _idEscolaSelecionada = lista[0].id.toString();
+      }
     });
   }
   @override
@@ -124,21 +154,13 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
         Row(
           children: [
             Expanded(
-              child: DropdownButtonFormField<String>(
+              child: WidgetAutocomplete(
+                rotulo: "Responsável legal",
+                itens: _responsaveis.map((r) => AutocompleteItem(r.id.toString(), r.nome)).toList(),
                 initialValue: _idResponsavelSelecionado,
-                decoration: InputDecoration(
-                  labelText: "Responsável legal",
-                  border: OutlineInputBorder(),
-                ),
-                items: _responsaveis.map((r) {
-                  return DropdownMenuItem<String>(
-                    value: r.id.toString(),
-                    child: Text(r.nome),
-                  );
-                }).toList(),
-                onChanged: (valor) {
+                onSelected: (valor) {
                   setState(() {
-                    _idResponsavelSelecionado = valor;
+                    _idResponsavelSelecionado = valor?.toString();
                   });
                 },
               ),
@@ -154,21 +176,13 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
         Row(
           children: [
             Expanded(
-              child: DropdownButtonFormField<String>(
+              child: WidgetAutocomplete(
+                rotulo: "Foto (opcional)",
+                itens: _fotos.map((f) => AutocompleteItem(f.id.toString(), f.caminhoArquivo.split('/').last)).toList(),
                 initialValue: _idFotoSelecionada,
-                decoration: InputDecoration(
-                  labelText: "Foto (opcional)",
-                  border: OutlineInputBorder(),
-                ),
-                items: _fotos.map((f) {
-                  return DropdownMenuItem<String>(
-                    value: f.id.toString(),
-                    child: Text(f.caminhoArquivo.split('/').last),
-                  );
-                }).toList(),
-                onChanged: (valor) {
+                onSelected: (valor) {
                   setState(() {
-                    _idFotoSelecionada = valor;
+                    _idFotoSelecionada = valor?.toString();
                   });
                 },
               ),
@@ -184,11 +198,11 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
         SizedBox(height: 8),
         Row(
           children: [
-            Expanded(child: DropdownButtonFormField<String>(
+            Expanded(child: WidgetAutocomplete(
+              rotulo: "Escola (origem)",
+              itens: _escolas.map((e) => AutocompleteItem(e.id.toString(), e.nome)).toList(),
               initialValue: _idEscolaSelecionada,
-              decoration: InputDecoration(labelText: "Escola (origem)", border: OutlineInputBorder()),
-              items: _escolas.map((e) => DropdownMenuItem<String>(value: e.id.toString(), child: Text(e.nome))).toList(),
-              onChanged: (v) => setState(() => _idEscolaSelecionada = v),
+              onSelected: (v) => setState(() => _idEscolaSelecionada = v?.toString()),
             )),
             IconButton(tooltip: "Nova escola", icon: Icon(Icons.add_circle, color: Colors.green), onPressed: _novaEscola),
           ],

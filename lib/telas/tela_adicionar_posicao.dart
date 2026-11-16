@@ -4,6 +4,7 @@ import 'package:projeto_final/control/control_modalidade.dart';
 import 'package:projeto_final/control/control_posicao.dart';
 import 'package:projeto_final/model/modalidade.dart';
 import 'package:projeto_final/model/posicao.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -39,7 +40,7 @@ class _TelaAdicionarPosicaoState extends State<TelaAdicionarPosicao> {
     List<Modalidade> lista = await control.queryFind();
     setState(() {
       _modalidades = lista;
-      if (lista.isNotEmpty) {
+      if (widget.posicao == null && lista.isNotEmpty && _idModalidadeSelecionada == null) {
         _idModalidadeSelecionada = lista[0].id.toString();
       }
     });
@@ -71,21 +72,13 @@ class _TelaAdicionarPosicaoState extends State<TelaAdicionarPosicao> {
       padding: EdgeInsets.all(16),
       children: [
         InputTextos("Digite o nome", "Ex: Goleiro, Zagueiro", controller: _nome),
-        DropdownButtonFormField<String>(
+        WidgetAutocomplete(
+          rotulo: "Modalidade",
+          itens: _modalidades.map((m) => AutocompleteItem(m.id.toString(), m.nome)).toList(),
           initialValue: _idModalidadeSelecionada,
-          decoration: InputDecoration(
-            labelText: "Modalidade",
-            border: OutlineInputBorder(),
-          ),
-          items: _modalidades.map((m) {
-            return DropdownMenuItem<String>(
-              value: m.id.toString(),
-              child: Text(m.nome),
-            );
-          }).toList(),
-          onChanged: (valor) {
+          onSelected: (valor) {
             setState(() {
-              _idModalidadeSelecionada = valor;
+              _idModalidadeSelecionada = valor?.toString();
             });
           },
         ),

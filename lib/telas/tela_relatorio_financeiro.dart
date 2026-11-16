@@ -94,8 +94,8 @@ class _TelaRelatorioFinanceiroState extends State<TelaRelatorioFinanceiro> {
         "-----------------------------------------------------------------------\n";
 
     for (Map<String, dynamic> item in lista) {
-      String nome = (item['nomeJogador'] as String).padRight(18);
-      String time = (item['nomeTime'] as String).padRight(10);
+      String nome = ((item['nomeJogador'] as String?) ?? "-").padRight(18);
+      String time = ((item['nomeTime'] as String?) ?? "-").padRight(10);
       String camisa = (item['numeroCamisa']?.toString() ?? "-").padLeft(4);
       double valorInscricao =
           (item['valorInscricao'] as num?)?.toDouble() ?? 0;

@@ -125,14 +125,18 @@ class ControlRelatorio {
     Database banco = await BancoDados().db;
     return await banco.rawQuery(
       "SELECT pjt.id AS idParticipacao, j.nome AS nomeJogador, "
+      "t.nome_time AS nomeTime, "
       "e.nome AS nomeEscola, "
+      "jt.numero_camisa AS numeroCamisa, "
       "pjt.valor_inscricao AS valorInscricao, "
       "COALESCE(SUM(pg.valor_pago), 0) AS valorPago "
       "FROM participacao_jogador_time pjt "
       "JOIN jogador j ON pjt.id_jogador = j.id "
+      "LEFT JOIN time t ON pjt.id_time = t.id_time "
       "LEFT JOIN escola e ON pjt.id_escola = e.id "
+      "LEFT JOIN jogador_time jt ON jt.id_time = pjt.id_time AND jt.id_jogador = pjt.id_jogador "
       "LEFT JOIN pagamento_inscricao pg ON pg.id_participacao_jogador_time = pjt.id "
-      "GROUP BY pjt.id, j.nome, e.nome, pjt.valor_inscricao "
+      "GROUP BY pjt.id, j.nome, t.nome_time, e.nome, jt.numero_camisa, pjt.valor_inscricao "
       "ORDER BY j.nome",
     );
   }

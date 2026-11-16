@@ -5,6 +5,7 @@ import 'package:projeto_final/control/control_jogador.dart';
 import 'package:projeto_final/model/documento.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/util/guarda_permissao.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -34,7 +35,7 @@ class _TelaAdicionarDocumentoState extends State<TelaAdicionarDocumento> {
     List<Jogador> lista = await control.queryFind();
     setState(() {
       _jogadores = lista;
-      if (lista.isNotEmpty) {
+      if (lista.isNotEmpty && _idJogadorSelecionado == null) {
         _idJogadorSelecionado = lista[0].id.toString();
       }
     });
@@ -71,21 +72,13 @@ class _TelaAdicionarDocumentoState extends State<TelaAdicionarDocumento> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        DropdownButtonFormField<String>(
+        WidgetAutocomplete(
+          rotulo: "Jogador",
+          itens: _jogadores.map((j) => AutocompleteItem(j.id.toString(), j.nome)).toList(),
           initialValue: _idJogadorSelecionado,
-          decoration: InputDecoration(
-            labelText: "Jogador",
-            border: OutlineInputBorder(),
-          ),
-          items: _jogadores.map((j) {
-            return DropdownMenuItem<String>(
-              value: j.id.toString(),
-              child: Text(j.nome),
-            );
-          }).toList(),
-          onChanged: (valor) {
+          onSelected: (valor) {
             setState(() {
-              _idJogadorSelecionado = valor;
+              _idJogadorSelecionado = valor?.toString();
             });
           },
         ),

@@ -6,6 +6,7 @@ import 'package:projeto_final/control/control_participacao.dart';
 import 'package:projeto_final/model/jogador.dart';
 import 'package:projeto_final/model/pagamento_inscricao.dart';
 import 'package:projeto_final/model/participacao_jogador_time.dart';
+import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_input.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
@@ -83,19 +84,11 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
-        DropdownButtonFormField<String>(
+        WidgetAutocomplete(
+          rotulo: "Inscrição do jogador",
+          itens: _participacoes.map((p) => AutocompleteItem(p.id.toString(), "Inscrição ${p.id} - ${_nomeJogador[p.idJogador] ?? 'jogador ${p.idJogador}'}")).toList(),
           initialValue: _idParticipacao,
-          decoration: InputDecoration(
-            labelText: "Inscrição do jogador",
-            border: OutlineInputBorder(),
-          ),
-          items: _participacoes.map((p) {
-            return DropdownMenuItem<String>(
-              value: p.id.toString(),
-              child: Text("Inscrição ${p.id} - ${_nomeJogador[p.idJogador] ?? 'jogador ${p.idJogador}'}"),
-            );
-          }).toList(),
-          onChanged: (v) => setState(() => _idParticipacao = v),
+          onSelected: (v) => setState(() => _idParticipacao = v?.toString()),
         ),
         SizedBox(height: 12),
         Row(
