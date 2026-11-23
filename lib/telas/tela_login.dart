@@ -20,18 +20,21 @@ class _TelaLoginState extends State<TelaLogin> {
   String _resultado = "";
   bool _carregando = false;
 
+  static const Color corDominante = Color(0xFFF31A2E);
+  static const Color corSecundaria = Color(0xFF0462C3);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Competições Escolares"),
-        backgroundColor: Colors.blue,
+        title: const Text("Competições Escolares"),
+        backgroundColor: corDominante,
         actions: [
           IconButton(
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
             onPressed: () => Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (_) => Menu()),
+              MaterialPageRoute(builder: (_) => const Menu()),
               (_) => false,
             ),
           ),
@@ -43,19 +46,19 @@ class _TelaLoginState extends State<TelaLogin> {
 
   ListView _body() {
     return ListView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       children: [
-        TextosCustom("Acesso ao sistema", 22, Colors.blue),
-        SizedBox(height: 16),
+        TextosCustom("Acesso ao sistema", 22, corDominante),
+        const SizedBox(height: 16),
         InputTextos("Login", "Informe o login", controller: _login),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         InputTextos(
           "Senha",
           "Informe a senha",
           controller: _senha,
           senha: true,
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Row(
           children: [
             Expanded(
@@ -66,8 +69,8 @@ class _TelaLoginState extends State<TelaLogin> {
             ),
           ],
         ),
-        SizedBox(height: 16),
-        if (_carregando) Center(child: CircularProgressIndicator()),
+        const SizedBox(height: 16),
+        if (_carregando) const Center(child: CircularProgressIndicator()),
         TextosCustom(_resultado, 18, Colors.red),
       ],
     );
@@ -91,7 +94,7 @@ class _TelaLoginState extends State<TelaLogin> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (BuildContext context) => Menu()),
+        MaterialPageRoute(builder: (BuildContext context) => const Menu()),
       );
     } catch (e) {
       setState(() {

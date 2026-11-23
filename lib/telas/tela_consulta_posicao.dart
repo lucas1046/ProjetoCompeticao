@@ -36,7 +36,6 @@ class _TelaConsultaPosicaoState extends State<TelaConsultaPosicao> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar posição"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

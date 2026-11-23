@@ -67,7 +67,6 @@ class _TelaAdicionarParticipacaoState extends State<TelaAdicionarParticipacao> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Inscrever jogador"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

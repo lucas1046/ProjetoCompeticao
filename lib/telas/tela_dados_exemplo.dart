@@ -38,7 +38,6 @@ class _TelaDadosExemploState extends State<TelaDadosExemplo> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Dados de exemplo"),
-        backgroundColor: Colors.indigo,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

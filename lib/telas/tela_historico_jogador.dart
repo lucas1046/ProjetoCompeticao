@@ -66,7 +66,6 @@ class _TelaHistoricoJogadorState extends State<TelaHistoricoJogador> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Histórico: ${widget.nomeJogador}"),
-        backgroundColor: Colors.teal,
         actions: [
           IconButton(
             tooltip: "Gerar ficha PDF",

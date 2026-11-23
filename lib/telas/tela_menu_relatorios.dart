@@ -16,7 +16,6 @@ class MenuRelatorios extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Relatórios e estatísticas"),
-        backgroundColor: Colors.purple,
         actions: [
           IconButton(
             icon: Icon(Icons.home),
@@ -57,7 +56,7 @@ class MenuRelatorios extends StatelessWidget {
           elevation: 3,
           margin: EdgeInsets.only(bottom: 12),
           child: ListTile(
-            leading: Icon(opcao.icone, size: 32, color: Colors.purple),
+            leading: Icon(opcao.icone, size: 32, color: const Color(0xFF0462C3)),
             title: Text(
               opcao.titulo,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

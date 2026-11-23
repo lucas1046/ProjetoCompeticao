@@ -22,6 +22,7 @@ import 'package:projeto_final/model/time.dart';
 import 'package:projeto_final/widgets/widget_autocomplete.dart';
 import 'package:projeto_final/widgets/widget_button.dart';
 import 'package:projeto_final/widgets/widget_text_custom.dart';
+import 'package:projeto_final/util/validacoes.dart';
 
 class TelaAdicionarTime extends StatefulWidget {
   final Time? time;
@@ -46,6 +47,27 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
   final Map<int, int?> _camisaPorJogador = {};
   final _filtro = TextEditingController();
   String _resultado = "";
+
+  Categoria? get _categoriaSelecionada {
+    if (_idCategoria == null) return null;
+    try {
+      return _categorias.firstWhere((c) => c.id.toString() == _idCategoria);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  bool _jogadorElegivelNaCategoria(Jogador j) {
+    if (_idEscola != null && j.idEscola != null && j.idEscola.toString() != _idEscola) {
+      return false;
+    }
+
+    final cat = _categoriaSelecionada;
+    if (cat == null) return true;
+
+    int idade = Validacoes.calcularIdade(j.dataNascimento);
+    return idade >= cat.idadeMin && idade <= cat.idadeMax;
+  }
 
   @override
   void initState() {
@@ -176,7 +198,6 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastrar time"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(icon: Icon(Icons.home), onPressed: () => Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => Menu()), (_) => false)),
         ],
@@ -218,9 +239,12 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
           SizedBox(height: 12),
           Text("Jogadores:", style: TextStyle(fontWeight: FontWeight.bold)),
           ..._jogadores
-              .where((j) => _filtro.text.isEmpty || j.nome.toLowerCase().contains(_filtro.text.toLowerCase()))
-              .map((j) => CheckboxListTile(
-                    title: Text(j.nome),
+              .where((j) => _jogadorElegivelNaCategoria(j) &&
+                  (_filtro.text.isEmpty || j.nome.toLowerCase().contains(_filtro.text.toLowerCase())))
+              .map((j) {
+                int idade = Validacoes.calcularIdade(j.dataNascimento);
+                return CheckboxListTile(
+                    title: Text("${j.nome} ($idade anos)"),
                     value: _selJogadores.contains(j.id),
                     onChanged: (v) => setState(() {
                       if (v == true) {
@@ -251,7 +275,8 @@ class _TelaAdicionarTimeState extends State<TelaAdicionarTime> {
                             ],
                           )
                         : null,
-                  )),
+                  );
+              }),
           SizedBox(height: 16),
           Buttons("Registrar", onPressed: _registrar),
           TextosCustom(_resultado, 18, Colors.red),

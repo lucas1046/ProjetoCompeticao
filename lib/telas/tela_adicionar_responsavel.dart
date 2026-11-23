@@ -48,7 +48,6 @@ class _TelaAdicionarResponsavelState extends State<TelaAdicionarResponsavel> {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Cadastrar responsável"),
-          backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

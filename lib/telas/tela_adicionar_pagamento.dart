@@ -64,7 +64,6 @@ class _TelaAdicionarPagamentoState extends State<TelaAdicionarPagamento> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Registrar pagamento"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

@@ -4,16 +4,17 @@ import 'package:projeto_final/telas/tela_adicionar_competicao.dart';
 import 'package:projeto_final/telas/tela_adicionar_documento.dart';
 import 'package:projeto_final/telas/tela_adicionar_jogador.dart';
 import 'package:projeto_final/telas/tela_adicionar_pagamento.dart';
+import 'package:projeto_final/telas/tela_adicionar_participacao.dart';
 import 'package:projeto_final/telas/tela_adicionar_partida.dart';
 import 'package:projeto_final/telas/tela_adicionar_suspensao.dart';
 import 'package:projeto_final/telas/tela_adicionar_time.dart';
-import 'package:projeto_final/telas/tela_dados_exemplo.dart';
 import 'package:projeto_final/telas/tela_menu_configuracoes.dart';
 import 'package:projeto_final/telas/tela_menu_relatorios.dart';
 import 'package:projeto_final/telas/tela_consulta_competicao.dart';
 import 'package:projeto_final/telas/tela_consulta_documento.dart';
 import 'package:projeto_final/telas/tela_consulta_jogador.dart';
 import 'package:projeto_final/telas/tela_consulta_pagamento.dart';
+import 'package:projeto_final/telas/tela_consulta_participacao.dart';
 import 'package:projeto_final/telas/tela_consulta_partida.dart';
 import 'package:projeto_final/telas/tela_consulta_suspensao.dart';
 import 'package:projeto_final/telas/tela_consulta_time.dart';
@@ -28,16 +29,19 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  static const Color _corDominante = Color(0xFFF31A2E);
+  static const Color _corSecundaria = Color(0xFF0462C3);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Competições Escolares"),
-        backgroundColor: Colors.blue,
+        title: const Text("Competições Escolares"),
+        backgroundColor: _corDominante,
         actions: [
           IconButton(
             tooltip: "Sair",
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () => _sair(context),
           ),
         ],
@@ -50,11 +54,11 @@ class _MenuState extends State<Menu> {
     return Column(
       children: [
         Card(
-          color: Colors.purple,
-          margin: EdgeInsets.all(16),
+          color: _corDominante,
+          margin: const EdgeInsets.all(16),
           child: ListTile(
-            leading: Icon(Icons.assessment, size: 36, color: Colors.white),
-            title: Text(
+            leading: const Icon(Icons.assessment, size: 36, color: Colors.white),
+            title: const Text(
               "Relatórios e estatísticas",
               style: TextStyle(
                 color: Colors.white,
@@ -62,12 +66,12 @@ class _MenuState extends State<Menu> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            subtitle: Text(
+            subtitle: const Text(
               "Classificação, financeiro, partidas e suspensões",
               style: TextStyle(color: Colors.white70),
             ),
-            trailing: Icon(Icons.chevron_right, color: Colors.white),
-            onTap: () => _abreTelas(ctx, MenuRelatorios()),
+            trailing: const Icon(Icons.chevron_right, color: Colors.white),
+            onTap: () => _abreTelas(ctx, const MenuRelatorios()),
           ),
         ),
         Expanded(child: _grid(ctx)),
@@ -77,25 +81,25 @@ class _MenuState extends State<Menu> {
 
   GridView _grid(BuildContext ctx) {
     final opcoes = [
-      _Opcao("Competição", Icons.emoji_events, () => TelaAdicionarCompeticao(),
-          () => TelaConsultaCompeticao()),
-      _Opcao("Jogador", Icons.person, () => TelaAdicionarJogador(),
-          () => TelaConsultaJogador()),
-      _Opcao("Documento", Icons.description, () => TelaAdicionarDocumento(),
-          () => TelaConsultaDocumento(),
+      _Opcao("Competição", Icons.emoji_events, () => const TelaAdicionarCompeticao(),
+          () => const TelaConsultaCompeticao()),
+      _Opcao("Jogador", Icons.person, () => const TelaAdicionarJogador(),
+          () => const TelaConsultaJogador()),
+      _Opcao("Documento", Icons.description, () => const TelaAdicionarDocumento(),
+          () => const TelaConsultaDocumento(),
           soAdministrador: true),
-      _Opcao("Time", Icons.groups, () => TelaAdicionarTime(),
-          () => TelaConsultaTime()),
-      _Opcao("Pagamento", Icons.payments, () => TelaAdicionarPagamento(),
-          () => TelaConsultaPagamento()),
-      _Opcao("Partida", Icons.sports_score, () => TelaAdicionarPartida(),
-          () => TelaConsultaPartida()),
-      _Opcao("Suspensão", Icons.block, () => TelaAdicionarSuspensao(),
-          () => TelaConsultaSuspensao()),
+      _Opcao("Time", Icons.groups, () => const TelaAdicionarTime(),
+          () => const TelaConsultaTime()),
+      _Opcao("Inscrição", Icons.assignment, () => const TelaAdicionarParticipacao(),
+          () => const TelaConsultaParticipacao()),
+      _Opcao("Pagamento", Icons.payments, () => const TelaAdicionarPagamento(),
+          () => const TelaConsultaPagamento()),
+      _Opcao("Partida", Icons.sports_score, () => const TelaAdicionarPartida(),
+          () => const TelaConsultaPartida()),
+      _Opcao("Suspensão", Icons.block, () => const TelaAdicionarSuspensao(),
+          () => const TelaConsultaSuspensao()),
       _Opcao("Configurações", Icons.settings, null, null,
-          destinoDireto: () => MenuConfiguracoes()),
-      _Opcao("Dados exemplo", Icons.science, null, null,
-          destinoDireto: () => TelaDadosExemplo()),
+          destinoDireto: () => const MenuConfiguracoes()),
     ];
 
     final opcoesVisiveis = opcoes
@@ -103,8 +107,8 @@ class _MenuState extends State<Menu> {
         .toList();
 
     return GridView.builder(
-      padding: EdgeInsets.all(16),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      padding: const EdgeInsets.all(16),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
@@ -118,16 +122,16 @@ class _MenuState extends State<Menu> {
           child: InkWell(
             onTap: () => _aoToqueCard(ctx, opcao),
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(opcao.icone, size: 36, color: Colors.blue),
-                  SizedBox(height: 8),
+                  Icon(opcao.icone, size: 36, color: _corSecundaria),
+                  const SizedBox(height: 8),
                   Text(
                     opcao.titulo,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -168,7 +172,7 @@ class _MenuState extends State<Menu> {
     ControlSessao().sair();
     Navigator.pushReplacement(
       ctx,
-      MaterialPageRoute(builder: (BuildContext context) => TelaLogin()),
+      MaterialPageRoute(builder: (BuildContext context) => const TelaLogin()),
     );
   }
 }

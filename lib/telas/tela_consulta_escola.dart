@@ -36,7 +36,6 @@ class _TelaConsultaEscolaState extends State<TelaConsultaEscola> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar escola"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

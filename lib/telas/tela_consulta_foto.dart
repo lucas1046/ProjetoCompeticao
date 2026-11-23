@@ -38,7 +38,6 @@ class _TelaConsultaFotoState extends State<TelaConsultaFoto> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar foto"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

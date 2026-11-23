@@ -34,7 +34,6 @@ class _TelaRelatorioFinanceiroState extends State<TelaRelatorioFinanceiro> {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Relatório financeiro"),
-          backgroundColor: Colors.purple,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

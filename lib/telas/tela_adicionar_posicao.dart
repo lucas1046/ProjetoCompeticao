@@ -51,7 +51,6 @@ class _TelaAdicionarPosicaoState extends State<TelaAdicionarPosicao> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastrar posição"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

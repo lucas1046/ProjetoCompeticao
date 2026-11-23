@@ -36,7 +36,6 @@ class _TelaAdicionarFotoState extends State<TelaAdicionarFoto> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastrar foto"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

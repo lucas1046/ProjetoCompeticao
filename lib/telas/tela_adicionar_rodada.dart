@@ -44,7 +44,6 @@ class _TelaAdicionarRodadaState extends State<TelaAdicionarRodada> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastrar rodada"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

@@ -51,7 +51,6 @@ class _TelaAdicionarTecnicoTimeState extends State<TelaAdicionarTecnicoTime> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Vincular técnico ao time"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

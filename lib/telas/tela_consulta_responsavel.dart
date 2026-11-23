@@ -43,7 +43,6 @@ class _TelaConsultaResponsavelState extends State<TelaConsultaResponsavel> {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Consultar responsável"),
-          backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

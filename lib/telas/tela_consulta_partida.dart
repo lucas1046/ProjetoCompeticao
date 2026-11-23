@@ -36,7 +36,6 @@ class _TelaConsultaPartidaState extends State<TelaConsultaPartida> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar partidas"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

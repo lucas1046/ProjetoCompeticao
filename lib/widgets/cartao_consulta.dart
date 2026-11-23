@@ -33,7 +33,7 @@ class CartaoConsulta extends StatelessWidget {
               Row(
                 children: [
                   if (icone != null) ...[
-                    Icon(icone, size: 20, color: Colors.blue),
+                    Icon(icone, size: 20, color: const Color(0xFF0462C3)),
                     SizedBox(width: 8),
                   ],
                   Expanded(

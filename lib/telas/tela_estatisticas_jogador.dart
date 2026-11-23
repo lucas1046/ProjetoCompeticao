@@ -41,7 +41,6 @@ class _TelaEstatisticasJogadorState extends State<TelaEstatisticasJogador> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Ficha do jogador"),
-        backgroundColor: Colors.purple,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

@@ -40,7 +40,6 @@ class _TelaConsultaParticipacaoState extends State<TelaConsultaParticipacao> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar inscrições"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

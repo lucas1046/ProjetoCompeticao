@@ -35,7 +35,6 @@ class _TelaConsultaTecnicoTimeState extends State<TelaConsultaTecnicoTime> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar técnicos por time"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

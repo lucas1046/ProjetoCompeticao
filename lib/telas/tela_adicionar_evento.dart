@@ -53,7 +53,6 @@ class _TelaAdicionarEventoState extends State<TelaAdicionarEvento> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Registrar evento de partida"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

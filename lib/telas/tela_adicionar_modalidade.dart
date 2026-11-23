@@ -23,7 +23,6 @@ class _TelaAdicionarModalidadeState extends State<TelaAdicionarModalidade> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastrar modalidade"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

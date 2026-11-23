@@ -115,7 +115,6 @@ class _TelaAdicionarJogadorState extends State<TelaAdicionarJogador> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastrar jogador"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

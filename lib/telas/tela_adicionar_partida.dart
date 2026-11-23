@@ -154,8 +154,26 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
     setState(() => _eventos = filtered);
   }
 
+  String get _nomeTimeCasa {
+    if (_idTimeCasa == null) return "Casa";
+    try {
+      return _times.firstWhere((t) => t.idTime.toString() == _idTimeCasa).nomeTime;
+    } catch (_) {
+      return "Casa";
+    }
+  }
+
+  String get _nomeTimeVisitante {
+    if (_idTimeVisitante == null) return "Visitante";
+    try {
+      return _times.firstWhere((t) => t.idTime.toString() == _idTimeVisitante).nomeTime;
+    } catch (_) {
+      return "Visitante";
+    }
+  }
+
   int get _golsCasa {
-    final timeCasa = _times.firstWhere((t) => t.idTime.toString() == _idTimeCasa, orElse: () => _times.first).nomeTime;
+    final timeCasa = _nomeTimeCasa;
     return _eventos.where((e) {
       final te = (e['tipoEvento'] ?? '').toString().toLowerCase();
       final time = (e['nomeTime'] ?? '').toString();
@@ -164,7 +182,7 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
   }
 
   int get _golsVisitante {
-    final timeVis = _times.firstWhere((t) => t.idTime.toString() == _idTimeVisitante, orElse: () => _times.first).nomeTime;
+    final timeVis = _nomeTimeVisitante;
     return _eventos.where((e) {
       final te = (e['tipoEvento'] ?? '').toString().toLowerCase();
       final time = (e['nomeTime'] ?? '').toString();
@@ -197,15 +215,26 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
               children: [
                 DropdownButtonFormField<int>(
                   initialValue: idTipo,
+                  isExpanded: true,
                   decoration: const InputDecoration(labelText: "Tipo de evento"),
-                  items: _tiposEvento.map((t) => DropdownMenuItem<int>(value: t.id, child: Text(t.descricao))).toList(),
+                  items: _tiposEvento.map((t) => DropdownMenuItem<int>(
+                    value: t.id,
+                    child: Text(t.descricao, overflow: TextOverflow.ellipsis),
+                  )).toList(),
                   onChanged: (v) => setD(() => idTipo = v),
                 ),
                 SizedBox(height: 8),
                 DropdownButtonFormField<int>(
                   initialValue: idEsc,
+                  isExpanded: true,
                   decoration: const InputDecoration(labelText: "Jogador escalado"),
-                  items: escs.map((e) => DropdownMenuItem<int>(value: e['id'] as int, child: Text(e['nomeJogador']?.toString() ?? 'Jogador ${e['id']}'))).toList(),
+                  items: escs.map((e) => DropdownMenuItem<int>(
+                    value: e['id'] as int,
+                    child: Text(
+                      e['nomeJogador']?.toString() ?? 'Jogador ${e['id']}',
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )).toList(),
                   onChanged: (v) => setD(() => idEsc = v),
                 ),
                 SizedBox(height: 8),
@@ -260,8 +289,12 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
             children: [
               DropdownButtonFormField<int>(
                 initialValue: idComp,
+                isExpanded: true,
                 decoration: InputDecoration(labelText: "Competição"),
-                items: comps.map((c) => DropdownMenuItem<int>(value: c.id, child: Text(c.nome))).toList(),
+                items: comps.map((c) => DropdownMenuItem<int>(
+                  value: c.id,
+                  child: Text(c.nome, overflow: TextOverflow.ellipsis),
+                )).toList(),
                 onChanged: (v) => setStateDialog(() => idComp = v),
               ),
               SizedBox(height: 8),
@@ -294,7 +327,6 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Registrar partida"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(icon: Icon(Icons.home), onPressed: () => Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => Menu()), (_) => false)),
         ],
@@ -376,17 +408,48 @@ class _TelaAdicionarPartidaState extends State<TelaAdicionarPartida> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Column(children: [Text("Casa", style: TextStyle(fontWeight: FontWeight.bold)), Text("$_golsCasa", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold))]),
-                Text("x", style: TextStyle(fontSize: 24)),
-                Column(children: [Text("Visitante", style: TextStyle(fontWeight: FontWeight.bold)), Text("$_golsVisitante", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold))]),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        _nomeTimeCasa,
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                      const SizedBox(height: 4),
+                      Text("$_golsCasa", style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text("x", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        _nomeTimeVisitante,
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                      const SizedBox(height: 4),
+                      Text("$_golsVisitante", style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 12),
             Row(
               children: [
-                Expanded(child: Buttons("+ Evento (casa)", onPressed: () => _adicionarEvento('casa'))),
+                Expanded(child: Buttons("+ Evento ($_nomeTimeCasa)", onPressed: () => _adicionarEvento('casa'))),
                 SizedBox(width: 8),
-                Expanded(child: Buttons("+ Evento (visitante)", onPressed: () => _adicionarEvento('visitante'))),
+                Expanded(child: Buttons("+ Evento ($_nomeTimeVisitante)", onPressed: () => _adicionarEvento('visitante'))),
               ],
             ),
             SizedBox(height: 12),

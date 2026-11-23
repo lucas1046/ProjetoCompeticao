@@ -34,7 +34,6 @@ class _TelaAdicionarTipoEventoState extends State<TelaAdicionarTipoEvento> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastrar tipo de evento"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

@@ -33,7 +33,6 @@ class _TelaConsultaEscalacaoState extends State<TelaConsultaEscalacao> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar escalações"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

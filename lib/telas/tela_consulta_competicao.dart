@@ -37,7 +37,6 @@ class _TelaConsultaCompeticaoState extends State<TelaConsultaCompeticao> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar competição"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

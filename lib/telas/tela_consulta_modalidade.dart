@@ -35,7 +35,6 @@ class _TelaConsultaModalidadeState extends State<TelaConsultaModalidade> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar modalidade"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

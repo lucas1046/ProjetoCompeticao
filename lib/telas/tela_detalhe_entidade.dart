@@ -11,6 +11,9 @@ class TelaDetalheEntidade extends StatelessWidget {
   final Widget telaCadastro;
   final Widget telaConsulta;
 
+  static const Color corDominante = Color(0xFFF31A2E);
+  static const Color corSecundaria = Color(0xFF0462C3);
+
   const TelaDetalheEntidade({
     super.key,
     required this.titulo,
@@ -24,13 +27,13 @@ class TelaDetalheEntidade extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(titulo),
-        backgroundColor: Colors.blue,
+        backgroundColor: corDominante,
         actions: [
           IconButton(
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
             onPressed: () => Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (_) => Menu()),
+              MaterialPageRoute(builder: (_) => const Menu()),
               (_) => false,
             ),
           ),
@@ -42,10 +45,10 @@ class TelaDetalheEntidade extends StatelessWidget {
 
   ListView _body(BuildContext ctx) {
     return ListView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       children: [
         _cabecalho(),
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         // RNFR-15.2 — a tela em si nao tem restricao; a tela de destino cuida disso
         Row(
           children: [
@@ -54,7 +57,7 @@ class TelaDetalheEntidade extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Row(
           children: [
             Expanded(
@@ -70,15 +73,15 @@ class TelaDetalheEntidade extends StatelessWidget {
   Column _cabecalho() {
     return Column(
       children: [
-        SizedBox(height: 24),
+        const SizedBox(height: 24),
         CircleAvatar(
           radius: 48,
-          backgroundColor: Colors.blue.shade50,
-          child: Icon(icone, size: 52, color: Colors.blue),
+          backgroundColor: corSecundaria.withOpacity(0.12),
+          child: Icon(icone, size: 52, color: corSecundaria),
         ),
-        SizedBox(height: 16),
-        TextosCustom(titulo, 22, Colors.blue),
-        SizedBox(height: 8),
+        const SizedBox(height: 16),
+        TextosCustom(titulo, 22, corDominante),
+        const SizedBox(height: 8),
         TextosCustom(
           "Escolha entre cadastrar um novo registro ou consultar os já cadastrados.",
           14,

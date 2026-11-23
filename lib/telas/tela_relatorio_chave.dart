@@ -47,7 +47,6 @@ class _TelaRelatorioChaveState extends State<TelaRelatorioChave> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Chave da competição"),
-        backgroundColor: Colors.purple,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

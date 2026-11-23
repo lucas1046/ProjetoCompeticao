@@ -33,7 +33,6 @@ class _TelaConsultaEventoState extends State<TelaConsultaEvento> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar eventos"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

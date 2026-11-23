@@ -43,7 +43,6 @@ class _TelaAdicionarSuspensaoState extends State<TelaAdicionarSuspensao> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Registrar suspensão"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

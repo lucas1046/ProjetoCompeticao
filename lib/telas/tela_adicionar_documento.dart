@@ -51,7 +51,6 @@ class _TelaAdicionarDocumentoState extends State<TelaAdicionarDocumento> {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Cadastrar documento"),
-          backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

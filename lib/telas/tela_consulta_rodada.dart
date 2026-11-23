@@ -34,7 +34,6 @@ class _TelaConsultaRodadaState extends State<TelaConsultaRodada> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar rodadas"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

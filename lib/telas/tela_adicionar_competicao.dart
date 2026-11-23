@@ -41,7 +41,6 @@ class _TelaAdicionarCompeticaoState extends State<TelaAdicionarCompeticao> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastrar competição"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

@@ -25,7 +25,6 @@ class _TelaRelatorioPartidasState extends State<TelaRelatorioPartidas> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Histórico de partidas"),
-        backgroundColor: Colors.purple,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

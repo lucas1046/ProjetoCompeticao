@@ -36,7 +36,6 @@ class _TelaConsultaPagamentoState extends State<TelaConsultaPagamento> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar pagamentos"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

@@ -25,7 +25,6 @@ class _TelaRelatorioSuspensosState extends State<TelaRelatorioSuspensos> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Jogadores suspensos"),
-        backgroundColor: Colors.purple,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

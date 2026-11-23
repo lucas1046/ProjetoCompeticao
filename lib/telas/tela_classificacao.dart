@@ -40,7 +40,6 @@ class _TelaClassificacaoState extends State<TelaClassificacao> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Relatório da competição"),
-        backgroundColor: Colors.purple,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

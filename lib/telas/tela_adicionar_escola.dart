@@ -39,7 +39,6 @@ class _TelaAdicionarEscolaState extends State<TelaAdicionarEscola> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastrar escola"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

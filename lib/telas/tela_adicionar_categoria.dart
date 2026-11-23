@@ -38,7 +38,6 @@ class _TelaAdicionarCategoriaState extends State<TelaAdicionarCategoria> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastrar categoria"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

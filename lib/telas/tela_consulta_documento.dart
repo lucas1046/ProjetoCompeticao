@@ -41,7 +41,6 @@ class _TelaConsultaDocumentoState extends State<TelaConsultaDocumento> {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Consultar documento"),
-          backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

@@ -33,7 +33,6 @@ class _TelaConsultaSuspensaoState extends State<TelaConsultaSuspensao> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultar suspensões"),
-        backgroundColor: Colors.orange,
         actions: [
           IconButton(
             icon: Icon(Icons.home),

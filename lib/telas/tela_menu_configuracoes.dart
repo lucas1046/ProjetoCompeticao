@@ -36,9 +36,10 @@ import 'package:projeto_final/telas/tela_adicionar_pagamento.dart';
 import 'package:projeto_final/telas/tela_consulta_pagamento.dart';
 import 'package:projeto_final/telas/tela_adicionar_suspensao.dart';
 import 'package:projeto_final/telas/tela_consulta_suspensao.dart';
+import 'package:projeto_final/telas/tela_dados_exemplo.dart';
 import 'package:projeto_final/telas/tela_detalhe_entidade.dart';
 
-/// Menu de configurações com item para cada entidade.
+/// Menu de configurações com item para cada entidade e dados de exemplo.
 class MenuConfiguracoes extends StatelessWidget {
   const MenuConfiguracoes({super.key});
 
@@ -46,14 +47,13 @@ class MenuConfiguracoes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Configurações"),
-        backgroundColor: Colors.blue,
+        title: const Text("Configurações"),
         actions: [
           IconButton(
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
             onPressed: () => Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (_) => Menu()),
+              MaterialPageRoute(builder: (_) => const Menu()),
               (_) => false,
             ),
           ),
@@ -65,59 +65,61 @@ class MenuConfiguracoes extends StatelessWidget {
 
   ListView _body(BuildContext ctx) {
     final opcoes = [
-      _Opcao("Competição", Icons.emoji_events, () => TelaAdicionarCompeticao(),
-          () => TelaConsultaCompeticao()),
-      _Opcao("Time", Icons.shield, () => TelaAdicionarTime(),
-          () => TelaConsultaTime()),
-      _Opcao("Escola", Icons.school, () => TelaAdicionarEscola(),
-          () => TelaConsultaEscola()),
-      _Opcao("Categoria", Icons.category, () => TelaAdicionarCategoria(),
-          () => TelaConsultaCategoria()),
-      _Opcao("Modalidade", Icons.sports, () => TelaAdicionarModalidade(),
-          () => TelaConsultaModalidade()),
-      _Opcao("Posição", Icons.pan_tool, () => TelaAdicionarPosicao(),
-          () => TelaConsultaPosicao()),
-      _Opcao("Tipo de evento", Icons.flag, () => TelaAdicionarTipoEvento(),
-          () => TelaConsultaTipoEvento()),
-      _Opcao("Evento", Icons.timer, () => TelaAdicionarEvento(),
-          () => TelaConsultaEvento()),
-      _Opcao("Jogador", Icons.person, () => TelaAdicionarJogador(),
-          () => TelaConsultaJogador()),
-      _Opcao("Responsável", Icons.family_restroom, () => TelaAdicionarResponsavel(),
-          () => TelaConsultaResponsavel()),
-      _Opcao("Técnico", Icons.sports, () => TelaAdicionarTecnico(),
-          () => TelaConsultaTecnico()),
-      _Opcao("Documento", Icons.description, () => TelaAdicionarDocumento(),
-          () => TelaConsultaDocumento()),
-      _Opcao("Foto", Icons.image, () => TelaAdicionarFoto(),
-          () => TelaConsultaFoto()),
-      _Opcao("Rodada", Icons.calendar_today, () => TelaAdicionarRodada(),
-          () => TelaConsultaRodada()),
-      _Opcao("Partida", Icons.sports_soccer, () => TelaAdicionarPartida(),
-          () => TelaConsultaPartida()),
-      _Opcao("Inscrição", Icons.assignment, () => TelaAdicionarParticipacao(),
-          () => TelaConsultaParticipacao()),
-      _Opcao("Pagamento", Icons.payments, () => TelaAdicionarPagamento(),
-          () => TelaConsultaPagamento()),
-      _Opcao("Suspensão", Icons.block, () => TelaAdicionarSuspensao(),
-          () => TelaConsultaSuspensao()),
+      _Opcao("Competição", Icons.emoji_events, () => const TelaAdicionarCompeticao(),
+          () => const TelaConsultaCompeticao()),
+      _Opcao("Time", Icons.shield, () => const TelaAdicionarTime(),
+          () => const TelaConsultaTime()),
+      _Opcao("Escola", Icons.school, () => const TelaAdicionarEscola(),
+          () => const TelaConsultaEscola()),
+      _Opcao("Categoria", Icons.category, () => const TelaAdicionarCategoria(),
+          () => const TelaConsultaCategoria()),
+      _Opcao("Modalidade", Icons.sports, () => const TelaAdicionarModalidade(),
+          () => const TelaConsultaModalidade()),
+      _Opcao("Posição", Icons.pan_tool, () => const TelaAdicionarPosicao(),
+          () => const TelaConsultaPosicao()),
+      _Opcao("Tipo de evento", Icons.flag, () => const TelaAdicionarTipoEvento(),
+          () => const TelaConsultaTipoEvento()),
+      _Opcao("Evento", Icons.timer, () => const TelaAdicionarEvento(),
+          () => const TelaConsultaEvento()),
+      _Opcao("Jogador", Icons.person, () => const TelaAdicionarJogador(),
+          () => const TelaConsultaJogador()),
+      _Opcao("Responsável", Icons.family_restroom, () => const TelaAdicionarResponsavel(),
+          () => const TelaConsultaResponsavel()),
+      _Opcao("Técnico", Icons.sports, () => const TelaAdicionarTecnico(),
+          () => const TelaConsultaTecnico()),
+      _Opcao("Documento", Icons.description, () => const TelaAdicionarDocumento(),
+          () => const TelaConsultaDocumento()),
+      _Opcao("Foto", Icons.image, () => const TelaAdicionarFoto(),
+          () => const TelaConsultaFoto()),
+      _Opcao("Rodada", Icons.calendar_today, () => const TelaAdicionarRodada(),
+          () => const TelaConsultaRodada()),
+      _Opcao("Partida", Icons.sports_soccer, () => const TelaAdicionarPartida(),
+          () => const TelaConsultaPartida()),
+      _Opcao("Inscrição", Icons.assignment, () => const TelaAdicionarParticipacao(),
+          () => const TelaConsultaParticipacao()),
+      _Opcao("Pagamento", Icons.payments, () => const TelaAdicionarPagamento(),
+          () => const TelaConsultaPagamento()),
+      _Opcao("Suspensão", Icons.block, () => const TelaAdicionarSuspensao(),
+          () => const TelaConsultaSuspensao()),
+      _Opcao("Dados exemplo", Icons.science, null, null,
+          destinoDireto: () => const TelaDadosExemplo()),
     ];
 
     return ListView.builder(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       itemCount: opcoes.length,
       itemBuilder: (context, index) {
         final opcao = opcoes[index];
         return Card(
           elevation: 3,
-          margin: EdgeInsets.only(bottom: 12),
+          margin: const EdgeInsets.only(bottom: 12),
           child: ListTile(
-            leading: Icon(opcao.icone, size: 32, color: Colors.blue),
+            leading: Icon(opcao.icone, size: 32, color: const Color(0xFF0462C3)),
             title: Text(
               opcao.titulo,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            trailing: Icon(Icons.chevron_right),
+            trailing: const Icon(Icons.chevron_right),
             onTap: () => _abre(ctx, opcao),
           ),
         );
@@ -126,14 +128,22 @@ class MenuConfiguracoes extends StatelessWidget {
   }
 
   void _abre(BuildContext ctx, _Opcao opcao) {
+    if (opcao.destinoDireto != null) {
+      Navigator.push(
+        ctx,
+        MaterialPageRoute(builder: (_) => opcao.destinoDireto!()),
+      );
+      return;
+    }
+
     Navigator.push(
       ctx,
       MaterialPageRoute(
         builder: (BuildContext context) => TelaDetalheEntidade(
           titulo: opcao.titulo,
           icone: opcao.icone,
-          telaCadastro: opcao.abreCadastro(),
-          telaConsulta: opcao.abreConsulta(),
+          telaCadastro: opcao.abreCadastro!(),
+          telaConsulta: opcao.abreConsulta!(),
         ),
       ),
     );
@@ -143,8 +153,15 @@ class MenuConfiguracoes extends StatelessWidget {
 class _Opcao {
   final String titulo;
   final IconData icone;
-  final Function() abreCadastro;
-  final Function() abreConsulta;
+  final Function()? abreCadastro;
+  final Function()? abreConsulta;
+  final Function()? destinoDireto;
 
-  _Opcao(this.titulo, this.icone, this.abreCadastro, this.abreConsulta);
+  _Opcao(
+    this.titulo,
+    this.icone,
+    this.abreCadastro,
+    this.abreConsulta, {
+    this.destinoDireto,
+  });
 }

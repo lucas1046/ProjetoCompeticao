@@ -37,7 +37,6 @@ class _TelaAdicionarTecnicoState extends State<TelaAdicionarTecnico> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastrar técnico"),
-        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: Icon(Icons.home),
